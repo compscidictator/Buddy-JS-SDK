@@ -1,0 +1,641 @@
+<html>
+
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=windows-1252">
+<meta name=Generator content="Microsoft Word 14 (filtered)">
+<style>
+<!--
+ /* Font Definitions */
+ @font-face
+	{font-family:Wingdings;
+	panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+	{font-family:"Cambria Math";
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Cambria;
+	panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+	{font-family:Calibri;
+	panose-1:2 15 5 2 2 2 4 3 2 4;}
+@font-face
+	{font-family:Tahoma;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+@font-face
+	{font-family:Verdana;
+	panose-1:2 11 6 4 3 5 4 4 2 4;}
+ /* Style Definitions */
+ p.MsoNormal, li.MsoNormal, div.MsoNormal
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:0in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";}
+h1
+	{mso-style-link:"Heading 1 Char";
+	margin-top:24.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:14.0pt;
+	font-family:"Cambria","serif";
+	color:#365F91;}
+h2
+	{mso-style-link:"Heading 2 Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	page-break-after:avoid;
+	font-size:12.0pt;
+	font-family:"Cambria","serif";
+	color:#76923C;}
+h3
+	{mso-style-link:"Heading 3 Char";
+	margin-top:10.0pt;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:0in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	page-break-after:avoid;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";
+	color:#76923C;}
+p.MsoCommentText, li.MsoCommentText, div.MsoCommentText
+	{mso-style-link:"Comment Text Char";
+	margin-top:0in;
+	margin-right:0in;
+	margin-bottom:12.0pt;
+	margin-left:0in;
+	font-size:10.0pt;
+	font-family:"Verdana","sans-serif";}
+p.MsoHeader, li.MsoHeader, div.MsoHeader
+	{mso-style-link:"Header Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";}
+p.MsoFooter, li.MsoFooter, div.MsoFooter
+	{mso-style-link:"Footer Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";}
+a:link, span.MsoHyperlink
+	{color:blue;
+	text-decoration:underline;}
+a:visited, span.MsoHyperlinkFollowed
+	{color:purple;
+	text-decoration:underline;}
+p.MsoAcetate, li.MsoAcetate, div.MsoAcetate
+	{mso-style-link:"Balloon Text Char";
+	margin:0in;
+	margin-bottom:.0001pt;
+	font-size:8.0pt;
+	font-family:"Tahoma","sans-serif";}
+p.MsoNoSpacing, li.MsoNoSpacing, div.MsoNoSpacing
+	{margin:0in;
+	margin-bottom:.0001pt;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";}
+p.MsoListParagraph, li.MsoListParagraph, div.MsoListParagraph
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";}
+p.MsoListParagraphCxSpFirst, li.MsoListParagraphCxSpFirst, div.MsoListParagraphCxSpFirst
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";}
+p.MsoListParagraphCxSpMiddle, li.MsoListParagraphCxSpMiddle, div.MsoListParagraphCxSpMiddle
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:0in;
+	margin-left:.5in;
+	margin-bottom:.0001pt;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";}
+p.MsoListParagraphCxSpLast, li.MsoListParagraphCxSpLast, div.MsoListParagraphCxSpLast
+	{margin-top:0in;
+	margin-right:0in;
+	margin-bottom:10.0pt;
+	margin-left:.5in;
+	line-height:115%;
+	font-size:11.0pt;
+	font-family:"Cambria","serif";}
+span.Heading1Char
+	{mso-style-name:"Heading 1 Char";
+	mso-style-link:"Heading 1";
+	font-family:"Cambria","serif";
+	color:#365F91;
+	font-weight:bold;}
+span.Heading2Char
+	{mso-style-name:"Heading 2 Char";
+	mso-style-link:"Heading 2";
+	font-family:"Cambria","serif";
+	color:#76923C;
+	font-weight:bold;}
+span.Heading3Char
+	{mso-style-name:"Heading 3 Char";
+	mso-style-link:"Heading 3";
+	font-family:"Cambria","serif";
+	color:#76923C;
+	font-weight:bold;}
+span.CommentTextChar
+	{mso-style-name:"Comment Text Char";
+	mso-style-link:"Comment Text";
+	font-family:"Verdana","sans-serif";}
+span.BalloonTextChar
+	{mso-style-name:"Balloon Text Char";
+	mso-style-link:"Balloon Text";
+	font-family:"Tahoma","sans-serif";}
+span.HeaderChar
+	{mso-style-name:"Header Char";
+	mso-style-link:Header;
+	font-family:"Cambria","serif";}
+span.FooterChar
+	{mso-style-name:"Footer Char";
+	mso-style-link:Footer;
+	font-family:"Cambria","serif";}
+.MsoChpDefault
+	{font-family:"Calibri","sans-serif";}
+.MsoPapDefault
+	{margin-bottom:10.0pt;
+	line-height:115%;}
+ /* Page Definitions */
+ @page WordSection1
+	{size:8.5in 11.0in;
+	margin:1.0in 1.0in 1.0in 1.0in;}
+div.WordSection1
+	{page:WordSection1;}
+ /* List Definitions */
+ ol
+	{margin-bottom:0in;}
+ul
+	{margin-bottom:0in;}
+-->
+</style>
+
+</head>
+
+<body lang=EN-US link=blue vlink=purple>
+
+<div class=WordSection1>
+
+<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0>
+ <tr>
+  <td style='padding:0in 0in 0in 0in'><b><span style='font-size:14.0pt;
+  line-height:115%;font-family:"Cambria","serif";color:#365F91'><br clear=all
+  style='page-break-before:always'>
+  </span></b>
+  <h1><a name="_Toc349132058">Buddy Platform Reference</a></h1>
+  </td>
+ </tr>
+ <tr>
+  <td style='padding:0in 0in 0in 0in'>
+  <h2><a name="_Toc349132059">Buddy Android SDK</a> – 0.1.2</h2>
+  </td>
+ </tr>
+</table>
+
+<p class=MsoNormal>The Buddy Android SDK has been tested against Android versions
+2.3.3, 4.0.3, and 4.1.2. It uses the following technologies:</p>
+
+<table class=MsoTableLightShadingAccent5 border=1 cellspacing=0 cellpadding=0
+ style='border-collapse:collapse;border:none'>
+ <tr>
+  <td width=329 valign=top style='width:197.4pt;border-top:solid #4BACC6 1.0pt;
+  border-left:none;border-bottom:solid #4BACC6 1.0pt;border-right:none;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><b><span style='color:#31849B'>Technology</span></b></p>
+  </td>
+  <td width=441 valign=top style='width:264.75pt;border-top:solid #4BACC6 1.0pt;
+  border-left:none;border-bottom:solid #4BACC6 1.0pt;border-right:none;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><b><span style='color:#31849B'>Notes</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=329 valign=top style='width:197.4pt;border:none;background:#D2EAF1;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><b><span style='color:#31849B'>LoopJ</span></b></p>
+  </td>
+  <td width=441 valign=top style='width:264.75pt;border:none;background:#D2EAF1;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><a
+  href="http://loopj.com/android-async-http/">http://loopj.com/android-async-http/</a><span
+  style='color:#31849B'> Android Asynchronous HTTP library, licensed under
+  Apache 2.0 (</span><a href="http://www.apache.org/licenses/LICENSE-2.0">http://www.apache.org/licenses/LICENSE-2.0</a><span
+  style='color:#31849B'>) – this will abstract out and encapsulate all HTTP(S)
+  web traffic.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=329 valign=top style='width:197.4pt;border:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><b><span style='color:#31849B'>JSON</span></b></p>
+  </td>
+  <td width=441 valign=top style='width:264.75pt;border:none;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><span style='color:#31849B'>Data
+  from the web service is expected to be in JSON format.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=329 valign=top style='width:197.4pt;border:none;background:#D2EAF1;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><b><span style='color:#31849B'>HTTP
+  interface (non-SOAP)</span></b></p>
+  </td>
+  <td width=441 valign=top style='width:264.75pt;border:none;background:#D2EAF1;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><span style='color:#31849B'>The
+  SDK will interact with the Buddy server using an HTTP interface (non-SOAP)</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=329 valign=top style='width:197.4pt;border:none;border-bottom:solid #4BACC6 1.0pt;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><b><span style='color:#31849B'>android.util.Patterns</span></b></p>
+  </td>
+  <td width=441 valign=top style='width:264.75pt;border:none;border-bottom:
+  solid #4BACC6 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><span style='color:#31849B'>Standard
+  RegExes for validation of some data (for example, an email address)</span></p>
+  </td>
+ </tr>
+</table>
+
+<h2><a name="_Toc349132060">Concurrency and Transactions</a></h2>
+
+<p class=MsoNormal>The default number of concurrent connections per route for
+Android is two, with 10 maximum total connections. Sending more than the
+maximum connections per route will block on the additional requests until the
+earlier requests complete.</p>
+
+<p class=MsoNormal>The Buddy SDK uses up to two connections per Buddy route.
+The app dev is free to modify the maximum total connections limit, by using the
+overloaded constructor in the AsyncHttpClient, but the SDK will not make use of
+a higher per&#8209;route connection limit, as per the HTTP protocol definition
+(<a href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html"><span
+style='font-size:12.0pt;line-height:115%'>http://www.w3.org/Protocols/rfc2616/rfc2616-sec8.html</span></a>).
+The SDK manages any multi-part web requests within the SDK (for example,
+uploading a single photo). The app dev is responsible for any multi-part
+requests wrapping the SDK (e.g. adding multiple photos to an album).</p>
+
+<p class=MsoNormal>The SDK will not retry failed requests. All failures will be
+reported as part of the response callback.</p>
+
+<h2><a name="_Toc349132061">Configuration Management</a></h2>
+
+<p class=MsoNormal><span style='font-size:12.0pt;line-height:115%'>The SDK allows
+the </span>app dev <span style='font-size:12.0pt;line-height:115%'>to configure
+the following transport-level options</span>:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>setupHttpClient(int socketTimeoutValue, int maxConnections, int
+socketBufferSize)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>socketTimeoutValue - Default socket timeout (SO_TIMEOUT in the
+Android SDK) in milliseconds, which is the timeout to wait for data. A timeout
+value of zero is interpreted as an infinite timeout. Value of -1 sets the
+default value of 10 seconds.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>maxConnections - Maximum number of connections allowed. Value of
+-1 sets the default value of 10.</p>
+
+<p class=MsoListParagraphCxSpLast style='margin-left:1.0in;text-indent:-.25in'><span
+style='font-family:"Courier New"'>o<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;
+</span></span>socketBufferSize - Socket buffer size in bytes. Value of -1 sets
+the default value of 8192.</p>
+
+<h2><a name="_Toc349132062"></a><a name="_Toc340068176">Exception Management</a></h2>
+
+<p class=MsoNormal>Generically, exceptions or errors within the Buddy SDK will
+not be thrown to the app dev, but will be returned as part of the exception
+object in the results callback. The Android SDK defines three exception objects
+and one error object:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Buddy Service Exception (parameter / request parsing / handling error)</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Buddy Service Unknown Error Exception (any unrecognized error
+returned from a service request)</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Buddy Service Error (not an exception but a log entry for the
+failed Buddy request).</p>
+
+<p class=MsoNormal>The exception handling requirements are summarized in the
+table below.</p>
+
+<table class=MsoTableLightShadingAccent5 border=1 cellspacing=0 cellpadding=0
+ width=962 style='width:576.9pt;border-collapse:collapse;border:none'>
+ <tr>
+  <td width=405 valign=top style='width:242.85pt;border-top:solid #4BACC6 1.0pt;
+  border-left:none;border-bottom:solid #4BACC6 1.0pt;border-right:none;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><b><span style='color:#31849B'>Exception
+  source</span></b></p>
+  </td>
+  <td width=557 valign=top style='width:334.05pt;border-top:solid #4BACC6 1.0pt;
+  border-left:none;border-bottom:solid #4BACC6 1.0pt;border-right:none;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><b><span style='color:#31849B'>Examples</span></b></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=405 valign=top style='width:242.85pt;border:none;background:#D2EAF1;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><span style='color:#31849B'>Exceptions
+  due to client code errors.</span></p>
+  </td>
+  <td width=557 valign=top style='width:334.05pt;border:none;background:#D2EAF1;
+  padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><span style='color:#31849B'>Invalid
+  parameter values or image files that cannot be loaded. The app dev can decide
+  how to take corrective action.</span></p>
+  </td>
+ </tr>
+ <tr>
+  <td width=405 valign=top style='width:242.85pt;border:none;border-bottom:
+  solid #4BACC6 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><span style='color:#31849B'>Exceptions
+  due to resource failures</span></p>
+  </td>
+  <td width=557 valign=top style='width:334.05pt;border:none;border-bottom:
+  solid #4BACC6 1.0pt;padding:0in 5.4pt 0in 5.4pt'>
+  <p class=MsoNormal style='line-height:normal'><span style='color:#31849B'>Low
+  memory or no data connection. The client response is contextual and the
+  client can handle this at runtime (e.g. by releasing large objects or
+  retrying later (see table below for details)).</span></p>
+  </td>
+ </tr>
+</table>
+
+<h2><a name="_Toc349132063">Installing Buddy Android SDK Using Eclipse</a></h2>
+
+<p class=MsoNormal>This assumes you already have the Android SDK, Eclipse, and
+the ADT Eclipse plug-in installed. The Android SDK and related development
+tools can be downloaded from here: <a
+href="http://developer.android.com/sdk/index.html"><span style='font-size:12.0pt;
+line-height:115%'>http://developer.android.com/sdk/index.html</span></a>.</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Create
+an Android application</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Once
+created, right-click on your project in Package Explorer and select Properties</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Select
+Java Build Path, Libraries</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Select
+Add External Jars and add the Buddy Android SDK jar and the latest GSON jar
+library</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Copy
+the Buddy Android SDK jar and GSON library to a folder called libs in the root
+directory of your project</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Start
+using!</p>
+
+<p class=MsoNormal>For more details see
+http://developer.android.com/guide/faq/commontasks.html#addexternallibrary</p>
+
+<h2><a name="_Toc349132064">Buddy Android SDK Samples</a></h2>
+
+<p class=MsoNormal>The Android SDK includes three sample projects:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>LocationFinder: shows how to use the Buddy Places API to find
+places based on your latitude and longitude. This project requires no configuration.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>ProfilePictureSample: shows how to load, filter and save pictures
+to Buddy. No configuration is required to run this project.</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>PushNotificationSample: allows Android push notifications to be
+sent to the device from Buddy. Although the project has been configured to run
+on the simulator, no push notifications will be sent; the app will simply
+support registration and unregistration with the Buddy. To use the app on a
+device you will need to sign it with an appropriate push-compatible
+certificate. You will also need to register this certificate with your App
+account at dev.buddy.com.</p>
+
+<h2><a name="_Toc349132065">Keyword Parameters in Android SDK</a></h2>
+
+<p class=MsoNormal>Many of the Buddy SDK methods support a large number of
+parameters. Most of these parameters have default values and you don't need to
+specify them manually. They can be set to null.</p>
+
+<p class=MsoNormal>Also, nearly all API methods have an overloaded version that
+only contains the required parameters. Here is an example:</p>
+
+<p class=MsoNormal>Android (Java)</p>
+
+<p class=MsoNoSpacing><i>User.getPlaces().find(1000000, 0.0, 0.0, 10, &quot;Starbucks&quot;,
+870, null, null); - call with optional parameters</i></p>
+
+<p class=MsoNoSpacing><i>User.getPlaces().find(1000000, 0.0, 0.0, 10, null); -
+call with required parameters</i></p>
+
+<h2>Ca<span class=Heading2Char><span style='font-weight:normal'>l</span></span>lback
+Types</h2>
+
+<p class=MsoNormal>All callback parameters fall into two generic types:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>ListResponse</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'><span
+style='font-family:Symbol'>·<span style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+</span></span>Response</p>
+
+<p class=MsoNormal>Each public method call in the SDK can take a callback type
+as a parameter. The SDK documentation describes in detail the type assigned to
+the response callback type. For example, the BuddyClient.Login() callback takes
+a Response&lt;AuthenticatedUser&gt; object:</p>
+
+<p class=MsoNoSpacing><i>BuddyClient client = new
+BuddyClient(&quot;APPNAME&quot;, &quot;APPPASS&quot;, this.applicationContext());</i></p>
+
+<p class=MsoNoSpacing><i>client.login(token, password, state, new
+OnCallback&lt;Response&lt;AuthenticatedUser&gt;&gt;()</i></p>
+
+<p class=MsoNoSpacing><i>{</i></p>
+
+<p class=MsoNoSpacing><i>public void
+OnResponse(Response&lt;AuthenticatedUser&gt; response, Object state) {</i></p>
+
+<p class=MsoNoSpacing><i>                              if (response != null)</i></p>
+
+<p class=MsoNoSpacing><i>                              {</i></p>
+
+<p class=MsoNoSpacing><i>                                             AuthenticatedUser
+user = response.getResult();</i></p>
+
+<p class=MsoNoSpacing><i>                                             user.getPhotoAlbums().create(&quot;My
+Album&quot;, false, null);</i></p>
+
+<p class=MsoNoSpacing><i>                              }</i></p>
+
+<p class=MsoNoSpacing><i>               }</i></p>
+
+<p class=MsoNoSpacing><i>});</i></p>
+
+<p class=MsoNormal>The response types contain the result of the call including
+an exception if the call failed.</p>
+
+<h2><a name="_Toc349132067">Advanced Users</a></h2>
+
+<p class=MsoNormal>This section is for developers who wish to modify the Buddy
+SDK source and run the unit tests accompanying the SDK source code.</p>
+
+<h3><a name="_Toc349132068">Installing Buddy Android SDK Source Code Using
+Eclipse</a> </h3>
+
+<p class=MsoNormal>This assumes you already have the Android SDK, Eclipse, and
+the ADT Eclipse plug-in installed.</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Download
+the SDK source code from https://github.com/BuddyPlatform/Buddy-Android-SDK.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Open
+Eclipse and select the source code location in the <i>Select a workspace</i>
+dialog.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Select
+the <i>Workbench</i> option.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Right
+click in the Package Explorer and select <i>Import.</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Select
+<i>General -&gt; Existing Projects into Workspace</i> on the <i>Import</i>
+dialog.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Browse
+to the Android directory, in the <i>Select root directory</i> item.</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>7.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ensure
+all projects listed are selected and press <i>Finish</i>. The SDK source code is
+now loaded.</p>
+
+<h3><a name="_Toc349132069">Run Unit Tests</a></h3>
+
+<p class=MsoNormal>To run the unit tests within the Buddy SDK Source Code in
+Eclipse:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ensure
+the following SDK code projects are loaded in Eclipse: <i>BuddySDK,
+BuddySDKTests, and BuddyUnitTestHarness</i></p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ensure
+a device is connected to the PC, or an Android Virtual Device is running</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Select
+<i>BuddySDKTests</i>, right click and select <i>Run As (or Debug As) -&gt;
+Android JUnit Test</i></p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The unit
+tests will start running</p>
+
+<p class=MsoNormal>To run the unit tests from the command line using ANT:</p>
+
+<p class=MsoListParagraphCxSpFirst style='text-indent:-.25in'>1.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ensure
+that ANT has been configured on the PC running the tests – see <a
+href="http://ant.apache.org/manual/install.html"><span style='font-size:12.0pt;
+line-height:115%'>http://ant.apache.org/manual/install.html</span></a> for
+details.</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>2.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Ensure
+a device is connected to the PC or an Android Virtual Device is running</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>3.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Open
+the command prompt and change directory to the root directory of the Buddy SDK
+Source code</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>4.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>Run
+the following commands in this order:</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>5.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>ant
+clean debug –buildfile Lib/build.xml</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>6.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>ant
+clean debug -buildfile Tests/BuddyUnitTestHarness/build.xml</p>
+
+<p class=MsoListParagraphCxSpMiddle style='text-indent:-.25in'>7.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>ant
+clean debug install test -buildfile Lib/build.xml</p>
+
+<p class=MsoListParagraphCxSpLast style='text-indent:-.25in'>8.<span
+style='font:7.0pt "Times New Roman"'>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>The
+test output will be shown in the command window</p>
+
+<h3><a name="_Toc349132070">Validation</a></h3>
+
+<p class=MsoNormal>When running Validation on the code (select all projects,
+right-click, select Validation), there may be warnings about XML grammar that
+are benign. To ignore these warnings, go to Preferences from the Window menu, and
+then navigate to XML -&gt; XML Files -&gt; Validation. In the Validating files
+section of the preferences panel on the right, choose Ignore in the drop down
+box for the No grammar specified preference. The file may need to be closed and
+reopened to make the warnings go away.</p>
+
+<p class=MsoNormal>&nbsp;</p>
+
+</div>
+
+</body>
+
+</html>

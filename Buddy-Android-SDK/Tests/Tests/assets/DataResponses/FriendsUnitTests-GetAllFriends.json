@@ -1,0 +1,19 @@
+{
+	"data":
+	[
+		{
+			"friendID":"2731819",
+			"userName":"Test User 1",
+			"userID":"2731819",
+			"userGender":"male",
+			"age":"40",
+			"createdDate":"2012-11-13T01:36:44.0000000-08:00",
+			"lastLoginDate":"2012-12-31T03:12:16.0000000-08:00",
+			"statusID":"4",
+			"profilePictureUrl":"2731819_78_buddy_thumb.jpg",
+			"userLatitude":"0",
+			"userLongitude":"0",
+			"userEmail":""
+		}
+	]
+}

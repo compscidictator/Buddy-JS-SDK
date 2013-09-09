@@ -1,0 +1,41 @@
+{
+	"data":
+	[
+		{
+			"photoID":"6078641",
+			"fullPhotoURL":"http://buddyplatform.s3.amazonaws.com/2113380_2_buddy_full.jpg",
+			"thumbnailPhotoURL":"http://buddyplatform.s3.amazonaws.com/2113380_2_buddy_thumb.jpg",
+			"photoAdded":"12/16/2012 4:47:39 AM",
+			"userProfileID":"2113380",
+			"distanceInMeters":"0",
+			"distanceInYards":"0",
+			"distanceInMiles":"0",
+			"distanceInKilometers":"0",
+			"photoAlbumName":"my Album",
+			"photoAlbumThumbnail":"http://buddyplatform.s3.amazonaws.com/2113380_2_buddy_thumb.jpg",
+			"latitude":"0",
+			"longitude":"0",
+			"applicationTag":"",
+			"shortID":"3MAB5",
+			"shortURL":"http://8ud.de/p/3MAB5"
+		},
+		{
+			"photoID":"6078640",
+			"fullPhotoURL":"http://buddyplatform.s3.amazonaws.com/2113380_1_buddy_full.jpg",
+			"thumbnailPhotoURL":"http://buddyplatform.s3.amazonaws.com/2113380_1_buddy_thumb.jpg",
+			"photoAdded":"12/16/2012 4:43:24 AM",
+			"userProfileID":"2113380",
+			"distanceInMeters":"0",
+			"distanceInYards":"0",
+			"distanceInMiles":"0",
+			"distanceInKilometers":"0",
+			"photoAlbumName":"my Album",
+			"photoAlbumThumbnail":"http://buddyplatform.s3.amazonaws.com/2113380_1_buddy_thumb.jpg",
+			"latitude":"0",
+			"longitude":"0",
+			"applicationTag":"",
+			"shortID":"3MAB4",
+			"shortURL":"http://8ud.de/p/3MAB4"
+		}
+	]
+}

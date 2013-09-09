@@ -1,0 +1,77 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:text="@string/test_application"
+        tools:context=".MainActivity" />
+
+    <TextView
+        android:id="@+id/testUser"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_username"
+        android:layout_below="@id/title" />
+    
+    <EditText
+        android:id="@+id/editUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="@string/username_hint"
+        android:layout_below="@id/testUser" >
+
+        <requestFocus />
+    </EditText>
+
+    <TextView
+        android:id="@+id/testPassword"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_password"
+        android:layout_below="@id/editUser" />
+    
+    <EditText
+        android:id="@+id/editPassword"
+        android:inputType="textPassword"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/testPassword"
+        android:hint="@string/password_hint" />
+    
+    <Button
+        android:id="@+id/verifyButton"
+        android:layout_marginTop="10dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/editPassword"
+        android:layout_centerHorizontal="true"
+        android:text="@string/run_test" />
+
+    <TextView
+        android:id="@+id/testLogTitle"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_log_title"
+        android:layout_below="@id/verifyButton" />
+    
+    <TextView
+        android:id="@+id/testLog"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/test_log"
+        android:layout_below="@id/testLogTitle" />
+
+</RelativeLayout>

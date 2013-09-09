@@ -1,0 +1,18 @@
+{
+	"data":
+	[
+		{
+			"photoID":"6498650",
+			"albumID":"2196998",
+			"photoComment":"Test Photo",
+			"fullPhotoURL":"http://buddyplatform.s3.amazonaws.com/1746104_15_buddy_full.jpg",
+			"thumbnailPhotoURL":"http://buddyplatform.s3.amazonaws.com/1746104_15_buddy_thumb.jpg",
+			"addedDateTime":"2012-11-19T07:14:18.0000000-08:00",
+			"latitude":"0",
+			"longitude":"0",
+			"applicationTag":"",
+			"shortID":"2PBVI",
+			"shortURL":"http://8ud.de/p/2PBVI"
+		}
+	]
+}

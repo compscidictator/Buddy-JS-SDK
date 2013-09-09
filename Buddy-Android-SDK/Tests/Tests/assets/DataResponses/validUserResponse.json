@@ -1,0 +1,21 @@
+{
+	"data":
+	[
+		{
+			"userID":"2731819",
+			"userName":"Test User 1",
+			"userGender":"male",
+			"age":"40",
+			"createdDate":"2012-11-13T01:36:44.0000000-08:00",
+			"lastLoginDate":"2012-12-19T05:40:06.0000000-08:00",
+			"statusID":"4",
+			"profilePictureUrl":"http://buddyplatform.s3.amazonaws.com/1746104_125_buddy_thumb.jpg",
+			"userLatitude":"0",
+			"userLongitude":"0",
+			"locationFuzzing":"False",
+			"celebMode":"False",
+			"userEmail":"",
+			"userApplicationTag":""
+		}
+	]
+}

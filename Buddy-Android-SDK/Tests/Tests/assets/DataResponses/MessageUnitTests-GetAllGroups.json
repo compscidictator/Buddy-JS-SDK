@@ -1,0 +1,33 @@
+{
+	"data":
+	[
+		{
+			"chatGroupID":"142020",
+			"chatGroupName":"Groups-1073026743",
+			"ownerUserID":"2158800",
+			"membershipCounter":"0",
+			"applicationTag":"","
+			createdDateTime":"12/28/2012 9:54:52 AM",
+			"lastMessageDateTime":"",
+			"lastMessageApplicationTag":"",
+			"lastMessageLatitude":"",
+			"lastMessageLongitude":"",
+			"lastMessageText":"",
+			"lastMessagePhotoURL":""
+		},
+		{
+			"chatGroupID":"142019",
+			"chatGroupName":"Groups-1293870775",
+			"ownerUserID":"2158800",
+			"membershipCounter":"0",
+			"applicationTag":"",
+			"createdDateTime":"12/28/2012 9:53:52 AM",
+			"lastMessageDateTime":"",
+			"lastMessageApplicationTag":"",
+			"lastMessageLatitude":"",
+			"lastMessageLongitude":"",
+			"lastMessageText":"",
+			"lastMessagePhotoURL":""
+		}
+	]
+}

@@ -1,0 +1,45 @@
+{
+	"data":
+	[
+		{
+			"virtualAlbumID":"12041",
+			"photoAlbumName":"Test Virtual Album",
+			"userID":"1746104   ",
+			"photoCount":"1",
+			"photoAlbumThumbnail":"http://buddyplatform.s3.amazonaws.com/1558311_2_buddy_thumb.jpg",
+			"createdDateTime":"12/5/2012 7:40:15 AM",
+			"lastUpdatedDateTime":"12/28/2012 6:24:36 AM",
+			"applicationTag":""
+		},
+		{
+			"virtualAlbumID":"12042",
+			"photoAlbumName":"Test Virtual Album",
+			"userID":"1746104   ",
+			"photoCount":"1",
+			"photoAlbumThumbnail":"http://buddyplatform.s3.amazonaws.com/1558311_2_buddy_thumb.jpg",
+			"createdDateTime":"12/5/2012 7:44:20 AM",
+			"lastUpdatedDateTime":"12/28/2012 6:24:36 AM",
+			"applicationTag":""
+		},
+		{
+			"virtualAlbumID":"12043",
+			"photoAlbumName":"Test Virtual Album",
+			"userID":"1746104   ",
+			"photoCount":"1",
+			"photoAlbumThumbnail":"http://buddyplatform.s3.amazonaws.com/1558311_2_buddy_thumb.jpg",
+			"createdDateTime":"12/5/2012 7:46:58 AM",
+			"lastUpdatedDateTime":"12/28/2012 6:24:36 AM",
+			"applicationTag":""
+		},
+		{
+			"virtualAlbumID":"12044",
+			"photoAlbumName":"Test Virtual Album",
+			"userID":"1746104   ",
+			"photoCount":"1",
+			"photoAlbumThumbnail":"http://buddyplatform.s3.amazonaws.com/1558311_2_buddy_thumb.jpg",
+			"createdDateTime":"12/5/2012 7:47:36 AM",
+			"lastUpdatedDateTime":"12/28/2012 6:24:36 AM",
+			"applicationTag":""
+		}
+	]
+}

@@ -1,0 +1,57 @@
+{
+	"data":
+	[
+		{
+			"startupID":"352",
+			"startupName":"discoverorg",
+			"streetAddress":"12518 Northeast 95th Street",
+			"city":"Vancouver",
+			"state":"WA",
+			"zipPostal":"98682",
+			"phoneNumber":"(800) 914-1220",
+			"metroLocation":"Portland Oregon",
+			"homePageURL":"www.discoverorg.com",
+			"crunchBaseUrl":"http://www.crunchbase.com/company/discoverorg",
+			"logoURL":"http://www.crunchbase.com/assets/images/resized/0008/1576/81576v2-max-450x450.jpg",
+			"employeeCount":"60",
+			"totalFundingRaised":"0.0000",
+			"fundingSource":"",
+			"industry":"Other",
+			"twitterURL":"https://twitter.com/discoverorg",
+			"facebookURL":"http://www.facebook.com/DiscoveryDB",
+			"linkedinURL":"http://www.linkedin.com/company/esi",
+			"centerLat":"45.690923",
+			"centerLong":"-122.544345",
+			"distanceInMiles":"43.6800000386473",
+			"distanceInKilometers":"70.2961459821968",
+			"distanceInMeters":"70296.1459821968",
+			"distanceInYards":"76876.8000680192"
+		},
+		{
+			"startupID":"489",
+			"startupName":"Webfor",
+			"streetAddress":"12012 NE 95th Street Ste 604",
+			"city":"Vancouver",
+			"state":"WA",
+			"zipPostal":"98682",
+			"phoneNumber":"(503) 512-0770",
+			"metroLocation":"Portland Oregon",
+			"homePageURL":"www.webfor.com",
+			"crunchBaseUrl":"http://www.crunchbase.com/company/webfor",
+			"logoURL":"http://www.crunchbase.com/assets/images/resized/0013/0597/130597v2-max-450x450.png",
+			"employeeCount":"0",
+			"totalFundingRaised":"0.0000",
+			"fundingSource":"",
+			"industry":"Advertising",
+			"twitterURL":"http://twitter.com/webfor",
+			"facebookURL":"http://www.facebook.com/webfor",
+			"linkedinURL":"http://www.linkedin.com/company/webfor",
+			"centerLat":"45.691171",
+			"centerLong":"-122.549088",
+			"distanceInMiles":"43.725552367819",
+			"distanceInKilometers":"70.3694553498353",
+			"distanceInMeters":"70369.4553498353",
+			"distanceInYards":"76956.9721673615"
+		}
+	]
+}

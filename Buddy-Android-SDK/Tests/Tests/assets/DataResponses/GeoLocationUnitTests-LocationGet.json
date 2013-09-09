@@ -1,0 +1,30 @@
+{
+	"data":
+	[
+		{
+			"geoID":"46254905",
+			"latitude":"0.000000",
+			"longitude":"0.000000",
+			"name":"Test name",
+			"address":"",
+			"city":"Test city",
+			"postalState":"Test state",
+			"postalZip":"Test zip code",
+			"region":"",
+			"telephone":"",
+			"fax":"",
+			"webSite":"",
+			"touchedDate":"12/28/2012 3:10:33 AM",
+			"createdDate":"12/28/2012 3:10:33 AM",
+			"categoryID":"870",
+			"categoryName":"Sports & Recreation > Outdoor Recreation > Canoes & Kayaks",
+			"distanceInMiles":"0",
+			"distanceInKilometers":"0",
+			"distanceInMeters":"0",
+			"distanceInYards":"0",
+			"userTagData":"",
+			"appTagData":"",
+			"shortID":"RJEIH"
+		}
+	]
+}

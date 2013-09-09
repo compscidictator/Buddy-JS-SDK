@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">BuddySample</string>
+    <string name="test_application">Verify Connection</string>
+    <string name="menu_settings">Settings</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="username_hint">UserName</string>
+    <string name="password_hint">Password</string>
+    <string name="run_test">Verify connection to Buddy</string>
+    <string name="test_username">Test User Name:</string>
+    <string name="test_password">Test Password:</string>
+    <string name="test_log_title">Result:</string>
+    <string name="test_log">Not logged in</string>
+</resources>

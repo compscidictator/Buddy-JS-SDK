@@ -1,0 +1,30 @@
+{
+	"data":
+	[
+		{
+			"statusID":"1",
+			"statusTag":"Single"
+		},
+		{	"statusID":"2",
+			"statusTag":"Dating"
+		},
+		{	"statusID":"3",
+			"statusTag":"Engaged"
+		},
+		{	"statusID":"4",
+			"statusTag":"Married"
+		},
+		{	"statusID":"5",
+			"statusTag":"Divorced"
+		},
+		{	"statusID":"6",
+			"statusTag":"Widowed"
+		},
+		{	"statusID":"7",
+			"statusTag":"On The Prowl"
+		},
+		{	"statusID":"-1",
+			"statusTag":"Any"
+		}
+	]
+}

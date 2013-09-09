@@ -1,0 +1,29 @@
+{
+	"data":
+	[
+		{
+			"metroName":"Seattle Area",
+			"imageURL":"http://buddy.com/startupmetro/seattle.jpg",
+			"iconURL":"http://buddy.com/startupmetro/seattlegrey.png",
+			"startupCount":"287"
+		},
+		{
+			"metroName":"Portland Oregon",
+			"imageURL":"http://buddy.com/startupmetro/portland.jpg",
+			"iconURL":"http://buddy.com/startupmetro/portlandgrey.png",
+			"startupCount":"206"
+		},
+		{
+			"metroName":"New York City",
+			"imageURL":"http://buddy.com/startupmetro/newyork.jpg",
+			"iconURL":"http://buddy.com/startupmetro/newyorkgrey.png",
+			"startupCount":"202"
+		},
+		{
+			"metroName":"San Francisco Bay Area",
+			"imageURL":"http://buddy.com/startupmetro/sanfran.jpg",
+			"iconURL":"http://buddy.com/startupmetro/sanfrangrey.png",
+			"startupCount":"220"
+		}
+	]
+}

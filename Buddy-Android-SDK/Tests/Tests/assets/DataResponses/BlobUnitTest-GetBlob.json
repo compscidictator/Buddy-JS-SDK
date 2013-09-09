@@ -1,0 +1,16 @@
+{
+"data":[
+	{
+		 "blobID": "1234",
+		 "friendlyName": "friendlyName",
+		 "mimeType": "video/mp4",
+		 "fileSize": "543210",
+		 "appTag": "apptag",
+		 "owner": "123455",
+		 "latitude": "47.360000",
+		 "longitude": "127.190000",
+		 "uploadDate": "2012-04-09T11:07:36.0000000-07:00",
+		 "lastTouchDate": "2012-04-09T11:07:36.0000000-07:00"
+	}
+]
+}

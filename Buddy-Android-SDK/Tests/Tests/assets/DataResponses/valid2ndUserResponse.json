@@ -1,0 +1,18 @@
+{
+	"data":
+	[
+		{
+			"userID":"1736820",
+			"userName":"Test",
+			"userGender":"male",
+			"age":"41",
+			"createdDate":"2012-11-12T01:56:54.0000000-08:00",
+			"lastLoginDate":"2012-11-14T00:24:16.0000000-08:00",
+			"statusID":"4",
+			"profilePictureUrl":"http://buddy.com/defaultprofilepic/buddymale.png",
+			"userLatitude":"",
+			"userLongitude":"",
+			"userApplicationTag":""
+		}
+	]
+}

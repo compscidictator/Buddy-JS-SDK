@@ -1,0 +1,17 @@
+{
+	"data":
+	[
+		{
+			"scoreID":"418690",
+			"userID":"2731819",
+			"userName":"Test User 1",
+			"scoreValue":"10.000000",
+			"scoreLatitude":"0.000000",
+			"scoreLongitude":"0.000000",
+			"scoreBoardName":"Test Board",
+			"scoreDate":"12/27/2012 2:11:30 AM",
+			"scoreRank":"Great",
+			"applicationTag":""
+		}
+	]
+}

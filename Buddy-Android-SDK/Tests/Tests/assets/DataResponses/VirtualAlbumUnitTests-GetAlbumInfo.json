@@ -1,0 +1,15 @@
+{
+	"data":
+	[
+		{
+			"virtualAlbumID":"27467",
+			"photoAlbumName":"Test Virtual Album",
+			"userID":"1746104   ",
+			"photoCount":"0",
+			"photoAlbumThumbnail":"http://buddy.com/defaultprofilepic/cat.jpg",
+			"createdDateTime":"12/28/2012 6:39:26 AM",
+			"lastUpdatedDateTime":"12/28/2012 6:39:26 AM",
+			"applicationTag":""
+		}
+	]
+}

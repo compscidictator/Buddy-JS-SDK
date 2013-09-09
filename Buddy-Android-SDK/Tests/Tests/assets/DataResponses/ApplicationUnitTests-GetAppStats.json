@@ -1,0 +1,20 @@
+{
+	"data":
+	[
+		{
+			"totalUsers":"165",
+			"totalPhotos":"195",
+			"totalUserCheckins":"66",
+			"totalUserMetadata":"14",
+			"totalAppMetadata":"1",
+			"totalFriends":"31",
+			"totalAlbums":"257",
+			"totalCrashes":"306",
+			"totalMessages":"0",
+			"totalPushMessages":"0",
+			"totalGamePlayers":"0",
+			"totalGameScores":"0",
+			"totalDeviceInformation":"1"
+		}
+	]
+}

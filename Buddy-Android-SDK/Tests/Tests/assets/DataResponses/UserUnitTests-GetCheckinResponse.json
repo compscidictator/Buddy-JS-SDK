@@ -1,0 +1,17 @@
+{
+	"data":
+	[
+		{
+			"latitude":"0",
+			"longitude":"0",
+			"createdDate":"2012-11-30T02:37:30.0000000-08:00",
+			"placeName":"test check in"
+		},
+		{
+		"latitude":"0",
+		"longitude":"0",
+		"createdDate":"2012-11-30T02:48:10.0000000-08:00",
+		"placeName":"test check in"
+		}
+	]
+}

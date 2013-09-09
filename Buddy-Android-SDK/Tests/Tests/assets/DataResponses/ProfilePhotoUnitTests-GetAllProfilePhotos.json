@@ -1,0 +1,16 @@
+
+{
+	"data":
+	[
+		{
+			"photoID":"2003108",
+			"photoComment":"TEST PICTURE",
+			"fullPhotoURL":"http://buddyplatform.s3.amazonaws.com/1746104_78_buddy_full.jpg",
+			"thumbnailPhotoURL":"http://buddyplatform.s3.amazonaws.com/1746104_78_buddy_thumb.jpg",
+			"addedDateTime":"2012-12-07T06:47:30.0000000-08:00",
+			"latitude":"0",
+			"longitude":"0",
+			"userProfileID":"1746104"
+		}
+	]
+}

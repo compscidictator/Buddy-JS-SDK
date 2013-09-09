@@ -1,0 +1,33 @@
+{
+	"data":
+	[
+		{
+			"receiptHistoryID":"53594",
+			"storeName":"TestStoreName",
+			"userID":"2731771",
+			"historyDateTime":"3/13/2013 9:42:53 AM",
+			"receiptData":"",
+			"totalCost":"1.23",
+			"itemQuantity":"4",
+			"appData":"",
+			"historyCustomTransactionID":"42",
+			"verificationResult":"",
+			"verificationResultData":"",
+			"storeItemID":"5"
+		},
+		{
+			"receiptHistoryID":"53596",
+			"storeName":"TestStoreName",
+			"userID":"2731771",
+			"historyDateTime":"3/13/2013 9:44:21 AM",
+			"receiptData":"",
+			"totalCost":"1.23",
+			"itemQuantity":"4",
+			"appData":"",
+			"historyCustomTransactionID":"42",
+			"verificationResult":"",
+			"verificationResultData":"",
+			"storeItemID":"5"
+		}
+	]
+}

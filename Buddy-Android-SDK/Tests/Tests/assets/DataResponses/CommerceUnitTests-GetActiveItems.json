@@ -1,0 +1,34 @@
+{
+	"data":
+	[
+		{
+			"storeItemID":"96",
+			"itemName":"Test Item 1",
+			"itemIconUri":"http://www.example.com/TestItem1Icon",
+			"itemDownloadUri":"http://www.example.com/TestItem1",
+			"itemPreviewUri":"http://www.example.com/TestItem1",
+			"itemFreeFlag":"True",
+			"itemDescription":"Free Test Item 1",
+			"itemDateTime":"3/14/2013 3:44:38 AM",
+			"itemAvailableFlag":"True",
+			"itemCost":"12.00",
+			"appData":"Test Custom data",
+			"customItemID":"Test Custom data"
+		},
+		{
+			"storeItemID":"97",
+			"itemName":"Test Item 2",
+			"itemIconUri":"http://www.example.com/TestItem2Icon",
+			"itemDownloadUri":"http://www.example.com/TestItem2",
+			"itemPreviewUri":"http://www.example.com/TestItem2",
+			"itemFreeFlag":"False",
+			"itemDescription":"Paid Test Item 2",
+			"itemDateTime":"3/14/2013 3:45:33 AM",
+			"itemAvailableFlag":"True",
+			"itemCost":"25",
+			"appData":"Test Custom Data 2",
+			"customItemID":"Test Item 2"
+		}
+	]
+}
+
