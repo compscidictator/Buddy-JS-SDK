@@ -6,6 +6,21 @@
 	objectVersion = 46;
 	objects = {
 
+/* Begin PBXAggregateTarget section */
+		C19ECC3317DEA28D008A9130 /* Framework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = C19ECC3417DEA28D008A9130 /* Build configuration list for PBXAggregateTarget "Framework" */;
+			buildPhases = (
+				C19ECC3917DEA357008A9130 /* Build Univeral Binary */,
+			);
+			dependencies = (
+				C19ECC3817DEA319008A9130 /* PBXTargetDependency */,
+			);
+			name = Framework;
+			productName = Framework;
+		};
+/* End PBXAggregateTarget section */
+
 /* Begin PBXBuildFile section */
 		16409F2217C3DAC000A440C3 /* OpenUDID.h in Headers */ = {isa = PBXBuildFile; fileRef = 16409F2017C3DAC000A440C3 /* OpenUDID.h */; };
 		16409F2317C3DAC000A440C3 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = 16409F2117C3DAC000A440C3 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -31,10 +46,64 @@
 		2908846517750816001C9DEF /* BuddyVideo.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 290883861775002E001C9DEF /* BuddyVideo.h */; };
 		2908846617750816001C9DEF /* BuddyVideos.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 290883871775002E001C9DEF /* BuddyVideos.h */; };
 		2908846717750816001C9DEF /* BuddyMetroArea.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 2908837C17750018001C9DEF /* BuddyMetroArea.h */; };
-		2908846817750816001C9DEF /* BuddyAll.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D4E4E80D169F8B4200C735B3 /* BuddyAll.h */; };
+		2908846817750816001C9DEF /* Buddy.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = D4E4E80D169F8B4200C735B3 /* Buddy.h */; };
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		2946DE06174D696A005BE2F4 /* BuddyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946DE04174D696A005BE2F4 /* BuddyFile.m */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
+		C19ECC3117DEA012008A9130 /* Buddy.h in Headers */ = {isa = PBXBuildFile; fileRef = D4E4E80D169F8B4200C735B3 /* Buddy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C8169615AD0066A899 /* BuddyApplicationStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4117DEAEDA008A9130 /* BuddyBlob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837E1775002E001C9DEF /* BuddyBlob.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4217DEAEDA008A9130 /* BuddyBlobs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837F1775002E001C9DEF /* BuddyBlobs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4317DEAEDA008A9130 /* BuddyCommerce.h in Headers */ = {isa = PBXBuildFile; fileRef = 290883801775002E001C9DEF /* BuddyCommerce.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4417DEAEDA008A9130 /* BuddyReceipt.h in Headers */ = {isa = PBXBuildFile; fileRef = 290883811775002E001C9DEF /* BuddyReceipt.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4517DEAEDA008A9130 /* BuddySounds.h in Headers */ = {isa = PBXBuildFile; fileRef = 290883821775002E001C9DEF /* BuddySounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4617DEAEDA008A9130 /* BuddyStartup.h in Headers */ = {isa = PBXBuildFile; fileRef = 290883831775002E001C9DEF /* BuddyStartup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4717DEAEDA008A9130 /* BuddyStartups.h in Headers */ = {isa = PBXBuildFile; fileRef = 290883841775002E001C9DEF /* BuddyStartups.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4817DEAEDA008A9130 /* BuddyStoreItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 290883851775002E001C9DEF /* BuddyStoreItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4917DEAEDA008A9130 /* BuddyVideo.h in Headers */ = {isa = PBXBuildFile; fileRef = 290883861775002E001C9DEF /* BuddyVideo.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4A17DEAEDA008A9130 /* BuddyVideos.h in Headers */ = {isa = PBXBuildFile; fileRef = 290883871775002E001C9DEF /* BuddyVideos.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4B17DEAEDA008A9130 /* BuddyMetroArea.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837C17750018001C9DEF /* BuddyMetroArea.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4C17DEAEDA008A9130 /* BuddyAppMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220CA169615DB0066A899 /* BuddyAppMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4D17DEAEDA008A9130 /* BuddyAuthenticatedUser.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220CE1696164C0066A899 /* BuddyAuthenticatedUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4E17DEAEDA008A9130 /* BuddyBoolResponse.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4199516963EE400C38DD3 /* BuddyBoolResponse.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC4F17DEAEDA008A9130 /* BuddyCallbackParams.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4199716963F0400C38DD3 /* BuddyCallbackParams.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5017DEAEDA008A9130 /* BuddyCheckInLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220CC1696162C0066A899 /* BuddyCheckInLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5117DEAEDA008A9130 /* BuddyClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C4169614B30066A899 /* BuddyClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5217DEAEDA008A9130 /* BuddyDataResponses.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4199316963ECD00C38DD3 /* BuddyDataResponses.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5317DEAEDA008A9130 /* BuddyDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220D0169616F80066A899 /* BuddyDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5417DEAEDA008A9130 /* BuddyEnums.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A9F24416964FD4001C54B7 /* BuddyEnums.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5517DEAEDA008A9130 /* BuddyFriendRequests.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220D2169617190066A899 /* BuddyFriendRequests.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5617DEAEDA008A9130 /* BuddyFriends.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220D4169623AD0066A899 /* BuddyFriends.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5717DEAEDA008A9130 /* BuddyGameBoards.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220D6169623CF0066A899 /* BuddyGameBoards.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5817DEAEDA008A9130 /* BuddyGamePlayer.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220D8169624130066A899 /* BuddyGamePlayer.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5917DEAEDA008A9130 /* BuddyGamePlayers.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220DA1696243A0066A899 /* BuddyGamePlayers.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5A17DEAEDA008A9130 /* BuddyGameScore.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4195F1696251200C38DD3 /* BuddyGameScore.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5B17DEAEDA008A9130 /* BuddyGameScores.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F419611696252300C38DD3 /* BuddyGameScores.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5C17DEAEDA008A9130 /* BuddyGameState.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F419631696255E00C38DD3 /* BuddyGameState.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5D17DEAEDA008A9130 /* BuddyGameStates.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F419651696258100C38DD3 /* BuddyGameStates.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5E17DEAEDA008A9130 /* BuddyGroupMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F41967169625BF00C38DD3 /* BuddyGroupMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC5F17DEAEDA008A9130 /* BuddyIdentity.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F41969169625DE00C38DD3 /* BuddyIdentity.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6017DEAEDA008A9130 /* BuddyIdentityItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4196B1696261D00C38DD3 /* BuddyIdentityItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6117DEAEDA008A9130 /* BuddyIdentityItemSearchResult.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4196D1696263100C38DD3 /* BuddyIdentityItemSearchResult.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6217DEAEDA008A9130 /* BuddyMessage.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4196F169626D400C38DD3 /* BuddyMessage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6317DEAEDA008A9130 /* BuddyMessageGroup.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F41971169626EE00C38DD3 /* BuddyMessageGroup.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6417DEAEDA008A9130 /* BuddyMessageGroups.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F419731696270B00C38DD3 /* BuddyMessageGroups.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6517DEAEDA008A9130 /* BuddyMessages.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C6169615430066A899 /* BuddyMessages.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6617DEAEDA008A9130 /* BuddyMetadataItem.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F419751696274F00C38DD3 /* BuddyMetadataItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6717DEAEDA008A9130 /* BuddyMetadataSum.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F419771696276600C38DD3 /* BuddyMetadataSum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6817DEAEDA008A9130 /* BuddyNotificationsApple.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F41979169627CA00C38DD3 /* BuddyNotificationsApple.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6917DEAEDA008A9130 /* BuddyPhotoAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4197B169627E600C38DD3 /* BuddyPhotoAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6A17DEAEDA008A9130 /* BuddyPhotoAlbumPublic.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4197D1696280100C38DD3 /* BuddyPhotoAlbumPublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6B17DEAEDA008A9130 /* BuddyPhotoAlbums.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F41983169628AC00C38DD3 /* BuddyPhotoAlbums.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6C17DEAEDA008A9130 /* BuddyPicture.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4197F1696285400C38DD3 /* BuddyPicture.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6D17DEAEDA008A9130 /* BuddyPicturePublic.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F419811696286B00C38DD3 /* BuddyPicturePublic.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6E17DEAEDA008A9130 /* BuddyPlace.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4198516962C6200C38DD3 /* BuddyPlace.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC6F17DEAEDA008A9130 /* BuddyPlaces.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4198716962C7800C38DD3 /* BuddyPlaces.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC7017DEAEDA008A9130 /* BuddyRegisteredDeviceApple.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4198916962C9000C38DD3 /* BuddyRegisteredDeviceApple.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC7117DEAEDA008A9130 /* BuddyUser.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C2169614340066A899 /* BuddyUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC7217DEAEDA008A9130 /* BuddyUserMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4198D16962CE000C38DD3 /* BuddyUserMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC7317DEAEDA008A9130 /* BuddyVirtualAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A9F2961696EAAE001C54B7 /* BuddyVirtualAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C19ECC7417DEAEDA008A9130 /* BuddyVirtualAlbums.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4199116962D3E00C38DD3 /* BuddyVirtualAlbums.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D40FDA9F1695F5060028C609 /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D40FDA861695F5060028C609 /* AFHTTPClient.h */; };
 		D40FDAA01695F5060028C609 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D40FDA871695F5060028C609 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D40FDAA11695F5060028C609 /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D40FDA881695F5060028C609 /* AFHTTPRequestOperation.h */; };
@@ -149,6 +218,16 @@
 		D4A9F29516965C1B001C54B7 /* BuddyMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = D4A9F29416965C18001C54B7 /* BuddyMessage.m */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		C19ECC3717DEA319008A9130 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6291F73165C01800051F83C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6291F7B165C01800051F83C;
+			remoteInfo = BuddySDK;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXCopyFilesBuildPhase section */
 		D45A7BB3166235BE000E5257 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
@@ -167,7 +246,7 @@
 				2908846517750816001C9DEF /* BuddyVideo.h in CopyFiles */,
 				2908846617750816001C9DEF /* BuddyVideos.h in CopyFiles */,
 				2908846717750816001C9DEF /* BuddyMetroArea.h in CopyFiles */,
-				2908846817750816001C9DEF /* BuddyAll.h in CopyFiles */,
+				2908846817750816001C9DEF /* Buddy.h in CopyFiles */,
 				D474B2A41698DEE00020204D /* BuddyNotificationsApple.h in CopyFiles */,
 				D474B2791698ACE90020204D /* BuddyVirtualAlbum.h in CopyFiles */,
 				D474B27A1698ACE90020204D /* BuddyEnums.h in CopyFiles */,
@@ -334,7 +413,7 @@
 		D4A9F2961696EAAE001C54B7 /* BuddyVirtualAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyVirtualAlbum.h; sourceTree = "<group>"; };
 		D4B61EB0168DB6F6005D1D38 /* BuddyDataResponses_Exn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BuddyDataResponses_Exn.h; path = Internal/BuddyDataResponses_Exn.h; sourceTree = "<group>"; };
 		D4E1EF061682151D0023A208 /* BuddyClient_Exn.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BuddyClient_Exn.h; path = Internal/BuddyClient_Exn.h; sourceTree = "<group>"; };
-		D4E4E80D169F8B4200C735B3 /* BuddyAll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyAll.h; sourceTree = "<group>"; };
+		D4E4E80D169F8B4200C735B3 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
 		D4F4195F1696251200C38DD3 /* BuddyGameScore.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyGameScore.h; sourceTree = "<group>"; };
 		D4F419611696252300C38DD3 /* BuddyGameScores.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyGameScores.h; sourceTree = "<group>"; };
 		D4F419631696255E00C38DD3 /* BuddyGameState.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyGameState.h; sourceTree = "<group>"; };
@@ -479,7 +558,7 @@
 				290883861775002E001C9DEF /* BuddyVideo.h */,
 				290883871775002E001C9DEF /* BuddyVideos.h */,
 				2908837C17750018001C9DEF /* BuddyMetroArea.h */,
-				D4E4E80D169F8B4200C735B3 /* BuddyAll.h */,
+				D4E4E80D169F8B4200C735B3 /* Buddy.h */,
 				D47220C8169615AD0066A899 /* BuddyApplicationStatistics.h */,
 				D47220CA169615DB0066A899 /* BuddyAppMetadata.h */,
 				D47220CE1696164C0066A899 /* BuddyAuthenticatedUser.h */,
@@ -602,6 +681,60 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19ECC3117DEA012008A9130 /* Buddy.h in Headers */,
+				C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */,
+				C19ECC4117DEAEDA008A9130 /* BuddyBlob.h in Headers */,
+				C19ECC4217DEAEDA008A9130 /* BuddyBlobs.h in Headers */,
+				C19ECC4317DEAEDA008A9130 /* BuddyCommerce.h in Headers */,
+				C19ECC4417DEAEDA008A9130 /* BuddyReceipt.h in Headers */,
+				C19ECC4517DEAEDA008A9130 /* BuddySounds.h in Headers */,
+				C19ECC4617DEAEDA008A9130 /* BuddyStartup.h in Headers */,
+				C19ECC4717DEAEDA008A9130 /* BuddyStartups.h in Headers */,
+				C19ECC4817DEAEDA008A9130 /* BuddyStoreItem.h in Headers */,
+				C19ECC4917DEAEDA008A9130 /* BuddyVideo.h in Headers */,
+				C19ECC4A17DEAEDA008A9130 /* BuddyVideos.h in Headers */,
+				C19ECC4B17DEAEDA008A9130 /* BuddyMetroArea.h in Headers */,
+				C19ECC4C17DEAEDA008A9130 /* BuddyAppMetadata.h in Headers */,
+				C19ECC4D17DEAEDA008A9130 /* BuddyAuthenticatedUser.h in Headers */,
+				C19ECC4E17DEAEDA008A9130 /* BuddyBoolResponse.h in Headers */,
+				C19ECC4F17DEAEDA008A9130 /* BuddyCallbackParams.h in Headers */,
+				C19ECC5017DEAEDA008A9130 /* BuddyCheckInLocation.h in Headers */,
+				C19ECC5117DEAEDA008A9130 /* BuddyClient.h in Headers */,
+				C19ECC5217DEAEDA008A9130 /* BuddyDataResponses.h in Headers */,
+				C19ECC5317DEAEDA008A9130 /* BuddyDevice.h in Headers */,
+				C19ECC5417DEAEDA008A9130 /* BuddyEnums.h in Headers */,
+				C19ECC5517DEAEDA008A9130 /* BuddyFriendRequests.h in Headers */,
+				C19ECC5617DEAEDA008A9130 /* BuddyFriends.h in Headers */,
+				C19ECC5717DEAEDA008A9130 /* BuddyGameBoards.h in Headers */,
+				C19ECC5817DEAEDA008A9130 /* BuddyGamePlayer.h in Headers */,
+				C19ECC5917DEAEDA008A9130 /* BuddyGamePlayers.h in Headers */,
+				C19ECC5A17DEAEDA008A9130 /* BuddyGameScore.h in Headers */,
+				C19ECC5B17DEAEDA008A9130 /* BuddyGameScores.h in Headers */,
+				C19ECC5C17DEAEDA008A9130 /* BuddyGameState.h in Headers */,
+				C19ECC5D17DEAEDA008A9130 /* BuddyGameStates.h in Headers */,
+				C19ECC5E17DEAEDA008A9130 /* BuddyGroupMessage.h in Headers */,
+				C19ECC5F17DEAEDA008A9130 /* BuddyIdentity.h in Headers */,
+				C19ECC6017DEAEDA008A9130 /* BuddyIdentityItem.h in Headers */,
+				C19ECC6117DEAEDA008A9130 /* BuddyIdentityItemSearchResult.h in Headers */,
+				C19ECC6217DEAEDA008A9130 /* BuddyMessage.h in Headers */,
+				C19ECC6317DEAEDA008A9130 /* BuddyMessageGroup.h in Headers */,
+				C19ECC6417DEAEDA008A9130 /* BuddyMessageGroups.h in Headers */,
+				C19ECC6517DEAEDA008A9130 /* BuddyMessages.h in Headers */,
+				C19ECC6617DEAEDA008A9130 /* BuddyMetadataItem.h in Headers */,
+				C19ECC6717DEAEDA008A9130 /* BuddyMetadataSum.h in Headers */,
+				C19ECC6817DEAEDA008A9130 /* BuddyNotificationsApple.h in Headers */,
+				C19ECC6917DEAEDA008A9130 /* BuddyPhotoAlbum.h in Headers */,
+				C19ECC6A17DEAEDA008A9130 /* BuddyPhotoAlbumPublic.h in Headers */,
+				C19ECC6B17DEAEDA008A9130 /* BuddyPhotoAlbums.h in Headers */,
+				C19ECC6C17DEAEDA008A9130 /* BuddyPicture.h in Headers */,
+				C19ECC6D17DEAEDA008A9130 /* BuddyPicturePublic.h in Headers */,
+				C19ECC6E17DEAEDA008A9130 /* BuddyPlace.h in Headers */,
+				C19ECC6F17DEAEDA008A9130 /* BuddyPlaces.h in Headers */,
+				C19ECC7017DEAEDA008A9130 /* BuddyRegisteredDeviceApple.h in Headers */,
+				C19ECC7117DEAEDA008A9130 /* BuddyUser.h in Headers */,
+				C19ECC7217DEAEDA008A9130 /* BuddyUserMetadata.h in Headers */,
+				C19ECC7317DEAEDA008A9130 /* BuddyVirtualAlbum.h in Headers */,
+				C19ECC7417DEAEDA008A9130 /* BuddyVirtualAlbums.h in Headers */,
 				D40FDA9F1695F5060028C609 /* AFHTTPClient.h in Headers */,
 				D40FDAA11695F5060028C609 /* AFHTTPRequestOperation.h in Headers */,
 				D40FDAA31695F5060028C609 /* AFImageRequestOperation.h in Headers */,
@@ -632,7 +765,8 @@
 				A6291F79165C01800051F83C /* Frameworks */,
 				A6291F7A165C01800051F83C /* Headers */,
 				D45A7BB3166235BE000E5257 /* CopyFiles */,
-				D45FE76B16A5CC2A005FEE2F /* ShellScript */,
+				D45FE76B16A5CC2A005FEE2F /* Create Universal Binary */,
+				C19ECC3217DEA1AE008A9130 /* Prepare Framework */,
 			);
 			buildRules = (
 			);
@@ -664,12 +798,41 @@
 			projectRoot = "";
 			targets = (
 				A6291F7B165C01800051F83C /* BuddySDK */,
+				C19ECC3317DEA28D008A9130 /* Framework */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		D45FE76B16A5CC2A005FEE2F /* ShellScript */ = {
+		C19ECC3217DEA1AE008A9130 /* Prepare Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Prepare Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n";
+		};
+		C19ECC3917DEA357008A9130 /* Build Univeral Binary */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Univeral Binary";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nlipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
+		};
+		D45FE76B16A5CC2A005FEE2F /* Create Universal Binary */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -677,6 +840,7 @@
 			inputPaths = (
 				"",
 			);
+			name = "Create Universal Binary";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -762,6 +926,14 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		C19ECC3817DEA319008A9130 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A6291F7B165C01800051F83C /* BuddySDK */;
+			targetProxy = C19ECC3717DEA319008A9130 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		A6291F87165C01800051F83C /* Debug */ = {
@@ -865,6 +1037,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
 				CURRENT_PROJECT_VERSION = 0.1.4;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/BuddySDK.dst;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
@@ -890,6 +1063,7 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = "$(TARGET_NAME)";
@@ -904,7 +1078,9 @@
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
+				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 0.1.4;
+				DEAD_CODE_STRIPPING = NO;
 				DSTROOT = /tmp/BuddySDK.dst;
 				GCC_GENERATE_TEST_COVERAGE_FILES = NO;
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
@@ -928,9 +1104,24 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = "";
 				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		C19ECC3517DEA28D008A9130 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		C19ECC3617DEA28D008A9130 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -954,6 +1145,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C19ECC3417DEA28D008A9130 /* Build configuration list for PBXAggregateTarget "Framework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C19ECC3517DEA28D008A9130 /* Debug */,
+				C19ECC3617DEA28D008A9130 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
