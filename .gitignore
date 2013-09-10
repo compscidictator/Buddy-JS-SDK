@@ -17,4 +17,4 @@ dsa_priv.pem
 *.xcodeproj/xcuserdata/
 
 #Binaries
-lib/
+#lib/
