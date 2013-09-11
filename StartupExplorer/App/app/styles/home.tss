@@ -1,0 +1,81 @@
+"#mainWindow": {
+	top:0,
+	width: Alloy.Globals.width,
+	bottom:0,
+	backgroundImage:"/images/background.png" 
+},
+
+"#logo": {
+	image:"/images/se_logo.png",
+	top:"3%",
+	width:"24%"
+},
+
+".mapView": {
+	backgroundImage:"/images/seattle_map.png",
+	width:Alloy.Globals.mapWidth,
+	height:Alloy.Globals.mapHeight
+},
+
+".mapTotalArea": {
+	backgroundColor:"#3cd5d0",
+	height:Alloy.Globals.mapTotalWidth,
+	width:Alloy.Globals.mapTotalWidth,
+	opacity:'.9',
+	top:0,
+	left:'5%',
+	borderRadius:Alloy.Globals.mapTotalRadius
+},
+
+".mapTotalText": {
+	font:{fontFamily:'SurfLight', fontSize:'34dp'},
+	color:'#181717'
+},
+
+"#indicatorArea": {
+	top:"56%",
+	left:Alloy.Globals.indicatorAreaPadding,
+	layout: "horizontal"
+},
+
+".indicatorOn": {
+	image:"/images/map_on.png",
+	right:'10',
+	width:Alloy.Globals.indicatorWidth
+},
+
+".indicatorOff": {
+	image:"/images/map_off.png",
+	right:'10',
+	width:Alloy.Globals.indicatorWidth
+},
+
+"#btArea": {
+	left:0,
+	right:0,
+	bottom:Alloy.Globals.footerHeight,
+	height:Alloy.Globals.btAreaHeight,
+	layout:'vertical'
+},
+
+".btDash": {
+	left:0,
+	right:0,
+	bottom:1,
+	height:'33%',
+	width:Alloy.Globals.btDashWidth,
+	backgroundColor:'#d65b5d',
+	style:Ti.UI.iPhone.SystemButtonStyle.PLAIN
+},
+
+"#btNearMe": {
+	image:"/images/bt_nearme.png"
+},
+
+"#btNewest": {
+	image:"/images/bt_newest.png"
+},
+
+"#btAdd": {
+	image:"/images/bt_add.png"
+}

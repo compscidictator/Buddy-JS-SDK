@@ -1,0 +1,32 @@
+<Alloy>
+	<View id="addStartup">
+		<View id="subHeader">
+			<Button id="btBack" />
+		</View>
+		<ImageView id="addHeader">
+		<ScrollView id="scrollView">
+			<Label id="fieldText">To join, complete the form below. We will contact you about additional info needed.</Label>		
+			<View class="fieldRow">
+				<TextField class="fieldBox" id="name" hintText="Startup Name" />
+			</View>
+			<View class="fieldRow">
+				<TextField class="fieldBox" id="category" hintText="Startup Category" />
+			</View>			
+			<View class="fieldRow">
+				<TextField class="fieldBox" id="employees" hintText="Number of Employees" />
+			</View>					
+			<View class="fieldRow">
+				<TextField class="fieldBox" id="address" hintText="What is your business address?" />
+			</View>
+			<View class="fieldRow">
+				<TextField class="fieldBox" id="address2" hintText="Please tell us your city, state, and zip" />
+			</View>						
+			<View class="fieldRow">
+				<TextField class="fieldBox" id="contactEmail" hintText="Contact email address" returnKeyType="Ti.UI.RETURNKEY_DONE" />
+			</View>
+		</ScrollView>	
+		<View id="submitArea">
+			<Button id="btSubmit" />
+		</View>							
+	</View>
+</Alloy>

@@ -1,0 +1,49 @@
+"#container": {
+    backgroundColor: "#fff",
+    opacity:0,
+    height:'100%'
+},
+
+"#sidebar": {
+	width: 382,
+	right:0,
+	top:0,
+	bottom:0,
+	backgroundColor:'#fff'
+},
+
+"#content":{
+    top: '0',
+    left:0,
+    right:0,
+    height:Alloy.Globals.height2,
+    zIndex:100,
+	backgroundImage:"/images/background.png",
+	touchEnabled: true,
+	opacity:1
+},
+
+"#content[platform=android]": {
+	height:Alloy.Globals.height1
+},
+
+"#contentBackground": {
+	top:0,
+	left:0,
+	right:0,
+	bottom:0,
+	backgroundColor:'#000',
+	zIndex:101,
+	opacity:0.7,
+	visible:false
+},
+
+"#footer": {
+	image:"/images/buddy_footer.png",
+	left:0,
+	right:0,
+	bottom:0,
+	height:Alloy.Globals.footerHeight,
+	width:Alloy.Globals.width,
+	zIndex:101
+}
