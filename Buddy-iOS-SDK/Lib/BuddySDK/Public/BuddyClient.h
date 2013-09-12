@@ -189,7 +189,7 @@ typedef void (^BuddyRecordSessionMetricCallback)(BuddyBoolResponse *response);
 /// <param name="appPassword">The password of the application to use with this client. Can't be null or empty.</param>
 
 - (id)initClient:(NSString *)appName
-     appPassword:(NSString *)appPassword;
+     appPassword:(NSString *)appPassword __attribute((deprecated("Use +[Buddy initClient variants]")));
 
 /// <summary>
 /// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://buddy.com, create a new
@@ -204,7 +204,7 @@ typedef void (^BuddyRecordSessionMetricCallback)(BuddyBoolResponse *response);
 - (id)        initClient:(NSString *)appName
 			 appPassword:(NSString *)appPassword
 			  appVersion:(NSString *)appVersion
-	autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo;
+	autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo __attribute((deprecated("Use +[Buddy initClient variants]")));
 
 /// <summary>
 /// Ping the service.
@@ -310,7 +310,7 @@ typedef void (^BuddyRecordSessionMetricCallback)(BuddyBoolResponse *response);
 
 - (void)login:(NSString *)token
         
-     callback:(BuddyClientLoginCallback)callback;
+     callback:(BuddyClientLoginCallback)callback ;
 
 /// <summary>
 /// Create a new Buddy user account and log in as newly created user.

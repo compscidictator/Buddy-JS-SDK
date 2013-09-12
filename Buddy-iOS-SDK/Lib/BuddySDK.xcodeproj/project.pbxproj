@@ -49,6 +49,10 @@
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		2946DE06174D696A005BE2F4 /* BuddyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946DE04174D696A005BE2F4 /* BuddyFile.m */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
+		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
+		C153F87417E1730B009CDC81 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87217E1730B009CDC81 /* Buddy.m */; };
+		C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F87517E17C12009CDC81 /* BuddyBase.h */; };
+		C153F87817E17C12009CDC81 /* BuddyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyBase.m */; };
 		C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C8169615AD0066A899 /* BuddyApplicationStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC4117DEAEDA008A9130 /* BuddyBlob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837E1775002E001C9DEF /* BuddyBlob.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC4217DEAEDA008A9130 /* BuddyBlobs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837F1775002E001C9DEF /* BuddyBlobs.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -324,6 +328,10 @@
 		A6291F7C165C01800051F83C /* libBuddySDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuddySDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6291F7F165C01800051F83C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddySDK-Prefix.pch"; sourceTree = "<group>"; };
+		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
+		C153F87217E1730B009CDC81 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Buddy.m; path = ../../Lib/BuddySDK/Internal/Buddy.m; sourceTree = "<group>"; };
+		C153F87517E17C12009CDC81 /* BuddyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyBase.h; path = ../../Lib/BuddySDK/Internal/BuddyBase.h; sourceTree = "<group>"; };
+		C153F87617E17C12009CDC81 /* BuddyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyBase.m; path = ../../Lib/BuddySDK/Internal/BuddyBase.m; sourceTree = "<group>"; };
 		C19ECC7F17DEE047008A9130 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
 		D40FDA861695F5060028C609 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
 		D40FDA871695F5060028C609 /* AFHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPClient.m; sourceTree = "<group>"; };
@@ -497,6 +505,7 @@
 				D47220C0169613F60066A899 /* Public */,
 				D4E9DE95166663AB00D28D59 /* Internal */,
 				A6291F82165C01800051F83C /* Supporting Files */,
+				C153F86F17E15FC1009CDC81 /* Util.h */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -606,6 +615,9 @@
 		D4E9DE95166663AB00D28D59 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				C153F87517E17C12009CDC81 /* BuddyBase.h */,
+				C153F87617E17C12009CDC81 /* BuddyBase.m */,
+				C153F87217E1730B009CDC81 /* Buddy.m */,
 				290883921775005D001C9DEF /* BuddyBlob.m */,
 				290883931775005D001C9DEF /* BuddyBlobs.m */,
 				290883941775005D001C9DEF /* BuddyCommerce.m */,
@@ -707,12 +719,14 @@
 				C19ECC5917DEAEDA008A9130 /* BuddyGamePlayers.h in Headers */,
 				C19ECC5A17DEAEDA008A9130 /* BuddyGameScore.h in Headers */,
 				C19ECC5B17DEAEDA008A9130 /* BuddyGameScores.h in Headers */,
+				C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */,
 				C19ECC5C17DEAEDA008A9130 /* BuddyGameState.h in Headers */,
 				C19ECC5D17DEAEDA008A9130 /* BuddyGameStates.h in Headers */,
 				C19ECC5E17DEAEDA008A9130 /* BuddyGroupMessage.h in Headers */,
 				C19ECC5F17DEAEDA008A9130 /* BuddyIdentity.h in Headers */,
 				C19ECC6017DEAEDA008A9130 /* BuddyIdentityItem.h in Headers */,
 				C19ECC6117DEAEDA008A9130 /* BuddyIdentityItemSearchResult.h in Headers */,
+				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
 				C19ECC6217DEAEDA008A9130 /* BuddyMessage.h in Headers */,
 				C19ECC6317DEAEDA008A9130 /* BuddyMessageGroup.h in Headers */,
 				C19ECC6417DEAEDA008A9130 /* BuddyMessageGroups.h in Headers */,
@@ -859,6 +873,7 @@
 				D40FDAAA1695F5060028C609 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				D40FDAAD1695F5060028C609 /* AFPropertyListRequestOperation.m in Sources */,
 				D40FDAAF1695F5060028C609 /* AFURLConnectionOperation.m in Sources */,
+				C153F87817E17C12009CDC81 /* BuddyBase.m in Sources */,
 				D40FDAB11695F5060028C609 /* AFXMLRequestOperation.m in Sources */,
 				D40FDAB31695F5060028C609 /* ClientServiceJSON.m in Sources */,
 				D40FDAB51695F5060028C609 /* ClientServicePlainText.m in Sources */,
@@ -915,6 +930,7 @@
 				290883A11775005D001C9DEF /* BuddyReceipt.m in Sources */,
 				290883A21775005D001C9DEF /* BuddySounds.m in Sources */,
 				290883A31775005D001C9DEF /* BuddyStartup.m in Sources */,
+				C153F87417E1730B009CDC81 /* Buddy.m in Sources */,
 				290883A41775005D001C9DEF /* BuddyStartups.m in Sources */,
 				290883A51775005D001C9DEF /* BuddyStoreItem.m in Sources */,
 				290883A61775005D001C9DEF /* BuddyVideo.m in Sources */,

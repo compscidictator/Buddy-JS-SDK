@@ -13,7 +13,7 @@
  * License for the specific language governing permissions and limitations under
  * the License.
  */
- 
+
 #import "BuddyApplicationStatistics.h"
 #import "BuddyAppMetadata.h"
 #import "BuddyAuthenticatedUser.h"
@@ -73,3 +73,10 @@
 #import "BuddyUserMetadata.h"
 #import "BuddyVirtualAlbum.h"
 #import "BuddyVirtualAlbums.h"
+
+@interface Buddy : NSObject
+
++ (void)setApplicationName:(NSString *)name withPassword:(NSString *)password;
++ (void)setApplicationName:(NSString *)name withPassword:(NSString *)password options:(NSDictionary *)options;
+
+@end
