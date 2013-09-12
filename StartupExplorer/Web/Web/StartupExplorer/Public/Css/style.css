@@ -1,0 +1,60 @@
+@charset "utf-8";
+
+@font-face {
+	font-family:'Surf';
+	src: url('fonts/Surf.eot');
+	src: local('☺'), url('fonts/Surf.woff') format('woff'), url('fonts/Surf.ttf') format('truetype'), url('fonts/Surf.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family:'SurfLight';
+	src: url('fonts/SurfLight.eot');
+	src: local('☺'), url('fonts/SurfLight.woff') format('woff'), url('fonts/SurfLight.ttf') format('truetype'), url('fonts/SurfLight.svg') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+*{ margin:0; padding:0;}
+img{ border:none;}
+.clear{ clear:both; height:1px; visibility:hidden;}
+body{ background:#86837e url(../images/main_bg.png) repeat-y  center top; font-family:'SurfLight'; line-height:18px;}
+#main {float:left;	height:auto; width:100%;}
+.inner_main{ width:940px; height:auto; margin:0 auto;}
+#header{ background:transparent url(../images/header_bg.jpg) no-repeat left top; float:left; width:100%; height:94px; margin:20px 0 0 0;}
+.logo{ float:left; margin:8px 0 0 15px;}
+.submit_btn{ background:transparent url(../images/submit_startup.png) no-repeat left top; border:0px outset #FFF; cursor:pointer; font-size:0px; float:right; height:51px; outline:none; width:234px; margin:27px 15px 0 0;}
+#banner{ background:transparent url(../images/banner_bg.png) no-repeat left top; float:left; width:100%; height:498px;}
+.ban_content{ float:right; width:66%; margin:115px 5% 0 0; text-align:center; color:#343d41;}
+.ban_content h2{font-size:32px; font-family:'Surf';}
+.ban_content p{font-size:32px; line-height:32px; margin:12px 0 0 0;}
+.ban_content p.parabold{  font-size:20px; margin:20px 0 0 0; font-family:'Surf';}
+.paraspan{ display: inline-block; margin: 0 auto; width: 100px; font-size:16px; padding:0 0 0 10px;}
+#container{float:left; width:100%; height:588px;}
+.img_box{ float:left; width:206px; height:auto; margin:26px 0 0 15px;}
+.img_title{ text-transform:uppercase; background:transparent url(../images/title_startup.png) no-repeat left top; color:#333d40; width:206px; height:50px; padding:0 0 5px 0; display:table-cell; text-align:center; vertical-align:middle; font-size:14px; font-family:'Surf';}
+.img_class{ margin:20px 0 0 0;}
+.img_box1{ float:left; width:206px; height:auto; margin:26px 0 0 30px;}
+.img_box2{ float:right; width:206px; height:auto; margin:26px 15px 0 0;}
+.social_box{ background:url(../images/content_bottom.png) no-repeat left top; float:left; width:100%; height:94px; margin:24px 0 0 0;}
+.img_span{ background:#ccc9c4; padding:0 0 5px 0;}
+.social_box p{ color:#343d41; font-family:'Surf'; font-size:16px; text-align:center; line-height:25px;}
+.social_img{ margin:0 0 0 10px;}
+.buddy_logo{ position:relative; top:5px;}
+#submit_container{color:#FFF; background:transparent url(../images/submit_con_bg.png) no-repeat left top; float:left; width:100%; height:auto; min-height:400px; padding:5px 0 0 0;}
+.sb_title{ color:#343d41; float:left; width:100%; height:114px; line-height:114px; text-align:center;}
+.sb_title h2{font-famiSly:'Surf'; font-size:40px; }
+.download_box{ display:block; background:#6ec8c5; width:838px; height:185px; margin:0 auto;}
+.download_box p{font-size:24px; text-align:center; line-height:84px;  text-shadow: 3px 2px 2px #666666;}
+.download_box p img{ margin:0 0 0 10px;}
+.submit_box{display:block; background:#6ec8c5; width:838px; height:auto; margin:20px auto 0 auto;}
+.submit_head{ float:left; width:100%; text-align:center; font-size:24px; line-height:34px; margin:25px 0; text-shadow: 3px 2px 2px #666666;}
+.error_msg{ background:url(../images/red_bg.png) repeat-x left top; width:788px; margin:0 auto; height:46px; padding:0 0 11px 0; text-align:center; line-height:46px; font-size:18px;}
+.form_box{ background:#343d41; width:748px; margin:18px auto 0 auto; height:auto; padding:20px;}
+.form_box label{ width:350px; font-family:'Surf';}
+.left{ float:left}
+.right{ float:right}
+.form_box input[type="text"]{ background:#cfcfcf; border:1px solid #cfcfcf; color:#343d41; font-size:16px; outline:none; width:338px; height:auto; padding:9px 5px 8px 5px; border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px; margin:0 0 5px 0;}
+.submit_foot{ float:left; width:100%; text-align:center; font-size:24px; line-height:34px; margin:10px 0; text-shadow: 3px 2px 2px #666666;}
+.questions{ background:#aaa9a6; color:#343d41; font-family:'Surf'; float:left; width:100%; height:94px; line-height:94px; font-size:20px; text-align:center; margin:0 0 98px 0;}
+.sub_btn{ background:#346c6e; border-radius:10px; -moz-border-radius:10px; -webkit-border-radius:10px; border:0px outset #FFF; color:#FFF; cursor:pointer; font-family:'Surf'; font-size:18px; float:right; height:auto; outline:none; width:350px;  text-shadow: 1px 1px 1px #000000; padding:8px 0 8px 0;}
+.form_box input[type="text"].error{border-color:red;}

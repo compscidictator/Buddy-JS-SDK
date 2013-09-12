@@ -1,0 +1,17 @@
+android/ATTR_MINIFY=true
+android/ATTR_PROJECT_NAME=startup_explorer
+android/abi=armeabi
+android/distribute_path=/Users/nickfoti/Documents/Titanium_Studio_Workspace/Android
+android/keystore_alias=tidev
+android/keystore_password=tirocks
+android/keystore_path=/Users/nickfoti/Library/Application Support/Titanium/mobilesdk/osx/3.1.0.GA/android/dev_keystore
+android/recent_output=/Users/nickfoti/Documents/Titanium_Studio_Workspace/Android
+android/sdk_version=Google APIs Android 2.2
+eclipse.preferences.version=1
+iosLaunchConfigurationAttributes/ATTR_MINIFY=true
+iosLaunchConfigurationAttributes/ATTR_PROJECT_NAME=startup_explorer
+iosLaunchConfigurationAttributes/appid=com.buddy.startupexp
+iosLaunchConfigurationAttributes/certificate=HoofJaw Media, LLC
+iosLaunchConfigurationAttributes/keychain=
+iosLaunchConfigurationAttributes/sdk_version=6.1
+iosLaunchConfigurationAttributes/uuid=4AF89FCB-517D-4C06-B1D9-1AB090615ACC

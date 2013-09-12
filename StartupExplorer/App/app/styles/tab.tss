@@ -1,0 +1,180 @@
+"#containerLM": {
+	top:0,
+	left:0,
+	width:Alloy.Globals.width2,
+	height:Alloy.Globals.height2,
+	//zIndex:100,
+	layout:'horizontal'
+},
+
+"#containerLM[platform=android]": {
+	height:Alloy.Globals.height1
+},
+
+"#listMap":{
+	left:0,
+	top:0,
+	bottom:0,
+	width:Alloy.Globals.width,
+},
+
+"#detail":{
+	left:0,
+	top:0,
+	bottom:0,
+	width:Alloy.Globals.width
+},
+
+"#detailHeader": {
+	height:Alloy.Globals.detailHeadingHeight,
+	top:0,
+	width:Alloy.Globals.width,
+	backgroundImage:'/images/detail_subheader.png',
+	backgroundColor:'#57c4c3'
+},
+
+"ScrollView": {
+	layout:'vertical',
+	top:Alloy.Globals.detailDescTop,
+	bottom:Alloy.Globals.footerHeight	
+},
+
+"#desc": {
+	top:0,
+	left:0,
+	right:0,
+	layout:'composite',
+	height:Alloy.Globals.detailHeadingHeight,
+	backgroundColor:'rgba(243,238,230,.5)'
+},
+
+"#desc[platform=android]": {
+	backgroundColor:'#f3eee6'
+},
+
+"#mapArea": {
+	layout:'vertical',
+	top:0,
+	height:Ti.UI.SIZE
+},
+
+"#name": {
+	color:'#4b595b',
+	font:{fontFamily:'TitilliumText25L-800wt', fontSize:'16dp'},
+	left:Alloy.Globals.detailHeadingPadding,
+	top:Alloy.Globals.detailHeadingPadding2
+},
+
+".tabWindow": {
+	tabBarHidden:true,
+	backgroundColor:'#57c4c3'
+},
+
+".subHeader": {
+	left:0,
+	right:0,
+	top:0,
+	height:Alloy.Globals.subHeaderHeight,
+	backgroundImage:'/images/header_background.png'
+},
+
+"#btBack": {
+	height:Alloy.Globals.btBackHeight,
+	width:Alloy.Globals.btBackWidth,
+	left:Alloy.Globals.btBackPadding,
+	backgroundImage:'/images/bt_back.png'
+},
+
+"#btBackDetail": {
+	height:Alloy.Globals.btBackHeight,
+	width:Alloy.Globals.btBackWidth,
+	left:Alloy.Globals.btBackPadding,
+	backgroundImage:'/images/bt_back.png'
+},
+
+"#btArea": {
+	layout:'horizontal',
+	left:0,
+	right:0,
+	top:Alloy.Globals.subHeaderHeight,
+	zIndex:100
+},
+
+"#btList": {
+	left:0,
+	width:Alloy.Globals.btTabWidth,
+	height:Alloy.Globals.btTabHeight,
+	backgroundImage:"/images/bt_list_off.png"	
+},
+
+"#btMap": {
+	left:0,
+	width:Alloy.Globals.btTabWidth,
+	height:Alloy.Globals.btTabHeight,
+	backgroundImage:"/images/bt_map_on.png",
+	touchEnabled:false
+},
+
+"#statusArea":{
+	backgroundColor:"#57c4c3",
+	left:0,
+	right:0,
+	top:Alloy.Globals.statusAreaTop,
+	height:Alloy.Globals.statusAreaHeight,
+	zIndex:10,
+	text:'',
+	color:"#303e41",
+	font:{fontFamily:'TitilliumText25L-800wt', fontSize:'13dp'},
+	textAlign:'center'
+},
+
+"#statusAreaButton":{
+	left:0,
+	right:0,
+	top:Alloy.Globals.statusAreaTop,
+	height:Alloy.Globals.statusAreaHeight,
+	backgroundColor:"transparent",
+	zIndex:110
+},
+
+"#tabGroup":{
+	top:Alloy.Globals.tabGroupTop,
+	bottom:Alloy.Globals.footerHeight,
+	width:Alloy.Globals.width2,
+	right:0,
+	zIndex:900,
+	layout:'horizontal'
+},
+
+"#listView":{
+	left:0,
+	top:0,
+	bottom:0,
+	width:Alloy.Globals.width,
+	backgroundColor:'#57c4c3',
+	separatorColor:'transparent',
+	separatorStyle: Titanium.UI.iPhone.TableViewSeparatorStyle.NONE
+},
+
+"TableViewRow": {
+	backgroundImage:'/images/row_background.png',
+	height:Alloy.Globals.rowHeight,
+	backgroundColor:'transparent'
+},
+
+"#mapView":{
+	width:Alloy.Globals.width,
+	right:0,
+	top:0,
+	bottom:0
+},
+
+"#footer": {
+	image:"/images/buddy_footer.png",
+	left:0,
+	right:0,
+	bottom:0,
+	height:Alloy.Globals.footerHeight,
+	width:Alloy.Globals.width,
+	zIndex:110
+}
