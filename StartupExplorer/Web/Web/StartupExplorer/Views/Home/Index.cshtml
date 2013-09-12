@@ -1,0 +1,91 @@
+﻿@model StartupExplorer.Models.HomeViewModel
+@{
+    Layout = null;
+    ViewBag.Title = "Index";
+    //Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<!DOCTYPE HTML>
+<!--[if lt IE 7]> <html class="no-js lt-ie9 lt-ie8 lt-ie7" lang="en"> <![endif]-->
+<!--[if IE 7]>    <html class="no-js lt-ie9 lt-ie8" lang="en"> <![endif]-->
+<!--[if IE 8]>    <html class="no-js lt-ie9" lang="en"> <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en"> <!--<![endif]-->
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>Startup Explorer - Home</title>
+<!--[if IE]>
+<script>
+document.createElement('header');
+document.createElement('footer');
+document.createElement('section');
+document.createElement('article');
+document.createElement('nav');
+</script>
+<![endif]-->     
+<link href="@Url.Content("~/Public/Css/style.css")" rel="stylesheet" type="text/css" />
+</head>
+
+<body>
+  <div id="main">
+    <!--main start-->
+      <div class="inner_main">
+        <!--inner_main start-->
+          <header id="header">
+            <!--header start-->
+              <div class="logo">
+                <a href="@Url.Action("Index", "Home")"><img src="Public/Images/startup_logo.png" width="350" height="77" alt="Startup Logo"></a>
+             </div>
+             @*<input name="" type="button" class="submit_btn" value="button">*@
+             <a href="@Url.Action("SubmitStartup", "Home")" title="Logout" class="submit_btn">SUMBIT YOUR STARTUP</a>
+           <!--header end-->
+          </header>
+          <section id="banner">
+            <!--banner start-->
+              <div class="ban_content">
+                <h2>GET TO KNOW YOUR STARTUP</h2>
+                <p>Startup Explorer is a great way to find out which startups<br> are where. Find the startups near you - or plan your<br> startup trek in another city!</p>
+                <p class="parabold">AVAILABLE FOR</p>
+                <div>
+                  <span class="paraspan">iOS<br><a href="#"><img src="Public/Images/ios.png" width="100" height="99" alt="iOS"></a></span>
+                  <span class="paraspan">ANDROID<br><a href="#"><img src="Public/Images/android.png" width="100" height="99" alt="android"></a></span>
+                  <span class="paraspan">WINDOWS<br><a href="#"><img src="Public/Images/windows.png" width="100" height="99" alt="windows"></a></span>                            
+                </div>                
+              </div>
+            <!--banner end-->
+          </section>
+          <section id="container">
+            <!--container start-->
+          <div class="img_box">
+                <span class="img_title">Find Startup <br>by Metro Area</span>
+                <span class="img_span"><img src="Public/Images/find_startup.jpg" width="206" height="206" alt="Find" class="img_class" /></span>
+              </div>
+              <div class="img_box1">
+                <span class="img_title">Locate the Startups <br>closest to you</span>
+                <span class="img_span"><img src="Public/Images/locate_startup.jpg" width="206" height="206" alt="locate" class="img_class"/></span>
+              </div>
+              <div class="img_box1">
+                <span class="img_title">Search all Startups</span>
+                <span class="img_span"><img src="Public/Images/search_startup.jpg" width="206" height="206" alt="search" class="img_class"/></span>
+              </div>
+              <div class="img_box2">
+                <span class="img_title">Learn more about <br>each Startup</span>
+                <span class="img_span"><img src="Public/Images/learn_startup.jpg" width="206" height="206" alt="search" class="img_class"/></span>
+              </div>
+              <div class="social_box">
+                <p> STARTUP EXPLORER IS POWERED BY <img src="Public/Images/buddy_logo.png" width="78" height="23" alt="Buddy Logo" class="buddy_logo"><br>WE POWER, OPTIMIZE, MEAURE YOUR APPS ANYWHERE</p>
+                <p class="social">
+                  @*<a href="#"><img src="Public/Images/linkedin_icon.png" width="80" height="29" alt="Linkedin" class="social_img"></a>*@
+                  @*<a href="#"><img src="Public/Images/facebook_icon.png" width="80" height="29" alt="Linkedin" class="social_img"></a>*@
+                  @*<a href="#"><img src="Public/Images/twitter_icon.png" width="80" height="29" alt="Linkedin" class="social_img"></a>*@
+                  @TwitterGoodies.ShareWithLinkedIn(Request.Url.ToString())
+                  @Facebook.ShareComment("")
+                  @TwitterGoodies.TweetButtonToshare(TwitterGoodies.DataCount.None, "",Request.Url.ToString(),"Twitter", TwitterGoodies.Languages.English)
+                </p>
+              </div>
+            <!--container end-->
+          </section>
+        <!--inner_main end-->
+      </div>
+    <!--main end-->
+  </div>
+</body>
+</html>
