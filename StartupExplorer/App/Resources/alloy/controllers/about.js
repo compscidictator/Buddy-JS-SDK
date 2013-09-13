@@ -1,7 +1,9 @@
 function Controller() {
     require("alloy/controllers/BaseController").apply(this, Array.prototype.slice.call(arguments));
+    this.__controllerPath = "about";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
+    arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     $.__views.aboutView = Ti.UI.createScrollView({
@@ -67,7 +69,20 @@ function Controller() {
             fontSize: "12dp"
         },
         top: 5,
-        text: "Buddy is a web services platform that powers, optimizes and measures mobile apps on any OS platform, any connected device. Developers can use Buddy to add cloud connected features to their apps without having to write any server-side code, and publishers get very high fidelity analytics on the usage and engagement of their mobile experiences. Both developers and publishers have access to dashboards, displaying data relevant to their interests (developers stats or publisher analytics).\n\nBuddy is the most complete, feature-rich backend as a service (BaaS) on the market, allowing developers, brands, agencies and enterprises to focus on building amazing mobile experiences and not on the infrastructure required to power, optimize or measure those experiences.",
+        text: "Buddy is a web services platform that powers, optimizes and measures mobile apps on any OS platform, any connected device. Developers can use Buddy to add cloud connected features to their apps without having to write any server-side code, and publishers get very high fidelity analytics on the usage and engagement of their mobile experiences. Both developers and publishers have access to dashboards, displaying data relevant to their interests (developers stats or publisher analytics).\n\nBuddy is the most complete, feature-rich backend as a service (BaaS) on the market, allowing developers, brands, agencies and enterprises to focus on building amazing mobile experiences and not on the infrastructure required to power, optimize or measure those experiences.\n\n",
+        id: "buddyDesc"
+    });
+    $.__views.aboutView.add($.__views.buddyDesc);
+    $.__views.buddyDesc = Ti.UI.createLabel({
+        color: "#dbd1c7",
+        left: Alloy.Globals.textPadding,
+        right: Alloy.Globals.textPadding,
+        font: {
+            fontFamily: "TitilliumText25L-250wt",
+            fontSize: "12dp"
+        },
+        top: 5,
+        text: "To update your startup's information, please email startupexplorer@buddy.com",
         id: "buddyDesc"
     });
     $.__views.aboutView.add($.__views.buddyDesc);
@@ -149,7 +164,7 @@ function Controller() {
     $.btEmail.addEventListener("click", function() {
         var emailDialog = Ti.UI.createEmailDialog();
         emailDialog.subject = "Message from Startup Explorer";
-        emailDialog.toRecipients = [ "app@buddy.com" ];
+        emailDialog.toRecipients = [ "startupexplorer@buddy.com" ];
         emailDialog.open();
     });
     $.buddyLogo.addEventListener("click", function() {

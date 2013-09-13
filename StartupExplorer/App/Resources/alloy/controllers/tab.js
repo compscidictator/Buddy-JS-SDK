@@ -495,6 +495,30 @@ function Controller() {
             }
             $.scrollView.add(socialArea);
         }
+        var updateButton = Ti.UI.createView({
+            backgroundColor: "#303e41",
+            top: ".5%",
+            width: Alloy.Globals.detailMapWidth,
+            height: Alloy.Globals.detailMapHeight,
+            height: Alloy.Globals.detailBtHeight
+        });
+        var label = Ti.UI.createLabel({
+            text: "Updates?",
+            color: "#a4a4a0",
+            height: Alloy.Globals.pickerHeight,
+            font: {
+                fontFamily: "TitilliumText25L-800wt",
+                fontSize: "11dp"
+            }
+        });
+        updateButton.addEventListener("click", function() {
+            var emailDialog = Ti.UI.createEmailDialog();
+            emailDialog.subject = "Message from Startup Explorer";
+            emailDialog.toRecipients = [ "startupexplorer@buddy.com" ];
+            emailDialog.open();
+        });
+        updateButton.add(label);
+        $.scrollView.add(updateButton);
         $.scrollView.add(scrollPadding);
         $.detailHeader.height = Alloy.Globals.detailHeadingPadding2;
         $.containerLM.animate({
@@ -525,8 +549,10 @@ function Controller() {
         });
     }
     require("alloy/controllers/base").apply(this, Array.prototype.slice.call(arguments));
+    this.__controllerPath = "tab";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
+    arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     $.__views.container = Ti.UI.createView({

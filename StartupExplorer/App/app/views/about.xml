@@ -5,8 +5,9 @@
 		<Label id="buddyHeader">Buddy powers, optimizes and measures your mobile apps.</Label>
 		<ImageView id="buddyIcons" />
 		<Label id="buddyDesc">
-			Buddy is a web services platform that powers, optimizes and measures mobile apps on any OS platform, any connected device. Developers can use Buddy to add cloud connected features to their apps without having to write any server-side code, and publishers get very high fidelity analytics on the usage and engagement of their mobile experiences. Both developers and publishers have access to dashboards, displaying data relevant to their interests (developers stats or publisher analytics).\n\nBuddy is the most complete, feature-rich backend as a service (BaaS) on the market, allowing developers, brands, agencies and enterprises to focus on building amazing mobile experiences and not on the infrastructure required to power, optimize or measure those experiences.
+			Buddy is a web services platform that powers, optimizes and measures mobile apps on any OS platform, any connected device. Developers can use Buddy to add cloud connected features to their apps without having to write any server-side code, and publishers get very high fidelity analytics on the usage and engagement of their mobile experiences. Both developers and publishers have access to dashboards, displaying data relevant to their interests (developers stats or publisher analytics).\n\nBuddy is the most complete, feature-rich backend as a service (BaaS) on the market, allowing developers, brands, agencies and enterprises to focus on building amazing mobile experiences and not on the infrastructure required to power, optimize or measure those experiences.\n\n
 		</Label>
+		<Label id="buddyDesc">To update your startup's information, please email startupexplorer@buddy.com</Label>
 		<View id="socialArea">
 			<Button class="social" id="btFacebook" />
 			<Button class="social" id="btTwitter" />

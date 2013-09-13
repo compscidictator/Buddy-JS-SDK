@@ -56,8 +56,10 @@ function Controller() {
         xhrSend.send();
     }
     require("alloy/controllers/base").apply(this, Array.prototype.slice.call(arguments));
+    this.__controllerPath = "add";
     arguments[0] ? arguments[0]["__parentSymbol"] : null;
     arguments[0] ? arguments[0]["$model"] : null;
+    arguments[0] ? arguments[0]["__itemTemplate"] : null;
     var $ = this;
     var exports = {};
     $.__views.addStartup = Ti.UI.createView({
@@ -112,7 +114,7 @@ function Controller() {
         left: Alloy.Globals.fieldTextPadding,
         right: Alloy.Globals.fieldTextPadding,
         top: Alloy.Globals.fieldTextPaddingTop,
-        text: "To join, complete the form below. We will contact you about additional info needed.",
+        text: "To join, complete the form below. We will contact you about additional info needed.\n\nTo update your startup's information, please email startupexplorer@buddy.com",
         id: "fieldText"
     });
     $.__views.scrollView.add($.__views.fieldText);

@@ -5,7 +5,8 @@
 		</View>
 		<ImageView id="addHeader">
 		<ScrollView id="scrollView">
-			<Label id="fieldText">To join, complete the form below. We will contact you about additional info needed.</Label>		
+			<Label id="fieldText">To join, complete the form below. We will contact you about additional info needed.\n\nTo update your startup's information, please email startupexplorer@buddy.com
+</Label>		
 			<View class="fieldRow">
 				<TextField class="fieldBox" id="name" hintText="Startup Name" />
 			</View>

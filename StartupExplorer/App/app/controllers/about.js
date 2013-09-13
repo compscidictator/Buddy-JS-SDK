@@ -37,7 +37,7 @@ $.btTwitter.addEventListener('click', function(){
 $.btEmail.addEventListener('click', function(){
 	var emailDialog = Ti.UI.createEmailDialog()
 	emailDialog.subject = "Message from Startup Explorer";
-	emailDialog.toRecipients = ['app@buddy.com'];
+	emailDialog.toRecipients = ['startupexplorer@buddy.com'];
 	
 	emailDialog.open();	
 });
