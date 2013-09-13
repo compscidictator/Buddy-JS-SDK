@@ -35,7 +35,6 @@ static NSString *testUserToken = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 @synthesize detailViewController = _detailViewController;
 @synthesize tbx;
 @synthesize user;
-@synthesize buddyClient;
 @synthesize userNameField;
 @synthesize userPasswordField;
 
@@ -155,7 +154,7 @@ static NSString *testUserToken = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 	__block BuddyAuthenticatedUser *_user;
 
-	[buddyClient login:testUserToken
+	[[BuddyClient defaultClient] login:testUserToken
 			  callback:[^(BuddyAuthenticatedUserResponse *response)
 						{
 							if (response.isCompleted)
@@ -195,7 +194,7 @@ static NSString *testUserToken = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 		return;
 	}
 
-	[buddyClient login:userName
+	[[BuddyClient defaultClient] login:userName
 			  password:password
 				  callback:[^(BuddyAuthenticatedUserResponse *response)
 									 {
@@ -217,11 +216,9 @@ static NSString *testUserToken = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)initialize
 {
-	if (buddyClient == nil)
-	{
-		buddyClient = [[BuddyClient alloc] initClient:appName
-										  appPassword:appPassword];
-	}
+
+    [BuddyClient initClient:appName
+                appPassword:appPassword];
 
 	self.user = nil;
 }

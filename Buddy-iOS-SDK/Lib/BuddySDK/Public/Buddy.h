@@ -73,10 +73,3 @@
 #import "BuddyUserMetadata.h"
 #import "BuddyVirtualAlbum.h"
 #import "BuddyVirtualAlbums.h"
-
-@interface Buddy : NSObject
-
-+ (void)setApplicationName:(NSString *)name withPassword:(NSString *)password;
-+ (void)setApplicationName:(NSString *)name withPassword:(NSString *)password options:(NSDictionary *)options;
-
-@end

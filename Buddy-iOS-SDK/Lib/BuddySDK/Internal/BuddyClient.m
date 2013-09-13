@@ -39,6 +39,27 @@
 @synthesize recordDeviceInfo;
 @synthesize hasRecordedDeviceInfo;
 
+
++(instancetype)defaultClient
+{
+    static BuddyClient *sharedClient = nil;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        sharedClient = [[self alloc] init];
+    });
+    return sharedClient;
+}
+
++ (void)initClient:(NSString *)name appPassword:(NSString *)password
+{
+	[BuddyClient initClient:name appPassword:password version:nil autoRecordDeviceInfo:YES];    
+}
+
++ (void)initClient:(NSString *)name appPassword:(NSString *)password version:(NSString *)version   autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
+{
+    [[BuddyClient defaultClient] doInit:name password:password version:version autoRecordDeviceInfo:autoRecordDeviceInfo];
+}
+
 - (BuddyWebWrapper *)webService
 {
 	if (_webWrapper == nil)
@@ -58,9 +79,7 @@
 		return nil;
 	}
 
-	[self doInit:appName password:appPassword version:nil];
-
-	recordDeviceInfo = true;
+	[self doInit:appName password:appPassword version:nil autoRecordDeviceInfo:YES];
 
 	return self;
 }
@@ -101,16 +120,15 @@
 		return nil;
 	}
 
-	[self doInit:appName password:appPassword version:appVersion];
-
-	recordDeviceInfo = autoRecordDeviceInfo;
+	[self doInit:appName password:appPassword version:appVersion autoRecordDeviceInfo:autoRecordDeviceInfo];
 
 	return self;
 }
 
-- (void)doInit:(NSString *)appName
-	  password:(NSString *)appPassword
-	   version:(NSString *)appVersion
+- (void)        doInit:(NSString *)appName
+              password:(NSString *)appPassword
+               version:(NSString *)appVersion
+  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo;
 {
 	if (appName == nil || appName.length == 0)
 	{
@@ -131,6 +149,8 @@
 		_appVersion = appVersion;
 	}
 
+    recordDeviceInfo = autoRecordDeviceInfo;
+    
 	_appName = appName;
 	_appPassword = appPassword;
 
