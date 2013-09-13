@@ -50,7 +50,6 @@
 		2946DE06174D696A005BE2F4 /* BuddyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946DE04174D696A005BE2F4 /* BuddyFile.m */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
-		C153F87417E1730B009CDC81 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87217E1730B009CDC81 /* Buddy.m */; };
 		C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F87517E17C12009CDC81 /* BuddyBase.h */; };
 		C153F87817E17C12009CDC81 /* BuddyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyBase.m */; };
 		C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C8169615AD0066A899 /* BuddyApplicationStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -329,7 +328,6 @@
 		A6291F7F165C01800051F83C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddySDK-Prefix.pch"; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
-		C153F87217E1730B009CDC81 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Buddy.m; path = ../../Lib/BuddySDK/Internal/Buddy.m; sourceTree = "<group>"; };
 		C153F87517E17C12009CDC81 /* BuddyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyBase.h; path = ../../Lib/BuddySDK/Internal/BuddyBase.h; sourceTree = "<group>"; };
 		C153F87617E17C12009CDC81 /* BuddyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyBase.m; path = ../../Lib/BuddySDK/Internal/BuddyBase.m; sourceTree = "<group>"; };
 		C19ECC7F17DEE047008A9130 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
@@ -617,7 +615,6 @@
 			children = (
 				C153F87517E17C12009CDC81 /* BuddyBase.h */,
 				C153F87617E17C12009CDC81 /* BuddyBase.m */,
-				C153F87217E1730B009CDC81 /* Buddy.m */,
 				290883921775005D001C9DEF /* BuddyBlob.m */,
 				290883931775005D001C9DEF /* BuddyBlobs.m */,
 				290883941775005D001C9DEF /* BuddyCommerce.m */,
@@ -930,7 +927,6 @@
 				290883A11775005D001C9DEF /* BuddyReceipt.m in Sources */,
 				290883A21775005D001C9DEF /* BuddySounds.m in Sources */,
 				290883A31775005D001C9DEF /* BuddyStartup.m in Sources */,
-				C153F87417E1730B009CDC81 /* Buddy.m in Sources */,
 				290883A41775005D001C9DEF /* BuddyStartups.m in Sources */,
 				290883A51775005D001C9DEF /* BuddyStoreItem.m in Sources */,
 				290883A61775005D001C9DEF /* BuddyVideo.m in Sources */,
