@@ -32,8 +32,6 @@
 
 @property (nonatomic, strong) BuddyVirtualAlbum *virtualAlbum;
 
-@property (nonatomic, strong) BuddyClient *buddyClient;
-
 @property (nonatomic, strong) BuddyVirtualAlbums *virtualAlbums;
 
 @property (nonatomic, strong) NSArray *virtualAlbumArray;

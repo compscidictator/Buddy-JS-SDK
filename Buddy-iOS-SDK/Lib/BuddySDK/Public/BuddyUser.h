@@ -65,17 +65,6 @@ typedef void (^BuddyUserGetProfilePhotosCallback)(BuddyArrayResponse *response);
 @interface BuddyUser : NSObject
 
 /// <summary>
-/// Singleton instance of the current Buddy user.
-/// </summary>
-+(instancetype)currentUser;
-
-/// <summary>
-/// Singleton instance of the current Buddy user.
-/// </summary>
-+(instancetype)loginWithUsername:(NSString *)username
-                     andPassword:(NSString *)password;
-
-/// <summary>
 /// Gets the name of the user.
 /// </summary>
 @property (readonly, nonatomic, strong) NSString *name;

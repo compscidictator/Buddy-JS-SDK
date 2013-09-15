@@ -20,26 +20,23 @@ static bool bwaiting = false;
 static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 @synthesize buddyUser;
-@synthesize buddyClient;
 
 - (void)setUp
 {
     [super setUp];
     
-    self.buddyClient = [[BuddyClient alloc] initClient:AppName
-                                           appPassword:AppPassword
-                                            appVersion:@"1"
-                                  autoRecordDeviceInfo:TRUE];
+    [BuddyClient initClient:AppName
+                appPassword:AppPassword
+                 appVersion:@"1"
+       autoRecordDeviceInfo:TRUE];
     
     
-    STAssertNotNil(self.buddyClient, @"TestFriendRequest failed buddyClient nil");
+    STAssertNotNil([BuddyClient defaultClient], @"TestFriendRequest failed buddyClient nil");
 }
 
 - (void)tearDown
 {
     [super tearDown];
-    
-    self.buddyClient = nil;
 }
 
 - (void)waitloop
@@ -52,7 +49,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)alogin
 {
-    [self.buddyClient login:Token  callback:[^(BuddyAuthenticatedUserResponse *response)
+    [[BuddyClient defaultClient] login:Token  callback:[^(BuddyAuthenticatedUserResponse *response)
          {
              if (response.isCompleted && response.result)
              {
@@ -97,8 +94,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)addMetaData
 {
-    __block TestAppMetaData *_self = self;
-    [_self.buddyClient.metadata set:@"TestKey1" value:@"124" latitude:0.0 longitude:0.0 appTag:@"AppTag" callback:[^(BuddyBoolResponse *response)
+    [[BuddyClient defaultClient].metadata set:@"TestKey1" value:@"124" latitude:0.0 longitude:0.0 appTag:@"AppTag" callback:[^(BuddyBoolResponse *response)
        {
            if(response.isCompleted)
            {
@@ -114,8 +110,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)addMetaData2
 {
-    __block TestAppMetaData *_self =self;
-    [_self.buddyClient.metadata set:@"TestKey2" value:@"5235" callback:[^(BuddyBoolResponse *response)
+    [[BuddyClient defaultClient].metadata set:@"TestKey2" value:@"5235" callback:[^(BuddyBoolResponse *response)
         {
             if(response.isCompleted)
             {
@@ -131,8 +126,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)sumMetaData
 {
-    __block TestAppMetaData *_self = self;
-    [_self.buddyClient.metadata sum:@"TestKey%" callback:[^(BuddyMetadataSumResponse *response)
+    [[BuddyClient defaultClient].metadata sum:@"TestKey%" callback:[^(BuddyMetadataSumResponse *response)
         {
             if(response.isCompleted)
             {
@@ -149,8 +143,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)batchSumMetaData
 {
-    __block TestAppMetaData *_self = self;
-    [_self.buddyClient.metadata batchSum:@"TestKey%;TestKey1" callback:[^(BuddyArrayResponse *response)
+    [[BuddyClient defaultClient].metadata batchSum:@"TestKey%;TestKey1" callback:[^(BuddyArrayResponse *response)
         {
             if(response.isCompleted)
             {

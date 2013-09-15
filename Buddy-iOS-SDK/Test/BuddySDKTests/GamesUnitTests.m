@@ -29,7 +29,6 @@
 
 @implementation GamesUnitTests
 
-@synthesize buddyClient;
 @synthesize user;
 
 static NSString *AppName = @"Buddy iOS SDK test app";
@@ -41,19 +40,17 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
     [super setUp];
     
-    self.buddyClient = [[BuddyClient alloc] initClient:AppName
-                                           appPassword:AppPassword
-                                            appVersion:@"1"
-                                  autoRecordDeviceInfo:TRUE];
+    [BuddyClient initClient:AppName
+                appPassword:AppPassword
+                 appVersion:@"1"
+       autoRecordDeviceInfo:TRUE];
     
-    STAssertNotNil(self.buddyClient, @"GamesUnitTests setUp failed buddyClient nil");
+    STAssertNotNil([BuddyClient defaultClient], @"GamesUnitTests setUp failed buddyClient nil");
 }
 
 - (void)tearDown
 {
     [super tearDown];
-    
-    self.buddyClient = nil;
     self.user = nil;    
 }
 
@@ -67,7 +64,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)alogin
 {
-    [self.buddyClient login:Token callback:[^(BuddyAuthenticatedUserResponse *response)
+    [[BuddyClient defaultClient] login:Token callback:[^(BuddyAuthenticatedUserResponse *response)
                                                       {
                                                           if (response.isCompleted)
                                                           {
@@ -86,7 +83,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
     NSArray *resArray = [TestBuddySDK GetTextFileData:@"Test_GameScoreSearch"];
     
-    NSArray *scores = [self.buddyClient.gameBoards performSelector:@selector(makeScores:) withObject:resArray];
+    NSArray *scores = [[BuddyClient defaultClient].gameBoards performSelector:@selector(makeScores:) withObject:resArray];
     
     if (scores == nil || [scores count] != 3)
     {
@@ -107,7 +104,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
     NSArray *resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
     
-    NSArray *scores = [self.buddyClient.gameBoards performSelector:@selector(makeScores:) withObject:resArray];
+    NSArray *scores = [[BuddyClient defaultClient].gameBoards performSelector:@selector(makeScores:) withObject:resArray];
     
     if (scores == nil || [scores count] != 0)
     {
@@ -115,7 +112,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    scores = [self.buddyClient.gameBoards performSelector:@selector(makeScores:) withObject:resArray];
+    scores = [[BuddyClient defaultClient].gameBoards performSelector:@selector(makeScores:) withObject:resArray];
     
     if (scores == nil || [scores count] != 0)
     {

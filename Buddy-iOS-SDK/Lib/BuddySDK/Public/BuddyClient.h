@@ -205,7 +205,7 @@ typedef void (^BuddyRecordSessionMetricCallback)(BuddyBoolResponse *response);
 /// <param name="autoRecordDeviceInfo">If true automatically records the current device profile with the Buddy Service (device type, os version etc.).</param>
 + (void)    initClient:(NSString *)name
            appPassword:(NSString *)password
-               options:(NSString *)version
+               appVersion:(NSString *)version
   autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo;
 
 /// <summary>

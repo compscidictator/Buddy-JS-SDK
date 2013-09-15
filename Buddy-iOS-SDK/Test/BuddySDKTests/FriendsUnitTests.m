@@ -24,7 +24,6 @@
 
 @implementation FriendsUnitTests
 
-@synthesize buddyClient;
 @synthesize tokenUser;
 
 static NSString *AppName = @"Buddy iOS SDK test app";
@@ -36,19 +35,17 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
     [super setUp];
     
-    self.buddyClient = [[BuddyClient alloc] initClient:AppName
-                                           appPassword:AppPassword
-                                            appVersion:@"1"
-                                  autoRecordDeviceInfo:TRUE];
+[BuddyClient initClient:AppName
+            appPassword:AppPassword
+             appVersion:@"1"
+   autoRecordDeviceInfo:TRUE];
     
-    STAssertNotNil(self.buddyClient, @"FriendsUnitTests failed buddyClient nil");
+    STAssertNotNil([BuddyClient defaultClient], @"FriendsUnitTests failed buddyClient nil");
 }
 
 - (void)tearDown
 {
     [super tearDown];
-    
-    self.buddyClient = nil;
 }
 
 - (void)waitloop
@@ -62,7 +59,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)alogin
 {
-    [self.buddyClient login:Token  callback:[^(BuddyAuthenticatedUserResponse *response)
+    [[BuddyClient defaultClient] login:Token  callback:[^(BuddyAuthenticatedUserResponse *response)
                                                       {
                                                           if (response.isCompleted && response.result)
                                                           {

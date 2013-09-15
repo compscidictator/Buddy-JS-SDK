@@ -8,13 +8,10 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@class BuddyClient;
 @class BuddyAuthenticatedUser;
 @class BuddySounds;
 
 @interface SoundTest : SenTestCase
-
-@property (nonatomic, strong) BuddyClient *buddyClient;
 
 @property (nonatomic, strong) BuddyAuthenticatedUser *user;
 

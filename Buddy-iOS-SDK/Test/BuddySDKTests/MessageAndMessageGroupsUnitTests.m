@@ -29,7 +29,6 @@
 @implementation MessageAndMessageGroupsUnitTests
 
 @synthesize user;
-@synthesize buddyClient;
 
 static NSString *AppName = @"Buddy iOS SDK test app";
 static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
@@ -40,12 +39,12 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
     [super setUp];
     
-    self.buddyClient = [[BuddyClient alloc] initClient:AppName
-                                           appPassword:AppPassword
-                                            appVersion:@"1"
-                                  autoRecordDeviceInfo:TRUE];
+    [BuddyClient initClient:AppName
+                                   appPassword:AppPassword
+                                    appVersion:@"1"
+                          autoRecordDeviceInfo:TRUE];
     
-    STAssertNotNil(self.buddyClient, @"MessageAndMessageGroupsUnitTests: buddyclient nil");
+    STAssertNotNil([BuddyClient defaultClient], @"MessageAndMessageGroupsUnitTests: buddyclient nil");
     
     self.user = nil;
 }
@@ -53,8 +52,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 - (void)tearDown
 {
     [super tearDown];
-    
-    self.buddyClient = nil;
 }
 
 - (void)waitloop
@@ -67,7 +64,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)alogin
 {
-    [self.buddyClient login:Token  callback:[^(BuddyAuthenticatedUserResponse *response)
+    [[BuddyClient defaultClient] login:Token  callback:[^(BuddyAuthenticatedUserResponse *response)
     {
         if (response.isCompleted)
         {

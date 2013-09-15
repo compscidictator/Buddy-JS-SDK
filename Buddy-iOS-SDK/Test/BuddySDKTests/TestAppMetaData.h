@@ -8,13 +8,10 @@
 
 #import <SenTestingKit/SenTestingKit.h>
 
-@class BuddyClient;
 @class BuddyAuthenticatedUser;
 @class BuddyAuthenticatedUserResponse;
 
 @interface TestAppMetaData : SenTestCase
-
-@property (nonatomic, strong) BuddyClient *buddyClient;
 
 @property (nonatomic, strong) BuddyAuthenticatedUser *buddyUser;
 

@@ -18,15 +18,12 @@
 
 
 @class BuddyPicture;
-@class BuddyClient;
 @class BuddyAuthenticatedUser;
 @class BuddyPhotoAlbum;
 @class BuddyPicturePublic;
 
 
 @interface PicturesAndAlbumsUnitTests : SenTestCase
-
-@property (nonatomic, strong) BuddyClient *buddyClient;
 
 @property (nonatomic, strong) BuddyAuthenticatedUser *user;
 

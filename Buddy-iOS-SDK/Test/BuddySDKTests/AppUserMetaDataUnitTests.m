@@ -32,26 +32,24 @@ static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 static bool bwaiting = false;
 static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
-@synthesize buddyClient;
 @synthesize user;
 
 - (void)setUp
 {
 	[super setUp];
     
-	self.buddyClient = [[BuddyClient alloc] initClient:AppName
-										   appPassword:AppPassword
-											appVersion:@"1"
-								  autoRecordDeviceInfo:TRUE];
+	[BuddyClient initClient:AppName
+                                   appPassword:AppPassword
+                                    appVersion:@"1"
+                          autoRecordDeviceInfo:TRUE];
     
-	STAssertNotNil(self.buddyClient, @"AppUserMetaDataUnitTests failed buddyClient nil");
+	STAssertNotNil([BuddyClient defaultClient], @"AppUserMetaDataUnitTests failed buddyClient nil");
 }
 
 - (void)tearDown
 {
 	[super tearDown];
     
-	self.buddyClient = nil;
 	self.user = nil;
 }
 
@@ -66,7 +64,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)alogin
 {
-	[self.buddyClient login:Token 
+	[[BuddyClient defaultClient] login:Token
 				   callback:[^(BuddyAuthenticatedUserResponse *response)
 							 {
 								 if (response.isCompleted)
@@ -184,7 +182,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
 	NSArray *resArray = [TestBuddySDK GetTextFileData:@"Test_AppSearchMetadata"];
     
-	NSDictionary *dict = [self.buddyClient.metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
+	NSDictionary *dict = [[BuddyClient defaultClient].metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
     
 	if ([dict count] != 3)
 	{
@@ -225,7 +223,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
 	NSArray *resArray = [TestBuddySDK GetTextFileData:@"Test_AppSearchMetadataBad"];
     
-	NSDictionary *dict = [self.buddyClient.metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
+	NSDictionary *dict = [[BuddyClient defaultClient].metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
     
 	if ([dict count] != 1)
 	{
@@ -256,7 +254,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
 	NSArray *resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
     
-	NSDictionary *dict = [self.buddyClient.metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
+	NSDictionary *dict = [[BuddyClient defaultClient].metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
     
 	if ([dict count] != 0)
 	{
@@ -264,7 +262,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	}
     
 	resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-	dict = [self.buddyClient.metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
+	dict = [[BuddyClient defaultClient].metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
 	if ([dict count] != 0)
 	{
 		STFail(@"testApplicationMetadataNoData failed dict Test_EmptyData should have 0 items");
@@ -275,7 +273,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
 	NSArray *resArray = [TestBuddySDK GetTextFileData:@"Test_MetadataSum"];
     
-	NSArray *dict = [self.buddyClient.metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
+	NSArray *dict = [[BuddyClient defaultClient].metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
     
 	if ([dict count] != 2)
 	{
@@ -283,7 +281,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	}
     
 	resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-	dict = [self.buddyClient.metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
+	dict = [[BuddyClient defaultClient].metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
 	if ([dict count] != 0)
 	{
 		STFail(@"ttestApplicationMetadataSumTest failed dict should have 0 items");
@@ -291,7 +289,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     
     
 	resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-	dict = [self.buddyClient.metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
+	dict = [[BuddyClient defaultClient].metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
 	if ([dict count] != 0)
 	{
 		STFail(@"testApplicationMetadataSumTest failed dict should have 0 items");

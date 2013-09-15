@@ -23,8 +23,6 @@
 
 @interface LocationAndPlacesUnitTests : SenTestCase
 
-@property (nonatomic, strong) BuddyClient *buddyClient;
-
 @property (nonatomic, strong) BuddyAuthenticatedUser *user;
 
 @end

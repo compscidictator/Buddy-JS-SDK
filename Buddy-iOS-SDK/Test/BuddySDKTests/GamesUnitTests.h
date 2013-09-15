@@ -23,6 +23,4 @@
 
 @property (nonatomic, strong) BuddyAuthenticatedUser *user;
 
-@property (nonatomic, strong) BuddyClient *buddyClient;
-
 @end

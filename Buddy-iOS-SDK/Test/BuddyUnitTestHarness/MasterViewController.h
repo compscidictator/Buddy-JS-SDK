@@ -30,8 +30,6 @@
 
 @property (nonatomic, strong) BuddyAuthenticatedUser *user;
 
-@property (nonatomic, strong) BuddyClient *buddyClient;
-
 @property (retain) IBOutlet UILabel *tbx;
 
 @property (retain) IBOutlet UITextField *userNameField;

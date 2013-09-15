@@ -52,10 +52,10 @@
 
 + (void)initClient:(NSString *)name appPassword:(NSString *)password
 {
-	[BuddyClient initClient:name appPassword:password version:nil autoRecordDeviceInfo:YES];    
+	[BuddyClient initClient:name appPassword:password appVersion:nil autoRecordDeviceInfo:YES];
 }
 
-+ (void)initClient:(NSString *)name appPassword:(NSString *)password version:(NSString *)version   autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
++ (void)initClient:(NSString *)name appPassword:(NSString *)password appVersion:(NSString *)version   autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
 {
     [[BuddyClient defaultClient] doInit:name password:password version:version autoRecordDeviceInfo:autoRecordDeviceInfo];
 }
