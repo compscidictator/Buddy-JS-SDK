@@ -15,7 +15,6 @@
 		A291F26816CEEFBF0094FF57 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A291F26716CEEFBF0094FF57 /* Default-568h@2x.png */; };
 		A2C5EA221702617D0038A0C5 /* iPadIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C5EA201702617D0038A0C5 /* iPadIcon.png */; };
 		A2C5EA231702617D0038A0C5 /* iPhoneIPodTouchIcon.png in Resources */ = {isa = PBXBuildFile; fileRef = A2C5EA211702617D0038A0C5 /* iPhoneIPodTouchIcon.png */; };
-		A2C5EA25170261EE0038A0C5 /* libBuddySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A2C5EA24170261EE0038A0C5 /* libBuddySDK.a */; };
 		A2DCA01217179B2D0094732A /* AppUserMetaDataUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DC9FD917179B2D0094732A /* AppUserMetaDataUnitTests.m */; };
 		A2DCA01417179B2D0094732A /* CommerceUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = A2DC9FDD17179B2D0094732A /* CommerceUnitTests.m */; };
 		A2DCA01517179B2D0094732A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A2DC9FDF17179B2D0094732A /* InfoPlist.strings */; };
@@ -42,6 +41,7 @@
 		A6291F5C165C01640051F83C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F36165C01640051F83C /* UIKit.framework */; };
 		A6291F5D165C01640051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F38165C01640051F83C /* Foundation.framework */; };
 		A6291F65165C01640051F83C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6291F63165C01640051F83C /* InfoPlist.strings */; };
+		C1FBCECD17E66C4000275F6A /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCECC17E66C4000275F6A /* BuddySDK.framework */; };
 		D418862816FBCCA900385248 /* Test_StartupBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862716FBCCA800385248 /* Test_StartupBad.txt */; };
 		D418862A16FBCCB200385248 /* Test_Startup.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862916FBCCB200385248 /* Test_Startup.txt */; };
 		D418862C16FBCCBA00385248 /* Test_CommerceStoreBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862B16FBCCBA00385248 /* Test_CommerceStoreBad.txt */; };
@@ -119,7 +119,6 @@
 		A2C502211700FE9900F26028 /* BuddyUtility.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyUtility.h; path = ../lib/BuddySDK/Internal/BuddyUtility.h; sourceTree = "<group>"; };
 		A2C5EA201702617D0038A0C5 /* iPadIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPadIcon.png; sourceTree = "<group>"; };
 		A2C5EA211702617D0038A0C5 /* iPhoneIPodTouchIcon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = iPhoneIPodTouchIcon.png; sourceTree = "<group>"; };
-		A2C5EA24170261EE0038A0C5 /* libBuddySDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libBuddySDK.a; path = "../../../Library/Developer/Xcode/DerivedData/BuddySDK-grylobojvovwoefurbcckntwjrjt/Build/Products/Debug-iphoneos/libBuddySDK.a"; sourceTree = "<group>"; };
 		A2DC9FD817179B2D0094732A /* AppUserMetaDataUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppUserMetaDataUnitTests.h; path = ../../Test/BuddySDKTests/AppUserMetaDataUnitTests.h; sourceTree = "<group>"; };
 		A2DC9FD917179B2D0094732A /* AppUserMetaDataUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppUserMetaDataUnitTests.m; path = ../../Test/BuddySDKTests/AppUserMetaDataUnitTests.m; sourceTree = "<group>"; };
 		A2DC9FDC17179B2D0094732A /* CommerceUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CommerceUnitTests.h; path = ../../Test/BuddySDKTests/CommerceUnitTests.h; sourceTree = "<group>"; };
@@ -162,6 +161,7 @@
 		A6291F5A165C01640051F83C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A6291F62165C01640051F83C /* BuddySDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BuddySDKTests-Info.plist"; sourceTree = "<group>"; };
 		A6291F64165C01640051F83C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C1FBCECC17E66C4000275F6A /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		D418862716FBCCA800385248 /* Test_StartupBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_StartupBad.txt; sourceTree = "<group>"; };
 		D418862916FBCCB200385248 /* Test_Startup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_Startup.txt; sourceTree = "<group>"; };
 		D418862B16FBCCBA00385248 /* Test_CommerceStoreBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_CommerceStoreBad.txt; sourceTree = "<group>"; };
@@ -224,7 +224,7 @@
 				A6291F37165C01640051F83C /* UIKit.framework in Frameworks */,
 				A6291F39165C01640051F83C /* Foundation.framework in Frameworks */,
 				A6291F3B165C01640051F83C /* CoreGraphics.framework in Frameworks */,
-				A2C5EA25170261EE0038A0C5 /* libBuddySDK.a in Frameworks */,
+				C1FBCECD17E66C4000275F6A /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,7 +256,6 @@
 		A6291F27165C01640051F83C = {
 			isa = PBXGroup;
 			children = (
-				A2C5EA24170261EE0038A0C5 /* libBuddySDK.a */,
 				A6291F3C165C01640051F83C /* BuddyUnitTestHarness */,
 				A6291F60165C01640051F83C /* BuddySDKTests */,
 				A6291F35165C01640051F83C /* Frameworks */,
@@ -292,6 +291,7 @@
 		A6291F3C165C01640051F83C /* BuddyUnitTestHarness */ = {
 			isa = PBXGroup;
 			children = (
+				C1FBCECC17E66C4000275F6A /* BuddySDK.framework */,
 				A6291F46165C01640051F83C /* AppDelegate.m */,
 				A6291F51165C01640051F83C /* DetailViewController.h */,
 				A6291F4B165C01640051F83C /* MainStoryboard_iPad.storyboard */,
@@ -732,6 +732,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				CURRENT_PROJECT_VERSION = 0.1.4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/BuddyUnitTestHarness\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySDKTests/BuddySDKTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/../UninstalledProducts/include/**";
@@ -757,6 +762,11 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COMPRESS_PNG_FILES = NO;
 				CURRENT_PROJECT_VERSION = 0.1.4;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)\"",
+					"\"$(SRCROOT)/BuddyUnitTestHarness\"",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySDKTests/BuddySDKTests-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(PROJECT_TEMP_DIR)/../UninstalledProducts/include/**";

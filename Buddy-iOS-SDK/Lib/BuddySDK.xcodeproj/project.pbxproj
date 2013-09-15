@@ -105,7 +105,7 @@
 		C19ECC7217DEAEDA008A9130 /* BuddyUserMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4198D16962CE000C38DD3 /* BuddyUserMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC7317DEAEDA008A9130 /* BuddyVirtualAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A9F2961696EAAE001C54B7 /* BuddyVirtualAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC7417DEAEDA008A9130 /* BuddyVirtualAlbums.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4199116962D3E00C38DD3 /* BuddyVirtualAlbums.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C19ECC8017DEE047008A9130 /* Buddy.h in Headers */ = {isa = PBXBuildFile; fileRef = C19ECC7F17DEE047008A9130 /* Buddy.h */; };
+		C19ECC8017DEE047008A9130 /* Buddy.h in Headers */ = {isa = PBXBuildFile; fileRef = C19ECC7F17DEE047008A9130 /* Buddy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		D40FDA9F1695F5060028C609 /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = D40FDA861695F5060028C609 /* AFHTTPClient.h */; };
 		D40FDAA01695F5060028C609 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = D40FDA871695F5060028C609 /* AFHTTPClient.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D40FDAA11695F5060028C609 /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = D40FDA881695F5060028C609 /* AFHTTPRequestOperation.h */; };
@@ -688,6 +688,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C19ECC8017DEE047008A9130 /* Buddy.h in Headers */,
 				C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */,
 				C19ECC4117DEAEDA008A9130 /* BuddyBlob.h in Headers */,
 				C19ECC4217DEAEDA008A9130 /* BuddyBlobs.h in Headers */,
@@ -759,7 +760,6 @@
 				D40FDABE1695FCE00028C609 /* BuddyUtility.h in Headers */,
 				D474B3AE169B7AA70020204D /* AFJSONUtilities.h in Headers */,
 				16409F2217C3DAC000A440C3 /* OpenUDID.h in Headers */,
-				C19ECC8017DEE047008A9130 /* Buddy.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

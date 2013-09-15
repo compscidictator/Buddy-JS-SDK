@@ -39,9 +39,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	[super setUp];
     
 	[BuddyClient initClient:AppName
-                appPassword:AppPassword
-                 appVersion:@"1"
-       autoRecordDeviceInfo:TRUE];
+                appPassword:AppPassword];
 
 	STAssertNotNil([BuddyClient defaultClient], @"CommerceUnitTests failed buddyClient nil");
 }

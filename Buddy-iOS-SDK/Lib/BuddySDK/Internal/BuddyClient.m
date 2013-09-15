@@ -52,12 +52,20 @@
 
 + (void)initClient:(NSString *)name appPassword:(NSString *)password
 {
-	[BuddyClient initClient:name appPassword:password appVersion:nil autoRecordDeviceInfo:YES];
+	[BuddyClient initClient:name appPassword:password withOptions:nil];
 }
 
-+ (void)initClient:(NSString *)name appPassword:(NSString *)password appVersion:(NSString *)version   autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
++ (void) initClient:(NSString *)name
+        appPassword:(NSString *)password
+        withOptions:(NSDictionary *)options
 {
-    [[BuddyClient defaultClient] doInit:name password:password version:version autoRecordDeviceInfo:autoRecordDeviceInfo];
+    NSString *version = options[@"appVersion"] ? options[@"appVersion"] : @"1.0";
+    BOOL autoRecordDeviceInfo = [options[@"autoRecordDeviceInfo"] boolValue];
+    
+    [[BuddyClient defaultClient] doInit:name
+                               password:password
+                                version:version
+                   autoRecordDeviceInfo:autoRecordDeviceInfo];
 }
 
 - (BuddyWebWrapper *)webService
