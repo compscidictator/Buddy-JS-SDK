@@ -50,7 +50,8 @@
     return sharedClient;
 }
 
-+ (void)initClient:(NSString *)name appPassword:(NSString *)password
++ (void)initClient:(NSString *)name
+       appPassword:(NSString *)password
 {
 	[BuddyClient initClient:name appPassword:password withOptions:nil];
 }
