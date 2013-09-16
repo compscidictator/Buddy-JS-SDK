@@ -42,6 +42,8 @@
 		A6291F5D165C01640051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F38165C01640051F83C /* Foundation.framework */; };
 		A6291F65165C01640051F83C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6291F63165C01640051F83C /* InfoPlist.strings */; };
 		C1FBCECD17E66C4000275F6A /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCECC17E66C4000275F6A /* BuddySDK.framework */; };
+		C1FBCEDC17E6AED600275F6A /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCEDB17E6AED500275F6A /* LocationTests.m */; };
+		C1FBCEDD17E6AED600275F6A /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCEDB17E6AED500275F6A /* LocationTests.m */; };
 		D418862816FBCCA900385248 /* Test_StartupBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862716FBCCA800385248 /* Test_StartupBad.txt */; };
 		D418862A16FBCCB200385248 /* Test_Startup.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862916FBCCB200385248 /* Test_Startup.txt */; };
 		D418862C16FBCCBA00385248 /* Test_CommerceStoreBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862B16FBCCBA00385248 /* Test_CommerceStoreBad.txt */; };
@@ -162,6 +164,8 @@
 		A6291F62165C01640051F83C /* BuddySDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BuddySDKTests-Info.plist"; sourceTree = "<group>"; };
 		A6291F64165C01640051F83C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C1FBCECC17E66C4000275F6A /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		C1FBCEDA17E6AED500275F6A /* LocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationTests.h; path = ../../Test/BuddySDKTests/LocationTests.h; sourceTree = "<group>"; };
+		C1FBCEDB17E6AED500275F6A /* LocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationTests.m; path = ../../Test/BuddySDKTests/LocationTests.m; sourceTree = "<group>"; };
 		D418862716FBCCA800385248 /* Test_StartupBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_StartupBad.txt; sourceTree = "<group>"; };
 		D418862916FBCCB200385248 /* Test_Startup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_Startup.txt; sourceTree = "<group>"; };
 		D418862B16FBCCBA00385248 /* Test_CommerceStoreBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_CommerceStoreBad.txt; sourceTree = "<group>"; };
@@ -398,6 +402,8 @@
 				1B927FF71755704500ADC6C9 /* VideoTests.m */,
 				1B927FF917559A4600ADC6C9 /* SoundTest.h */,
 				1B927FFA17559A4600ADC6C9 /* SoundTest.m */,
+				C1FBCEDA17E6AED500275F6A /* LocationTests.h */,
+				C1FBCEDB17E6AED500275F6A /* LocationTests.m */,
 			);
 			path = BuddySDKTests;
 			sourceTree = "<group>";
@@ -571,6 +577,7 @@
 				A6291F47165C01640051F83C /* AppDelegate.m in Sources */,
 				A6291F50165C01640051F83C /* MasterViewController.m in Sources */,
 				A6291F53165C01640051F83C /* DetailViewController.m in Sources */,
+				C1FBCEDC17E6AED600275F6A /* LocationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -593,6 +600,7 @@
 				A2DCA02D17179B2D0094732A /* VirtualAlbumUnitTests.m in Sources */,
 				1B927FF81755704500ADC6C9 /* VideoTests.m in Sources */,
 				1B927FFB17559A4700ADC6C9 /* SoundTest.m in Sources */,
+				C1FBCEDD17E6AED600275F6A /* LocationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
