@@ -10,7 +10,7 @@ function Controller() {
             }
             Alloy.Globals.CB.Util.startLoading();
             var toName = "Buddy.com";
-            var toEmail = "startupexplorer@buddy.com";
+            var toEmail = "support@buddy.com";
             var message = "<p><strong>Company Name: </strong>" + $.name.value + "<br /><strong>Category: </strong>" + $.category.value + "<br /><strong>Employees: </strong>" + $.employees.value + "<br /><strong>Address: </strong>" + $.address.value + "<br /><strong>City, State, Zip: </strong>" + $.address2.value + "<br /><strong>Contact Email: </strong>" + $.contactEmail.value + "</p>";
             var xhrSend = Ti.Network.createHTTPClient();
             xhrSend.onload = function() {
@@ -20,6 +20,7 @@ function Controller() {
                 Titanium.API.info("Error sending email");
             };
             xhrSend.open("GET", "https://sendgrid.com/api/mail.send.json?api_user=" + apiUser + "&api_key=" + apiPass + "&to=" + toEmail + "&toname=" + toName + "&subject=New Startup Added&html=" + message + "&from=no-reply@buddy.com");
+            console.log("https://sendgrid.com/api/mail.send.json?api_user=" + apiUser + "&api_key=" + apiPass + "&to=" + toEmail + "&toname=" + toName + "&subject=New Startup Added&html=" + message + "&from=no-reply@buddy.com");
             xhrSend.send();
         } else alert("All fields are required, please double check and try again.");
     }

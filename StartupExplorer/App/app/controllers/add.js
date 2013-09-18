@@ -50,7 +50,7 @@ function sendForm() {
 		} else {
 			Alloy.Globals.CB.Util.startLoading();
 			var toName = 'Buddy.com';
-			var toEmail = 'startupexplorer@buddy.com';
+			var toEmail = 'support@buddy.com';
 			var message = '<p><strong>Company Name: </strong>' + $.name.value + '<br /><strong>Category: </strong>' + $.category.value + '<br /><strong>Employees: </strong>' + $.employees.value + '<br /><strong>Address: </strong>' + $.address.value + '<br /><strong>City, State, Zip: </strong>' + $.address2.value + '<br /><strong>Contact Email: </strong>' + $.contactEmail.value + '</p>';
 
 			var xhrSend = Ti.Network.createHTTPClient();
