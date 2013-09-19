@@ -15,6 +15,7 @@ dsa_priv.pem
 *.pbxuser
 *.xcodeproj/project.xcworkspace/
 *.xcodeproj/xcuserdata/
+*.xccheckout
 
 #Binaries
 Debug-Lib/
