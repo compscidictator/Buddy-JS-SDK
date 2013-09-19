@@ -138,7 +138,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     
     __block BuddyVideo * video = nil;
     
-    __block VideoTests *_self = self;
     [[Buddy user].videos addVideo:@"friendlyName" appTag:@"Tag" latitude:0.0 longitude:0.0 mimeType:@"video/mp4" videoData:data callback:[^(BuddyVideoResponse *response)
             {
                 if(response.isCompleted)
@@ -159,7 +158,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)getVideoInfo:(BuddyVideo *)video
 {
-    __block VideoTests *_self = self;
     [[Buddy user].videos getVideoInfo:video.videoId callback:[^(BuddyVideoResponse *response)
          {
              if(response.isCompleted && response.result)
@@ -174,7 +172,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)searchVideos
 {
-    __block VideoTests *_self = self;
     [[Buddy user].videos searchVideos:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
      {
          if(response.isCompleted)
@@ -189,7 +186,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)searchMyVideos
 {
-    __block VideoTests *_self = self;
     [[Buddy user].videos searchMyVideos:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
        {
            if(response.isCompleted)
@@ -205,7 +201,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)getMyVideoList
 {
-    __block VideoTests *_self = self;
     [[Buddy user].videos getMyVideoList:10 callback:[^(BuddyArrayResponse *response)
          {
              if(response.isCompleted)
@@ -220,7 +215,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)getVideoList:(BuddyVideo *)video
 {
-    __block VideoTests *_self = self;
     [[Buddy user].videos getVideoList:video.owner recordLimit:10 callback:[^(BuddyArrayResponse *response)
       {
           if(response.isCompleted)
