@@ -184,29 +184,14 @@ typedef void (^BuddyRecordSessionMetricCallback)(BuddyBoolResponse *response);
 /// <summary>
 /// Singleton instance of the client.
 /// </summary>
-+(instancetype)defaultClient;
++ (instancetype)defaultClient;
 
 /// <summary>
-/// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://buddy.com, create a new
-/// developer account and create a new application.
+/// Current BuddyAuthenticatedUser as of the last login
 /// </summary>
-/// <param name="appName">The name of the application to use with this client. Can't be null or empty.</param>
-/// <param name="appPassword">The password of the application to use with this client. Can't be null or empty.</param>
-+ (void)initClient:(NSString *)name appPassword:(NSString *)password;
+- (BuddyAuthenticatedUser *)user;
 
-/// <summary>
-/// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://buddy.com, create a new
-/// developer account and create a new application.
-/// </summary>
-/// <param name="appName">The name of the application to use with this client. Can't be null or empty.</param>
-/// <param name="appPassword">The password of the application to use with this client. Can't be null or empty.</param>
-/// <param name="options">Optional dictionary of application options
-///     appVersion: String containing the version of the app (i.e. 1.0.3)
-///     autoRecordDeviceInfo: Boolean value indicating if the applciation should automatically track device information.
-/// </param>
-+ (void)    initClient:(NSString *)name
-           appPassword:(NSString *)password
-           withOptions:(NSDictionary *)options;
+
 
 /// <summary>
 /// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://buddy.com, create a new

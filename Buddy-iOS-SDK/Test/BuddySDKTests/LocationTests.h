@@ -10,6 +10,6 @@
 #import <SenTestingKit/SenTestingKit.h>
 
 
-@interface LocationTests : SenTestingKit
+@interface LocationTests : SenTestCase
 
 @end

@@ -19,6 +19,11 @@
 #import "BuddyUtility.h"
 #import "BuddyWebWrapper.h"
 
+@interface BuddyClient()
+
+@property (nonatomic, readwrite, strong) BuddyAuthenticatedUser *user;
+
+@end
 
 /// <summary>
 /// Represents the main class and entry point to the Buddy platform. Use this class to interact with the platform, create and login users and modify general
@@ -48,25 +53,6 @@
         sharedClient = [[self alloc] init];
     });
     return sharedClient;
-}
-
-+ (void)initClient:(NSString *)name
-       appPassword:(NSString *)password
-{
-	[BuddyClient initClient:name appPassword:password withOptions:nil];
-}
-
-+ (void) initClient:(NSString *)name
-        appPassword:(NSString *)password
-        withOptions:(NSDictionary *)options
-{
-    NSString *version = options[@"appVersion"] ? options[@"appVersion"] : @"1.0";
-    BOOL autoRecordDeviceInfo = [options[@"autoRecordDeviceInfo"] boolValue];
-    
-    [[BuddyClient defaultClient] doInit:name
-                               password:password
-                                version:version
-                   autoRecordDeviceInfo:autoRecordDeviceInfo];
 }
 
 - (BuddyWebWrapper *)webService
@@ -579,7 +565,6 @@
 															 {
 																 if (callback)
 																 {
-																	 BuddyAuthenticatedUser *authUser;
 																	 NSException *exception;
 																	 @try
 																	 {
@@ -588,13 +573,13 @@
 																			 NSDictionary *dict = (NSDictionary *)[jsonArray objectAtIndex:0];
 																			 if (dict && [dict count] > 0)
 																			 {
-																				 authUser = [[BuddyAuthenticatedUser alloc]
+																				 self.user = [[BuddyAuthenticatedUser alloc]
 												   initAuthenticatedUser:_token userFullUserProfile:dict buddyClient:_self];
 
 																				 if (recordDeviceInfo && hasRecordedDeviceInfo == FALSE)
 																				 {
 																					 hasRecordedDeviceInfo = TRUE;
-																					 [self recordDeviceInfo:authUser];
+																					 [self recordDeviceInfo:self.user];
 																				 }
 																			 }
 																		 }
@@ -613,7 +598,7 @@
 																	 else
 																	 {
 																		 callback([[BuddyAuthenticatedUserResponse alloc] initWithResponse:callbackParams
-																																	result:authUser]);
+																																	result:self.user]);
 																	 }
 																 }
 																 _token = nil;

@@ -52,6 +52,7 @@
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
 		C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F87517E17C12009CDC81 /* BuddyBase.h */; };
 		C153F87817E17C12009CDC81 /* BuddyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyBase.m */; };
+		C19911E217EA8CB1002F5905 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C19911E117EA8CB1002F5905 /* Buddy.m */; };
 		C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C8169615AD0066A899 /* BuddyApplicationStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC4117DEAEDA008A9130 /* BuddyBlob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837E1775002E001C9DEF /* BuddyBlob.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC4217DEAEDA008A9130 /* BuddyBlobs.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837F1775002E001C9DEF /* BuddyBlobs.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -333,6 +334,7 @@
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
 		C153F87517E17C12009CDC81 /* BuddyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyBase.h; path = ../../Lib/BuddySDK/Internal/BuddyBase.h; sourceTree = "<group>"; };
 		C153F87617E17C12009CDC81 /* BuddyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyBase.m; path = ../../Lib/BuddySDK/Internal/BuddyBase.m; sourceTree = "<group>"; };
+		C19911E117EA8CB1002F5905 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buddy.m; sourceTree = "<group>"; };
 		C19ECC7F17DEE047008A9130 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
 		C1FBCED417E6718E00275F6A /* BuddyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyLocation.h; sourceTree = "<group>"; };
 		C1FBCED517E6718E00275F6A /* BuddyLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyLocation.m; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 			isa = PBXGroup;
 			children = (
 				C1FBCECE17E670CB00275F6A /* LocationTracking */,
+				C19911E117EA8CB1002F5905 /* Buddy.m */,
 				C153F87517E17C12009CDC81 /* BuddyBase.h */,
 				C153F87617E17C12009CDC81 /* BuddyBase.m */,
 				290883921775005D001C9DEF /* BuddyBlob.m */,
@@ -947,6 +950,7 @@
 				290883A11775005D001C9DEF /* BuddyReceipt.m in Sources */,
 				290883A21775005D001C9DEF /* BuddySounds.m in Sources */,
 				290883A31775005D001C9DEF /* BuddyStartup.m in Sources */,
+				C19911E217EA8CB1002F5905 /* Buddy.m in Sources */,
 				290883A41775005D001C9DEF /* BuddyStartups.m in Sources */,
 				290883A51775005D001C9DEF /* BuddyStoreItem.m in Sources */,
 				290883A61775005D001C9DEF /* BuddyVideo.m in Sources */,
