@@ -18,8 +18,6 @@ static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 static bool bwaiting = false;
 static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
-@synthesize user;
-
 - (void)setUp
 {
     [super setUp];
@@ -34,8 +32,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 - (void)tearDown
 {
     [super tearDown];
-    
-    self.user = nil;
 }
 
 - (void)waitloop
@@ -53,7 +49,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
              if (response.isCompleted && response.result)
              {
                  NSLog(@"Login OK");
-                 self.user = response.result;
              }
              else
              {
@@ -144,7 +139,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     __block BuddyVideo * video = nil;
     
     __block VideoTests *_self = self;
-    [_self.user.videos addVideo:@"friendlyName" appTag:@"Tag" latitude:0.0 longitude:0.0 mimeType:@"video/mp4" videoData:data callback:[^(BuddyVideoResponse *response)
+    [[Buddy user].videos addVideo:@"friendlyName" appTag:@"Tag" latitude:0.0 longitude:0.0 mimeType:@"video/mp4" videoData:data callback:[^(BuddyVideoResponse *response)
             {
                 if(response.isCompleted)
                 {
@@ -165,7 +160,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 -(void)getVideoInfo:(BuddyVideo *)video
 {
     __block VideoTests *_self = self;
-    [_self.user.videos getVideoInfo:video.videoId callback:[^(BuddyVideoResponse *response)
+    [[Buddy user].videos getVideoInfo:video.videoId callback:[^(BuddyVideoResponse *response)
          {
              if(response.isCompleted && response.result)
              {
@@ -180,7 +175,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 -(void)searchVideos
 {
     __block VideoTests *_self = self;
-    [_self.user.videos searchVideos:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].videos searchVideos:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
      {
          if(response.isCompleted)
          {
@@ -195,7 +190,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 -(void)searchMyVideos
 {
     __block VideoTests *_self = self;
-    [_self.user.videos searchMyVideos:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].videos searchMyVideos:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
        {
            if(response.isCompleted)
            {
@@ -211,7 +206,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 -(void)getMyVideoList
 {
     __block VideoTests *_self = self;
-    [_self.user.videos getMyVideoList:10 callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].videos getMyVideoList:10 callback:[^(BuddyArrayResponse *response)
          {
              if(response.isCompleted)
              {
@@ -226,7 +221,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 -(void)getVideoList:(BuddyVideo *)video
 {
     __block VideoTests *_self = self;
-    [_self.user.videos getVideoList:video.owner recordLimit:10 callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].videos getVideoList:video.owner recordLimit:10 callback:[^(BuddyArrayResponse *response)
       {
           if(response.isCompleted)
           {

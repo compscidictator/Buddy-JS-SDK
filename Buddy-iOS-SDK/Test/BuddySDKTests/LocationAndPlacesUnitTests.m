@@ -21,8 +21,6 @@
 
 @implementation LocationAndPlacesUnitTests
 
-@synthesize user;
-
 static NSString *AppName = @"Buddy iOS SDK test app";
 static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 static bool bwaiting = false;
@@ -57,8 +55,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     {
         if (response.isCompleted)
         {
-            self.user = response.result;
-            NSLog(@"aLogin OK user: %@", self.user.toString);
+            NSLog(@"aLogin OK user: %@", [Buddy user].toString);
         }
         else
         {
@@ -76,27 +73,27 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self aLogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyPlacesCatergoryParsing login failed.");
         return;
     }
     
-    NSDictionary *dict = [self.user.places performSelector:@selector(makeCategoryDictionary:) withObject:resArray];
+    NSDictionary *dict = [[Buddy user].places performSelector:@selector(makeCategoryDictionary:) withObject:resArray];
     if (dict == nil)
     {
         STFail(@"testBuddyPlacesCatergoryParsing failed") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    dict = [self.user.places performSelector:@selector(makeCategoryDictionary:) withObject:resArray];
+    dict = [[Buddy user].places performSelector:@selector(makeCategoryDictionary:) withObject:resArray];
     if (dict == nil)
     {
         STFail(@"testBuddyPlacesCatergoryParsing failed NoData") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    dict = [self.user.places performSelector:@selector(makeCategoryDictionary:) withObject:resArray];
+    dict = [[Buddy user].places performSelector:@selector(makeCategoryDictionary:) withObject:resArray];
     if (dict == nil)
     {
         STFail(@"testBuddyPlacesCatergoryParsing failed Test_EmptyData") ;
@@ -111,28 +108,28 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self aLogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyPlacesLocationSearchParsing login failed.");
         return;
     }
     
     
-    BuddyPlace *place = [self.user.places performSelector:@selector(makeBuddyPlace:) withObject:resArray];
+    BuddyPlace *place = [[Buddy user].places performSelector:@selector(makeBuddyPlace:) withObject:resArray];
     if (place == nil)
     {
         STFail(@"testBuddyPlacesLocationSearchParsing failed") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    place = [self.user.places performSelector:@selector(makeBuddyPlace:) withObject:resArray];
+    place = [[Buddy user].places performSelector:@selector(makeBuddyPlace:) withObject:resArray];
     if (place != nil)
     {
         STFail(@"testBuddyPlacesLocationSearchParsing failed NoData") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    place = [self.user.places performSelector:@selector(makeBuddyPlace:) withObject:resArray];
+    place = [[Buddy user].places performSelector:@selector(makeBuddyPlace:) withObject:resArray];
     if (place != nil)
     {
         STFail(@"testBuddyPlacesLocationSearchParsing failed Test_EmptyData") ;
@@ -147,27 +144,27 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self aLogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyPlacesGeoLocationLocationSearchParsing login failed.");
         return;
     }
     
-    NSArray *placeList = [self.user.places performSelector:@selector(makeBuddyPlaceList:) withObject:resArray];
+    NSArray *placeList = [[Buddy user].places performSelector:@selector(makeBuddyPlaceList:) withObject:resArray];
     if (placeList == nil || [placeList count] != 3)
     {
         STFail(@"testBuddyPlacesGeoLocationLocationSearchParsing") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    placeList = [self.user.places performSelector:@selector(makeBuddyPlaceList:) withObject:resArray];
+    placeList = [[Buddy user].places performSelector:@selector(makeBuddyPlaceList:) withObject:resArray];
     if (placeList == nil || [placeList count] != 0)
     {
         STFail(@"testBuddyPlacesGeoLocationLocationSearchParsing NoData") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    placeList = [self.user.places performSelector:@selector(makeBuddyPlaceList:) withObject:resArray];
+    placeList = [[Buddy user].places performSelector:@selector(makeBuddyPlaceList:) withObject:resArray];
     if (placeList == nil || [placeList count] != 0)
     {
         STFail(@"testBuddyPlacesGeoLocationLocationSearchParsing EmptyData") ;
@@ -182,27 +179,27 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self aLogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyLocationParseLocationHistoryJsonData login failed.");
         return;
     }
     
-    NSArray *locations = [self.user performSelector:@selector(makeLocationList:) withObject:resArray];
+    NSArray *locations = [[Buddy user] performSelector:@selector(makeLocationList:) withObject:resArray];
     if (locations == nil || [locations count] != 2)
     {
         STFail(@"testBuddyLocationParseLocationHistoryJsonData") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    locations = [self.user performSelector:@selector(makeLocationList:) withObject:resArray];
+    locations = [[Buddy user] performSelector:@selector(makeLocationList:) withObject:resArray];
     if (locations == nil || [locations count] != 0)
     {
         STFail(@"testBuddyLocationParseLocationHistoryJsonData NoData") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    locations = [self.user performSelector:@selector(makeLocationList:) withObject:resArray];
+    locations = [[Buddy user] performSelector:@selector(makeLocationList:) withObject:resArray];
     if (locations == nil || [locations count] != 0)
     {
         STFail(@"testBuddyLocationParseLocationHistoryJsonData EmptyData") ;
@@ -217,27 +214,27 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self aLogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyFindUsersParseUserDataJson login failed.");
         return;
     }
     
-    NSArray *locations = [self.user performSelector:@selector(makeUserList:) withObject:resArray];
+    NSArray *locations = [[Buddy user] performSelector:@selector(makeUserList:) withObject:resArray];
     if (locations == nil || [locations count] != 2)
     {
         STFail(@"testBuddyFindUsersParseUserDataJson") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    locations = [self.user performSelector:@selector(makeUserList:) withObject:resArray];
+    locations = [[Buddy user] performSelector:@selector(makeUserList:) withObject:resArray];
     if (locations == nil || [locations count] != 0)
     {
         STFail(@"testBuddyFindUsersParseUserDataJson NoData") ;
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    locations = [self.user performSelector:@selector(makeUserList:) withObject:resArray];
+    locations = [[Buddy user] performSelector:@selector(makeUserList:) withObject:resArray];
     if (locations == nil || [locations count] != 0)
     {
         STFail(@"testBuddyFindUsersParseUserDataJson Test_EmptyData ") ;
@@ -253,13 +250,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self aLogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyFindUsersParseUserDataJson login failed.");
         return;
     }
     
-    NSDictionary *locations = [self.user performSelector:@selector(makePhotoAlbumDictionary:) withObject:resArray];
+    NSDictionary *locations = [[Buddy user] performSelector:@selector(makePhotoAlbumDictionary:) withObject:resArray];
     if (locations == nil || [locations count] != 3)
     {
         STFail(@"testBuddyFindUsersParseUserDataJson") ;
@@ -276,7 +273,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     }
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
     
-    locations = [self.user performSelector:@selector(makePhotoAlbumDictionary:) withObject:resArray];
+    locations = [[Buddy user] performSelector:@selector(makePhotoAlbumDictionary:) withObject:resArray];
     if (locations == nil || [locations count] != 0)
     {
         STFail(@"testBuddyFindUsersParseUserDataJson NOdata") ;
@@ -284,7 +281,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
     
-    locations = [self.user performSelector:@selector(makePhotoAlbumDictionary:) withObject:resArray];
+    locations = [[Buddy user] performSelector:@selector(makePhotoAlbumDictionary:) withObject:resArray];
     if (locations == nil || [locations count] != 0)
     {
         STFail(@"testBuddyFindUsersParseUserDataJson EmptyData") ;

@@ -21,6 +21,4 @@
 
 @interface FriendsUnitTests : SenTestCase
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *tokenUser;
-
 @end

@@ -58,7 +58,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 														  if (response.isCompleted)
 														  {
 															  self.user = response.result;
-															  NSLog(@"alogin OK user: %@", self.user.toString);
+															  NSLog(@"alogin OK user: %@", [Buddy user].toString);
 														  }
 														  else
 														  {
@@ -75,13 +75,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	bwaiting = true;
 	[self aLogin];
 	[self waitloop];
-	if (!self.user)
+	if (![Buddy user])
 	{
 		STFail(@"testStore login failed.");
 		return;
 	}
 
-	NSArray *dict = [self.user.commerce performSelector:@selector(makeStoreItemList:) withObject:resArray];
+	NSArray *dict = [[Buddy user].commerce performSelector:@selector(makeStoreItemList:) withObject:resArray];
 
 	if ([dict count] != 2)
 	{
@@ -89,7 +89,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	}
 
 	resArray = [TestBuddySDK GetTextFileData:@"Test_CommerceStoreBad"];
-	dict = [self.user.commerce performSelector:@selector(makeStoreItemList:) withObject:resArray];
+	dict = [[Buddy user].commerce performSelector:@selector(makeStoreItemList:) withObject:resArray];
 
 	if ([dict count] != 2)
 	{
@@ -97,7 +97,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	}
 
 	resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-	dict = [self.user.commerce performSelector:@selector(makeStoreItemList:) withObject:resArray];
+	dict = [[Buddy user].commerce performSelector:@selector(makeStoreItemList:) withObject:resArray];
 	if ([dict count] != 0)
 	{
 		STFail(@"testStore failed dict should have 0 items");

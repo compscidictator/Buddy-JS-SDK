@@ -22,8 +22,6 @@ static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 static bool bwaiting = false;
 static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
-@synthesize user;
-
 - (void)setUp
 {
     [super setUp];
@@ -38,8 +36,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 - (void)tearDown
 {
     [super tearDown];
-    
-    self.user = nil;
 }
 
 - (void)waitloop
@@ -57,7 +53,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
              if (response.isCompleted && response.result)
              {
                  NSLog(@"Login OK");
-                 self.user = response.result;
              }
              else
              {

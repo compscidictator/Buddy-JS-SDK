@@ -25,6 +25,4 @@
 
 @interface PicturesAndAlbumsUnitTests : SenTestCase
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *user;
-
 @end

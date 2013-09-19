@@ -24,6 +24,4 @@
 
 @interface MessageAndMessageGroupsUnitTests : SenTestCase
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *user;
-
 @end

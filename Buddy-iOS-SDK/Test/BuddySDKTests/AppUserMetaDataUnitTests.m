@@ -63,7 +63,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 								 if (response.isCompleted)
 								 {
 									 self.user = response.result;
-									 NSLog(@"alogin OK user: %@", self.user.toString);
+									 NSLog(@"alogin OK user: %@", [Buddy user].toString);
 								 }
 								 else
 								 {
@@ -105,8 +105,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)addData
 {
-    __block AppUserMetaDataUnitTests *_self = self;
-    [_self.user.metadata set:@"TestKey1" value:@"124" latitude:0.0 longitude:0.0 appTag:@"AppTag" callback:[^(BuddyBoolResponse *response)
+    [[Buddy user].metadata set:@"TestKey1" value:@"124" latitude:0.0 longitude:0.0 appTag:@"AppTag" callback:[^(BuddyBoolResponse *response)
             {
                 if(response.isCompleted)
                 {
@@ -122,8 +121,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)addData2
 {
-    __block AppUserMetaDataUnitTests *_self = self;
-    [_self.user.metadata set:@"TestKey2" value:@"5235" latitude:0.0 longitude:0.0 appTag:@"AppTag" callback:[^(BuddyBoolResponse *response)
+    [[Buddy user].metadata set:@"TestKey2" value:@"5235" latitude:0.0 longitude:0.0 appTag:@"AppTag" callback:[^(BuddyBoolResponse *response)
          {
              if(response.isCompleted)
              {
@@ -139,8 +137,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)batchSumData
 {
-    __block AppUserMetaDataUnitTests *_self = self;
-    [_self.user.metadata batchSum:@"TestKey%;TestKey1" callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].metadata batchSum:@"TestKey%;TestKey1" callback:[^(BuddyArrayResponse *response)
          {
              if(response.isCompleted)
              {
@@ -154,8 +151,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)sumData
 {
-    __block AppUserMetaDataUnitTests *_self = self;
-    [_self.user.metadata sum:@"TestKey%" callback:[^(BuddyMetadataSumResponse *response)
+    [[Buddy user].metadata sum:@"TestKey%" callback:[^(BuddyMetadataSumResponse *response)
        {
            if(response.isCompleted)
            {
@@ -296,13 +292,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	bwaiting = true;
 	[self alogin];
 	[self waitloop];
-	if (!self.user)
+	if (![Buddy user])
 	{
 		STFail(@"testUserMetadataParseGoodDataTest login failed.");
 		return;
 	}
     
-	NSDictionary *dict = [self.user.metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
+	NSDictionary *dict = [[Buddy user].metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
     
 	if ([dict count] != 3)
 	{
@@ -364,13 +360,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	bwaiting = true;
 	[self alogin];
 	[self waitloop];
-	if (!self.user)
+	if (![Buddy user])
 	{
 		STFail(@"testUserMetadataNoDataTest login failed.");
 		return;
 	}
     
-	NSDictionary *dict = [self.user.metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
+	NSDictionary *dict = [[Buddy user].metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
     
 	if ([dict count] != 1)
 	{
@@ -404,13 +400,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	bwaiting = true;
 	[self alogin];
 	[self waitloop];
-	if (!self.user)
+	if (![Buddy user])
 	{
 		STFail(@"testUserMetadataNoDataTest login failed.");
 		return;
 	}
     
-	NSDictionary *dict = [self.user.metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
+	NSDictionary *dict = [[Buddy user].metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
     
 	if (dict == nil || [dict count] != 0)
 	{
@@ -418,7 +414,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	}
     
 	resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-	dict = [self.user.metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
+	dict = [[Buddy user].metadata performSelector:@selector(makeMetadataItemDictionary:) withObject:resArray];
     
 	if (dict == nil || [dict count] != 0)
 	{
@@ -433,13 +429,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	bwaiting = true;
 	[self alogin];
 	[self waitloop];
-	if (!self.user)
+	if (![Buddy user])
 	{
 		STFail(@"testUserMetadataSumTest login failed.");
 		return;
 	}
     
-	NSArray *dict = [self.user.metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
+	NSArray *dict = [[Buddy user].metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
     
 	if ([dict count] != 2)
 	{
@@ -447,7 +443,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	}
     
 	resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-	dict = [self.user.metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
+	dict = [[Buddy user].metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
     
 	if ([dict count] != 0)
 	{
@@ -455,7 +451,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 	}
     
 	resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-	dict = [self.user.metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
+	dict = [[Buddy user].metadata performSelector:@selector(makeMetadataSumArray:) withObject:resArray];
 	if ([dict count] != 0)
 	{
 		STFail(@"testUserMetadataSumTest failed dict should have 0 items");

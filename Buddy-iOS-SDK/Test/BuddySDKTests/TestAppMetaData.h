@@ -13,6 +13,4 @@
 
 @interface TestAppMetaData : SenTestCase
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *buddyUser;
-
 @end

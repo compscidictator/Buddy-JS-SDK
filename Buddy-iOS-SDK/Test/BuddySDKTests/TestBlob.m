@@ -18,8 +18,6 @@ static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 static bool bwaiting = false;
 static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
-@synthesize user;
-
 - (void)setUp
 {
     [super setUp];
@@ -34,8 +32,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 - (void)tearDown
 {
     [super tearDown];
-    
-    self.user = nil;
 }
 
 - (void)waitloop
@@ -53,7 +49,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
              if (response.isCompleted && response.result)
              {
                  NSLog(@"Login OK");
-                 self.user = response.result;
              }
              else
              {
@@ -144,8 +139,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     
     __block BuddyBlob * blob = nil;
     
-    __block TestBlob *_self = self;
-    [_self.user.blobs addBlob:@"friendlyName" appTag:@"Tag" latitude:0.0 longitude:0.0 mimeType:@"video/mp4" blobData:data callback:[^(BuddyBlobResponse *response)
+    [[Buddy user].blobs addBlob:@"friendlyName" appTag:@"Tag" latitude:0.0 longitude:0.0 mimeType:@"video/mp4" blobData:data callback:[^(BuddyBlobResponse *response)
          {
              if(response.isCompleted)
              {
@@ -163,8 +157,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)getBlobInfo:(BuddyBlob *)blob
 {
-    __block TestBlob *_self = self;
-    [_self.user.blobs getBlobInfo:blob.blobId callback:[^(BuddyBlobResponse *response)
+    [[Buddy user].blobs getBlobInfo:blob.blobId callback:[^(BuddyBlobResponse *response)
         {
             if(response.isCompleted && response.result)
             {
@@ -179,8 +172,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)getBlob:(BuddyBlob *)blob
 {
-    __block TestBlob *_self = self;
-    [_self.user.blobs getBlob:blob.blobId callback:^(NSData *data){
+    [[Buddy user].blobs getBlob:blob.blobId callback:^(NSData *data){
         if(!data || data.length < 1)
         {
             STFail(@"getBlob failed ");
@@ -190,8 +182,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)searchBlobs:(BuddyBlob *)blob
 {
-    __block TestBlob *_self = self;
-    [_self.user.blobs searchBlobs:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].blobs searchBlobs:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
              {
                  if(response.isCompleted)
                  {
@@ -205,8 +196,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)searchMyBlobs:(BuddyBlob *)blob
 {
-    __block TestBlob *_self = self;
-    [_self.user.blobs searchMyBlobs:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].blobs searchMyBlobs:@"friendlyName" mimeType:@"video/mp4" appTag:@"Tag" searchDistance:10 searchLatitude:0.0 searchLongitude:0.0 timeFilter:5 recordLimit:10 callback:[^(BuddyArrayResponse *response)
            {
                if(response.isCompleted)
                {
@@ -221,8 +211,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)getMyBlobList:(BuddyBlob *)blob
 {
-    __block TestBlob *_self = self;
-    [_self.user.blobs getMyBlobList:10 callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].blobs getMyBlobList:10 callback:[^(BuddyArrayResponse *response)
          {
              if(response.isCompleted)
              {
@@ -236,8 +225,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 -(void)getBlobList:(BuddyBlob *)blob
 {
-    __block TestBlob *_self = self;
-    [_self.user.blobs getBlobList:blob.owner recordLimit:10 callback:[^(BuddyArrayResponse *response)
+    [[Buddy user].blobs getBlobList:blob.owner recordLimit:10 callback:[^(BuddyArrayResponse *response)
          {
              if(response.isCompleted)
              {
@@ -258,20 +246,20 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testGetBlobs login failed.");
         return;
     }
     
-    NSArray *dict = [self.user.blobs performSelector:@selector(makeBlobsList:) withObject:resArray];
+    NSArray *dict = [[Buddy user].blobs performSelector:@selector(makeBlobsList:) withObject:resArray];
     if ([dict count] != 2)
     {
         STFail(@"Should have been two elements in the dict");
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    dict = [self.user.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+    dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
     
     if ([dict count] != 0)
     {
@@ -279,7 +267,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    dict = [self.user.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+    dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
     if ([dict count] != 0)
     {
         STFail(@"testGetBlobs failed dict should have 0 items");

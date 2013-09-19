@@ -15,6 +15,5 @@
 
 @interface TestBlob : SenTestCase
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *user;
 
 @end

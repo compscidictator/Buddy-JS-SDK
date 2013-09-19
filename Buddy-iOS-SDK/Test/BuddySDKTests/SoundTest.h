@@ -13,6 +13,4 @@
 
 @interface SoundTest : SenTestCase
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *user;
-
 @end

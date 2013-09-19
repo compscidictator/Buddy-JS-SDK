@@ -23,6 +23,4 @@
 
 @interface StartupsUnitTests : SenTestCase
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *user;
-
 @end

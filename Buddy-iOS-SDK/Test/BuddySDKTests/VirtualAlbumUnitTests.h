@@ -28,8 +28,6 @@
 
 @property (nonatomic, strong) BuddyPicture *picture;
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *buddyUser;
-
 @property (nonatomic, strong) BuddyVirtualAlbum *virtualAlbum;
 
 @property (nonatomic, strong) BuddyVirtualAlbums *virtualAlbums;

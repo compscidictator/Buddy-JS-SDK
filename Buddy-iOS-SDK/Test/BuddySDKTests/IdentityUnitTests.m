@@ -26,8 +26,6 @@ static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 static bool bwaiting = false;
 static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
-@synthesize user;
-
 - (void)setUp
 {
     [super setUp];
@@ -40,9 +38,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)tearDown
 {
-    [super tearDown];
-    
-    self.user = nil;
+    [super tearDown];;
 }
 
 - (void)alogin
@@ -51,8 +47,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     {
         if (response.isCompleted)
         {
-            self.user = response.result;
-            NSLog(@"alogin OK user: %@", self.user.toString);
+            NSLog(@"alogin OK user: %@", [Buddy user].toString);
         }
         else
         {
@@ -78,19 +73,19 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testIdentityParsing login failed.");
         return;
     }
     
-    NSArray *dataout = [self.user.identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
+    NSArray *dataout = [[Buddy user].identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
     if ([dataout count] != 3)
     {
         STFail(@"testIdentityParsing failed makeIdentityList expected 3");
     }
     
-    NSArray *dataout1 = [self.user.identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
+    NSArray *dataout1 = [[Buddy user].identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
     if ([dataout1 count] != 3)
     {
         STFail(@"testIdentityParsingNoData makeIdentitySearchList expects 3 ");
@@ -105,20 +100,20 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testIdentityParsingMyList login failed.");
         return;
     }
     
-    NSArray *dataout = [self.user.identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
+    NSArray *dataout = [[Buddy user].identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
     
     if ([dataout count] != 3)
     {
         STFail(@"testIdentityParsingMyList failed makeIdentityList expected 3 ");
     }
     
-    NSArray *dataout1 = [self.user.identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
+    NSArray *dataout1 = [[Buddy user].identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
     if ([dataout1 count] != 3)
     {
         STFail(@"testIdentityParsingMyList makeIdentitySearchList expects 3 ");
@@ -146,19 +141,19 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testIdentityParsingNoData login failed.");
         return;
     }
     
-    NSArray *dataout = [self.user.identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
+    NSArray *dataout = [[Buddy user].identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
     if ([dataout count] != 0)
     {
         STFail(@"testIdentityParsingNoData failed makeIdentityList expected 0");
     }
     
-    NSArray *dataout1 = [self.user.identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
+    NSArray *dataout1 = [[Buddy user].identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
     if ([dataout1 count] != 0)
     {
         STFail(@"testIdentityParsingNoData makeIdentitySearchList expects 0 ");
@@ -173,19 +168,19 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testIdentityParsingBadData login failed.");
         return;
     }
     
-    NSArray *dataout = [self.user.identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
+    NSArray *dataout = [[Buddy user].identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
     if ([dataout count] != 3)
     {
         STFail(@"testIdentityParsingBadData failed makeIdentityList expected 3");
     }
     
-    NSArray *dataout1 = [self.user.identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
+    NSArray *dataout1 = [[Buddy user].identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
     if ([dataout1 count] != 3)
     {
         STFail(@"testIdentityParsingBadData makeIdentitySearchList expects 3");
@@ -200,19 +195,19 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testIdentityParsingEmptyData login failed.");
         return;
     }
     
-    NSArray *dataout = [self.user.identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
+    NSArray *dataout = [[Buddy user].identityValues performSelector:@selector(makeIdentityList:) withObject:resArray];
     if ([dataout count] != 0)
     {
         STFail(@"testIdentityParsingEmptyData expects 0");
     }
     
-    NSArray *dataout1 = [self.user.identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
+    NSArray *dataout1 = [[Buddy user].identityValues performSelector:@selector(makeIdentitySearchList:) withObject:resArray];
     if ([dataout1 count] != 0)
     {
         STFail(@"testIdentityParsingEmptyData makeIdentitySearchList expects 0");

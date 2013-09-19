@@ -19,7 +19,6 @@
 
 @implementation PicturesAndAlbumsUnitTests
 
-@synthesize user;
 
 static NSString *AppName = @"Buddy iOS SDK test app";
 static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
@@ -55,7 +54,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     {
         if (response.isCompleted)
         {
-            self.user = response.result;
+            //Success
         }
         else
         {
@@ -73,13 +72,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyPublicPicture login failed.");
         return;
     }
     
-    NSArray *dataOut = [self.user performSelector:@selector(makePictureList:) withObject:resArray];
+    NSArray *dataOut = [[Buddy user] performSelector:@selector(makePictureList:) withObject:resArray];
     
     if (dataOut == nil || [dataOut count] != 2)
     {
@@ -87,7 +86,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     }
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
     
-    dataOut = [self.user performSelector:@selector(makePictureList:) withObject:resArray];
+    dataOut = [[Buddy user] performSelector:@selector(makePictureList:) withObject:resArray];
     if (dataOut == nil || [dataOut count] != 0)
     {
         STFail(@"testBuddyPublicPicture failed expected 0 PublicPictures");
@@ -101,13 +100,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyPhotoAlbumCreation login failed.");
         return;
     }
     
-    BuddyPhotoAlbum *album = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
+    BuddyPhotoAlbum *album = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
     
     if (album == nil || [album.pictures count] != 3)
     {
@@ -122,13 +121,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyGetAllPictures login failed.");
         return;
     }
     
-    NSDictionary *albums = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbumDictionary:) withObject:resArray];
+    NSDictionary *albums = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbumDictionary:) withObject:resArray];
     
     if (albums == nil)
     {
@@ -143,13 +142,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyGetAllPicturesBadData login failed.");
         return;
     }
     
-    NSDictionary *albums = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbumDictionary:) withObject:resArray];
+    NSDictionary *albums = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbumDictionary:) withObject:resArray];
     
     if (albums == nil)
     {
@@ -164,13 +163,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyGetAllPicturesNoData login failed.");
         return;
     }
     
-    NSDictionary *albums = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbumDictionary:) withObject:resArray];
+    NSDictionary *albums = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbumDictionary:) withObject:resArray];
     
     if (albums == nil)
     {
@@ -178,7 +177,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    albums = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbumDictionary:) withObject:resArray];
+    albums = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbumDictionary:) withObject:resArray];
     if (albums == nil || [albums count] > 0)
     {
         STFail(@"testBuddyGetAllPicturesBadData EmptyDataJson failed");
@@ -192,13 +191,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyGetAllPicturesNoData login failed.");
         return;
     }
     
-    BuddyPhotoAlbum *album = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
+    BuddyPhotoAlbum *album = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
     
     if (album == nil)
     {
@@ -238,13 +237,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"atestBuddyPhotoAlbumCreationAndPictureFilterListRequestAndParsing login failed.");
         return;
     }
     
-    BuddyPhotoAlbum *album = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
+    BuddyPhotoAlbum *album = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
     
     if (album == nil || [album.pictures count] != 3)
     {
@@ -266,13 +265,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"testBuddyPhotoAlbumCreationNoData login failed.");
         return;
     }
     
-    BuddyPhotoAlbum *album = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
+    BuddyPhotoAlbum *album = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
     
     if (album == nil || [album.pictures count] != 0)
     {
@@ -298,13 +297,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self aLogin];
     [self waitloop];
-    if (!self.user)
+    if (![Buddy user])
     {
         STFail(@"atestBuddyPhotoAlbumCreationAndPictureDeleteRequestAndParsing login failed.");
         return;
     }
     
-    BuddyPhotoAlbum *album = [self.user.photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
+    BuddyPhotoAlbum *album = [[Buddy user].photoAlbums performSelector:@selector(makeBuddyPhotoAlbum:) withObject:resArray];
     
     if (album == nil)
     {

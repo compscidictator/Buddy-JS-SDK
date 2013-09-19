@@ -20,8 +20,6 @@
 
 @implementation GamesUnitTests
 
-@synthesize user;
-
 static NSString *AppName = @"Buddy iOS SDK test app";
 static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 static bool bwaiting = false;
@@ -40,7 +38,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 - (void)tearDown
 {
     [super tearDown];
-    self.user = nil;    
 }
 
 - (void)waitloop
@@ -57,8 +54,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
                                                       {
                                                           if (response.isCompleted)
                                                           {
-                                                              self.user = response.result;
-                                                              NSLog(@"alogin OK user: %@", self.user.toString);
+                                                              NSLog(@"alogin OK user: %@", [Buddy user].toString);
                                                           }
                                                           else
                                                           {
@@ -116,7 +112,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (self.user == nil)
+    if (![Buddy user])
     {
         STFail(@"testGamePlayersFixedDataJson login failed");
         return;
@@ -124,7 +120,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     
     NSArray *resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
     
-    NSArray *data = [self.user.gamePlayers performSelector:@selector(makePlayerList:) withObject:resArray];
+    NSArray *data = [[Buddy user].gamePlayers performSelector:@selector(makePlayerList:) withObject:resArray];
     
     if (data == nil || [data count] != 0)
     {
@@ -133,21 +129,21 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
     
-    data = [self.user.gamePlayers performSelector:@selector(makePlayerList:) withObject:resArray];
+    data = [[Buddy user].gamePlayers performSelector:@selector(makePlayerList:) withObject:resArray];
     if (data == nil || [data count] != 0)
     {
         STFail(@"atestGamePlayersFixedDataJson Test_EmptyData");
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_PlayerDataBad"];
-    data = [self.user.gamePlayers performSelector:@selector(makePlayerList:) withObject:resArray];
+    data = [[Buddy user].gamePlayers performSelector:@selector(makePlayerList:) withObject:resArray];
     if (data == nil)
     {
         STFail(@"atestGamePlayersFixedDataJson Test_PlayerDataBad");
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_PlayerDataGood"];
-    data = [self.user.gamePlayers performSelector:@selector(makePlayerList:) withObject:resArray];
+    data = [[Buddy user].gamePlayers performSelector:@selector(makePlayerList:) withObject:resArray];
     
     if (data == nil || [data count] != 2)
     {

@@ -20,8 +20,6 @@
 
 @implementation FriendsUnitTests
 
-@synthesize tokenUser;
-
 static NSString *AppName = @"Buddy iOS SDK test app";
 static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 static bool bwaiting = false;
@@ -58,7 +56,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
                                                           if (response.isCompleted && response.result)
                                                           {
                                                               NSLog(@"Login OK");
-                                                              self.tokenUser = response.result;
                                                           }
                                                           else
                                                           {
@@ -78,13 +75,13 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (!self.tokenUser)
+    if (![Buddy user])
     {
         STFail(@"testFriendRequestGetParsing login failed.");
         return;
     }
     
-    NSArray *dict = [self.tokenUser.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+    NSArray *dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
     
     if ([dict count] != 2)
     {
@@ -92,7 +89,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    dict = [self.tokenUser.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+    dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
     
     if ([dict count] != 0)
     {
@@ -100,7 +97,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    dict = [self.tokenUser.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+    dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
     if ([dict count] != 0)
     {
         STFail(@"testFriendRequestGetParsing failed dict should have 0 items");
@@ -109,7 +106,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     resArray = [TestBuddySDK GetTextFileData:@"Test_FriendRequestBad"];
     @try
     {
-        dict = [self.tokenUser.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+        dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
         if ([dict count] != 2)
         {
             STFail(@"test_FriendRequestGetParsing failed dict should have 0 items");
@@ -129,27 +126,27 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     [self alogin];
     [self waitloop];
     
-    if (!self.tokenUser)
+    if (![Buddy user])
     {
         STFail(@"testFriendsGetListParsing login failed.");
         return;
     }
     
-    NSArray *dict = [self.tokenUser.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+    NSArray *dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
     if ([dict count] != 2)
     {
         STFail(@"testFriendsGetListParsing failed dict should have 2 items");
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    dict = [self.tokenUser.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+    dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
     if ([dict count] != 0)
     {
         STFail(@"testFriendsGetListParsing failed dict should have 0 items");
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    dict = [self.tokenUser.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+    dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
     if ([dict count] != 0)
     {
         STFail(@"testFriendsGetListParsing failed dict should have 0 items");
@@ -158,7 +155,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     resArray = [TestBuddySDK GetTextFileData:@"Test_FriendsGetListBad"];
     @try
     {
-        dict = [self.tokenUser.friends performSelector:@selector(makeFriendsList:) withObject:resArray];
+        dict = [[Buddy user].friends performSelector:@selector(makeFriendsList:) withObject:resArray];
         if ([dict count] != 2)
         {
             STFail(@"testFriendsGetListParsing failed dict should have 0 items");

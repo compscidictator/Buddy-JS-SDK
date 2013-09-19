@@ -21,7 +21,6 @@
 @implementation VirtualAlbumUnitTests
 
 @synthesize picture;
-@synthesize buddyUser;
 @synthesize virtualAlbum;
 @synthesize virtualAlbums;
 @synthesize virtualAlbumArray;
@@ -45,7 +44,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 {
     [super tearDown];
     
-    self.buddyUser = nil;
     self.virtualAlbumArray = nil;
 }
 
@@ -64,7 +62,6 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
         if (response.isCompleted && response.result)
         {
             NSLog(@"alogin OK");
-            self.buddyUser = response.result;
         }
         else
         {
@@ -81,34 +78,34 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
     bwaiting = true;
     [self alogin];
     [self waitloop];
-    if (!self.buddyUser)
+    if (![Buddy user])
     {
         STFail(@"testVirtualAlbumGetMyParsing login failed.");
         return;
     }
     
-    NSArray *dict = [self.buddyUser.virtualAlbums performSelector:@selector(makeVirtualAlbumIdList:) withObject:resArray];
+    NSArray *dict = [[Buddy user].virtualAlbums performSelector:@selector(makeVirtualAlbumIdList:) withObject:resArray];
     if ([dict count] != 3)
     {
         STFail(@"testVirtualAlbumGetMyParsing should have 3 items");
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_NoData"];
-    dict = [self.buddyUser.virtualAlbums performSelector:@selector(makeVirtualAlbumIdList:) withObject:resArray];
+    dict = [[Buddy user].virtualAlbums performSelector:@selector(makeVirtualAlbumIdList:) withObject:resArray];
     if ([dict count] != 0)
     {
         STFail(@"testVirtualAlbumGetMyParsing failed dict should have 0 items");
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_EmptyData"];
-    dict = [self.buddyUser.virtualAlbums performSelector:@selector(makeVirtualAlbumIdList:) withObject:resArray];
+    dict = [[Buddy user].virtualAlbums performSelector:@selector(makeVirtualAlbumIdList:) withObject:resArray];
     if ([dict count] != 0)
     {
         STFail(@"testVirtualAlbumGetMyParsing failed dict should have 0 items");
     }
     
     resArray = [TestBuddySDK GetTextFileData:@"Test_VirtualAlbumGetMyJsonDataBad"];
-    dict = [self.buddyUser.virtualAlbums performSelector:@selector(makeVirtualAlbumIdList:) withObject:resArray];
+    dict = [[Buddy user].virtualAlbums performSelector:@selector(makeVirtualAlbumIdList:) withObject:resArray];
     if ([dict count] != 0)
     {
         STFail(@"testVirtualAlbumGetMyParsing failed dict should have 0 items");
@@ -117,7 +114,7 @@ static NSString *Token = @"UT-76444f9f-4a4b-4d3d-ba5c-7a82b5dbb5a5";
 
 - (void)photoAlbumCreateWithPic:(NSString *)albumName
 {
-    [self.buddyUser.photoAlbums create:albumName isPublic:FALSE appTag:nil  callback:[^(BuddyPhotoAlbumResponse *response)
+    [[Buddy user].photoAlbums create:albumName isPublic:FALSE appTag:nil  callback:[^(BuddyPhotoAlbumResponse *response)
     {
         if (response.isCompleted && response.result)
         {

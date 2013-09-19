@@ -15,6 +15,4 @@
 
 @interface VideoTests : SenTestCase
 
-@property (nonatomic, strong) BuddyAuthenticatedUser *user;
-
 @end
