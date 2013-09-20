@@ -76,8 +76,6 @@
 
 @interface Buddy : NSObject
 
-+ (BuddyAuthenticatedUser *)user;
-
 /// <summary>
 /// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://buddy.com, create a new
 /// developer account and create a new application.
@@ -99,5 +97,39 @@
 + (void)    initClient:(NSString *)name
            appPassword:(NSString *)password
            withOptions:(NSDictionary *)options;
+
+///<summary>
+/// TODO
+///</summary>
++ (void)    initClient:(NSString *)name
+           appPassword:(NSString *)password
+  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
+    autoRecordLocation:(BOOL)autoRecordLocation
+           withOptions:(NSDictionary *)options;
+
+/// <summary>
+/// TODO 
+/// <summary>
++ (BuddyAuthenticatedUser *)user;
+
+/// <summary>
+/// Gets an object that can be used to record device information about this client or upload crashes.
+/// </summary>
++ (BuddyDevice *)device;
+
+/// <summary>
+/// Gets an object that can be used to retrieve high score rankings or search for game boards in this application.
+/// </summary>
++ (BuddyGameBoards *)gameBoards;
+
+/// <summary>
+/// Gets an object that can be used to manipulate application-level metadata. Metadata is used to store custom values on the platform.
+/// </summary>
++ (BuddyAppMetadata *)metadata;
+
+/// <summary>
+/// Gets an object that can be used to retrieve sounds.
+/// </summary>
++ (BuddySounds *)sounds;
 
 @end

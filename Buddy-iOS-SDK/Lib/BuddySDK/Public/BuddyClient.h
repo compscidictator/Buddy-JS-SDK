@@ -218,6 +218,12 @@ typedef void (^BuddyRecordSessionMetricCallback)(BuddyBoolResponse *response);
 			  appVersion:(NSString *)appVersion
 	autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo __attribute((deprecated("Use +[BuddyClient initClient variants]")));
 
+/// TODO
+-(void)     setupWithApp:(NSString *)appName
+                password:(NSString *)appPassword
+                 options:(NSDictionary *)options;
+
+
 /// <summary>
 /// Ping the service.
 /// </summary>

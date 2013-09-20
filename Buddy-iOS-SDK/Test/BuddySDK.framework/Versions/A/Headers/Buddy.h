@@ -76,8 +76,6 @@
 
 @interface Buddy : NSObject
 
-+ (BuddyAuthenticatedUser *)user;
-
 /// <summary>
 /// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://buddy.com, create a new
 /// developer account and create a new application.
@@ -99,5 +97,21 @@
 + (void)    initClient:(NSString *)name
            appPassword:(NSString *)password
            withOptions:(NSDictionary *)options;
+
+///<summary>
+/// TODO
+///</summary>
++ (void)    initClient:(NSString *)name
+           appPassword:(NSString *)password
+  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
+    autoRecordLocation:(BOOL)autoRecordLocation
+           withOptions:(NSDictionary *)options;
+
+/// <summary>
+/// TODO 
+/// <summary>
++ (BuddyAuthenticatedUser *)user;
+
+
 
 @end

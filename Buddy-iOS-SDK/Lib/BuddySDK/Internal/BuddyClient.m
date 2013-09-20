@@ -74,36 +74,15 @@
 		return nil;
 	}
 
-	[self doInit:appName password:appPassword version:nil autoRecordDeviceInfo:YES];
+    
+	[self setupWithApp:appName
+              password:appPassword
+               options:nil];
 
 	return self;
 }
 
-- (void)recordDeviceInfo:(BuddyAuthenticatedUser *)authUser
-{
-	NSString *osVersion  = [BuddyUtility osVersion];
-	NSString *device     = [BuddyUtility deviceName];
-	NSString *appVersion = [BuddyUtility appVersion];
-
-	NSString *bundleIdentifier = (__bridge NSString *)(CFBundleGetIdentifier(CFBundleGetMainBundle()));
-
-	[self.device recordInformation:osVersion
-						deviceType:device
-						  authUser:authUser
-						appVersion:appVersion
-						  latitude:0.0
-						 longitude:0.0
-						  metadata:bundleIdentifier
-							 
-						  callback:[^(BuddyBoolResponse *response)
-									{
-										if (response.isCompleted && response.result == FALSE)
-										{
-	                                        // ignore errors
-										}
-									} copy]];
-}
-
+/// DEPRECATED
 - (id)        initClient:(NSString *)appName
 			 appPassword:(NSString *)appPassword
 			  appVersion:(NSString *)appVersion
@@ -115,16 +94,25 @@
 		return nil;
 	}
 
-	[self doInit:appName password:appPassword version:appVersion autoRecordDeviceInfo:autoRecordDeviceInfo];
+    NSDictionary *options = @{@"appVersion": appVersion,
+                              @"autoRecordLocation": @(NO),
+                              @"autoRecordDeviceInfo": @(autoRecordDeviceInfo)};
+    
+	[self setupWithApp:appName
+              password:appPassword
+               options:options];
 
 	return self;
 }
 
-- (void)        doInit:(NSString *)appName
+- (void)  setupWithApp:(NSString *)appName
               password:(NSString *)appPassword
-               version:(NSString *)appVersion
-  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo;
+               options:(NSDictionary *)options
 {
+    NSString *appVersion = options[@"appVersion"] ?: @"1.0";
+    BOOL autoRecordDeviceInfo = options[@"recordDeviceInfo"] ? YES : NO;
+    
+    
 	if (appName == nil || appName.length == 0)
 	{
 		[BuddyUtility throwNilArgException:@"BuddyClient" reason:@"appName"];
@@ -154,6 +142,32 @@
 	_metadata = [[BuddyAppMetadata alloc] initWithClient:self];
     _sounds = [[BuddySounds alloc] initSounds:self];
 }
+
+- (void)recordDeviceInfo:(BuddyAuthenticatedUser *)authUser
+{
+	NSString *osVersion  = [BuddyUtility osVersion];
+	NSString *device     = [BuddyUtility deviceName];
+	NSString *appVersion = [BuddyUtility appVersion];
+    
+	NSString *bundleIdentifier = (__bridge NSString *)(CFBundleGetIdentifier(CFBundleGetMainBundle()));
+    
+	[self.device recordInformation:osVersion
+						deviceType:device
+						  authUser:authUser
+						appVersion:appVersion
+						  latitude:0.0
+						 longitude:0.0
+						  metadata:bundleIdentifier
+     
+						  callback:[^(BuddyBoolResponse *response)
+									{
+										if (response.isCompleted && response.result == FALSE)
+										{
+	                                        // ignore errors
+										}
+									} copy]];
+}
+
 
 - (id)init
 {

@@ -21,7 +21,10 @@ static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
     [super setUp];
     
     [Buddy initClient:AppName
-                appPassword:AppPassword];
+          appPassword:AppPassword
+ autoRecordDeviceInfo:NO
+   autoRecordLocation:YES
+          withOptions:nil];
     
     
     STAssertNotNil([BuddyClient defaultClient], @"TestFriendRequest failed buddyClient nil");
@@ -32,8 +35,12 @@ static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
     [super tearDown];
 }
 
--(void)testLocationEnabled
+- (void)testLocationEnabled
 {
+//    [Buddy location]
+}
+
+- (void) blah{
     
 }
 

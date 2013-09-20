@@ -27,23 +27,49 @@
     return [[BuddyClient defaultClient] user];
 }
 
++ (BuddyDevice *)device{return nil;}
+
++ (BuddyGameBoards *)gameBoards{return nil;}
+
++ (BuddyAppMetadata *)metadata{return nil;}
+
++ (BuddySounds *)sounds{return nil;}
+
 + (void)initClient:(NSString *)name
        appPassword:(NSString *)password
 {
-	[Buddy initClient:name appPassword:password withOptions:nil];
+	[Buddy initClient:name
+          appPassword:password
+ autoRecordDeviceInfo:NO
+   autoRecordLocation:NO
+          withOptions:nil];
 }
 
-+ (void) initClient:(NSString *)name
-        appPassword:(NSString *)password
-        withOptions:(NSDictionary *)options
++ (void)    initClient:(NSString *)name
+           appPassword:(NSString *)password
+           withOptions:(NSDictionary *)options
 {
-    NSString *version = options[@"appVersion"] ? options[@"appVersion"] : @"1.0";
-    BOOL autoRecordDeviceInfo = [options[@"autoRecordDeviceInfo"] boolValue];
+    [[BuddyClient defaultClient] setupWithApp:name
+                                     password:password
+                                      options:options];
+}
+
++ (void)   initClient:(NSString *)name
+          appPassword:(NSString *)password
+ autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
+   autoRecordLocation:(BOOL)autoRecordLocation
+          withOptions:(NSDictionary *)options
+{
     
-    [[BuddyClient defaultClient] initClient:name
-                                appPassword:password
-                                 appVersion:version
-                       autoRecordDeviceInfo:autoRecordDeviceInfo];
+    NSDictionary *defaultOptions = @{@"autoRecordLocation": @(autoRecordLocation),
+                                     @"autoRecordDeviceInfo": @(autoRecordDeviceInfo)};
+    
+    NSMutableDictionary *combined = [NSMutableDictionary dictionaryWithDictionary:defaultOptions];
+    // TODO - merge options
+    
+    [[BuddyClient defaultClient] setupWithApp:name
+                                     password:password
+                                      options:combined];
 }
 
 @end
