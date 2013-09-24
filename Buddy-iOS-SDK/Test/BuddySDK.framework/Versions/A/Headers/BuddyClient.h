@@ -182,6 +182,11 @@ typedef void (^BuddyRecordSessionMetricCallback)(BuddyBoolResponse *response);
 @property (readonly, nonatomic, strong) BuddySounds *sounds;
 
 /// <summary>
+/// TODO
+/// </summary>
+@property (nonatomic, assign) BOOL locationEnabled;
+
+/// <summary>
 /// Singleton instance of the client.
 /// </summary>
 + (instancetype)defaultClient;

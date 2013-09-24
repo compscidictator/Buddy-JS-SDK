@@ -41,7 +41,8 @@
 		A6291F5C165C01640051F83C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F36165C01640051F83C /* UIKit.framework */; };
 		A6291F5D165C01640051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F38165C01640051F83C /* Foundation.framework */; };
 		A6291F65165C01640051F83C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6291F63165C01640051F83C /* InfoPlist.strings */; };
-		C101D27B17EC4D9400305DC4 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C101D27A17EC4D9400305DC4 /* BuddySDK.framework */; };
+		C1083E7117F1531800C01242 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1083E7017F1531800C01242 /* BuddySDK.framework */; };
+		C1083E7317F1534F00C01242 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1083E7217F1534F00C01242 /* CoreLocation.framework */; };
 		C1FBCEDD17E6AED600275F6A /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCEDB17E6AED500275F6A /* LocationTests.m */; };
 		D418862816FBCCA900385248 /* Test_StartupBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862716FBCCA800385248 /* Test_StartupBad.txt */; };
 		D418862A16FBCCB200385248 /* Test_Startup.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862916FBCCB200385248 /* Test_Startup.txt */; };
@@ -162,7 +163,8 @@
 		A6291F5A165C01640051F83C /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		A6291F62165C01640051F83C /* BuddySDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BuddySDKTests-Info.plist"; sourceTree = "<group>"; };
 		A6291F64165C01640051F83C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C101D27A17EC4D9400305DC4 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		C1083E7017F1531800C01242 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		C1083E7217F1534F00C01242 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		C1FBCEDA17E6AED500275F6A /* LocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationTests.h; path = ../../Test/BuddySDKTests/LocationTests.h; sourceTree = "<group>"; };
 		C1FBCEDB17E6AED500275F6A /* LocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationTests.m; path = ../../Test/BuddySDKTests/LocationTests.m; sourceTree = "<group>"; };
 		D418862716FBCCA800385248 /* Test_StartupBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_StartupBad.txt; sourceTree = "<group>"; };
@@ -220,6 +222,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1083E7317F1534F00C01242 /* CoreLocation.framework in Frameworks */,
+				C1083E7117F1531800C01242 /* BuddySDK.framework in Frameworks */,
 				D418864D16FC775600385248 /* StoreKit.framework in Frameworks */,
 				D474B2AE169AED5B0020204D /* MobileCoreServices.framework in Frameworks */,
 				D474B2AA169AEB200020204D /* SystemConfiguration.framework in Frameworks */,
@@ -227,7 +231,6 @@
 				A6291F37165C01640051F83C /* UIKit.framework in Frameworks */,
 				A6291F39165C01640051F83C /* Foundation.framework in Frameworks */,
 				A6291F3B165C01640051F83C /* CoreGraphics.framework in Frameworks */,
-				C101D27B17EC4D9400305DC4 /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -259,7 +262,7 @@
 		A6291F27165C01640051F83C = {
 			isa = PBXGroup;
 			children = (
-				C101D27A17EC4D9400305DC4 /* BuddySDK.framework */,
+				C1083E7017F1531800C01242 /* BuddySDK.framework */,
 				A6291F3C165C01640051F83C /* BuddyUnitTestHarness */,
 				A6291F60165C01640051F83C /* BuddySDKTests */,
 				A6291F35165C01640051F83C /* Frameworks */,
@@ -279,6 +282,7 @@
 		A6291F35165C01640051F83C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1083E7217F1534F00C01242 /* CoreLocation.framework */,
 				A2C502211700FE9900F26028 /* BuddyUtility.h */,
 				A6291F3A165C01640051F83C /* CoreGraphics.framework */,
 				A6291F38165C01640051F83C /* Foundation.framework */,
@@ -740,8 +744,9 @@
 				CURRENT_PROJECT_VERSION = 0.1.4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/BuddyUnitTestHarness\"",
+					"$(SRCROOT)",
+					"\\\"$(SRCROOT)/BuddyUnitTestHarness\\\"",
+					"/Users/erikkerber/Dropbox/Projects/BuddyPlatform2.0/buddy_buddysdkv2/Buddy-iOS-SDK/test",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySDKTests/BuddySDKTests-Prefix.pch";
@@ -770,8 +775,9 @@
 				CURRENT_PROJECT_VERSION = 0.1.4;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					"\"$(SRCROOT)\"",
-					"\"$(SRCROOT)/BuddyUnitTestHarness\"",
+					"$(SRCROOT)",
+					"\\\"$(SRCROOT)/BuddyUnitTestHarness\\\"",
+					"/Users/erikkerber/Dropbox/Projects/BuddyPlatform2.0/buddy_buddysdkv2/Buddy-iOS-SDK/test",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySDKTests/BuddySDKTests-Prefix.pch";

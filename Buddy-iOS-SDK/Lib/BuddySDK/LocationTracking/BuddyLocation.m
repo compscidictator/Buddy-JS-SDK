@@ -44,6 +44,11 @@
     }
 }
 
+-(void) endTrackingLocation
+{
+    [self.location stopUpdatingLocation];
+}
+
 -(BOOL) shouldRequestLocationTracking
 {
     return  [CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied ||

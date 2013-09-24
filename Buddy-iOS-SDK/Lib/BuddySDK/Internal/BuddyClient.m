@@ -18,10 +18,12 @@
 #import "BuddyDataResponses_Exn.h"
 #import "BuddyUtility.h"
 #import "BuddyWebWrapper.h"
+#import "BuddyLocation.h"
 
 @interface BuddyClient()
 
 @property (nonatomic, readwrite, strong) BuddyAuthenticatedUser *user;
+@property (nonatomic, readwrite, strong) BuddyLocation *location;
 
 @end
 
@@ -32,19 +34,9 @@
 
 @implementation BuddyClient
 
-@synthesize appName = _appName;
-@synthesize appPassword = _appPassword;
-@synthesize appVersion = _appVersion;
-@synthesize device = _device;
-@synthesize gameBoards = _gameBoards;
-@synthesize metadata = _metadata;
-@synthesize sounds = _sounds;
-@synthesize webWrapper = _webWrapper;
 
-@synthesize recordDeviceInfo;
-@synthesize hasRecordedDeviceInfo;
-
-
+# pragma mark -
+# pragma mark Singleton
 +(instancetype)defaultClient
 {
     static BuddyClient *sharedClient = nil;
@@ -55,6 +47,7 @@
     return sharedClient;
 }
 
+
 - (BuddyWebWrapper *)webService
 {
 	if (_webWrapper == nil)
@@ -63,6 +56,33 @@
 	}
 
 	return _webWrapper;
+}
+
+#pragma mark -
+#pragma mark Initializers
+
+- (id)init
+{
+	self = [super init];
+	if (!self)
+	{
+		return nil;
+	}
+    
+	[[self webService] setClient:self];
+    
+	return self;
+}
+
+- (void)dealloc
+{
+	_webWrapper = nil;
+	_device = nil;
+	_gameBoards = nil;
+	_metadata = nil;
+	_appVersion = nil;
+	_appName = nil;
+	_appPassword = nil;
 }
 
 - (id)initClient:(NSString *)appName
@@ -132,7 +152,7 @@
 		_appVersion = appVersion;
 	}
 
-    recordDeviceInfo = autoRecordDeviceInfo;
+    _recordDeviceInfo = autoRecordDeviceInfo;
     
 	_appName = appName;
 	_appPassword = appPassword;
@@ -141,7 +161,11 @@
 	_gameBoards = [[BuddyGameBoards alloc] initWithClient:self];
 	_metadata = [[BuddyAppMetadata alloc] initWithClient:self];
     _sounds = [[BuddySounds alloc] initSounds:self];
+    _location = [[BuddyLocation alloc] init];
 }
+
+#pragma mark -
+#pragma mark Implementation
 
 - (void)recordDeviceInfo:(BuddyAuthenticatedUser *)authUser
 {
@@ -168,30 +192,6 @@
 									} copy]];
 }
 
-
-- (id)init
-{
-	self = [super init];
-	if (!self)
-	{
-		return nil;
-	}
-
-	[[self webService] setClient:self];
-
-	return self;
-}
-
-- (void)dealloc
-{
-	_webWrapper = nil;
-	_device = nil;
-	_gameBoards = nil;
-	_metadata = nil;
-	_appVersion = nil;
-	_appName = nil;
-	_appPassword = nil;
-}
 
 - (void)ping:(BuddyClientPingCallback)callback
 {
@@ -326,6 +326,7 @@
 													   } copy]];
 }
 
+#pragma mark Profiles
 - (void)getUserProfiles:(NSNumber *)fromRow
 			   callback:(BuddyClientGetUserProfilesCallback)callback
 {
@@ -410,6 +411,7 @@
 	return users;
 }
 
+#pragma mark Statistics
 - (NSArray *)makeApplicationStatistics:(NSArray *)data
 {
 	NSMutableArray *applicationStatistics = [[NSMutableArray alloc] init];
@@ -475,6 +477,7 @@
 													 } copy]];
 }
 
+#pragma mark Login
 - (void)socialLogin:(NSString *)providerName
      providerUserId:(NSString *)providerUserId
         accessToken:(NSString *)accessToken
@@ -590,9 +593,9 @@
 																				 self.user = [[BuddyAuthenticatedUser alloc]
 												   initAuthenticatedUser:_token userFullUserProfile:dict buddyClient:_self];
 
-																				 if (recordDeviceInfo && hasRecordedDeviceInfo == FALSE)
+																				 if (_recordDeviceInfo && _hasRecordedDeviceInfo == FALSE)
 																				 {
-																					 hasRecordedDeviceInfo = TRUE;
+																					 _hasRecordedDeviceInfo = TRUE;
 																					 [self recordDeviceInfo:self.user];
 																				 }
 																			 }
@@ -620,6 +623,7 @@
 															 } copy]];
 }
 
+#pragma mark Create User
 - (void)InternalCreateUser:(NSString *)userName
 				  password:(NSString *)password
 					gender:(UserGender)gender

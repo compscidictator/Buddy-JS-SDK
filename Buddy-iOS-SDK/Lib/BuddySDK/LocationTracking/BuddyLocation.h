@@ -15,9 +15,14 @@
 ///</summary>
 -(BOOL) shouldRequestLocationTracking;
 
-
+/// <summary>
+/// TODO
+/// </summary>
 -(void) beginTrackingLocation:(void (^)())success andFailure:(void(^)(NSError *))failure;
 
-
+/// <summary>
+/// TODO
+/// </summary>
+-(void) endTrackingLocation;
 
 @end

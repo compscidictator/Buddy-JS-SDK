@@ -74,6 +74,7 @@
 #import "BuddyVirtualAlbum.h"
 #import "BuddyVirtualAlbums.h"
 
+@class CLLocation;
 @interface Buddy : NSObject
 
 /// <summary>
@@ -112,6 +113,39 @@
 /// <summary>
 + (BuddyAuthenticatedUser *)user;
 
+/// <summary>
+/// Gets an object that can be used to record device information about this client or upload crashes.
+/// </summary>
++ (BuddyDevice *)device;
 
+/// <summary>
+/// Gets an object that can be used to retrieve high score rankings or search for game boards in this application.
+/// </summary>
++ (BuddyGameBoards *)gameBoards;
+
+/// <summary>
+/// Gets an object that can be used to manipulate application-level metadata. Metadata is used to store custom values on the platform.
+/// </summary>
++ (BuddyAppMetadata *)metadata;
+
+/// <summary>
+/// Gets an object that can be used to retrieve sounds.
+/// </summary>
++ (BuddySounds *)sounds;
+
+/// <summary>
+/// TODO
+/// </summary>
++ (BOOL) locationEnabled;
+
+/// <summary>
+/// TODO
+/// </summary>
++ (void) setLocationEnabled:(BOOL)val;
+
+/// <summary>
+/// TODO
+/// </summary>
++ (CLLocation *) currentLocation;
 
 @end

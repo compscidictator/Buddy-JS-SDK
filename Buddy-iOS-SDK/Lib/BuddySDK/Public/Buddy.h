@@ -74,6 +74,7 @@
 #import "BuddyVirtualAlbum.h"
 #import "BuddyVirtualAlbums.h"
 
+@class CLLocation;
 @interface Buddy : NSObject
 
 /// <summary>
@@ -131,5 +132,20 @@
 /// Gets an object that can be used to retrieve sounds.
 /// </summary>
 + (BuddySounds *)sounds;
+
+/// <summary>
+/// TODO
+/// </summary>
++ (BOOL) locationEnabled;
+
+/// <summary>
+/// TODO
+/// </summary>
++ (void) setLocationEnabled:(BOOL)val;
+
+/// <summary>
+/// TODO
+/// </summary>
++ (CLLocation *) currentLocation;
 
 @end

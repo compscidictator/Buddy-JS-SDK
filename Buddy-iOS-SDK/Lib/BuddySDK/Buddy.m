@@ -27,13 +27,37 @@
     return [[BuddyClient defaultClient] user];
 }
 
-+ (BuddyDevice *)device{return nil;}
++ (BuddyDevice *)device{
+    return [[BuddyClient defaultClient] device];
+    
+}
 
-+ (BuddyGameBoards *)gameBoards{return nil;}
++ (BuddyGameBoards *)gameBoards{
+    return [[BuddyClient defaultClient] gameBoards];
+    
+}
 
-+ (BuddyAppMetadata *)metadata{return nil;}
++ (BuddyAppMetadata *)metadata{
+    return [[BuddyClient defaultClient] metadata];
+    
+}
 
-+ (BuddySounds *)sounds{return nil;}
++ (BuddySounds *)sounds{
+    return [[BuddyClient defaultClient] sounds];
+}
+
++ (BOOL) locationEnabled{
+    @synchronized(self){
+        return [[BuddyClient defaultClient] locationEnabled];
+    }
+}
+
++ (void) setLocationEnabled:(BOOL)val
+{
+    @synchronized(self){
+        [[BuddyClient defaultClient] setLocationEnabled:val];
+    }
+}
 
 + (void)initClient:(NSString *)name
        appPassword:(NSString *)password
@@ -71,5 +95,7 @@
                                      password:password
                                       options:combined];
 }
+
+
 
 @end
