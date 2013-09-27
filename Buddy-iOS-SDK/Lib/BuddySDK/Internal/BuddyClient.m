@@ -165,6 +165,19 @@
 }
 
 #pragma mark -
+#pragma mark Location
+
+-(void)setLocationEnabled:(BOOL)locationEnabled
+{
+    _locationEnabled = locationEnabled;
+    [self.location beginTrackingLocation:^{
+        
+    }  andFailure:^{
+        
+    }];
+}
+
+#pragma mark -
 #pragma mark Implementation
 
 - (void)recordDeviceInfo:(BuddyAuthenticatedUser *)authUser

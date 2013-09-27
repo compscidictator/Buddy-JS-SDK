@@ -12,6 +12,10 @@
 @interface BuddyLocation()<CLLocationManagerDelegate>
 
 @property (strong, nonatomic) CLLocationManager *location;
+@property (assign, readwrite, nonatomic) BOOL isTracking;
+@property (copy, nonatomic) void (^success)();
+@property (copy, nonatomic) void (^fail)();
+
 @end
 
 @implementation BuddyLocation
@@ -31,14 +35,18 @@
 
 #pragma mark Public interface
 
--(void) beginTrackingLocation:(void (^)())success andFailure:(void(^)(NSError *))failure
+-(void) beginTrackingLocation:(void (^)())success andFailure:(void(^)())failure
 {
+    // Copy the callback.
+    self.success = success;
+    self.fail = failure;
+    
     if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied ||
        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted)
     {
-        NSError *e = [[NSError alloc] init];
-        failure(e);
-    }else
+        failure();
+    }
+    else
     {
         [self.location startUpdatingLocation];
     }
@@ -47,6 +55,7 @@
 -(void) endTrackingLocation
 {
     [self.location stopUpdatingLocation];
+    self.isTracking = NO;
 }
 
 -(BOOL) shouldRequestLocationTracking
@@ -74,23 +83,37 @@
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-    // TBD
+    if(self.fail)
+        self.fail();
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
 {
-    // TBD
+    if(status != kCLAuthorizationStatusAuthorized)
+    {
+        self.isTracking = NO;
+    }
+    else
+    {
+        self.isTracking = YES;
+    }
 }
 
 - (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager
 {
-    // TBD
+    if(self.success){
+        self.success();
+        self.success = nil;
+        self.fail = nil;
+    }
+    
 }
 
 - (void)locationManager:(CLLocationManager *)manager
 didFinishDeferredUpdatesWithError:(NSError *)error
 {
     // TBD
+    // We likely won't be doing deferred updates, so probably not necessary.
 }
 
 @end

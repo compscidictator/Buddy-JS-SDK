@@ -38,8 +38,12 @@ static NSString *AppPassword = @"8C9E044D-7DB7-42DE-A376-16460B58008E";
 - (void)testLocationEnabled
 {
     [Buddy setLocationEnabled:YES];
+    assert([Buddy locationEnabled]);
+}
+
+-(void)testServiceCallsSendingLocation
+{
     
-    CLLocation *l = [Buddy currentLocation];
 }
 
 @end

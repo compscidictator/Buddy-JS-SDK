@@ -18,11 +18,13 @@
 /// <summary>
 /// TODO
 /// </summary>
--(void) beginTrackingLocation:(void (^)())success andFailure:(void(^)(NSError *))failure;
+-(void) beginTrackingLocation:(void (^)())success andFailure:(void(^)())failure;
 
 /// <summary>
 /// TODO
 /// </summary>
 -(void) endTrackingLocation;
+
+@property (readonly, assign) BOOL isTracking;
 
 @end
