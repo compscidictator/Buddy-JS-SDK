@@ -20,3 +20,6 @@ dsa_priv.pem
 #Binaries
 Debug-Lib/
 Release-Lib/
+
+bin/
+obj/
