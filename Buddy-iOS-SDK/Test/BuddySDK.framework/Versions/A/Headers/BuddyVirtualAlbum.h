@@ -16,7 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
-
+#import "BuddyBase.h"
 @class BuddyBoolResponse;
 
 
@@ -51,7 +51,7 @@ typedef void (^BuddyVirtualAlbumUpdatePictureCallback)(BuddyBoolResponse *respon
 /// Only the owner of the virtual album can delete the album however.
 /// </summary>
 
-@interface BuddyVirtualAlbum : NSObject
+@interface BuddyVirtualAlbum : BuddyBase
 
 /// <summary>
 /// Gets a readonly collection of pictures in this album. Use the AddPicture method to add more pictures to the album or the Picture.Delete method

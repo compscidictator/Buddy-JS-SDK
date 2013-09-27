@@ -50,7 +50,7 @@
 		2946DE06174D696A005BE2F4 /* BuddyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946DE04174D696A005BE2F4 /* BuddyFile.m */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
-		C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F87517E17C12009CDC81 /* BuddyBase.h */; };
+		C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F87517E17C12009CDC81 /* BuddyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C153F87817E17C12009CDC81 /* BuddyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyBase.m */; };
 		C19911E217EA8CB1002F5905 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C19911E117EA8CB1002F5905 /* Buddy.m */; };
 		C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C8169615AD0066A899 /* BuddyApplicationStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -332,7 +332,7 @@
 		A6291F7F165C01800051F83C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddySDK-Prefix.pch"; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
-		C153F87517E17C12009CDC81 /* BuddyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyBase.h; path = ../../Lib/BuddySDK/Internal/BuddyBase.h; sourceTree = "<group>"; };
+		C153F87517E17C12009CDC81 /* BuddyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyBase.h; path = ../../../Lib/BuddySDK/Internal/BuddyBase.h; sourceTree = "<group>"; };
 		C153F87617E17C12009CDC81 /* BuddyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyBase.m; path = ../../Lib/BuddySDK/Internal/BuddyBase.m; sourceTree = "<group>"; };
 		C19911E117EA8CB1002F5905 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buddy.m; sourceTree = "<group>"; };
 		C19ECC7F17DEE047008A9130 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
@@ -626,6 +626,7 @@
 				D4F4198D16962CE000C38DD3 /* BuddyUserMetadata.h */,
 				D4A9F2961696EAAE001C54B7 /* BuddyVirtualAlbum.h */,
 				D4F4199116962D3E00C38DD3 /* BuddyVirtualAlbums.h */,
+				C153F87517E17C12009CDC81 /* BuddyBase.h */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -635,7 +636,6 @@
 			children = (
 				C1FBCECE17E670CB00275F6A /* LocationTracking */,
 				C19911E117EA8CB1002F5905 /* Buddy.m */,
-				C153F87517E17C12009CDC81 /* BuddyBase.h */,
 				C153F87617E17C12009CDC81 /* BuddyBase.m */,
 				290883921775005D001C9DEF /* BuddyBlob.m */,
 				290883931775005D001C9DEF /* BuddyBlobs.m */,
@@ -739,7 +739,6 @@
 				C19ECC5917DEAEDA008A9130 /* BuddyGamePlayers.h in Headers */,
 				C19ECC5A17DEAEDA008A9130 /* BuddyGameScore.h in Headers */,
 				C19ECC5B17DEAEDA008A9130 /* BuddyGameScores.h in Headers */,
-				C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */,
 				C19ECC5C17DEAEDA008A9130 /* BuddyGameState.h in Headers */,
 				C19ECC5D17DEAEDA008A9130 /* BuddyGameStates.h in Headers */,
 				C19ECC5E17DEAEDA008A9130 /* BuddyGroupMessage.h in Headers */,
@@ -763,6 +762,7 @@
 				C19ECC6F17DEAEDA008A9130 /* BuddyPlaces.h in Headers */,
 				C19ECC7017DEAEDA008A9130 /* BuddyRegisteredDeviceApple.h in Headers */,
 				C19ECC7117DEAEDA008A9130 /* BuddyUser.h in Headers */,
+				C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */,
 				C19ECC7217DEAEDA008A9130 /* BuddyUserMetadata.h in Headers */,
 				C19ECC7317DEAEDA008A9130 /* BuddyVirtualAlbum.h in Headers */,
 				C19ECC7417DEAEDA008A9130 /* BuddyVirtualAlbums.h in Headers */,

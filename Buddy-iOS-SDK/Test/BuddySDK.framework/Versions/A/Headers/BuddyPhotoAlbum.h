@@ -22,7 +22,7 @@
 @class BuddyAuthenticatedUser;
 @class BuddyBoolResponse;
 @class BuddyPictureResponse;
-
+#import "BuddyBase.h"
 
 /** Callback signature for the BuddyPhotoAlbumDelete function. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise. If there was an exception or error (e.g. unknown server response or invalid data) the Response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the Response.dataResult field.
  */

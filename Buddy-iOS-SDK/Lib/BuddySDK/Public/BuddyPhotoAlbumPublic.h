@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BuddyBase.h"
 
 /// <summary>
 /// Represents a public photo album. Public albums are returned from album searches.
@@ -55,7 +56,7 @@
 
 
 
-@interface BuddyPhotoAlbumPublic : NSObject
+@interface BuddyPhotoAlbumPublic : BuddyBase
 
 /// <summary>
 /// Gets the user ID of the user that owns this album.

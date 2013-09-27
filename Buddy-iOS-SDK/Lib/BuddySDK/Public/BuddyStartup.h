@@ -17,7 +17,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BuddyStartup : NSObject
+@interface BuddyStartup : BuddyBase
 
 /// <summary>
 /// Gets the latitude of the center of the specified metro area.

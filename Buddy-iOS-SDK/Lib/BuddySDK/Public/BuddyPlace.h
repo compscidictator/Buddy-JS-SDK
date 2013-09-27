@@ -16,7 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
-
+#import "BuddyBase.h"
 @class BuddyBoolResponse;
 
 
@@ -60,7 +60,7 @@ typedef void (^BuddyPlaceSetTagCallback)(BuddyBoolResponse *response);
  * \endcode
  */
 
-@interface BuddyPlace : NSObject
+@interface BuddyPlace : BuddyBase
 
 /// <summary>
 /// Gets the address of the location.

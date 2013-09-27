@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIImage.h>
 
-@interface BuddyFile : NSObject
+@interface BuddyFile : BuddyBase
 @property(nonatomic, retain) NSData* data;
 @property(nonatomic, retain) NSString* contentType;
 @property(nonatomic, retain) NSString* fileName;

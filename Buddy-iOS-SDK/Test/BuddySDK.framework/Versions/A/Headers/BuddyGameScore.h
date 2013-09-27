@@ -16,13 +16,14 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BuddyBase.h"
 
 /// <summary>
 /// Represents an object that describes a single game score entry.
 /// </summary>
 
 
-@interface BuddyGameScore : NSObject
+@interface BuddyGameScore : BuddyBase
 
 /// <summary>
 /// Gets the name of the board this score is related to.

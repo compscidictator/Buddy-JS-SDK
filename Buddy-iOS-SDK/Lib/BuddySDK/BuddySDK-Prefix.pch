@@ -4,5 +4,6 @@
 
 #ifdef __OBJC__
    #import <Foundation/Foundation.h>
-   #import "Util.h"   
+   #import "Util.h"  
+   #import "BuddyBase.h"
 #endif

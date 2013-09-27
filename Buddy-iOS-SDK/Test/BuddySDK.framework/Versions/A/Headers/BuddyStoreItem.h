@@ -16,13 +16,13 @@
 
 #import <Foundation/Foundation.h>
 
-
+#import "BuddyBase.h"
 
 /// <summary>
 /// Represents a single, named store item in the Buddy system.
 /// </summary>
 
-@interface BuddyStoreItem : NSObject
+@interface BuddyStoreItem : BuddyBase
 
 /// <summary>
 /// Gets the optional metadata associated with the item.

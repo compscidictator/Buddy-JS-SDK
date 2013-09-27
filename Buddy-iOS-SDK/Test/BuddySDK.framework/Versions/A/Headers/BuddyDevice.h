@@ -19,7 +19,7 @@
 
 
 @class BuddyBoolResponse;
-
+#import "BuddyBase.h"
 
 // BuddyDevice callback definitions
 
@@ -61,7 +61,7 @@ typedef void (^BuddyDeviceRecordCrashCallback)(BuddyBoolResponse *response);
  * \endcode
  */
 
-@interface BuddyDevice : NSObject
+@interface BuddyDevice : BuddyBase
 
 -(NSString*)id;
 

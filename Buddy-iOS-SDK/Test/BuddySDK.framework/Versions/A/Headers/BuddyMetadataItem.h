@@ -18,7 +18,7 @@
 
 
 @class BuddyBoolResponse;
-
+#import "BuddyBase.h"
 
 // BuddyMetadataItem callback definitions
 

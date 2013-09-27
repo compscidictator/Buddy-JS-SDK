@@ -42,8 +42,8 @@
 		A6291F5D165C01640051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F38165C01640051F83C /* Foundation.framework */; };
 		A6291F65165C01640051F83C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = A6291F63165C01640051F83C /* InfoPlist.strings */; };
 		C1083E7317F1534F00C01242 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1083E7217F1534F00C01242 /* CoreLocation.framework */; };
-		C1F7D48417F53EA1005350F4 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F7D48317F53EA1005350F4 /* BuddySDK.framework */; };
-		C1F7D48517F53EA1005350F4 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F7D48317F53EA1005350F4 /* BuddySDK.framework */; };
+		C1414BE317F54D6600C94B75 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1414BE217F54D6600C94B75 /* BuddySDK.framework */; };
+		C1414BE417F54D6600C94B75 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1414BE217F54D6600C94B75 /* BuddySDK.framework */; };
 		C1FBCEDD17E6AED600275F6A /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCEDB17E6AED500275F6A /* LocationTests.m */; };
 		D418862816FBCCA900385248 /* Test_StartupBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862716FBCCA800385248 /* Test_StartupBad.txt */; };
 		D418862A16FBCCB200385248 /* Test_Startup.txt in Resources */ = {isa = PBXBuildFile; fileRef = D418862916FBCCB200385248 /* Test_Startup.txt */; };
@@ -165,7 +165,7 @@
 		A6291F62165C01640051F83C /* BuddySDKTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BuddySDKTests-Info.plist"; sourceTree = "<group>"; };
 		A6291F64165C01640051F83C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C1083E7217F1534F00C01242 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		C1F7D48317F53EA1005350F4 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		C1414BE217F54D6600C94B75 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		C1FBCEDA17E6AED500275F6A /* LocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LocationTests.h; path = ../../Test/BuddySDKTests/LocationTests.h; sourceTree = "<group>"; };
 		C1FBCEDB17E6AED500275F6A /* LocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LocationTests.m; path = ../../Test/BuddySDKTests/LocationTests.m; sourceTree = "<group>"; };
 		D418862716FBCCA800385248 /* Test_StartupBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_StartupBad.txt; sourceTree = "<group>"; };
@@ -231,7 +231,7 @@
 				A6291F37165C01640051F83C /* UIKit.framework in Frameworks */,
 				A6291F39165C01640051F83C /* Foundation.framework in Frameworks */,
 				A6291F3B165C01640051F83C /* CoreGraphics.framework in Frameworks */,
-				C1F7D48417F53EA1005350F4 /* BuddySDK.framework in Frameworks */,
+				C1414BE317F54D6600C94B75 /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,7 +245,7 @@
 				A6291F5B165C01640051F83C /* SenTestingKit.framework in Frameworks */,
 				A6291F5C165C01640051F83C /* UIKit.framework in Frameworks */,
 				A6291F5D165C01640051F83C /* Foundation.framework in Frameworks */,
-				C1F7D48517F53EA1005350F4 /* BuddySDK.framework in Frameworks */,
+				C1414BE417F54D6600C94B75 /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -264,7 +264,7 @@
 		A6291F27165C01640051F83C = {
 			isa = PBXGroup;
 			children = (
-				C1F7D48317F53EA1005350F4 /* BuddySDK.framework */,
+				C1414BE217F54D6600C94B75 /* BuddySDK.framework */,
 				A6291F3C165C01640051F83C /* BuddyUnitTestHarness */,
 				A6291F60165C01640051F83C /* BuddySDKTests */,
 				A6291F35165C01640051F83C /* Frameworks */,

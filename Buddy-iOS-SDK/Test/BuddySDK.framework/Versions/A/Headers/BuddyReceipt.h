@@ -16,12 +16,13 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BuddyBase.h"
 
 /// <summary>
 /// Represents a receipt in the Buddy system.
 /// </summary>
 
-@interface BuddyReceipt : NSObject
+@interface BuddyReceipt : BuddyBase
 
 /// <summary>
 /// Gets the ID of the retrieved receipt history item.

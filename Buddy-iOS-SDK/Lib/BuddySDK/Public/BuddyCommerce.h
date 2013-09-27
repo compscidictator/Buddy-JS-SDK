@@ -16,6 +16,8 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BuddyBase.h"
+
 /** Callback signature for the BuddyCommerceGetReceiptsForUser and BuddyCommerceGetReceiptForUserAndTransactionID functions. The .result field of the BuddyArrayResponse will contain an NSArray of BuddyReceipts if the request was successful (BuddyArrayResponse.isCompleted == TRUE and data was found on the server) or nil otherwise. If there was an exception or error (e.g. unknown server response or invalid data) the Response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the Response.dataResult field.
  */
 typedef void (^BuddyCommerceGetReceiptsCallback)(BuddyArrayResponse *response);
@@ -30,7 +32,7 @@ typedef void (^BuddyCommerceSaveReceiptCallback)(BuddyBoolResponse *response);
 typedef void (^BuddyCommerceStoreItemsCallback)(BuddyArrayResponse *response);
 
 
-@interface BuddyCommerce : NSObject
+@interface BuddyCommerce : BuddyBase
 
 /// <summary>
 /// Finds the receipt list based on the FromDateTime parameter for the currently logged in user.

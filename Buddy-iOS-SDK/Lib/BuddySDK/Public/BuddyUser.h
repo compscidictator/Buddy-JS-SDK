@@ -17,13 +17,12 @@
 
 #import <Foundation/Foundation.h>
 #import "BuddyEnums.h"
-
+#import "BuddyBase.h"
 
 @class BuddyClient;
 @class BuddyGameScores;
 @class BuddyGameStates;
 @class BuddyArrayResponse;
-
 
 /** Callback signature for the BuddyUserGetProfilePhotos function. The .result field of the BuddyArrayResponse will contain an NSArray of BuddyPicturePublic items if the request was successful (BuddyArrayResponse.isCompleted == TRUE and data was found on the server) or nil otherwise. If there was an exception or error (e.g. unknown server response or invalid data) the Response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the Response.dataResult field.
  */
@@ -62,7 +61,7 @@ typedef void (^BuddyUserGetProfilePhotosCallback)(BuddyArrayResponse *response);
  * \endcode
  */
 
-@interface BuddyUser : NSObject
+@interface BuddyUser : BuddyBase
 
 /// <summary>
 /// Gets the name of the user.

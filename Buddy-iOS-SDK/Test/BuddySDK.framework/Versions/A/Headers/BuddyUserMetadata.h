@@ -98,7 +98,7 @@ typedef void (^BuddyUserMetadataBatchSetCallback)(BuddyBoolResponse *response);
  * \endcode
  */
 
-@interface BuddyUserMetadata : NSObject
+@interface BuddyUserMetadata : BuddyBase
 
 /// <summary>
 /// Get all the metadata items for this user. Note that this can be a time-consuming method, try to retrieve specific items if possible

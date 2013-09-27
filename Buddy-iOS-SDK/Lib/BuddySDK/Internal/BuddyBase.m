@@ -8,6 +8,12 @@
 
 #import "BuddyBase.h"
 
+@interface BuddyBase()
+
+@property (nonatomic, readwrite, assign) BOOL isDirty;
+
+@end
+
 @implementation BuddyBase
 
 -(id)init
@@ -18,6 +24,14 @@
         // Anything common that is dependent on the application/user whatnot?
     }
     return self;
+}
+
+
+
+-(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    if(change)
+        self.isDirty = YES;
 }
 
 @end

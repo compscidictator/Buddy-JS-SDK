@@ -16,6 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BuddyBase.h"
 
 /// <summary>
 /// Represents a single identity search result. Use the AuthenticatedUser.identityValues.CheckForValues() method to search for items. A search item
@@ -50,7 +51,7 @@
  * \endcode
  */
 
-@interface BuddyIdentityItem : NSObject
+@interface BuddyIdentityItem : BuddyBase
 
 /// <summary>
 /// Gets the value of the identity item.

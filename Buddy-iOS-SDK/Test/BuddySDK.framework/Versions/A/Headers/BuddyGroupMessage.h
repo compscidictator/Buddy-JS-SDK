@@ -18,13 +18,13 @@
 
 
 @class BuddyMessageGroup;
-
+#import "BuddyBase.h"
 
 /// <summary>
 /// Represents a message that was sent to a group of users through AuthenticatedUser.messages.groups.SendMessage.
 /// </summary>
 
-@interface BuddyGroupMessage : NSObject
+@interface BuddyGroupMessage : BuddyBase
 
 /// <summary>
 /// Gets the DateTime the message was sent.

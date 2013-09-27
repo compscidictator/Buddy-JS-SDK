@@ -21,7 +21,7 @@
 /// Represents a game player object.
 /// </summary>
 
-@interface BuddyGamePlayer : NSObject
+@interface BuddyGamePlayer : BuddyBase
 
 /// <summary>
 /// Gets the name of the player.

@@ -19,7 +19,7 @@
 
 @class BuddyBoolResponse;
 @class BuddyDictionaryResponse;
-
+#import "BuddyBase.h"
 
 // BuddyMessageGroup callback definitions
 
@@ -80,7 +80,7 @@ typedef void (^BuddyMessageGroupGetReceivedCallback)(BuddyArrayResponse *respons
  * \endcode
  */
 
-@interface BuddyMessageGroup : NSObject
+@interface BuddyMessageGroup : BuddyBase
 
 /// <summary>
 /// Gets the App unique ID of the message group.

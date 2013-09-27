@@ -19,7 +19,7 @@
 
 @class BuddyBoolResponse;
 @class BuddyArrayResponse;
-
+#import "BuddyBase.h"
 
 // BuddyIdentity callback definitions
 
@@ -72,7 +72,7 @@ typedef void (^BuddyIdentityCheckForValuesCallback)(BuddyArrayResponse *response
  * \endcode
  */
 
-@interface BuddyIdentity : NSObject
+@interface BuddyIdentity : BuddyBase
 
 /// <summary>
 /// Returns all the identity values for this user.
