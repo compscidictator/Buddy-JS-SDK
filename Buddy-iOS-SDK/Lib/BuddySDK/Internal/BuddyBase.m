@@ -26,7 +26,10 @@
     return self;
 }
 
-
+-(void)registerProperty:(NSString *)propertyName
+{
+    [self addObserver:self forKeyPath:propertyName options:NSKeyValueObservingOptionNew context:NULL];
+}
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
