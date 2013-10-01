@@ -21,7 +21,25 @@
     self = [super init];
     if(self)
     {
-        // Anything common that is dependent on the application/user whatnot?
+        [self registerProperty:@"created"];
+        [self registerProperty:@"lastModified"];
+        [self registerProperty:@"tag"];
+        [self registerProperty:@"userId"];
+
+    }
+    return self;
+}
+
+-(id)initWithExternalRepresentation:(NSDictionary *)json
+{
+    self = [super init];
+    if(self)
+    {
+        [self registerProperty:@"created"];
+        [self registerProperty:@"lastModified"];
+        [self registerProperty:@"tag"];
+        [self registerProperty:@"userId"];
+        
     }
     return self;
 }

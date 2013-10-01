@@ -13,5 +13,12 @@
 -(id)initWithExternalRepresentation:(NSDictionary *)json;
 
 @property (nonatomic, readonly, assign) BOOL isDirty;
+@property (nonatomic, strong) NSDate *created;
+@property (nonatomic, strong) NSDate *lastModified;
+@property (nonatomic, strong) NSString *tag;
+@property (nonatomic, strong) NSString *userId;
+
+-(void)save;
+
 
 @end
