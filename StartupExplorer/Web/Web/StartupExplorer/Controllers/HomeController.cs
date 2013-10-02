@@ -36,6 +36,8 @@ namespace StartupExplorer.Controllers
             if (ModelState.IsValid)
             {
                 Utility.SendEmail(model.StartUpContactEmail, "New Startup has been submitted!!", Utility.MailFormat(model.StartUpName, model.StartUpCity, model.StartUpCategory, model.StartUpStreet, model.StartUpContactName, model.StartUpZip, model.StartUpContactEmail), true);
+                Utility.SendEmail("startupexplorer@buddy.com", "New Startup has been submitted!!", Utility.MailFormat(model.StartUpName, model.StartUpCity, model.StartUpCategory, model.StartUpStreet, model.StartUpContactName, model.StartUpZip, model.StartUpContactEmail), true);
+
                 TempData["ViewMessage"] = "Mail Sent Successfully.";
                 return RedirectToAction("SubmitStartup", "Home");
                 //return View(new HomeViewModel { ViewMessage = "Mail Sent successfully." });
