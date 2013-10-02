@@ -128,6 +128,7 @@
     <Content Include="Facebook\Docs\content\Site.css" />
     <Content Include="Facebook\Docs\reference.htm" />
     <Content Include="Facebook\Docs\startHere.htm" />
+    <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="Public\Css\fonts\MyriadPro-Regular.svg" />
