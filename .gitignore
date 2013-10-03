@@ -17,6 +17,13 @@ dsa_priv.pem
 *.xcodeproj/xcuserdata/
 *.xccheckout
 
+#Visual Studio
+*.xccheckout
+*.suo
+*.dll
+bin/
+obj/
+
 #Binaries
 Debug-Lib/
 Release-Lib/
