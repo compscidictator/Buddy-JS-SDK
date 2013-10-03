@@ -68,6 +68,15 @@
 	}
 }
 
+-(void) setBuddyBaseURL:(NSURL *)url
+{
+    if ([[url path] length] > 0 && ![[url absoluteString] hasSuffix:@"/"]) {
+        url = [url URLByAppendingPathComponent:@""];
+    }
+    
+    // TODO self.baseURL = url;
+}
+
 - (void)enableNetworkActivityDisplay
 {
 	[[AFNetworkActivityIndicatorManager sharedManager] setEnabled:true];
