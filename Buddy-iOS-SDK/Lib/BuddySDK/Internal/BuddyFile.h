@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIImage.h>
+#import "BuddyBase.h"
 
 @interface BuddyFile : BuddyBase
 @property(nonatomic, retain) NSData* data;
