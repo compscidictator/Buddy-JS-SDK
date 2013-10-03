@@ -12,7 +12,7 @@ dsa_priv.pem
 *.mode2v3
 *.perspective
 *.perspectivev3
-*.pbxuser
+#*.pbxuser
 #*.xcodeproj/project.xcworkspace/
 *.xcodeproj/xcuserdata/
 *.xccheckout

@@ -49,6 +49,7 @@
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		2946DE06174D696A005BE2F4 /* BuddyFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 2946DE04174D696A005BE2F4 /* BuddyFile.m */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
+		C14475C717FD185300713095 /* BuddyTests-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C14475C617FD185300713095 /* BuddyTests-Prefix.pch */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
 		C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F87517E17C12009CDC81 /* BuddyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C153F87817E17C12009CDC81 /* BuddyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyBase.m */; };
@@ -108,7 +109,6 @@
 		C19ECC7417DEAEDA008A9130 /* BuddyVirtualAlbums.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4199116962D3E00C38DD3 /* BuddyVirtualAlbums.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC8017DEE047008A9130 /* Buddy.h in Headers */ = {isa = PBXBuildFile; fileRef = C19ECC7F17DEE047008A9130 /* Buddy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1F0917417FD03E300B2B9F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
-		C1F0917A17FD03E300B2B9F2 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1F0917817FD03E300B2B9F2 /* InfoPlist.strings */; };
 		C1F0918617FD03F000B2B9F2 /* AppUserMetaDataUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F0918317FD03F000B2B9F2 /* AppUserMetaDataUnitTests.m */; };
 		C1F0918717FD03F000B2B9F2 /* CommerceUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F0918517FD03F000B2B9F2 /* CommerceUnitTests.m */; };
 		C1F0919A17FD03F800B2B9F2 /* FriendsUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F0918917FD03F800B2B9F2 /* FriendsUnitTests.m */; };
@@ -469,15 +469,15 @@
 		A6291F7C165C01800051F83C /* libBuddySDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuddySDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6291F7F165C01800051F83C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddySDK-Prefix.pch"; sourceTree = "<group>"; };
+		C14475C517FD185300713095 /* BuddyTests-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "BuddyTests-Info.plist"; path = "../../Tests/BuddyTests-Info.plist"; sourceTree = "<group>"; };
+		C14475C617FD185300713095 /* BuddyTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BuddyTests-Prefix.pch"; path = "../../Tests/BuddyTests-Prefix.pch"; sourceTree = "<group>"; };
+		C14475C917FD185C00713095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../../Tests/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
 		C153F87517E17C12009CDC81 /* BuddyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyBase.h; path = ../../../Lib/BuddySDK/Internal/BuddyBase.h; sourceTree = "<group>"; };
 		C153F87617E17C12009CDC81 /* BuddyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyBase.m; path = ../../Lib/BuddySDK/Internal/BuddyBase.m; sourceTree = "<group>"; };
 		C19911E117EA8CB1002F5905 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buddy.m; sourceTree = "<group>"; };
 		C19ECC7F17DEE047008A9130 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
 		C1F0916F17FD03E300B2B9F2 /* BuddyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuddyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C1F0917717FD03E300B2B9F2 /* BuddyTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BuddyTests-Info.plist"; sourceTree = "<group>"; };
-		C1F0917917FD03E300B2B9F2 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		C1F0917E17FD03E300B2B9F2 /* BuddyTests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddyTests-Prefix.pch"; sourceTree = "<group>"; };
 		C1F0918217FD03F000B2B9F2 /* AppUserMetaDataUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUserMetaDataUnitTests.h; sourceTree = "<group>"; };
 		C1F0918317FD03F000B2B9F2 /* AppUserMetaDataUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUserMetaDataUnitTests.m; sourceTree = "<group>"; };
 		C1F0918417FD03F000B2B9F2 /* CommerceUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommerceUnitTests.h; sourceTree = "<group>"; };
@@ -806,9 +806,9 @@
 		C1F0917617FD03E300B2B9F2 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				C1F0917717FD03E300B2B9F2 /* BuddyTests-Info.plist */,
-				C1F0917817FD03E300B2B9F2 /* InfoPlist.strings */,
-				C1F0917E17FD03E300B2B9F2 /* BuddyTests-Prefix.pch */,
+				C14475C517FD185300713095 /* BuddyTests-Info.plist */,
+				C14475C617FD185300713095 /* BuddyTests-Prefix.pch */,
+				C14475C817FD185C00713095 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
 			path = ../lib/BuddyTests;
@@ -1124,6 +1124,7 @@
 				D474B3AE169B7AA70020204D /* AFJSONUtilities.h in Headers */,
 				16409F2217C3DAC000A440C3 /* OpenUDID.h in Headers */,
 				C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */,
+				C14475C717FD185300713095 /* BuddyTests-Prefix.pch in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1200,7 +1201,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1F0917A17FD03E300B2B9F2 /* InfoPlist.strings in Resources */,
 				C1F0922C17FD10FB00B2B9F2 /* Test_AppSearchMetadata.txt in Resources */,
 				C1F0922D17FD10FB00B2B9F2 /* Test_AppSearchMetadataBad.txt in Resources */,
 				C1F0922E17FD10FB00B2B9F2 /* Test_CheckInLocations.txt in Resources */,
@@ -1495,10 +1495,10 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C1F0917817FD03E300B2B9F2 /* InfoPlist.strings */ = {
+		C14475C817FD185C00713095 /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
-				C1F0917917FD03E300B2B9F2 /* en */,
+				C14475C917FD185C00713095 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -1706,8 +1706,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BuddyTests/BuddyTests-Prefix.pch";
-				INFOPLIST_FILE = "BuddyTests/BuddyTests-Info.plist";
+				GCC_PREFIX_HEADER = "../Tests/BuddyTests-Prefix.pch";
+				INFOPLIST_FILE = "../Tests/BuddyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1726,8 +1726,8 @@
 					"\"$(DEVELOPER_LIBRARY_DIR)/Frameworks\"",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
-				GCC_PREFIX_HEADER = "BuddyTests/BuddyTests-Prefix.pch";
-				INFOPLIST_FILE = "BuddyTests/BuddyTests-Info.plist";
+				GCC_PREFIX_HEADER = "../Tests/BuddyTests-Prefix.pch";
+				INFOPLIST_FILE = "../Tests/BuddyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;

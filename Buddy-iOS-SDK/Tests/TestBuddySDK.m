@@ -22,7 +22,7 @@
 + (NSArray *)GetTextFileData:(NSString *)filename
 {
     NSError *error;
-    NSString *sourcePath = [[NSBundle mainBundle] pathForResource:filename ofType:@"txt"];
+    NSString *sourcePath = [[NSBundle bundleForClass:[self class]] pathForResource:filename ofType:@"txt"];
     NSData *data = [NSData dataWithContentsOfFile:sourcePath];
 
     if (data == nil)
