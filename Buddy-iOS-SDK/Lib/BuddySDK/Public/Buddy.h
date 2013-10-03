@@ -143,9 +143,4 @@
 /// </summary>
 + (void) setLocationEnabled:(BOOL)val;
 
-/// <summary>
-/// TODO
-/// </summary>
-+ (CLLocation *) currentLocation;
-
 @end

@@ -35,11 +35,6 @@
 @property (readonly, nonatomic, strong) NSString *storeName;
 
 /// <summary>
-/// Gets the ID of the user this receipt was saved for.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
-
-/// <summary>
 /// Gets the DateTime this receipt was saved or modified.
 /// </summary>
 @property (readonly, nonatomic, strong) NSDate *historyDateTime;

@@ -56,11 +56,6 @@
 @property (readonly, nonatomic, assign) double score;
 
 /// <summary>
-/// Gets the user ID that owns this score.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
-
-/// <summary>
 /// Gets the user name of the user who owns this score.
 /// </summary>
 @property (readonly, nonatomic, strong) NSString *userName;

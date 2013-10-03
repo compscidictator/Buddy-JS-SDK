@@ -1709,6 +1709,7 @@
 				GCC_PREFIX_HEADER = "../Tests/BuddyTests-Prefix.pch";
 				INFOPLIST_FILE = "../Tests/BuddyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "";
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
@@ -1729,6 +1730,7 @@
 				GCC_PREFIX_HEADER = "../Tests/BuddyTests-Prefix.pch";
 				INFOPLIST_FILE = "../Tests/BuddyTests-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
+				LIBRARY_SEARCH_PATHS = "";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = octest;
 			};

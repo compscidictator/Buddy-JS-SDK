@@ -55,4 +55,11 @@
         self.isDirty = YES;
 }
 
+#pragma mark Override methods
+
+-(void)save
+{
+    return;
+}
+
 @end

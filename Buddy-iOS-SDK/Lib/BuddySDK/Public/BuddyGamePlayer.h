@@ -54,11 +54,6 @@
 @property (readonly, nonatomic, assign) double longitude;
 
 /// <summary>
-/// Gets the userId of the user this player is tied to.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
-
-/// <summary>
 /// Gets the distance in kilometers from the given origin in the metadata search method.
 /// </summary>
 @property (readonly, nonatomic, assign) double distanceInKilometers;

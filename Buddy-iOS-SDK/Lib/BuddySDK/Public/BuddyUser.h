@@ -74,11 +74,6 @@ typedef void (^BuddyUserGetProfilePhotosCallback)(BuddyArrayResponse *response);
 @property (readonly, nonatomic, strong) NSString *userToken;
 
 /// <summary>
-/// Gets the system-wide unique ID of the user.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
-
-/// <summary>
 /// Gets the gender of the user.
 /// </summary>
 @property (readonly, nonatomic, assign) UserGender gender;

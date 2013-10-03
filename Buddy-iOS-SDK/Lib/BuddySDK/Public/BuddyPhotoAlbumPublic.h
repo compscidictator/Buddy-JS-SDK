@@ -59,11 +59,6 @@
 @interface BuddyPhotoAlbumPublic : BuddyBase
 
 /// <summary>
-/// Gets the user ID of the user that owns this album.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
-
-/// <summary>
 /// Gets the name of the album
 /// </summary>
 @property (readonly, nonatomic, strong) NSString *albumName;
