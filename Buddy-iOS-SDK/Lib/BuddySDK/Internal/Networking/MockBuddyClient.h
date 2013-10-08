@@ -11,8 +11,4 @@
 
 @interface MockBuddyClient : NSObject<BuddyRequests>
 
--(void)getRequest;
--(void)deleteRequest;
--(void)updateRequest;
-
 @end

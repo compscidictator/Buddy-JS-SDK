@@ -95,7 +95,9 @@
 
 -(void)update
 {
-    [self.client updateRequest:self.resourceString withId:self.identifier payload:[self buildUpdateDictionary]];
+    [self.client updateRequest:self.resourceString withId:self.identifier payload:[self buildUpdateDictionary] callback:^(BuddyCallbackParams *callbackParams, id jsonString) {
+        // TODO - Anything?
+    }];
 }
 
 #pragma mark Abstract implementors

@@ -10,19 +10,24 @@
 
 @implementation MockBuddyClient
 
--(void)getRequest
+-(void)getRequest:(NSString *)resource withId:(NSInteger)identifier callback:(cb)callback
 {
-    
+    callback(nil, nil);
 }
 
--(void)deleteRequest
+-(void)deleteRequest:(NSString *)resource withId:(NSInteger)identifier callback:(cb)callback
 {
-    
+    callback(nil, nil);
 }
 
--(void)updateRequest
+-(void)updateRequest:(NSString *)resource withId:(NSInteger)identifier payload:(NSDictionary *)payload callback:(cb)callback
 {
-    
+    callback(nil, nil);
+}
+
+-(void)createRequest:(NSString *)resource withId:(NSInteger)identifier payload:(NSDictionary *)payload callback:(cb)callback
+{
+    callback(nil, nil);
 }
 
 @end

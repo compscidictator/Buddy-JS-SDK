@@ -29,6 +29,7 @@ typedef void (^cb) (BuddyCallbackParams *callbackParams, id jsonString);
 
 -(void)updateRequest:(NSString *)resource
               withId:(NSInteger)identifier
-             payload:(NSDictionary *)payload;
+             payload:(NSDictionary *)payload
+            callback:(cb)callback;
 
 @end
