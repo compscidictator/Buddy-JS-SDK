@@ -7,11 +7,28 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BuddyCallbackParams.h"
+
+typedef void (^cb) (BuddyCallbackParams *callbackParams, id jsonString);
 
 @protocol BuddyRequests <NSObject>
 
--(void)getRequest;
--(void)deleteRequest;
--(void)updateRequest;
+
+-(void)createRequest:(NSString *)resource
+              withId:(NSInteger)identifier
+             payload:(NSDictionary *)payload
+            callback:(cb)callback;
+
+-(void)getRequest:(NSString *)resource
+           withId:(NSInteger)identifier
+         callback:(cb)callback;
+
+-(void)deleteRequest:(NSString *)resource
+              withId:(NSInteger)identifier
+            callback:(cb)callback;
+
+-(void)updateRequest:(NSString *)resource
+              withId:(NSInteger)identifier
+             payload:(NSDictionary *)payload;
 
 @end
