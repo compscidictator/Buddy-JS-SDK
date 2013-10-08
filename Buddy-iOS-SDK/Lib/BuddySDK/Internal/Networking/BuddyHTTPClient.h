@@ -7,7 +7,12 @@
 //
 
 #import "AFHTTPClient.h"
+#import "BuddyRequest.h"
 
-@interface BuddyHTTPClient : AFHTTPClient
+@interface BuddyHTTPClient : AFHTTPClient<BuddyRequests>
 
+// User
+-(void)getRequest;
+-(void)deleteRequest;
+-(void)updateRequest;
 @end
