@@ -23,11 +23,10 @@
     if(self)
     {
         self.keyPaths = [NSMutableArray array];
-        [self registerProperty:@"created"];
-        [self registerProperty:@"lastModified"];
-        [self registerProperty:@"tag"];
-        [self registerProperty:@"userId"];
-
+        [self registerProperty:@selector(created)];
+        [self registerProperty:@selector(lastModified)];
+        [self registerProperty:@selector(tag)];
+        [self registerProperty:@selector(userId)];
     }
     return self;
 }
@@ -38,17 +37,18 @@
     if(self)
     {
         self.keyPaths = [NSMutableArray array];
-        [self registerProperty:@"created"];
-        [self registerProperty:@"lastModified"];
-        [self registerProperty:@"tag"];
-        [self registerProperty:@"userId"];
-        
+        [self registerProperty:@selector(created)];
+        [self registerProperty:@selector(lastModified)];
+        [self registerProperty:@selector(tag)];
+        [self registerProperty:@selector(userId)];
     }
     return self;
 }
 
--(void)registerProperty:(NSString *)propertyName
+-(void)registerProperty:(SEL)property
 {
+    NSString *propertyName = NSStringFromSelector(property);
+    
     [self.keyPaths addObject:propertyName];
     
     [self addObserver:self forKeyPath:propertyName options:NSKeyValueObservingOptionNew context:NULL];
