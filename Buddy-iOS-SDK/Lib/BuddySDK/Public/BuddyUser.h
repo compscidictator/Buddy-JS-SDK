@@ -17,7 +17,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BuddyEnums.h"
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 @class BuddyClient;
 @class BuddyGameScores;
@@ -61,7 +61,7 @@ typedef void (^BuddyUserGetProfilePhotosCallback)(BuddyArrayResponse *response);
  * \endcode
  */
 
-@interface BuddyUser : BuddyBase
+@interface BuddyUser : BuddyObject
 
 /// <summary>
 /// Gets the name of the user.

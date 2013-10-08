@@ -17,7 +17,7 @@
 #import <Foundation/Foundation.h>
 
 
-@interface BuddyStartup : BuddyBase
+@interface BuddyStartup : BuddyObject
 
 /// <summary>
 /// Gets the latitude of the center of the specified metro area.

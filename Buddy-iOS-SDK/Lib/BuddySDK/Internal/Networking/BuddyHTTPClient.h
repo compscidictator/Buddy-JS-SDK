@@ -7,7 +7,7 @@
 //
 
 #import "AFHTTPClient.h"
-#import "BuddyRequest.h"
+#import "BuddyRequests.h"
 
 @interface BuddyHTTPClient : AFHTTPClient<BuddyRequests>
 

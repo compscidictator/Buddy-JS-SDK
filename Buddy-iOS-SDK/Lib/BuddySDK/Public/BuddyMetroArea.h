@@ -16,13 +16,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 /// <summary>
 /// Represents a metropolitan area.
 /// </summary>
 
-@interface BuddyMetroArea : BuddyBase
+@interface BuddyMetroArea : BuddyObject
 
 /// <summary>
 /// Gets the icon URL an icon for the area.

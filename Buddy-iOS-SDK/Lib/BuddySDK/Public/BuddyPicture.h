@@ -23,7 +23,7 @@
 @class BuddyPictureResponse;
 @class BuddyClient;
 @class BuddyPicture;
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 
 /** Callback signature for the BuddyPictureDelete function. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise. If there was an exception or error (e.g. unknown server response or invalid data) the Response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the Response.dataResult field.

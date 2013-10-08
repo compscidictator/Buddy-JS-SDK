@@ -10,4 +10,19 @@
 
 @implementation MockBuddyClient
 
+-(void)getRequest
+{
+    
+}
+
+-(void)deleteRequest
+{
+    
+}
+
+-(void)updateRequest
+{
+    
+}
+
 @end

@@ -16,7 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 /// <summary>
 /// Represents a public photo album. Public albums are returned from album searches.
@@ -56,7 +56,7 @@
 
 
 
-@interface BuddyPhotoAlbumPublic : BuddyBase
+@interface BuddyPhotoAlbumPublic : BuddyObject
 
 /// <summary>
 /// Gets the name of the album

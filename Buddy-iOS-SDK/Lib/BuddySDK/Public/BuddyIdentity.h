@@ -19,7 +19,7 @@
 
 @class BuddyBoolResponse;
 @class BuddyArrayResponse;
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 // BuddyIdentity callback definitions
 
@@ -72,7 +72,7 @@ typedef void (^BuddyIdentityCheckForValuesCallback)(BuddyArrayResponse *response
  * \endcode
  */
 
-@interface BuddyIdentity : BuddyBase
+@interface BuddyIdentity : BuddyObject
 
 /// <summary>
 /// Returns all the identity values for this user.

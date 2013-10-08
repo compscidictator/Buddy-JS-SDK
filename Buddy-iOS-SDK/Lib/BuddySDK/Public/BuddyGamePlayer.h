@@ -21,7 +21,7 @@
 /// Represents a game player object.
 /// </summary>
 
-@interface BuddyGamePlayer : BuddyBase
+@interface BuddyGamePlayer : BuddyObject
 
 /// <summary>
 /// Gets the name of the player.

@@ -1,21 +1,21 @@
 //
-//  BuddyBase.m
+//  BuddyObject.m
 //  BuddySDK
 //
 //  Created by Erik Kerber on 9/11/13.
 //
 //
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
-@interface BuddyBase()
+@interface BuddyObject()
 
 @property (nonatomic, readwrite, assign) BOOL isDirty;
 @property (nonatomic, strong) NSMutableArray *keyPaths;
 
 @end
 
-@implementation BuddyBase
+@implementation BuddyObject
 
 -(id)init
 {

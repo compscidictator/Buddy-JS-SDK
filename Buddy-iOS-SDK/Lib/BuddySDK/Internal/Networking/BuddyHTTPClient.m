@@ -25,13 +25,18 @@
 	return self;
 }
 
--(void)oneCall
+-(void)getRequest
 {
     
-    NSMutableURLRequest *request = [self requestWithMethod:@"GET" path:path parameters:nil];
-    [request setTimeoutInterval: timeout];
+}
+
+-(void)deleteRequest
+{
     
-    AFJSONRequestOperation *operation = [self AFJSONRequestOperation:request success:success failure:failure];
-    [self enqueueHTTPRequestOperation:operation];
+}
+
+-(void)updateRequest
+{
+    
 }
 @end

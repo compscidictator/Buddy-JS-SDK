@@ -17,13 +17,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 /// <summary>
 /// Represents a single message that one user sent to another.
 /// </summary>
 
-@interface BuddyMessage : BuddyBase
+@interface BuddyMessage : BuddyObject
 
 /// <summary>
 /// Gets the DateTime the message was sent.

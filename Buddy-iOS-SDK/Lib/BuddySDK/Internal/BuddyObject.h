@@ -1,5 +1,5 @@
 //
-//  BuddyBase.h
+//  BuddyObject.h
 //  BuddySDK
 //
 //  Created by Erik Kerber on 9/11/13.
@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface BuddyBase : NSObject
+@interface BuddyObject : NSObject
 
 -(id)initWithExternalRepresentation:(NSDictionary *)json;
 

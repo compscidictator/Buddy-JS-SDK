@@ -51,13 +51,12 @@
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C14475C717FD185300713095 /* BuddyTests-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C14475C617FD185300713095 /* BuddyTests-Prefix.pch */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
-		C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F87517E17C12009CDC81 /* BuddyBase.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C153F87817E17C12009CDC81 /* BuddyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyBase.m */; };
+		C153F87717E17C12009CDC81 /* BuddyObject.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F87517E17C12009CDC81 /* BuddyObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C153F87817E17C12009CDC81 /* BuddyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyObject.m */; };
 		C161A82F17FD20AB001F5361 /* BuddyHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C161A82D17FD20AB001F5361 /* BuddyHTTPClient.h */; };
 		C161A83017FD20AB001F5361 /* BuddyHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A82E17FD20AB001F5361 /* BuddyHTTPClient.m */; };
 		C161A87517FD285D001F5361 /* AFHTTPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C161A86217FD285D001F5361 /* AFHTTPClient.h */; };
 		C161A87617FD285D001F5361 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A86317FD285D001F5361 /* AFHTTPClient.m */; };
-		C161A87717FD285D001F5361 /* AFHTTPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A86317FD285D001F5361 /* AFHTTPClient.m */; };
 		C161A87817FD285D001F5361 /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C161A86417FD285D001F5361 /* AFHTTPRequestOperation.h */; };
 		C161A87917FD285D001F5361 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A86517FD285D001F5361 /* AFHTTPRequestOperation.m */; };
 		C161A87A17FD285D001F5361 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C161A86517FD285D001F5361 /* AFHTTPRequestOperation.m */; };
@@ -92,6 +91,11 @@
 		C161A89E17FD2A43001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
 		C17E2B4518038C3C00F64FB6 /* MockBuddyClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C17E2B4318038C3B00F64FB6 /* MockBuddyClient.h */; };
 		C17E2B4618038C3C00F64FB6 /* MockBuddyClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4418038C3B00F64FB6 /* MockBuddyClient.m */; };
+		C17E2B4B18038F4B00F64FB6 /* BuddyCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C17E2B4918038F4B00F64FB6 /* BuddyCollection.h */; };
+		C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */; };
+		C17E2B4D18038F4B00F64FB6 /* BuddyCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */; };
+		C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
+		C17E2B511803924300F64FB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
 		C19911E217EA8CB1002F5905 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C19911E117EA8CB1002F5905 /* Buddy.m */; };
 		C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C8169615AD0066A899 /* BuddyApplicationStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC4117DEAEDA008A9130 /* BuddyBlob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837E1775002E001C9DEF /* BuddyBlob.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -167,7 +171,7 @@
 		C1F091B317FD043500B2B9F2 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */; };
 		C1F091B417FD046B00B2B9F2 /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1F091B517FD046B00B2B9F2 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C19911E117EA8CB1002F5905 /* Buddy.m */; };
-		C1F091B617FD046B00B2B9F2 /* BuddyBase.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyBase.m */; };
+		C1F091B617FD046B00B2B9F2 /* BuddyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C153F87617E17C12009CDC81 /* BuddyObject.m */; };
 		C1F091B717FD046B00B2B9F2 /* BuddyBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = 290883921775005D001C9DEF /* BuddyBlob.m */; };
 		C1F091B817FD046B00B2B9F2 /* BuddyBlobs.m in Sources */ = {isa = PBXBuildFile; fileRef = 290883931775005D001C9DEF /* BuddyBlobs.m */; };
 		C1F091B917FD046B00B2B9F2 /* BuddyCommerce.m in Sources */ = {isa = PBXBuildFile; fileRef = 290883941775005D001C9DEF /* BuddyCommerce.m */; };
@@ -481,8 +485,8 @@
 		C14475C617FD185300713095 /* BuddyTests-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "BuddyTests-Prefix.pch"; path = "../../Tests/BuddyTests-Prefix.pch"; sourceTree = "<group>"; };
 		C14475C917FD185C00713095 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = ../../Tests/en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
-		C153F87517E17C12009CDC81 /* BuddyBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyBase.h; path = ../../../Lib/BuddySDK/Internal/BuddyBase.h; sourceTree = "<group>"; };
-		C153F87617E17C12009CDC81 /* BuddyBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyBase.m; path = ../../Lib/BuddySDK/Internal/BuddyBase.m; sourceTree = "<group>"; };
+		C153F87517E17C12009CDC81 /* BuddyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyObject.h; path = ../../../Lib/BuddySDK/Internal/BuddyObject.h; sourceTree = "<group>"; };
+		C153F87617E17C12009CDC81 /* BuddyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyObject.m; path = ../Internal/BuddyObject.m; sourceTree = "<group>"; };
 		C161A82D17FD20AB001F5361 /* BuddyHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyHTTPClient.h; path = ../../../../Lib/BuddySDK/Internal/Networking/BuddyHTTPClient.h; sourceTree = "<group>"; };
 		C161A82E17FD20AB001F5361 /* BuddyHTTPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyHTTPClient.m; path = ../../../../Lib/BuddySDK/Internal/Networking/BuddyHTTPClient.m; sourceTree = "<group>"; };
 		C161A86217FD285D001F5361 /* AFHTTPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPClient.h; sourceTree = "<group>"; };
@@ -512,6 +516,10 @@
 		C17E2B4118038AF900F64FB6 /* BuddyRequests.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BuddyRequests.h; path = ../../../../Lib/BuddySDK/Internal/Networking/BuddyRequests.h; sourceTree = "<group>"; };
 		C17E2B4318038C3B00F64FB6 /* MockBuddyClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MockBuddyClient.h; path = ../../../../Lib/BuddySDK/Internal/Networking/MockBuddyClient.h; sourceTree = "<group>"; };
 		C17E2B4418038C3B00F64FB6 /* MockBuddyClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MockBuddyClient.m; path = ../../../../Lib/BuddySDK/Internal/Networking/MockBuddyClient.m; sourceTree = "<group>"; };
+		C17E2B4918038F4B00F64FB6 /* BuddyCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyCollection.h; path = ../../../Lib/BuddySDK/BaseObjects/BuddyCollection.h; sourceTree = "<group>"; };
+		C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyCollection.m; sourceTree = "<group>"; };
+		C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		C17E2B501803924300F64FB6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		C19911E117EA8CB1002F5905 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buddy.m; sourceTree = "<group>"; };
 		C19ECC7F17DEE047008A9130 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
 		C1F0916F17FD03E300B2B9F2 /* BuddyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuddyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -697,6 +705,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C17E2B511803924300F64FB6 /* MobileCoreServices.framework in Frameworks */,
+				C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */,
 				C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */,
 				C161A89B17FD2A33001F5361 /* CoreGraphics.framework in Frameworks */,
 				C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */,
@@ -734,9 +744,6 @@
 		A6291F71165C01800051F83C = {
 			isa = PBXGroup;
 			children = (
-				C161A89C17FD2A3B001F5361 /* Security.framework */,
-				C161A89917FD2A2C001F5361 /* CoreGraphics.framework */,
-				C161A89617FD2A00001F5361 /* QuartzCore.framework */,
 				C1F0916917FD03C300B2B9F2 /* Tests */,
 				A6291F81165C01800051F83C /* BuddySDK */,
 				A6291F7E165C01800051F83C /* Frameworks */,
@@ -756,6 +763,11 @@
 		A6291F7E165C01800051F83C /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C17E2B501803924300F64FB6 /* MobileCoreServices.framework */,
+				C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */,
+				C161A89C17FD2A3B001F5361 /* Security.framework */,
+				C161A89917FD2A2C001F5361 /* CoreGraphics.framework */,
+				C161A89617FD2A00001F5361 /* QuartzCore.framework */,
 				C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */,
 				C1FBCED817E671A900275F6A /* CoreLocation.framework */,
 				29345ABD1773DB3B00EEB8F5 /* UIKit.framework */,
@@ -808,6 +820,16 @@
 				C161A87417FD285D001F5361 /* UIImageView+AFNetworking.m */,
 			);
 			path = AFNetworking;
+			sourceTree = "<group>";
+		};
+		C17E2B4818038EFE00F64FB6 /* BaseObjects */ = {
+			isa = PBXGroup;
+			children = (
+				C153F87617E17C12009CDC81 /* BuddyObject.m */,
+				C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */,
+			);
+			name = BaseObjects;
+			path = ../../Lib/BuddySDK/BaseObjects;
 			sourceTree = "<group>";
 		};
 		C1F0916917FD03C300B2B9F2 /* Tests */ = {
@@ -949,6 +971,7 @@
 		D47220C0169613F60066A899 /* Public */ = {
 			isa = PBXGroup;
 			children = (
+				C17E2B4918038F4B00F64FB6 /* BuddyCollection.h */,
 				C19ECC7F17DEE047008A9130 /* Buddy.h */,
 				2908837E1775002E001C9DEF /* BuddyBlob.h */,
 				2908837F1775002E001C9DEF /* BuddyBlobs.h */,
@@ -1003,7 +1026,7 @@
 				D4F4198D16962CE000C38DD3 /* BuddyUserMetadata.h */,
 				D4A9F2961696EAAE001C54B7 /* BuddyVirtualAlbum.h */,
 				D4F4199116962D3E00C38DD3 /* BuddyVirtualAlbums.h */,
-				C153F87517E17C12009CDC81 /* BuddyBase.h */,
+				C153F87517E17C12009CDC81 /* BuddyObject.h */,
 			);
 			path = Public;
 			sourceTree = "<group>";
@@ -1011,9 +1034,9 @@
 		D4E9DE95166663AB00D28D59 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				C17E2B4818038EFE00F64FB6 /* BaseObjects */,
 				C1FBCECE17E670CB00275F6A /* LocationTracking */,
 				C19911E117EA8CB1002F5905 /* Buddy.m */,
-				C153F87617E17C12009CDC81 /* BuddyBase.m */,
 				290883921775005D001C9DEF /* BuddyBlob.m */,
 				290883931775005D001C9DEF /* BuddyBlobs.m */,
 				290883941775005D001C9DEF /* BuddyCommerce.m */,
@@ -1139,7 +1162,7 @@
 				C19ECC6F17DEAEDA008A9130 /* BuddyPlaces.h in Headers */,
 				C19ECC7017DEAEDA008A9130 /* BuddyRegisteredDeviceApple.h in Headers */,
 				C19ECC7117DEAEDA008A9130 /* BuddyUser.h in Headers */,
-				C153F87717E17C12009CDC81 /* BuddyBase.h in Headers */,
+				C153F87717E17C12009CDC81 /* BuddyObject.h in Headers */,
 				C19ECC7217DEAEDA008A9130 /* BuddyUserMetadata.h in Headers */,
 				C19ECC7317DEAEDA008A9130 /* BuddyVirtualAlbum.h in Headers */,
 				C19ECC7417DEAEDA008A9130 /* BuddyVirtualAlbums.h in Headers */,
@@ -1163,6 +1186,7 @@
 				C161A88E17FD285D001F5361 /* UIImageView+AFNetworking.h in Headers */,
 				C161A89317FD2898001F5361 /* AFHTTPClient+Buddy.h in Headers */,
 				C17E2B4518038C3C00F64FB6 /* MockBuddyClient.h in Headers */,
+				C17E2B4B18038F4B00F64FB6 /* BuddyCollection.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1354,7 +1378,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C153F87817E17C12009CDC81 /* BuddyBase.m in Sources */,
+				C153F87817E17C12009CDC81 /* BuddyObject.m in Sources */,
 				D40FDAB31695F5060028C609 /* ClientServiceJSON.m in Sources */,
 				D40FDAB51695F5060028C609 /* ClientServicePlainText.m in Sources */,
 				D40FDABB1695FC7F0028C609 /* BuddyWebWrapper.m in Sources */,
@@ -1427,6 +1451,7 @@
 				C161A88F17FD285D001F5361 /* UIImageView+AFNetworking.m in Sources */,
 				C161A89417FD2898001F5361 /* AFHTTPClient+Buddy.m in Sources */,
 				C17E2B4618038C3C00F64FB6 /* MockBuddyClient.m in Sources */,
+				C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1452,7 +1477,7 @@
 				C1F091B117FD040200B2B9F2 /* LocationTests.m in Sources */,
 				C1F091B417FD046B00B2B9F2 /* BuddyLocation.m in Sources */,
 				C1F091B517FD046B00B2B9F2 /* Buddy.m in Sources */,
-				C1F091B617FD046B00B2B9F2 /* BuddyBase.m in Sources */,
+				C1F091B617FD046B00B2B9F2 /* BuddyObject.m in Sources */,
 				C1F091B717FD046B00B2B9F2 /* BuddyBlob.m in Sources */,
 				C1F091B817FD046B00B2B9F2 /* BuddyBlobs.m in Sources */,
 				C1F091B917FD046B00B2B9F2 /* BuddyCommerce.m in Sources */,
@@ -1511,7 +1536,6 @@
 				C1F091F717FD046F00B2B9F2 /* ClientServiceJSON.m in Sources */,
 				C1F091F817FD046F00B2B9F2 /* ClientServicePlainText.m in Sources */,
 				C1F091FA17FD04CA00B2B9F2 /* OpenUDID.m in Sources */,
-				C161A87717FD285D001F5361 /* AFHTTPClient.m in Sources */,
 				C161A87A17FD285D001F5361 /* AFHTTPRequestOperation.m in Sources */,
 				C161A87D17FD285D001F5361 /* AFImageRequestOperation.m in Sources */,
 				C161A88017FD285D001F5361 /* AFJSONRequestOperation.m in Sources */,
@@ -1521,6 +1545,7 @@
 				C161A88D17FD285D001F5361 /* AFXMLRequestOperation.m in Sources */,
 				C161A89017FD285D001F5361 /* UIImageView+AFNetworking.m in Sources */,
 				C161A89517FD2898001F5361 /* AFHTTPClient+Buddy.m in Sources */,
+				C17E2B4D18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1665,7 +1690,7 @@
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
 				"INSTALL_PATH[sdk=*]" = /usr/local/lib;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
@@ -1706,7 +1731,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
-				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib\"";
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
