@@ -11,7 +11,7 @@
 
 @class BuddyArrayResponse;
 @class BuddyBoolResponse;
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 typedef void (^BuddyVideoEditVideoCallback)(BuddyBoolResponse * response);
 
@@ -21,7 +21,7 @@ typedef void (^BuddyVideoDeleteVideoCallback)(BuddyBoolResponse * response);
 /// <summary>
 /// Represents a Video object.
 /// </summary>
-@interface BuddyVideo : BuddyBase
+@interface BuddyVideo : BuddyObject
 
 /// <summary>
 /// Gets the VideoID for this video

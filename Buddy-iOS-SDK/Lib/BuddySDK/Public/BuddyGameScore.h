@@ -16,14 +16,14 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 /// <summary>
 /// Represents an object that describes a single game score entry.
 /// </summary>
 
 
-@interface BuddyGameScore : BuddyBase
+@interface BuddyGameScore : BuddyObject
 
 /// <summary>
 /// Gets the name of the board this score is related to.
@@ -54,11 +54,6 @@
 /// Gets the numeric value of the score entry.
 /// </summary>
 @property (readonly, nonatomic, assign) double score;
-
-/// <summary>
-/// Gets the user ID that owns this score.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
 
 /// <summary>
 /// Gets the user name of the user who owns this score.

@@ -10,7 +10,7 @@
 
 @class BuddyArrayResponse;
 @class BuddyBoolResponse;
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 typedef void (^BuddyBlobEditBlobCallback)(BuddyBoolResponse * response);
 
@@ -20,7 +20,7 @@ typedef void (^BuddyBlobDeleteBlobCallback) (BuddyBoolResponse * response);
 /// Represents a Blob object.
 /// </summary>
 
-@interface BuddyBlob : BuddyBase
+@interface BuddyBlob : BuddyObject
 
 /// <summary>
 /// Gets the BlobID for this blob

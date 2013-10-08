@@ -19,6 +19,7 @@
 #import "BuddyWebWrapper.h"
 #import "ClientServicePlainText.h"
 #import "AFHTTPRequestOperation.h"
+#import "AFHTTPClient+Buddy.h"
 #import <UIKit/UIImage.h>
 
 #import "BuddyUtility.h"

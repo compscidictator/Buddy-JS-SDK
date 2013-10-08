@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BuddyCollection.h"
 
 @class BuddyNSNumberResponse;
 @class BuddyVideoResponse;
@@ -20,7 +21,7 @@ typedef void (^BuddyVideoGetVideoInfoCallback)(BuddyVideoResponse * response);
 
 typedef void (^BuddyVideoVideoListCallback)(BuddyArrayResponse * response);
 
-@interface BuddyVideos : NSObject
+@interface BuddyVideos : BuddyCollection
 
 -(void)addVideo:(NSString *)friendlyName
          appTag:(NSString *)appTag

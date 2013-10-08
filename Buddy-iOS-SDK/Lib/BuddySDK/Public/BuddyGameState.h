@@ -16,13 +16,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 /// <summary>
 /// Represents a single game state object.
 /// </summary>
 
-@interface BuddyGameState : BuddyBase
+@interface BuddyGameState : BuddyObject
 
 /// <summary>
 /// Gets the optional application tag for this GameState.

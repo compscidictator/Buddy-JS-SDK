@@ -16,13 +16,13 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 /// <summary>
 /// Represents a receipt in the Buddy system.
 /// </summary>
 
-@interface BuddyReceipt : BuddyBase
+@interface BuddyReceipt : BuddyObject
 
 /// <summary>
 /// Gets the ID of the retrieved receipt history item.
@@ -33,11 +33,6 @@
 /// Gets the name of the store in which this receipt was saved.
 /// </summary>
 @property (readonly, nonatomic, strong) NSString *storeName;
-
-/// <summary>
-/// Gets the ID of the user this receipt was saved for.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
 
 /// <summary>
 /// Gets the DateTime this receipt was saved or modified.

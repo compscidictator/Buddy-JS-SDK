@@ -15,6 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "BuddyCollection.h"
 
 
 @class BuddyBoolResponse;
@@ -81,7 +82,7 @@ typedef void (^BuddyGameStatesGetAllCallback)(BuddyDictionaryResponse *response)
  * \endcode
  */
 
-@interface BuddyGameStates : NSObject
+@interface BuddyGameStates : BuddyCollection
 
 /// <summary>
 /// Adds a key/value pair to the user's GameState.

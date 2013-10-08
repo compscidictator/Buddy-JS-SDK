@@ -21,7 +21,7 @@
 /// Represents a game player object.
 /// </summary>
 
-@interface BuddyGamePlayer : BuddyBase
+@interface BuddyGamePlayer : BuddyObject
 
 /// <summary>
 /// Gets the name of the player.
@@ -52,11 +52,6 @@
 /// Gets the longitude where the player was created.
 /// </summary>
 @property (readonly, nonatomic, assign) double longitude;
-
-/// <summary>
-/// Gets the userId of the user this player is tied to.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
 
 /// <summary>
 /// Gets the distance in kilometers from the given origin in the metadata search method.

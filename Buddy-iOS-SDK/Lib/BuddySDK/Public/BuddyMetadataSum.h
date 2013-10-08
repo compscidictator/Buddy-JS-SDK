@@ -16,7 +16,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 /// <summary>
 /// Represents the sum of a collection of metadata items with a similar key.
@@ -47,7 +47,7 @@
 */
 
 
-@interface BuddyMetadataSum : BuddyBase
+@interface BuddyMetadataSum : BuddyObject
 
 /// <summary>
 /// Gets the total sum of the metadata items.

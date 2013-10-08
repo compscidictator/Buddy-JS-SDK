@@ -4,7 +4,4 @@
    <FileRef
       location = "group:lib/BuddySDK.xcodeproj">
    </FileRef>
-   <FileRef
-      location = "group:test/BuddySDKTests.xcodeproj">
-   </FileRef>
 </Workspace>

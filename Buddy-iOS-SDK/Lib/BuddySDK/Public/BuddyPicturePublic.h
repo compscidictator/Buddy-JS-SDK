@@ -18,7 +18,7 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 /// <summary>
 /// Represents a single picture on the Buddy Platform. This is a public view of a picture, can be retrieve either by getting a user's profile pictures or
@@ -54,7 +54,7 @@
  \endcode
  */
 
-@interface BuddyPicturePublic : BuddyBase
+@interface BuddyPicturePublic : BuddyObject
 
 /// <summary>
 /// Gets the url of the full picture.

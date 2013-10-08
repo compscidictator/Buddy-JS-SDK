@@ -17,7 +17,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BuddyEnums.h"
-#import "BuddyBase.h"
+#import "BuddyObject.h"
 
 @class BuddyClient;
 @class BuddyGameScores;
@@ -61,7 +61,7 @@ typedef void (^BuddyUserGetProfilePhotosCallback)(BuddyArrayResponse *response);
  * \endcode
  */
 
-@interface BuddyUser : BuddyBase
+@interface BuddyUser : BuddyObject
 
 /// <summary>
 /// Gets the name of the user.
@@ -72,11 +72,6 @@ typedef void (^BuddyUserGetProfilePhotosCallback)(BuddyArrayResponse *response);
 /// Gets the unique token for the user.
 /// </summary>
 @property (readonly, nonatomic, strong) NSString *userToken;
-
-/// <summary>
-/// Gets the system-wide unique ID of the user.
-/// </summary>
-@property (readonly, nonatomic, strong) NSNumber *userId;
 
 /// <summary>
 /// Gets the gender of the user.
