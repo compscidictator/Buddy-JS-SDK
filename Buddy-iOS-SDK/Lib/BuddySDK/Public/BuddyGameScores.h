@@ -15,6 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "BuddyCollection.h"
 
 
 @class BuddyBoolResponse;
@@ -79,7 +80,7 @@ typedef void (^BuddyGameScoresAddCallback)(BuddyBoolResponse *response);
  * \endcode
  */
 
-@interface BuddyGameScores : NSObject
+@interface BuddyGameScores : BuddyCollection
 
 
 /// <summary>

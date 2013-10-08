@@ -15,7 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "BuddyCollection.h"
 
 @class BuddyClient;
 @class BuddyAuthenticatedUser;
@@ -78,7 +78,7 @@ typedef void (^BuddyPhotoAlbumsGetAllCallback)(BuddyDictionaryResponse *response
  */
 
 
-@interface BuddyPhotoAlbums : NSObject
+@interface BuddyPhotoAlbums : BuddyCollection
 
 /// <summary>
 /// This method is used create a new album. The album will be owned by this user. Multiple albums can be created with the same name.

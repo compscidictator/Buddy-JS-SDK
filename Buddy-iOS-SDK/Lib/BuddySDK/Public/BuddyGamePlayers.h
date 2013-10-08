@@ -15,7 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "BuddyCollection.h"
 
 @class BuddyBoolResponse;
 @class BuddyArrayResponse;
@@ -49,7 +49,7 @@ typedef void (^BuddyPlayersFindCallback)(BuddyArrayResponse *response);
 /// Represents a player in a game. The Player object tracks game specific items such as board, ranks, and other data specific to building game leader boards and other game related constructs.
 /// </summary>
 
-@interface BuddyGamePlayers : NSObject
+@interface BuddyGamePlayers : BuddyCollection
 
 /// <summary>
 /// Creates a new game Player object for an existing user in Buddy.

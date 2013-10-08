@@ -15,6 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "BuddyCollection.h"
 
 
 @class BuddyBoolResponse;
@@ -68,7 +69,7 @@ typedef void (^BuddyMessagesGetSentCallback)(BuddyArrayResponse *response);
  * \endcode
  */
 
-@interface BuddyMessages : NSObject
+@interface BuddyMessages : BuddyCollection
 
 @property (readonly, nonatomic, strong) BuddyMessageGroups *groups;
 

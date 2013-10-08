@@ -15,7 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "BuddyCollection.h"
 
 @class BuddyPlace;
 @class BuddyArrayResponse;
@@ -36,7 +36,7 @@ typedef void (^BuddyStartupsGetMetroAreaListCallback)(BuddyArrayResponse *respon
 typedef void (^BuddyStartupsGetFromMetroAreaCallback)(BuddyArrayResponse *response);
 
 
-@interface BuddyStartups : NSObject
+@interface BuddyStartups : BuddyCollection
 
 /// <summary>
 /// Searches for statups by name within the distance of the specified location. Note: To search for all startups within the distance from the specified location, leave the SearchName parameter empty.

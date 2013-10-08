@@ -15,6 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
+#import "BuddyCollection.h"
 
 
 @class BuddyPlace;
@@ -99,7 +100,7 @@ typedef void (^BuddyPlacesGetCallback)(BuddyPlaceResponse *response);
  * \endcode
  */
 
-@interface BuddyPlaces : NSObject
+@interface BuddyPlaces : BuddyCollection
 
 /// <summary>
 /// Find a location close to a given latitude and longitude.

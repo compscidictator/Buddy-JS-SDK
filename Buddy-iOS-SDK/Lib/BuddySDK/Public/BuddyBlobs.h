@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BuddyCollection.h"
 
 @class BuddyStringResponse;
 @class BuddyNSNumberResponse;
@@ -19,7 +20,7 @@ typedef void (^BuddyBlobGetBlobInfoCallback)(BuddyBlobResponse * response);
 
 typedef void (^BuddyBlobBlobListCallback)(BuddyArrayResponse * response);
 
-@interface BuddyBlobs : NSObject
+@interface BuddyBlobs : BuddyCollection
 
 -(void)addBlob:(NSString *)friendlyName
         appTag:(NSString *)appTag
