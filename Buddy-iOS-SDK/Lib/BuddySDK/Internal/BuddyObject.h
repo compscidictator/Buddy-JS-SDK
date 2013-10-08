@@ -29,5 +29,8 @@
 -(void)refresh;
 -(void)update;
 
+// "Abstracts" meant to be overidden.
+-(NSDictionary *)buildUpdateDictionary;
+-(void)updateObjectWithJSON:(NSString *)json;
 
 @end

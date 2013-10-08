@@ -96,6 +96,9 @@
 		C17E2B4D18038F4B00F64FB6 /* BuddyCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */; };
 		C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
 		C17E2B511803924300F64FB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
+		C17E2B541803BACD00F64FB6 /* BuddyClientProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C17E2B521803BACC00F64FB6 /* BuddyClientProvider.h */; };
+		C17E2B551803BACD00F64FB6 /* BuddyClientProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B531803BACC00F64FB6 /* BuddyClientProvider.m */; };
+		C17E2B561803BACD00F64FB6 /* BuddyClientProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B531803BACC00F64FB6 /* BuddyClientProvider.m */; };
 		C19911E217EA8CB1002F5905 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C19911E117EA8CB1002F5905 /* Buddy.m */; };
 		C19ECC3C17DEAD38008A9130 /* BuddyApplicationStatistics.h in Headers */ = {isa = PBXBuildFile; fileRef = D47220C8169615AD0066A899 /* BuddyApplicationStatistics.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC4117DEAEDA008A9130 /* BuddyBlob.h in Headers */ = {isa = PBXBuildFile; fileRef = 2908837E1775002E001C9DEF /* BuddyBlob.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -520,6 +523,8 @@
 		C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyCollection.m; sourceTree = "<group>"; };
 		C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C17E2B501803924300F64FB6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C17E2B521803BACC00F64FB6 /* BuddyClientProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyClientProvider.h; path = ../../../../Lib/BuddySDK/Internal/Networking/BuddyClientProvider.h; sourceTree = "<group>"; };
+		C17E2B531803BACC00F64FB6 /* BuddyClientProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyClientProvider.m; path = ../../../../Lib/BuddySDK/Internal/Networking/BuddyClientProvider.m; sourceTree = "<group>"; };
 		C19911E117EA8CB1002F5905 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buddy.m; sourceTree = "<group>"; };
 		C19ECC7F17DEE047008A9130 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
 		C1F0916F17FD03E300B2B9F2 /* BuddyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuddyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -963,6 +968,8 @@
 				C17E2B4118038AF900F64FB6 /* BuddyRequests.h */,
 				C17E2B4318038C3B00F64FB6 /* MockBuddyClient.h */,
 				C17E2B4418038C3B00F64FB6 /* MockBuddyClient.m */,
+				C17E2B521803BACC00F64FB6 /* BuddyClientProvider.h */,
+				C17E2B531803BACC00F64FB6 /* BuddyClientProvider.m */,
 			);
 			name = Networking;
 			path = Internal/Networking;
@@ -1187,6 +1194,7 @@
 				C161A89317FD2898001F5361 /* AFHTTPClient+Buddy.h in Headers */,
 				C17E2B4518038C3C00F64FB6 /* MockBuddyClient.h in Headers */,
 				C17E2B4B18038F4B00F64FB6 /* BuddyCollection.h in Headers */,
+				C17E2B541803BACD00F64FB6 /* BuddyClientProvider.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1452,6 +1460,7 @@
 				C161A89417FD2898001F5361 /* AFHTTPClient+Buddy.m in Sources */,
 				C17E2B4618038C3C00F64FB6 /* MockBuddyClient.m in Sources */,
 				C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
+				C17E2B551803BACD00F64FB6 /* BuddyClientProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1546,6 +1555,7 @@
 				C161A89017FD285D001F5361 /* UIImageView+AFNetworking.m in Sources */,
 				C161A89517FD2898001F5361 /* AFHTTPClient+Buddy.m in Sources */,
 				C17E2B4D18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
+				C17E2B561803BACD00F64FB6 /* BuddyClientProvider.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
