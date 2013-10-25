@@ -9,7 +9,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Buddy
+namespace BuddySDK
 {
     using System;
     using System.IO;
@@ -30,7 +30,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="fromDateTime">The starting date and time to get receipts from, leave this blank to get all the receipts.</param>
         /// <returns>A Task&lt;IEnumerable&lt;Receipt&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<Receipt>> GetReceiptsForUserAsync(this Buddy.Commerce commerce, System.Nullable<System.DateTime> fromDateTime = null)
+        public static System.Threading.Tasks.Task<IEnumerable<Receipt>> GetReceiptsForUserAsync(this BuddySDK.Commerce commerce, System.Nullable<System.DateTime> fromDateTime = null)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<Receipt>>();
             commerce.GetReceiptsForUserInternal(fromDateTime, (bcr) =>
@@ -52,7 +52,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="customTransactionID">The CustomTransactionID of the transaction. For Facebook payments this is the OrderID of the transaction.</param>
         /// <returns>A Task&lt;IEnumerable&lt;Receipt&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<Receipt>> GetReceiptForUserAndTransactionIDAsync(this Buddy.Commerce commerce, string customTransactionID)
+        public static System.Threading.Tasks.Task<IEnumerable<Receipt>> GetReceiptForUserAndTransactionIDAsync(this BuddySDK.Commerce commerce, string customTransactionID)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<Receipt>>();
             commerce.GetReceiptForUserAndTransactionIDInternal(customTransactionID, (bcr) =>
@@ -80,7 +80,7 @@ using System.Threading.Tasks;
         /// <param name="customTransactionID">An optional app-specific ID to associate with the purchase.</param>
         /// <param name="appData">Optional metadata to associate with the transaction.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SaveReceiptAsync(this Buddy.Commerce commerce, string totalCost, int totalQuantity, int storeItemID, string storeName, string receiptData = "", string customTransactionID = "", string appData = "")
+        public static System.Threading.Tasks.Task<Boolean> SaveReceiptAsync(this BuddySDK.Commerce commerce, string totalCost, int totalQuantity, int storeItemID, string storeName, string receiptData = "", string customTransactionID = "", string appData = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             commerce.SaveReceiptInternal(totalCost, totalQuantity, storeItemID, storeName, receiptData, customTransactionID, appData, (bcr) =>
@@ -108,7 +108,7 @@ using System.Threading.Tasks;
         /// <param name="customTransactionID">An optional app-specific ID to associate with the purchase.</param>
         /// <param name="appData">Optional metadata to associated with the transaction.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> VerifyiOSReceiptAsync(this Buddy.Commerce commerce, string totalCost, int totalQuantity, bool useSandbox, string appleItemID = "", string receiptData = "", string customTransactionID = "", string appData = "")
+        public static System.Threading.Tasks.Task<Boolean> VerifyiOSReceiptAsync(this BuddySDK.Commerce commerce, string totalCost, int totalQuantity, bool useSandbox, string appleItemID = "", string receiptData = "", string customTransactionID = "", string appData = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             commerce.VerifyiOSReceiptInternal(totalCost, totalQuantity, useSandbox, appleItemID, receiptData, customTransactionID, appData, (bcr) =>
@@ -136,7 +136,7 @@ using System.Threading.Tasks;
         /// <param name="customTransactionID">An optional app-specific ID to associate with the purchase.</param>
         /// <param name="appData">Optional metadata to associated with the transaction.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> VerifyAndSaveiOSReceiptAsync(this Buddy.Commerce commerce, string totalCost, int totalQuantity, bool useSandbox, string appleItemID = "", string receiptData = "", string customTransactionID = "", string appData = "")
+        public static System.Threading.Tasks.Task<Boolean> VerifyAndSaveiOSReceiptAsync(this BuddySDK.Commerce commerce, string totalCost, int totalQuantity, bool useSandbox, string appleItemID = "", string receiptData = "", string customTransactionID = "", string appData = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             commerce.VerifyAndSaveiOSReceiptInternal(totalCost, totalQuantity, useSandbox, appleItemID, receiptData, customTransactionID, appData, (bcr) =>
@@ -157,7 +157,7 @@ using System.Threading.Tasks;
         /// Returns information about all items in the store for the current application.
         /// </summary>
         /// <returns>A Task&lt;IEnumerable&lt;StoreItem&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<StoreItem>> GetAllStoreItemsAsync(this Buddy.Commerce commerce)
+        public static System.Threading.Tasks.Task<IEnumerable<StoreItem>> GetAllStoreItemsAsync(this BuddySDK.Commerce commerce)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<StoreItem>>();
             commerce.GetAllStoreItemsInternal((bcr) =>
@@ -178,7 +178,7 @@ using System.Threading.Tasks;
         /// Returns information about all store items for an application which are currently active (available for sale).
         /// </summary>
         /// <returns>A Task&lt;IEnumerable&lt;StoreItem&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<StoreItem>> GetActiveStoreItemsAsync(this Buddy.Commerce commerce)
+        public static System.Threading.Tasks.Task<IEnumerable<StoreItem>> GetActiveStoreItemsAsync(this BuddySDK.Commerce commerce)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<StoreItem>>();
             commerce.GetActiveStoreItemsInternal((bcr) =>
@@ -199,7 +199,7 @@ using System.Threading.Tasks;
         /// Returns information about all items in the store for the current application which are marked as free.
         /// </summary>
         /// <returns>A Task&lt;IEnumerable&lt;StoreItem&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<StoreItem>> GetFreeStoreItemsAsync(this Buddy.Commerce commerce)
+        public static System.Threading.Tasks.Task<IEnumerable<StoreItem>> GetFreeStoreItemsAsync(this BuddySDK.Commerce commerce)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<StoreItem>>();
             commerce.GetFreeStoreItemsInternal((bcr) =>
@@ -227,7 +227,7 @@ using System.Threading.Tasks;
         /// <param name="user">The user to send the request to, can't be null.</param>
         /// <param name="appTag">Mark this request with an tag, can be used on the user's side to make a decision on whether to accept the request.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> AddAsync(this Buddy.FriendRequests friendRequests, Buddy.User user, string appTag = "")
+        public static System.Threading.Tasks.Task<Boolean> AddAsync(this BuddySDK.FriendRequests friendRequests, BuddySDK.User user, string appTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             friendRequests.AddInternal(user, appTag, (bcr) =>
@@ -249,7 +249,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="afterDate">Filter the list by returning only the friend requests after a ceratin date.</param>
         /// <returns>A Task&lt;IEnumerable&lt;User&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<User>> GetAllAsync(this Buddy.FriendRequests friendRequests, System.DateTime afterDate = default(DateTime))
+        public static System.Threading.Tasks.Task<IEnumerable<User>> GetAllAsync(this BuddySDK.FriendRequests friendRequests, System.DateTime afterDate = default(DateTime))
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<User>>();
             friendRequests.GetAllInternal(afterDate, (bcr) =>
@@ -272,7 +272,7 @@ using System.Threading.Tasks;
         /// <param name="user">The user to accept as friend. Can't be null and must be on the friend requests list.</param>
         /// <param name="appTag">Tag this friend accept with a string.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> AcceptAsync(this Buddy.FriendRequests friendRequests, Buddy.User user, string appTag = "")
+        public static System.Threading.Tasks.Task<Boolean> AcceptAsync(this BuddySDK.FriendRequests friendRequests, BuddySDK.User user, string appTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             friendRequests.AcceptInternal(user, appTag, (bcr) =>
@@ -294,7 +294,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="user">The user to deny the friend request from. User can't be null and must be on the friend request list.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> DenyAsync(this Buddy.FriendRequests friendRequests, Buddy.User user)
+        public static System.Threading.Tasks.Task<Boolean> DenyAsync(this BuddySDK.FriendRequests friendRequests, BuddySDK.User user)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             friendRequests.DenyInternal(user, (bcr) =>
@@ -320,7 +320,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="afterDate">Filter the list by friends added 'afterDate'.</param>
         /// <returns>A Task&lt;IEnumerable&lt;User&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<User>> GetAllAsync(this Buddy.Friends friends, System.DateTime afterDate = default(DateTime))
+        public static System.Threading.Tasks.Task<IEnumerable<User>> GetAllAsync(this BuddySDK.Friends friends, System.DateTime afterDate = default(DateTime))
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<User>>();
             friends.GetAllInternal(afterDate, (bcr) =>
@@ -342,7 +342,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="user">The user to remove from the friends list. Must be already on the list and can't be null.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> RemoveAsync(this Buddy.Friends friends, Buddy.User user)
+        public static System.Threading.Tasks.Task<Boolean> RemoveAsync(this BuddySDK.Friends friends, BuddySDK.User user)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             friends.RemoveInternal(user, (bcr) =>
@@ -377,7 +377,7 @@ using System.Threading.Tasks;
         /// <param name="oneScorePerPlayer">The optional one-score-per-player paramter. Setting this to true will always update the score for this user, instead of creating a new one.</param>
         /// <param name="appTag">An optional application tag for this score.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> AddAsync(this Buddy.GameScores gameScores, double score, string board = null, string rank = null, double latitude = 0, double longitude = 0, bool oneScorePerPlayer = false, string appTag = null)
+        public static System.Threading.Tasks.Task<Boolean> AddAsync(this BuddySDK.GameScores gameScores, double score, string board = null, string rank = null, double latitude = 0, double longitude = 0, bool oneScorePerPlayer = false, string appTag = null)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             gameScores.AddInternal(score, board, rank, latitude, longitude, oneScorePerPlayer, appTag, (bcr) =>
@@ -398,7 +398,7 @@ using System.Threading.Tasks;
         /// Delete all scores for this user.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> DeleteAllAsync(this Buddy.GameScores gameScores)
+        public static System.Threading.Tasks.Task<Boolean> DeleteAllAsync(this BuddySDK.GameScores gameScores)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             gameScores.DeleteAllInternal((bcr) =>
@@ -420,7 +420,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="recordLimit">Limit the number of entries returned.</param>
         /// <returns>A Task&lt;IEnumerable&lt;GameScore&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<GameScore>> GetAllAsync(this Buddy.GameScores gameScores, int recordLimit = 100)
+        public static System.Threading.Tasks.Task<IEnumerable<GameScore>> GetAllAsync(this BuddySDK.GameScores gameScores, int recordLimit = 100)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<GameScore>>();
             gameScores.GetAllInternal(recordLimit, (bcr) =>
@@ -448,7 +448,7 @@ using System.Threading.Tasks;
         /// <param name="gameStateValue">The value to persist.</param>
         /// <param name="appTag">An optional application tag for this score.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> AddAsync(this Buddy.GameStates gameStates, string gameStateKey, string gameStateValue, string appTag = "")
+        public static System.Threading.Tasks.Task<Boolean> AddAsync(this BuddySDK.GameStates gameStates, string gameStateKey, string gameStateValue, string appTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             gameStates.AddInternal(gameStateKey, gameStateValue, appTag, (bcr) =>
@@ -470,7 +470,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="gameStateKey">The gameStateKey to use to reference the GameState item.</param><exception cref="T:System.ArgumentException">When key is null or empty.</exception>
         /// <returns>A Task&lt;GameState&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<GameState> GetAsync(this Buddy.GameStates gameStates, string gameStateKey)
+        public static System.Threading.Tasks.Task<GameState> GetAsync(this BuddySDK.GameStates gameStates, string gameStateKey)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<GameState>();
             gameStates.GetInternal(gameStateKey, (bcr) =>
@@ -494,7 +494,7 @@ using System.Threading.Tasks;
         /// <param name="gameStateValue">The value to update.</param>
         /// <param name="newAppTag">An optional new application tag for the value.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> UpdateAsync(this Buddy.GameStates gameStates, string gameStateKey, string gameStateValue, string newAppTag = "")
+        public static System.Threading.Tasks.Task<Boolean> UpdateAsync(this BuddySDK.GameStates gameStates, string gameStateKey, string gameStateValue, string newAppTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             gameStates.UpdateInternal(gameStateKey, gameStateValue, newAppTag, (bcr) =>
@@ -516,7 +516,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="gameStateKey">The key to remove from the GameState.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> RemoveAsync(this Buddy.GameStates gameStates, string gameStateKey)
+        public static System.Threading.Tasks.Task<Boolean> RemoveAsync(this BuddySDK.GameStates gameStates, string gameStateKey)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             gameStates.RemoveInternal(gameStateKey, (bcr) =>
@@ -537,7 +537,7 @@ using System.Threading.Tasks;
         /// Get all GameState keys and values.
         /// </summary>
         /// <returns>A Task&lt;IDictionary&lt;String,GameState&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IDictionary<String, GameState>> GetAllAsync(this Buddy.GameStates gameStates)
+        public static System.Threading.Tasks.Task<IDictionary<String, GameState>> GetAllAsync(this BuddySDK.GameStates gameStates)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IDictionary<String, GameState>>();
             gameStates.GetAllInternal((bcr) =>
@@ -562,7 +562,7 @@ using System.Threading.Tasks;
         /// Returns all the identity values for this user.
         /// </summary>
         /// <returns>A Task&lt;IEnumerable&lt;IdentityItem&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<IdentityItem>> GetAllAsync(this Buddy.Identity identity)
+        public static System.Threading.Tasks.Task<IEnumerable<IdentityItem>> GetAllAsync(this BuddySDK.Identity identity)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<IdentityItem>>();
             identity.GetAllInternal((bcr) =>
@@ -584,7 +584,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="value">The value to add.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> AddAsync(this Buddy.Identity identity, string value)
+        public static System.Threading.Tasks.Task<Boolean> AddAsync(this BuddySDK.Identity identity, string value)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             identity.AddInternal(value, (bcr) =>
@@ -606,7 +606,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="value">The value to remove.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> RemoveAsync(this Buddy.Identity identity, string value)
+        public static System.Threading.Tasks.Task<Boolean> RemoveAsync(this BuddySDK.Identity identity, string value)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             identity.RemoveInternal(value, (bcr) =>
@@ -628,7 +628,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="values">The value to search for. This can either be a single value or a semi-colon separated list of values.</param>
         /// <returns>A Task&lt;IEnumerable&lt;IdentityItemSearchResult&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<IdentityItemSearchResult>> CheckForValuesAsync(this Buddy.Identity identity, string values)
+        public static System.Threading.Tasks.Task<IEnumerable<IdentityItemSearchResult>> CheckForValuesAsync(this BuddySDK.Identity identity, string values)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<IdentityItemSearchResult>>();
             identity.CheckForValuesInternal(values, (bcr) =>
@@ -653,7 +653,7 @@ using System.Threading.Tasks;
         /// This method has the current user join this message group.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> JoinAsync(this Buddy.MessageGroup messageGroup)
+        public static System.Threading.Tasks.Task<Boolean> JoinAsync(this BuddySDK.MessageGroup messageGroup)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             messageGroup.JoinInternal((bcr) =>
@@ -674,7 +674,7 @@ using System.Threading.Tasks;
         /// This methods has the current user leave this message group.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> LeaveAsync(this Buddy.MessageGroup messageGroup)
+        public static System.Threading.Tasks.Task<Boolean> LeaveAsync(this BuddySDK.MessageGroup messageGroup)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             messageGroup.LeaveInternal((bcr) =>
@@ -696,7 +696,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="userToAdd">The User to add to the message group.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> AddUserAsync(this Buddy.MessageGroup messageGroup, Buddy.User userToAdd)
+        public static System.Threading.Tasks.Task<Boolean> AddUserAsync(this BuddySDK.MessageGroup messageGroup, BuddySDK.User userToAdd)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             messageGroup.AddUserInternal(userToAdd, (bcr) =>
@@ -718,7 +718,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="userToRemove">The user to remove from the group.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> RemoveUserAsync(this Buddy.MessageGroup messageGroup, Buddy.User userToRemove)
+        public static System.Threading.Tasks.Task<Boolean> RemoveUserAsync(this BuddySDK.MessageGroup messageGroup, BuddySDK.User userToRemove)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             messageGroup.RemoveUserInternal(userToRemove, (bcr) =>
@@ -743,7 +743,7 @@ using System.Threading.Tasks;
         /// <param name="longitude">The optional longitude from where this message was sent.</param>
         /// <param name="appTag">An optional application tag for this message.</param>
         /// <returns>A Task&lt;IDictionary&lt;Int32,Boolean&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IDictionary<Int32, Boolean>> SendMessageAsync(this Buddy.MessageGroup messageGroup, string message, double latitude = 0, double longitude = 0, string appTag = "")
+        public static System.Threading.Tasks.Task<IDictionary<Int32, Boolean>> SendMessageAsync(this BuddySDK.MessageGroup messageGroup, string message, double latitude = 0, double longitude = 0, string appTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IDictionary<Int32, Boolean>>();
             messageGroup.SendMessageInternal(message, latitude, longitude, appTag, (bcr) =>
@@ -765,7 +765,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="afterDate">Optionally return only messages sent after this date.</param>
         /// <returns>A Task&lt;IEnumerable&lt;GroupMessage&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<GroupMessage>> GetReceivedAsync(this Buddy.MessageGroup messageGroup, System.DateTime afterDate = default(DateTime))
+        public static System.Threading.Tasks.Task<IEnumerable<GroupMessage>> GetReceivedAsync(this BuddySDK.MessageGroup messageGroup, System.DateTime afterDate = default(DateTime))
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<GroupMessage>>();
             messageGroup.GetReceivedInternal(afterDate, (bcr) =>
@@ -786,7 +786,7 @@ using System.Threading.Tasks;
         /// Delete this message group.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> DeleteAsync(this Buddy.MessageGroup messageGroup)
+        public static System.Threading.Tasks.Task<Boolean> DeleteAsync(this BuddySDK.MessageGroup messageGroup)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             messageGroup.DeleteInternal((bcr) =>
@@ -814,7 +814,7 @@ using System.Threading.Tasks;
         /// <param name="openGroup">Optionally whether to make to group open for all user (anyone can join), or closed (only the owner can add users to it).</param>
         /// <param name="appTag">An optional application tag for this message group.</param>
         /// <returns>A Task&lt;MessageGroup&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<MessageGroup> CreateAsync(this Buddy.MessageGroups messageGroups, string name, bool openGroup, string appTag = "")
+        public static System.Threading.Tasks.Task<MessageGroup> CreateAsync(this BuddySDK.MessageGroups messageGroups, string name, bool openGroup, string appTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<MessageGroup>();
             messageGroups.CreateInternal(name, openGroup, appTag, (bcr) =>
@@ -836,7 +836,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="name">The name of the group to check for.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> CheckIfExistsAsync(this Buddy.MessageGroups messageGroups, string name)
+        public static System.Threading.Tasks.Task<Boolean> CheckIfExistsAsync(this BuddySDK.MessageGroups messageGroups, string name)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             messageGroups.CheckIfExistsInternal(name, (bcr) =>
@@ -857,7 +857,7 @@ using System.Threading.Tasks;
         /// Get all message groups for this app.
         /// </summary>
         /// <returns>A Task&lt;IEnumerable&lt;MessageGroup&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<MessageGroup>> GetAllAsync(this Buddy.MessageGroups messageGroups)
+        public static System.Threading.Tasks.Task<IEnumerable<MessageGroup>> GetAllAsync(this BuddySDK.MessageGroups messageGroups)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<MessageGroup>>();
             messageGroups.GetAllInternal((bcr) =>
@@ -878,7 +878,7 @@ using System.Threading.Tasks;
         /// Get all message groups that this user is part of.
         /// </summary>
         /// <returns>A Task&lt;IEnumerable&lt;MessageGroup&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<MessageGroup>> GetMyAsync(this Buddy.MessageGroups messageGroups)
+        public static System.Threading.Tasks.Task<IEnumerable<MessageGroup>> GetMyAsync(this BuddySDK.MessageGroups messageGroups)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<MessageGroup>>();
             messageGroups.GetMyInternal((bcr) =>
@@ -906,7 +906,7 @@ using System.Threading.Tasks;
         /// <param name="message">The message to send, must be less then 200 characters.</param>
         /// <param name="appTag">An optional application tag to set for the message.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SendAsync(this Buddy.Messages messages, Buddy.User toUser, string message, string appTag = "")
+        public static System.Threading.Tasks.Task<Boolean> SendAsync(this BuddySDK.Messages messages, BuddySDK.User toUser, string message, string appTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             messages.SendInternal(toUser, message, appTag, (bcr) =>
@@ -928,7 +928,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="afterDate">Optionally retreive only messages after a certain DateTime.</param>
         /// <returns>A Task&lt;IEnumerable&lt;Message&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<Message>> GetReceivedAsync(this Buddy.Messages messages, System.DateTime afterDate = default(DateTime))
+        public static System.Threading.Tasks.Task<IEnumerable<Message>> GetReceivedAsync(this BuddySDK.Messages messages, System.DateTime afterDate = default(DateTime))
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<Message>>();
             messages.GetReceivedInternal(afterDate, (bcr) =>
@@ -950,7 +950,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="afterDate">Optionally retreive only messages after a certain DateTime.</param>
         /// <returns>A Task&lt;IEnumerable&lt;Message&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<Message>> GetSentAsync(this Buddy.Messages messages, System.DateTime afterDate = default(DateTime))
+        public static System.Threading.Tasks.Task<IEnumerable<Message>> GetSentAsync(this BuddySDK.Messages messages, System.DateTime afterDate = default(DateTime))
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<Message>>();
             messages.GetSentInternal(afterDate, (bcr) =>
@@ -979,7 +979,7 @@ using System.Threading.Tasks;
         /// <param name="longitude">The optional longitude for this item.</param>
         /// <param name="appTag">The optional application tag for this item.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SetAsync(this Buddy.MetadataItem metadataItem, string value, double latitude = 0, double longitude = 0, string appTag = "")
+        public static System.Threading.Tasks.Task<Boolean> SetAsync(this BuddySDK.MetadataItem metadataItem, string value, double latitude = 0, double longitude = 0, string appTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             metadataItem.SetInternal(value, latitude, longitude, appTag, (bcr) =>
@@ -1000,7 +1000,7 @@ using System.Threading.Tasks;
         /// Deletes this metadata item.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> DeleteAsync(this Buddy.MetadataItem metadataItem)
+        public static System.Threading.Tasks.Task<Boolean> DeleteAsync(this BuddySDK.MetadataItem metadataItem)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             metadataItem.DeleteInternal((bcr) =>
@@ -1024,12 +1024,12 @@ using System.Threading.Tasks;
     {
 
         /// <summary>
-        /// Register an Android device for notificatons with Buddy. 
+        /// Register an Android device for notificatons with BuddySDK. 
         /// </summary>
         /// <param name="registrationID">The registration ID for the application currently running on the device. Note: this is the registration ID returned after registering with C2DM.</param>
         /// <param name="groupName">Register this device as part of a group, so that you can send the whole group messages.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> RegisterDeviceAsync(this Buddy.NotificationsAndroid notificationsAndroid, string registrationID, string groupName = "")
+        public static System.Threading.Tasks.Task<Boolean> RegisterDeviceAsync(this BuddySDK.NotificationsAndroid notificationsAndroid, string registrationID, string groupName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsAndroid.RegisterDeviceInternal(registrationID, groupName, (bcr) =>
@@ -1050,7 +1050,7 @@ using System.Threading.Tasks;
         /// Unregister the current user from push notifications for Android.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> UnregisterDeviceAsync(this Buddy.NotificationsAndroid notificationsAndroid)
+        public static System.Threading.Tasks.Task<Boolean> UnregisterDeviceAsync(this BuddySDK.NotificationsAndroid notificationsAndroid)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsAndroid.UnregisterDeviceInternal((bcr) =>
@@ -1074,7 +1074,7 @@ using System.Threading.Tasks;
         /// <param name="pageSize">Set the number of devices that will be returned for each call of this method.</param>
         /// <param name="currentPage">Set the current page.</param>
         /// <returns>A Task&lt;IEnumerable&lt;RegisteredDeviceAndroid&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<RegisteredDeviceAndroid>> GetRegisteredDevicesAsync(this Buddy.NotificationsAndroid notificationsAndroid, string forGroup = "", int pageSize = 10, int currentPage = 1)
+        public static System.Threading.Tasks.Task<IEnumerable<RegisteredDeviceAndroid>> GetRegisteredDevicesAsync(this BuddySDK.NotificationsAndroid notificationsAndroid, string forGroup = "", int pageSize = 10, int currentPage = 1)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<RegisteredDeviceAndroid>>();
             notificationsAndroid.GetRegisteredDevicesInternal(forGroup, pageSize, currentPage, (bcr) =>
@@ -1096,7 +1096,7 @@ using System.Threading.Tasks;
         /// push notifications to a number of users at the same time.
         /// </summary>
         /// <returns>A Task&lt;IDictionary&lt;String,Int32&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IDictionary<String, Int32>> GetGroupsAsync(this Buddy.NotificationsAndroid notificationsAndroid)
+        public static System.Threading.Tasks.Task<IDictionary<String, Int32>> GetGroupsAsync(this BuddySDK.NotificationsAndroid notificationsAndroid)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IDictionary<String, Int32>>();
             notificationsAndroid.GetGroupsInternal((bcr) =>
@@ -1121,7 +1121,7 @@ using System.Threading.Tasks;
         /// <param name="deliverAfter">Schedule the message to be delivered after a certain date.</param>
         /// <param name="groupName">Send messages to an entire group of users, not just a one.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SendRawMessageAsync(this Buddy.NotificationsAndroid notificationsAndroid, string rawMessage, int senderUserId, System.DateTime deliverAfter = default(DateTime), string groupName = "")
+        public static System.Threading.Tasks.Task<Boolean> SendRawMessageAsync(this BuddySDK.NotificationsAndroid notificationsAndroid, string rawMessage, int senderUserId, System.DateTime deliverAfter = default(DateTime), string groupName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsAndroid.SendRawMessageInternal(rawMessage, senderUserId, deliverAfter, groupName, (bcr) =>
@@ -1143,12 +1143,12 @@ using System.Threading.Tasks;
     {
 
         /// <summary>
-        /// Register an Apple device for notificatons with Buddy. 
+        /// Register an Apple device for notificatons with BuddySDK. 
         /// </summary>
         /// <param name="appleDeviceToken">A token provided by the Apple Push Notification Service (APNs) which identifies the device to register (analogous to a phone number).</param>
         /// <param name="groupName">Register this device as part of a group, so that you can send the whole group messages.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> RegisterDeviceAsync(this Buddy.NotificationsApple notificationsApple, string appleDeviceToken, string groupName = "")
+        public static System.Threading.Tasks.Task<Boolean> RegisterDeviceAsync(this BuddySDK.NotificationsApple notificationsApple, string appleDeviceToken, string groupName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsApple.RegisterDeviceInternal(appleDeviceToken, groupName, (bcr) =>
@@ -1169,7 +1169,7 @@ using System.Threading.Tasks;
         /// Unregister the current user from push notifications for Apple devices.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> UnregisterDeviceAsync(this Buddy.NotificationsApple notificationsApple)
+        public static System.Threading.Tasks.Task<Boolean> UnregisterDeviceAsync(this BuddySDK.NotificationsApple notificationsApple)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsApple.UnregisterDeviceInternal((bcr) =>
@@ -1193,7 +1193,7 @@ using System.Threading.Tasks;
         /// <param name="pageSize">Set the number of devices that will be returned for each call of this method.</param>
         /// <param name="currentPage">Set the current page.</param>
         /// <returns>A Task&lt;IEnumerable&lt;RegisteredDeviceApple&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<RegisteredDeviceApple>> GetRegisteredDevicesAsync(this Buddy.NotificationsApple notificationsApple, string forGroup = "", int pageSize = 10, int currentPage = 1)
+        public static System.Threading.Tasks.Task<IEnumerable<RegisteredDeviceApple>> GetRegisteredDevicesAsync(this BuddySDK.NotificationsApple notificationsApple, string forGroup = "", int pageSize = 10, int currentPage = 1)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<RegisteredDeviceApple>>();
             notificationsApple.GetRegisteredDevicesInternal(forGroup, pageSize, currentPage, (bcr) =>
@@ -1215,7 +1215,7 @@ using System.Threading.Tasks;
         /// push notifications to a number of users at the same time.
         /// </summary>
         /// <returns>A Task&lt;IDictionary&lt;String,Int32&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IDictionary<String, Int32>> GetGroupsAsync(this Buddy.NotificationsApple notificationsApple)
+        public static System.Threading.Tasks.Task<IDictionary<String, Int32>> GetGroupsAsync(this BuddySDK.NotificationsApple notificationsApple)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IDictionary<String, Int32>>();
             notificationsApple.GetGroupsInternal((bcr) =>
@@ -1243,7 +1243,7 @@ using System.Threading.Tasks;
         /// <param name="deliverAfter">Schedule the message to be delivered after a certain date.</param>
         /// <param name="groupName">Send messages to an entire group of users, not just a one.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SendRawMessageAsync(this Buddy.NotificationsApple notificationsApple, int senderUserId, string message, string badge, string sound, string customItems = "", System.DateTime deliverAfter = default(DateTime), string groupName = "")
+        public static System.Threading.Tasks.Task<Boolean> SendRawMessageAsync(this BuddySDK.NotificationsApple notificationsApple, int senderUserId, string message, string badge, string sound, string customItems = "", System.DateTime deliverAfter = default(DateTime), string groupName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsApple.SendRawMessageInternal(senderUserId, message, badge, sound, customItems, deliverAfter, groupName, (bcr) =>
@@ -1265,14 +1265,14 @@ using System.Threading.Tasks;
     {
 
         /// <summary>
-        /// Register an Win8 device for notificatons with Buddy. 
+        /// Register an Win8 device for notificatons with BuddySDK. 
         /// </summary>
         /// <param name="deviceUri">The URI for the device as returned by the Windows push phone HttpNotificationChannel object.</param>
         /// <param name="clientId">The Package Security Identifier (SID) acquired when the app was registered with the Windows Store Dashboard. </param>
         /// <param name="clientSecret">The secret key corresponding to the SID acquired when the app was registered with the Windows Store Dashboard.</param>
         /// <param name="groupName">Register this device as part of a group, so that you can send the whole group messages.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> RegisterDeviceAsync(this Buddy.NotificationsWin8 notificationsWin8, string deviceUri, string clientId, string clientSecret, string groupName = "")
+        public static System.Threading.Tasks.Task<Boolean> RegisterDeviceAsync(this BuddySDK.NotificationsWin8 notificationsWin8, string deviceUri, string clientId, string clientSecret, string groupName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsWin8.RegisterDeviceInternal(deviceUri, clientId, clientSecret, groupName, (bcr) =>
@@ -1293,7 +1293,7 @@ using System.Threading.Tasks;
         /// Unregister the current user from push notifications for Win8 devices.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> UnregisterDeviceAsync(this Buddy.NotificationsWin8 notificationsWin8)
+        public static System.Threading.Tasks.Task<Boolean> UnregisterDeviceAsync(this BuddySDK.NotificationsWin8 notificationsWin8)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsWin8.UnregisterDeviceInternal((bcr) =>
@@ -1317,7 +1317,7 @@ using System.Threading.Tasks;
         /// <param name="pageSize">Set the number of devices that will be returned for each call of this method.</param>
         /// <param name="currentPage">Set the current page.</param>
         /// <returns>A Task&lt;IEnumerable&lt;RegisteredDeviceWin8&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<RegisteredDeviceWin8>> GetRegisteredDevicesAsync(this Buddy.NotificationsWin8 notificationsWin8, string forGroup = "", int pageSize = 10, int currentPage = 1)
+        public static System.Threading.Tasks.Task<IEnumerable<RegisteredDeviceWin8>> GetRegisteredDevicesAsync(this BuddySDK.NotificationsWin8 notificationsWin8, string forGroup = "", int pageSize = 10, int currentPage = 1)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<RegisteredDeviceWin8>>();
             notificationsWin8.GetRegisteredDevicesInternal(forGroup, pageSize, currentPage, (bcr) =>
@@ -1339,7 +1339,7 @@ using System.Threading.Tasks;
         /// push notifications to a number of users at the same time.
         /// </summary>
         /// <returns>A Task&lt;IDictionary&lt;String,Int32&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IDictionary<String, Int32>> GetGroupsAsync(this Buddy.NotificationsWin8 notificationsWin8)
+        public static System.Threading.Tasks.Task<IDictionary<String, Int32>> GetGroupsAsync(this BuddySDK.NotificationsWin8 notificationsWin8)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IDictionary<String, Int32>>();
             notificationsWin8.GetGroupsInternal((bcr) =>
@@ -1364,7 +1364,7 @@ using System.Threading.Tasks;
         /// <param name="deliverAfter">Schedule the message to be delivered after a certain date.</param>
         /// <param name="groupName">Send messages to an entire group of users, not just a one.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SendTileAsync(this Buddy.NotificationsWin8 notificationsWin8, string xmlPayload, int senderUserId, System.DateTime deliverAfter = default(DateTime), string groupName = "")
+        public static System.Threading.Tasks.Task<Boolean> SendTileAsync(this BuddySDK.NotificationsWin8 notificationsWin8, string xmlPayload, int senderUserId, System.DateTime deliverAfter = default(DateTime), string groupName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsWin8.SendTileInternal(xmlPayload, senderUserId, deliverAfter, groupName, (bcr) =>
@@ -1389,7 +1389,7 @@ using System.Threading.Tasks;
         /// <param name="deliverAfter">Schedule the message to be delivered after a certain date.</param>
         /// <param name="groupName">Send messages to an entire group of users, not just a one.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SendBadgeAsync(this Buddy.NotificationsWin8 notificationsWin8, string xmlPayload, int senderUserId, System.DateTime deliverAfter = default(DateTime), string groupName = "")
+        public static System.Threading.Tasks.Task<Boolean> SendBadgeAsync(this BuddySDK.NotificationsWin8 notificationsWin8, string xmlPayload, int senderUserId, System.DateTime deliverAfter = default(DateTime), string groupName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsWin8.SendBadgeInternal(xmlPayload, senderUserId, deliverAfter, groupName, (bcr) =>
@@ -1415,7 +1415,7 @@ using System.Threading.Tasks;
         /// <param name="deliverAfter">Schedule the message to be delivered after a certain date.</param>
         /// <param name="groupName">Send messages to an entire group of users, not just a one.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SendToastMessageAsync(this Buddy.NotificationsWin8 notificationsWin8, string xmlPayload, int senderUserId, System.DateTime deliverAfter = default(DateTime), string groupName = "")
+        public static System.Threading.Tasks.Task<Boolean> SendToastMessageAsync(this BuddySDK.NotificationsWin8 notificationsWin8, string xmlPayload, int senderUserId, System.DateTime deliverAfter = default(DateTime), string groupName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             notificationsWin8.SendToastMessageInternal(xmlPayload, senderUserId, deliverAfter, groupName, (bcr) =>
@@ -1443,7 +1443,7 @@ using System.Threading.Tasks;
         /// <param name="appTag">The application level tag to set.</param>
         /// <param name="userTag">The user-level tag to set for this Place.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> SetTagAsync(this Buddy.Place place, string appTag, string userTag)
+        public static System.Threading.Tasks.Task<Boolean> SetTagAsync(this BuddySDK.Place place, string appTag, string userTag)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             place.SetTagInternal(appTag, userTag, (bcr) =>
@@ -1474,7 +1474,7 @@ using System.Threading.Tasks;
         /// <param name="searchForName">Optional search string, for example: "Star*" to search for all place that start with the string "Star"</param>
         /// <param name="searchCategoryId">Optional search category ID to narrow down the search with.</param>
         /// <returns>A Task&lt;IEnumerable&lt;Place&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<Place>> FindAsync(this Buddy.Places places, int searchDistanceInMeters, double latitude, double longitude, int numberOfResults = 10, string searchForName = "", int searchCategoryId = -1)
+        public static System.Threading.Tasks.Task<IEnumerable<Place>> FindAsync(this BuddySDK.Places places, int searchDistanceInMeters, double latitude, double longitude, int numberOfResults = 10, string searchForName = "", int searchCategoryId = -1)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<Place>>();
             places.FindInternal(searchDistanceInMeters, latitude, longitude, numberOfResults, searchForName, searchCategoryId, (bcr) =>
@@ -1492,10 +1492,10 @@ using System.Threading.Tasks;
         }
 
         /// <summary>
-        /// Get all geo-location categories in Buddy.
+        /// Get all geo-location categories in BuddySDK.
         /// </summary>
         /// <returns>A Task&lt;IDictionary&lt;Int32,String&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IDictionary<Int32, String>> GetCategoriesAsync(this Buddy.Places places)
+        public static System.Threading.Tasks.Task<IDictionary<Int32, String>> GetCategoriesAsync(this BuddySDK.Places places)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IDictionary<Int32, String>>();
             places.GetCategoriesInternal((bcr) =>
@@ -1519,7 +1519,7 @@ using System.Threading.Tasks;
         /// <param name="latitude">The optional latitude to calcualte a distance to.</param>
         /// <param name="longitude">The optioanl longitude to calculate a distance to.</param>
         /// <returns>A Task&lt;Place&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Place> GetAsync(this Buddy.Places places, int placeId, double latitude = 0, double longitude = 0)
+        public static System.Threading.Tasks.Task<Place> GetAsync(this BuddySDK.Places places, int placeId, double latitude = 0, double longitude = 0)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Place>();
             places.GetInternal(placeId, latitude, longitude, (bcr) =>
@@ -1549,7 +1549,7 @@ using System.Threading.Tasks;
         /// <param name="numberOfResults">The number of search results to return.</param>
         /// <param name="searchForName">Optional search string, for example: "Star*" to search for all startups that begin with the string "Star".</param>
         /// <returns>A Task&lt;IEnumerable&lt;Startup&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<Startup>> FindAsync(this Buddy.Startups startups, int searchDistanceInMeters, double latitude, double longitude, int numberOfResults=20, string searchForName = "")
+        public static System.Threading.Tasks.Task<IEnumerable<Startup>> FindAsync(this BuddySDK.Startups startups, int searchDistanceInMeters, double latitude, double longitude, int numberOfResults=20, string searchForName = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<Startup>>();
             startups.FindInternal(searchDistanceInMeters, latitude, longitude, numberOfResults, searchForName, (bcr) =>
@@ -1570,7 +1570,7 @@ using System.Threading.Tasks;
         /// Gets a list of the supported metro areas for statups including the URL to an image for each area returned.
         /// </summary>
         /// <returns>A Task&lt;IEnumerable&lt;MetroArea&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<MetroArea>> GetMetroAreaListAsync(this Buddy.Startups startups)
+        public static System.Threading.Tasks.Task<IEnumerable<MetroArea>> GetMetroAreaListAsync(this BuddySDK.Startups startups)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<MetroArea>>();
             startups.GetMetroAreaListInternal((bcr) =>
@@ -1593,7 +1593,7 @@ using System.Threading.Tasks;
         /// <param name="metroName">The name of the metro area within which to search for startups.</param>
         /// <param name="recordLimit">The number of search results to return.</param>
         /// <returns>A Task&lt;IEnumerable&lt;Startup&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<Startup>> GetFromMetroAreaAsync(this Buddy.Startups startups, string metroName, int recordLimit)
+        public static System.Threading.Tasks.Task<IEnumerable<Startup>> GetFromMetroAreaAsync(this BuddySDK.Startups startups, string metroName, int recordLimit)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<Startup>>();
             startups.GetFromMetroAreaInternal(metroName, recordLimit, (bcr) =>
@@ -1618,7 +1618,7 @@ using System.Threading.Tasks;
         /// Delete this virtual album.
         /// </summary>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> DeleteAsync(this Buddy.VirtualAlbum virtualAlbum)
+        public static System.Threading.Tasks.Task<Boolean> DeleteAsync(this BuddySDK.VirtualAlbum virtualAlbum)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             virtualAlbum.DeleteInternal((bcr) =>
@@ -1640,7 +1640,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="picture">The picture to add to the virtual albums. Either PicturePublic or Picture works.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> AddPictureAsync(this Buddy.VirtualAlbum virtualAlbum, Buddy.PicturePublic picture)
+        public static System.Threading.Tasks.Task<Boolean> AddPictureAsync(this BuddySDK.VirtualAlbum virtualAlbum, BuddySDK.PicturePublic picture)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             virtualAlbum.AddPictureInternal(picture, (bcr) =>
@@ -1662,7 +1662,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="pictures">The list of pictures to add to this photo album. Either PicturePublic or Picture works.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> AddPictureBatchAsync(this Buddy.VirtualAlbum virtualAlbum, System.Collections.Generic.List<Buddy.PicturePublic> pictures)
+        public static System.Threading.Tasks.Task<Boolean> AddPictureBatchAsync(this BuddySDK.VirtualAlbum virtualAlbum, System.Collections.Generic.List<BuddySDK.PicturePublic> pictures)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             virtualAlbum.AddPictureBatchInternal(pictures, (bcr) =>
@@ -1684,7 +1684,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="picture">The picture to remove from the album. Either PicturePublic or Picture works.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> RemovePictureAsync(this Buddy.VirtualAlbum virtualAlbum, Buddy.PicturePublic picture)
+        public static System.Threading.Tasks.Task<Boolean> RemovePictureAsync(this BuddySDK.VirtualAlbum virtualAlbum, BuddySDK.PicturePublic picture)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             virtualAlbum.RemovePictureInternal(picture, (bcr) =>
@@ -1707,7 +1707,7 @@ using System.Threading.Tasks;
         /// <param name="newName">The new name for the album.</param>
         /// <param name="newAppTag">An optional new application tag for the album.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> UpdateAsync(this Buddy.VirtualAlbum virtualAlbum, string newName, string newAppTag = "")
+        public static System.Threading.Tasks.Task<Boolean> UpdateAsync(this BuddySDK.VirtualAlbum virtualAlbum, string newName, string newAppTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             virtualAlbum.UpdateInternal(newName, newAppTag, (bcr) =>
@@ -1731,7 +1731,7 @@ using System.Threading.Tasks;
         /// <param name="newComment">The new comment to set for the picture.</param>
         /// <param name="newAppTag">An optional new application tag for the picture.</param>
         /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<Boolean> UpdatePictureAsync(this Buddy.VirtualAlbum virtualAlbum, Buddy.PicturePublic picture, string newComment, string newAppTag = "")
+        public static System.Threading.Tasks.Task<Boolean> UpdatePictureAsync(this BuddySDK.VirtualAlbum virtualAlbum, BuddySDK.PicturePublic picture, string newComment, string newAppTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             virtualAlbum.UpdatePictureInternal(picture, newComment, newAppTag, (bcr) =>
@@ -1759,7 +1759,7 @@ using System.Threading.Tasks;
         /// <param name="name">The name of the new virtual album.</param>
         /// <param name="appTag">An optional application tag for the album.</param>
         /// <returns>A Task&lt;VirtualAlbum&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<VirtualAlbum> CreateAsync(this Buddy.VirtualAlbums virtualAlbums, string name, string appTag = "")
+        public static System.Threading.Tasks.Task<VirtualAlbum> CreateAsync(this BuddySDK.VirtualAlbums virtualAlbums, string name, string appTag = "")
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<VirtualAlbum>();
             virtualAlbums.CreateInternal(name, appTag, (bcr) =>
@@ -1782,7 +1782,7 @@ using System.Threading.Tasks;
         /// </summary>
         /// <param name="albumId">The ID of the virtual album to retrieve.</param>
         /// <returns>A Task&lt;VirtualAlbum&gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<VirtualAlbum> GetAsync(this Buddy.VirtualAlbums virtualAlbums, int albumId)
+        public static System.Threading.Tasks.Task<VirtualAlbum> GetAsync(this BuddySDK.VirtualAlbums virtualAlbums, int albumId)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<VirtualAlbum>();
             virtualAlbums.GetInternal(albumId, (bcr) =>
@@ -1803,7 +1803,7 @@ using System.Threading.Tasks;
         /// Get the IDs of all the virtual albums that this user owns.
         /// </summary>
         /// <returns>A Task&lt;IEnumerable&lt;Int32&gt; &gt;that can be used to monitor progress on this call.</returns>
-        public static System.Threading.Tasks.Task<IEnumerable<Int32>> GetMyAsync(this Buddy.VirtualAlbums virtualAlbums)
+        public static System.Threading.Tasks.Task<IEnumerable<Int32>> GetMyAsync(this BuddySDK.VirtualAlbums virtualAlbums)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<Int32>>();
             virtualAlbums.GetMyInternal((bcr) =>

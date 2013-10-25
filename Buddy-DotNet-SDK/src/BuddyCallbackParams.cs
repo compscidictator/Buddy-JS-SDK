@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Buddy
+namespace BuddySDK
 {
     /// <summary>
     /// Represents an object that wraps a number of different callback return values.
@@ -37,17 +37,19 @@ namespace Buddy
             this.State = state;
             this.AsyncResult = result;
         }
-        internal BuddyCallbackParams(BuddyServiceClient.BuddyError buddyError)
+
+        internal BuddyCallbackParams(string err, string message = null)
         {
-            if (buddyError != BuddyServiceClient.BuddyError.None)
+            if (err != null)
             {
-                Exception = new BuddyServiceException(buddyError.ToString());
-                Completed = buddyError != BuddyServiceClient.BuddyError.UnknownServiceError ;
+                Exception = new BuddyServiceException(err, message);
+
             }
             else
             {
                 Completed = true;
             }
         }
+
     }
 }

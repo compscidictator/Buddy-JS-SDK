@@ -6,8 +6,9 @@ using BuddyServiceClient;
 using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
+using Newtonsoft.Json;
 
-namespace Buddy
+namespace BuddySDK
 {
     /// <summary>
     /// Represents a user that has been authenticated with the Buddy Platform. Use this object to interact with the service on behalf of the user.
@@ -29,17 +30,34 @@ namespace Buddy
     /// </summary>
     public class AuthenticatedUser : User
     {
-  
 
+      
         /// <summary>
         /// Gets the unique user token that is the secret used to log-in this user. Each user has a unique ID, a secret user token and a user/pass combination.
         /// </summary>
-        public string Token { get; protected set; }
+        public string AccessToken {
+            get
+            {
+                return GetValueOrDefault<string>("AccessToken");
+            }
+            protected set
+            {
+                SetValue<string>("AccessToken", value);
+            }
+        }
 
-        /// <summary>
-        /// Gets the email of the user. Can be an empty string or null.
-        /// </summary>
-        public string Email { get; protected set; }
+        [JsonProperty("email")]
+        public string Email
+        {
+            get
+            {
+                return GetValueOrDefault<string>("Email");
+            }
+            set
+            {
+                SetValue("Email", value, checkIsProp: false);
+            }
+        }
 
         /// <summary>
         /// Gets whether location fuzzing is enabled. When enabled any reported locations for this user will be randomized for a few miles. This is a security feature
@@ -51,7 +69,7 @@ namespace Buddy
         /// Gets whether celebrity mode is enabled for this user. When enabled the user will be hidden from all searches in the system.
         /// </summary>
         public bool CelebrityMode { get; protected set; }
-
+#if false
         /// <summary>
         /// Gets the collection of user metadata. Note that the actual metadata is loaded on demand when you call the All or Get method.
         /// </summary>
@@ -119,95 +137,103 @@ namespace Buddy
 
         internal override string TokenOrId {
             get {
-                return this.Token;
+                return this.AccessToken;
             }
         }
 
-        internal AuthenticatedUser (string token, InternalModels.DataContract_FullUserProfile profile, BuddyClient client)
-            : base(client, Int32.Parse(profile.UserID))
+#endif
+        internal AuthenticatedUser(BuddyClient client, string id, string accessToken) : base(client, id)
         {
-            if (client == null)
-                throw new ArgumentNullException ("client");
-            if (String.IsNullOrEmpty (token))
-                throw new ArgumentException ("Can't be null or empty.", "token");
-
-            this.Token = token;
-            this.Metadata = new UserMetadata (client, token);
-            this.IdentityValues = new Identity (client, Token);
-            this.PhotoAlbums = new PhotoAlbums (client, this);
-            this.VirtualAlbums = new VirtualAlbums (client, this);
-            this.Friends = new Friends (client, this);
-            this.PushNotifications = new Notifications (this.Client, this);
-            this.Places = new Places (this.Client, this);
-            this.Messages = new Messages (this.Client, this);
-            this.Startups = new Startups (this.Client, this);
-            this.Commerce = new Commerce (this.Client, this);
-            this.GamePlayers = new GamePlayers (this.Client, this);
-
-            this.Blobs = new Blobs(this.Client, this);
-            this.Videos = new Videos(this.Client, this);
-
-            this.UpdateFromProfile (profile);
-
-            this.GameScores = new GameScores (this.Client, this, null);
+            this.AccessToken = accessToken;
         }
 
-        internal AuthenticatedUser (BuddyClient client, InternalModels.DataContract_ApplicationUserProfile profile)
-            : base(client, Int32.Parse(profile.UserID))
-        {
-            //this.Token = profile.user; <-- removed from contract (in ws) for security reasons 
-            this.Token = string.Empty;
-            this.Metadata = new UserMetadata (client, this.Token);
-            this.IdentityValues = new Identity (client, this.Token);
-            this.PhotoAlbums = new PhotoAlbums (client, this);
-            this.VirtualAlbums = new VirtualAlbums (client, this);
-            this.Friends = new Friends (client, this);
-            this.PushNotifications = new Notifications (this.Client, this);
-            this.Places = new Places (this.Client, this);
-            this.Messages = new Messages (this.Client, this);
-            this.Startups = new Startups (this.Client, this);
-            this.Commerce = new Commerce (this.Client, this);
-            this.GamePlayers = new GamePlayers (this.Client, this);
 
-            this.Blobs = new Blobs(this.Client, this);
-            this.Videos = new Videos(this.Client, this);
 
-            this.Name = profile.UserName;
-            this.ID = Int32.Parse (profile.UserID);
-            this.Gender = (UserGender)Enum.Parse (typeof(UserGender), profile.UserGender, true);
-            this.Latitude = this.Client.TryParseDouble (profile.UserLatitude);
-            this.Longitude = this.Client.TryParseDouble (profile.UserLongitude);
+        //internal AuthenticatedUser (string token, InternalModels.DataContract_FullUserProfile profile, BuddyClient client)
+        //    : base(client, Int32.Parse(profile.UserID))
+        //{
+        //    if (client == null)
+        //        throw new ArgumentNullException ("client");
+        //    if (String.IsNullOrEmpty (token))
+        //        throw new ArgumentException ("Can't be null or empty.", "token");
 
-            this.LastLoginOn = Convert.ToDateTime (profile.LastLoginDate, CultureInfo.InvariantCulture); //fixes bug where DateTime.Parse was blowing up on non-US phones
+        //    this.AccessToken = token;
+        //    this.Metadata = new UserMetadata (client, token);
+        //    this.IdentityValues = new Identity (client, AccessToken);
+        //    this.PhotoAlbums = new PhotoAlbums (client, this);
+        //    this.VirtualAlbums = new VirtualAlbums (client, this);
+        //    this.Friends = new Friends (client, this);
+        //    this.PushNotifications = new Notifications (this.Client, this);
+        //    this.Places = new Places (this.Client, this);
+        //    this.Messages = new Messages (this.Client, this);
+        //    this.Startups = new Startups (this.Client, this);
+        //    this.Commerce = new Commerce (this.Client, this);
+        //    this.GamePlayers = new GamePlayers (this.Client, this);
 
-            this.InitializeProfilePicture (profile.ProfilePictureUrl);
+        //    this.Blobs = new Blobs(this.Client, this);
+        //    this.Videos = new Videos(this.Client, this);
 
-            this.CreatedOn = Convert.ToDateTime (profile.CreatedDate, CultureInfo.InvariantCulture); //fixes bug where DateTime.Parse was blowing up on non-US phones
+        //    this.UpdateFromProfile (profile);
 
-            this.Status = (UserStatus)Int32.Parse (profile.StatusID);
-            this.Age = Int32.Parse (profile.Age);
-            this.Email = profile.UserEmail;
-            this.LocationFuzzing = Boolean.Parse (profile.LocationFuzzing);
-            this.CelebrityMode = Boolean.Parse (profile.CelebMode);
-        }
+        //    this.GameScores = new GameScores (this.Client, this, null);
+        //}
 
-        internal void UpdateFromProfile (InternalModels.DataContract_FullUserProfile profile)
-        {
-            this.Name = profile.UserName;
-            this.ID = Int32.Parse (profile.UserID);
-            this.Gender = (UserGender)Enum.Parse (typeof(UserGender), profile.UserGender, true);
-            this.ApplicationTag = profile.UserApplicationTag;
-            this.Latitude = this.Client.TryParseDouble (profile.UserLatitude);
-            this.Longitude = this.Client.TryParseDouble (profile.UserLongitude);
-            this.LastLoginOn = Convert.ToDateTime (profile.LastLoginDate, CultureInfo.InvariantCulture);
-            this.InitializeProfilePicture (profile.ProfilePictureUrl);
-            this.CreatedOn = Convert.ToDateTime (profile.CreatedDate, CultureInfo.InvariantCulture);
-            this.Status = (UserStatus)Int32.Parse (profile.StatusID);
-            this.Age = Int32.Parse (profile.Age);
-            this.Email = profile.UserEmail;
-            this.LocationFuzzing = Boolean.Parse (profile.LocationFuzzing);
-            this.CelebrityMode = Boolean.Parse (profile.CelebMode);
-        }
+        //internal AuthenticatedUser (BuddyClient client, InternalModels.DataContract_ApplicationUserProfile profile)
+        //    : base(client, Int32.Parse(profile.UserID))
+        //{
+        //    //this.Token = profile.user; <-- removed from contract (in ws) for security reasons 
+        //    this.AccessToken = string.Empty;
+        //    this.Metadata = new UserMetadata (client, this.AccessToken);
+        //    this.IdentityValues = new Identity (client, this.AccessToken);
+        //    this.PhotoAlbums = new PhotoAlbums (client, this);
+        //    this.VirtualAlbums = new VirtualAlbums (client, this);
+        //    this.Friends = new Friends (client, this);
+        //    this.PushNotifications = new Notifications (this.Client, this);
+        //    this.Places = new Places (this.Client, this);
+        //    this.Messages = new Messages (this.Client, this);
+        //    this.Startups = new Startups (this.Client, this);
+        //    this.Commerce = new Commerce (this.Client, this);
+        //    this.GamePlayers = new GamePlayers (this.Client, this);
+
+        //    this.Blobs = new Blobs(this.Client, this);
+        //    this.Videos = new Videos(this.Client, this);
+
+        //    this.Name = profile.UserName;
+        //    this.ID = Int32.Parse (profile.UserID);
+        //    this.Gender = (UserGender)Enum.Parse (typeof(UserGender), profile.UserGender, true);
+        //    this.Latitude = this.Client.TryParseDouble (profile.UserLatitude);
+        //    this.Longitude = this.Client.TryParseDouble (profile.UserLongitude);
+
+        //    this.LastLoginOn = Convert.ToDateTime (profile.LastLoginDate, CultureInfo.InvariantCulture); //fixes bug where DateTime.Parse was blowing up on non-US phones
+
+        //    this.InitializeProfilePicture (profile.ProfilePictureUrl);
+
+        //    this.CreatedOn = Convert.ToDateTime (profile.CreatedDate, CultureInfo.InvariantCulture); //fixes bug where DateTime.Parse was blowing up on non-US phones
+
+        //    this.Status = (UserStatus)Int32.Parse (profile.StatusID);
+        //    this.Age = Int32.Parse (profile.Age);
+        //    this.Email = profile.UserEmail;
+        //    this.LocationFuzzing = Boolean.Parse (profile.LocationFuzzing);
+        //    this.CelebrityMode = Boolean.Parse (profile.CelebMode);
+        //}
+
+        //internal void UpdateFromProfile (InternalModels.DataContract_FullUserProfile profile)
+        //{
+        //    this.Name = profile.UserName;
+        //    this.ID = Int32.Parse (profile.UserID);
+        //    this.Gender = (UserGender)Enum.Parse (typeof(UserGender), profile.UserGender, true);
+        //    this.ApplicationTag = profile.UserApplicationTag;
+        //    this.Latitude = this.Client.TryParseDouble (profile.UserLatitude);
+        //    this.Longitude = this.Client.TryParseDouble (profile.UserLongitude);
+        //    this.LastLoginOn = Convert.ToDateTime (profile.LastLoginDate, CultureInfo.InvariantCulture);
+        //    this.InitializeProfilePicture (profile.ProfilePictureUrl);
+        //    this.CreatedOn = Convert.ToDateTime (profile.CreatedDate, CultureInfo.InvariantCulture);
+        //    this.Status = (UserStatus)Int32.Parse (profile.StatusID);
+        //    this.Age = Int32.Parse (profile.Age);
+        //    this.Email = profile.UserEmail;
+        //    this.LocationFuzzing = Boolean.Parse (profile.LocationFuzzing);
+        //    this.CelebrityMode = Boolean.Parse (profile.CelebMode);
+        //}
 
         public override string ToString ()
         {
@@ -215,7 +241,7 @@ namespace Buddy
         }
 
 
-
+#if false
 
 
         /// <summary>
@@ -223,7 +249,7 @@ namespace Buddy
         /// </summary>
         /// <param name="id">The ID of the user, must be bigger than 0.</param>
         /// <param name="callback">The async callback to call on success or error. The first parameter is the user account associated with the ID.</param>
-        /// <exception cref="Buddy.BuddyServiceException">With value: InvalidUserId, when the user ID doesn't exist in the system.</exception>
+        /// <exception cref="BuddySDK.BuddyServiceException">With value: InvalidUserId, when the user ID doesn't exist in the system.</exception>
         /// <param name="state">An optional user defined object that will be passed to the callback.</param>
         /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
         #if AWAIT_SUPPORTED
@@ -244,10 +270,10 @@ namespace Buddy
             if (id <= 0)
                 throw new ArgumentException ("Can't be smaller or equal to zero.", "id");
 
-            Client.Service.UserAccount_Profile_GetFromUserID (Client.AppName, Client.AppPassword, this.Token, id.ToString (), (bcr) =>
+            Client.Service.UserAccount_Profile_GetFromUserID (Client.AppId, Client.AppKey, this.AccessToken, id.ToString (), (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None || result.Length == 0)
+                if (bcr.Error != null || result.Length == 0)
                 {
                     callback(BuddyResultCreator.Create<User>(null, bcr.Error));
                     return;
@@ -268,10 +294,10 @@ namespace Buddy
                 throw new ArgumentException("Can't be smaller or equal to zero.", "id");
             }
 
-            Client.Service.UserAccount_Profile_GetFromUserName(Client.AppName, Client.AppPassword, this.Token, userName, (bcr) =>
+            Client.Service.UserAccount_Profile_GetFromUserName(Client.AppId, Client.AppKey, this.AccessToken, userName, (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None || result.Length == 0)
+                if (bcr.Error != null || result.Length == 0)
                 {
                     callback(BuddyResultCreator.Create<User>(null, bcr.Error));
                     return;
@@ -340,14 +366,14 @@ namespace Buddy
                 throw new ArgumentException ("Can't be bigger than 180.0 or smaller than -180.0.", "atLongitude");
 
             Client.Service.UserAccount_Profile_Search (
-                        Client.AppName, Client.AppPassword, this.Token, searchDistance.ToString (),
+                        Client.AppId, Client.AppKey, this.AccessToken, searchDistance.ToString (),
                         latitude.ToString (CultureInfo.InvariantCulture), longitude.ToString (CultureInfo.InvariantCulture), recordLimit.ToString (),
                         gender == UserGender.Any ? "" : Enum.GetName (typeof(UserGender), gender).ToLower (),
                         ageStart.ToString (), ageStop.ToString (), status == UserStatus.Any ? "" : ((int)status).ToString (),
                         checkinsWithinMinutes.ToString (), appTag, (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None) {
+                if (bcr.Error != null) {
                     callback (BuddyResultCreator.Create<List<User>> (null, bcr.Error));
                     return;
                 }
@@ -392,10 +418,10 @@ namespace Buddy
             if (appTag == null)
                 throw new ArgumentNullException ("appTag");
 
-            this.Client.Service.Pictures_ProfilePhoto_Add (this.Client.AppName, this.Client.AppPassword, this.Token, photoStream, appTag, (bcr) =>
+            this.Client.Service.Pictures_ProfilePhoto_Add (this.Client.AppId, this.Client.AppKey, this.AccessToken, photoStream, appTag, (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None && bcr.Error != BuddyError.ServiceErrorNegativeOne) {
+                if (bcr.Error != null && bcr.Error != null) {
                     callback (BuddyResultCreator.Create (default(bool), bcr.Error));
                     return;
                 }
@@ -431,11 +457,11 @@ namespace Buddy
 
         internal void CheckInInternal (double latitude, double longitude, string comment, string appTag, Action<BuddyCallResult<bool>> callback)
         {
-            this.Client.Service.UserAccount_Location_Checkin (this.Client.AppName, this.Client.AppPassword, this.Token,
+            this.Client.Service.UserAccount_Location_Checkin (this.Client.AppId, this.Client.AppKey, this.AccessToken,
                         latitude.ToString (CultureInfo.InvariantCulture), longitude.ToString (CultureInfo.InvariantCulture), comment, appTag, (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None && bcr.Error != BuddyError.ServiceErrorNegativeOne) {
+                if (bcr.Error != null && bcr.Error != null) {
                     callback (BuddyResultCreator.Create (default(bool), bcr.Error));
                     return;
                 }
@@ -468,11 +494,11 @@ namespace Buddy
 
         internal void GetCheckInsInternal (DateTime afterDate, Action<BuddyCallResult<List<CheckInLocation>>> callback)
         {
-            this.Client.Service.UserAccount_Location_GetHistory (this.Client.AppName, this.Client.AppPassword, this.Token,
+            this.Client.Service.UserAccount_Location_GetHistory (this.Client.AppId, this.Client.AppKey, this.AccessToken,
                         afterDate == DateTime.MinValue ? "1/1/1950" : afterDate.ToString (CultureInfo.InvariantCulture), (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None) {
+                if (bcr.Error != null) {
                     callback (BuddyResultCreator.Create<List<CheckInLocation>> (null, bcr.Error));
                     return;
                 }
@@ -511,10 +537,10 @@ namespace Buddy
 
         internal void DeleteInternal (Action<BuddyCallResult<bool>> callback)
         {
-            this.Client.Service.UserAccount_Profile_DeleteAccount (this.Client.AppName, this.Client.AppPassword, this.ID.ToString (), (bcr) =>
+            this.Client.Service.UserAccount_Profile_DeleteAccount (this.Client.AppId, this.Client.AppKey, this.ID.ToString (), (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None && bcr.Error != BuddyError.ServiceErrorNegativeOne) {
+                if (bcr.Error != null && bcr.Error != null) {
                     callback (BuddyResultCreator.Create (default(bool), bcr.Error));
                     return;
                 }
@@ -562,12 +588,12 @@ namespace Buddy
             //if (String.IsNullOrEmpty(name)) throw new ArgumentException("Can't be null or empty.", "name");
             //if (password == null) throw new ArgumentNullException("password");
 
-            this.Client.Service.UserAccount_Profile_Update (this.Client.AppName, this.Client.AppPassword, this.Token, name, password,
+            this.Client.Service.UserAccount_Profile_Update (this.Client.AppId, this.Client.AppKey, this.AccessToken, name, password,
                             gender == UserGender.Any ? "" : Enum.GetName (typeof(UserGender), gender).ToLower (), age, email, (int)status, fuzzLocation ? 1 : 0,
                             celebrityMode ? 1 : 0, appTag, (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None) {
+                if (bcr.Error != null) {
                     callback (BuddyResultCreator.Create (default(bool), bcr.Error));
                     return;
                 }
@@ -627,10 +653,10 @@ namespace Buddy
         {
             if (pictureId < 0)
                 throw new ArgumentException ("Can't be smaller than 0.", "pictureId");
-            this.Client.Service.Pictures_Photo_Get (this.Client.AppName, this.Client.AppPassword, this.Token, this.ID.ToString (), pictureId.ToString (), (bcr) =>
+            this.Client.Service.Pictures_Photo_Get (this.Client.AppId, this.Client.AppKey, this.AccessToken, this.ID.ToString (), pictureId.ToString (), (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None) {
+                if (bcr.Error != null) {
                     callback (BuddyResultCreator.Create<Picture> (null, bcr.Error));
                     return;
                 }
@@ -678,11 +704,11 @@ namespace Buddy
         internal void SearchForAlbumsInternal (int searchDistanceInMeters,
                     double latitude, double longitude, int limitResults, Action<BuddyCallResult<List<PhotoAlbumPublic>>> callback)
         {
-            this.Client.Service.Pictures_SearchPhotos_Nearby (this.Client.AppName, this.Client.AppPassword, this.Token, searchDistanceInMeters.ToString (CultureInfo.InvariantCulture),
+            this.Client.Service.Pictures_SearchPhotos_Nearby (this.Client.AppId, this.Client.AppKey, this.AccessToken, searchDistanceInMeters.ToString (CultureInfo.InvariantCulture),
                     latitude.ToString (CultureInfo.InvariantCulture), longitude.ToString (CultureInfo.InvariantCulture), limitResults.ToString (), (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None) {
+                if (bcr.Error != null) {
                     callback (BuddyResultCreator.Create<List<PhotoAlbumPublic>> (null, bcr.Error));
                     return;
                 }
@@ -729,10 +755,10 @@ namespace Buddy
             if (picture == null)
                 throw new ArgumentNullException ("picture");
 
-            this.Client.Service.Pictures_ProfilePhoto_Delete (this.Client.AppName, this.Client.AppPassword, this.Token, picture.PhotoID.ToString (), (bcr) =>
+            this.Client.Service.Pictures_ProfilePhoto_Delete (this.Client.AppId, this.Client.AppKey, this.AccessToken, picture.PhotoID.ToString (), (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None && bcr.Error != BuddyError.ServiceErrorNegativeOne) {
+                if (bcr.Error != null && bcr.Error != null) {
                     callback (BuddyResultCreator.Create (default(bool), bcr.Error));
                     return;
                 }
@@ -769,10 +795,10 @@ namespace Buddy
             if (picture == null)
                 throw new ArgumentNullException ("picture");
 
-            this.Client.Service.Pictures_ProfilePhoto_Set (this.Client.AppName, this.Client.AppPassword, this.Token, picture.PhotoID.ToString (), (bcr) =>
+            this.Client.Service.Pictures_ProfilePhoto_Set (this.Client.AppId, this.Client.AppKey, this.AccessToken, picture.PhotoID.ToString (), (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None && bcr.Error != BuddyError.ServiceErrorNegativeOne) {
+                if (bcr.Error != null && bcr.Error != null) {
                     callback (BuddyResultCreator.Create (default(bool), bcr.Error));
                     return;
                 }
@@ -798,13 +824,13 @@ namespace Buddy
         /// <param name="checkinsWithinMinutes">Filter for users who have checked-in in the past 'checkinsWithinMinutes' number of minutes.</param>
         /// <param name="appTag">Search for the custom appTag that was stored with the user.</param><exception cref="T:System.ArgumentException">When latitude or longitude are incorrect.</exception>
         /// <returns>A Task&lt;IEnumerable&lt;User&gt;&gt; that can be used to monitor progress on this call.</returns>
-        public System.Threading.Tasks.Task<IEnumerable<User>> FindUsersAsync( double latitude = 0, double longitude = 0, uint searchDistance = 2147483647, uint recordLimit = 10, Buddy.UserGender gender = UserGender.Any, uint ageStart = 0, uint ageStop = 200, Buddy.UserStatus status = UserStatus.Any, uint checkinsWithinMinutes = 2147483647, string appTag = "")
+        public System.Threading.Tasks.Task<IEnumerable<User>> FindUsersAsync( double latitude = 0, double longitude = 0, uint searchDistance = 2147483647, uint recordLimit = 10, BuddySDK.UserGender gender = UserGender.Any, uint ageStart = 0, uint ageStop = 200, BuddySDK.UserStatus status = UserStatus.Any, uint checkinsWithinMinutes = 2147483647, string appTag = "")
         {
             return this.FindUserAsync(latitude, longitude, searchDistance, recordLimit, gender, ageStart, ageStop, status, checkinsWithinMinutes, appTag);
         }
         
 
-        public  System.Threading.Tasks.Task<Buddy.User> FindUser(string userNameToFetch)
+        public  System.Threading.Tasks.Task<BuddySDK.User> FindUser(string userNameToFetch)
         {
                   var tcs = new System.Threading.Tasks.TaskCompletionSource<User>();
                   this.FindUserInternal(userNameToFetch,  (bcr) =>
@@ -862,7 +888,7 @@ namespace Buddy
        /// <param name="celebrityMode">Optional change in celebrity mode for this user. If celebrity mode is enabled the user will be hidden from all searches in the system.</param>
        /// <param name="appTag">Optional update to the custom application tag for this user.</param>
        /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-       public System.Threading.Tasks.Task<Boolean> UpdateAsync(string name = "", string password = "", Buddy.UserGender gender = UserGender.Any, int age = 0, string email = "", Buddy.UserStatus status = UserStatus.Any, bool fuzzLocation = false, bool celebrityMode = false, string appTag = "")
+       public System.Threading.Tasks.Task<Boolean> UpdateAsync(string name = "", string password = "", BuddySDK.UserGender gender = UserGender.Any, int age = 0, string email = "", BuddySDK.UserStatus status = UserStatus.Any, bool fuzzLocation = false, bool celebrityMode = false, string appTag = "")
        {
            var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
            UpdateInternal(name, password, gender, age, email, status, fuzzLocation, celebrityMode, appTag, (bcr) =>
@@ -932,7 +958,7 @@ namespace Buddy
        /// </summary>
        /// <param name="picture">The photo to delete.</param>
        /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-       public System.Threading.Tasks.Task<Boolean> DeleteProfilePhotoAsync(Buddy.PicturePublic picture)
+       public System.Threading.Tasks.Task<Boolean> DeleteProfilePhotoAsync(BuddySDK.PicturePublic picture)
        {
            var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
            DeleteProfilePhotoInternal(picture, (bcr) =>
@@ -954,7 +980,7 @@ namespace Buddy
        /// </summary>
        /// <param name="picture">The photo to set as the "active" profile photo.</param>
        /// <returns>A Task&lt;Boolean&gt;that can be used to monitor progress on this call.</returns>
-       public System.Threading.Tasks.Task<Boolean> SetProfilePhotoAsync(Buddy.PicturePublic picture)
+       public System.Threading.Tasks.Task<Boolean> SetProfilePhotoAsync(BuddySDK.PicturePublic picture)
        {
            var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
            SetProfilePhotoInternal(picture, (bcr) =>
@@ -974,7 +1000,7 @@ namespace Buddy
        /// <summary>
        /// Find the public profile of a user from their unique User ID. This method can be used to find any user associated with this Application.
        /// </summary>
-       /// <param name="id">The ID of the user, must be bigger than 0.</param><exception cref="T:Buddy.BuddyServiceException">With value: InvalidUserId, when the user ID doesn't exist in the system.</exception>
+       /// <param name="id">The ID of the user, must be bigger than 0.</param><exception cref="T:BuddySDK.BuddyServiceException">With value: InvalidUserId, when the user ID doesn't exist in the system.</exception>
        /// <returns>A Task&lt;User&gt;that can be used to monitor progress on this call.</returns>
        public System.Threading.Tasks.Task<User> FindUserAsync(int id)
        {
@@ -1008,7 +1034,7 @@ namespace Buddy
        /// <param name="appTag">Search for the custom appTag that was stored with the user.</param><exception cref="T:System.ArgumentException">When latitude or longitude are incorrect.</exception>
        /// <returns>A Task&lt;IEnumerable&lt;User&gt; &gt;that can be used to monitor progress on this call.</returns>
        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-       public System.Threading.Tasks.Task<IEnumerable<User>> FindUserAsync(double latitude = 0, double longitude = 0, uint searchDistance = 2147483647, uint recordLimit = 10, Buddy.UserGender gender = UserGender.Any, uint ageStart = 0, uint ageStop = 200, Buddy.UserStatus status = UserStatus.Any, uint checkinsWithinMinutes = 2147483647, string appTag = "")
+       public System.Threading.Tasks.Task<IEnumerable<User>> FindUserAsync(double latitude = 0, double longitude = 0, uint searchDistance = 2147483647, uint recordLimit = 10, BuddySDK.UserGender gender = UserGender.Any, uint ageStart = 0, uint ageStop = 200, BuddySDK.UserStatus status = UserStatus.Any, uint checkinsWithinMinutes = 2147483647, string appTag = "")
        {
            var tcs = new System.Threading.Tasks.TaskCompletionSource<IEnumerable<User>>();
            FindUserInternal(latitude, longitude, searchDistance, recordLimit, gender, ageStart, ageStop, status, checkinsWithinMinutes, appTag, (bcr) =>
@@ -1094,6 +1120,8 @@ namespace Buddy
            });
            return tcs.Task;
        }
+#endif
+
 #endif
         
     }

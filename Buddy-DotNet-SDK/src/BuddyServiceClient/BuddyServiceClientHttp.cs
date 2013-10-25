@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading;
 using System.Diagnostics;
 using System.Globalization;
+using System.Threading.Tasks;
 
 namespace BuddyServiceClient
 {
@@ -16,8 +17,7 @@ namespace BuddyServiceClient
 
      internal class BuddyServiceClientHttp :BuddyServiceClientBase
      {
-         static IDictionary<string, HttpRequestType> RequestTypeOverrides = new Dictionary<string, HttpRequestType>();
-
+         
 
          public bool LoggingEnabled { get; set; }
 
@@ -39,10 +39,11 @@ namespace BuddyServiceClient
             }
         }
 
-        internal enum HttpRequestType {
-            HttpPostUrlEncoded,
-            HttpPostMultipartForm,
-            HttpGet
+        internal enum HttpRequestType
+        {
+            HttpGet,
+            HttpPostJson,
+            HttpPostMultipartForm
         }
 
       
@@ -54,44 +55,21 @@ namespace BuddyServiceClient
             }
         }
 
-        public string ServiceRoot
-        {
-            get;
-            private set;
-        }
+      
 
-        private HttpRequestType _requestType = HttpRequestType.HttpPostUrlEncoded;
-        public HttpRequestType RequestType
-        {
-            get
-            {
-                return _requestType;
-            }
-            set
-            {
-                _requestType = value;
-            }
-        }
+       
 
-        static BuddyServiceClientHttp()
-        {
-            RequestTypeOverrides["Sound_Sounds_GetSound"] = HttpRequestType.HttpGet;
-            RequestTypeOverrides["Blobs_Blob_GetBlob"] = HttpRequestType.HttpGet;
-            RequestTypeOverrides["Videos_Video_GetVideo"] = HttpRequestType.HttpGet;
-
-            RequestTypeOverrides["Videos_Video_AddVideo"] = HttpRequestType.HttpPostMultipartForm;
-            RequestTypeOverrides["Blobs_Blob_AddBlob"] = HttpRequestType.HttpPostMultipartForm;
-            RequestTypeOverrides["Pictures_Photo_Add"] = HttpRequestType.HttpPostMultipartForm;
-            RequestTypeOverrides["Pictures_Photo_AddWithWatermark"] = HttpRequestType.HttpPostMultipartForm;
-            RequestTypeOverrides["Pictures_ProfilePhoto_Add"] = HttpRequestType.HttpPostMultipartForm;
-        }
-
+       
         public BuddyServiceClientHttp(string root, string sdkVersion)
         {
             if (String.IsNullOrEmpty(root)) throw new ArgumentNullException("root");
+            if (root.EndsWith("/"))
+            {
+                root = root.Substring(0, root.Length - 1);
+            }
             ServiceRoot = root;
             this.sdkVersion = sdkVersion;
-            //LoggingEnabled = true;
+            LoggingEnabled = true;
         }
 
         public virtual void LogRequest(string method, string url, string body)
@@ -121,21 +99,28 @@ namespace BuddyServiceClient
 
 
 
-        public override void CallMethodAsync<T>(string methodName, IDictionary<string, object> parameters, Action<BuddyCallResult<T>> callback)
+       
+
+
+        private IDictionary<string, object> ParametersToDictionary(object parameters)
         {
-      
-            var requestType = RequestType;
-
-            if (RequestTypeOverrides.ContainsKey(methodName))
+            if (parameters == null || parameters is IDictionary<string, object>)
             {
-                requestType = RequestTypeOverrides[methodName];
+                return (IDictionary<string, object>)parameters;
             }
-
-            CallMethodAsync<T>(methodName, requestType, parameters, callback);
-                
+            else
+            {
+                var d = new Dictionary<string, object>();
+                var props = parameters.GetType().GetProperties();
+                foreach (var prop in props)
+                {
+                    d[prop.Name] = prop.GetValue(parameters, null);
+                }
+                return d;
+            }
         }
 
-        public void CallMethodAsync<T>(string methodName, HttpRequestType requestType, IDictionary<string, object> parameters, Action<BuddyCallResult<T>> callback)
+        public override void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback)
         {
             DateTime start = DateTime.Now;
 
@@ -144,12 +129,12 @@ namespace BuddyServiceClient
                
                 WebException webEx = ex as WebException;
                 HttpWebResponse response = null;
-                var err = BuddyError.UnknownServiceError;
+                var err = "UnknownServiceError";
 
                 bcr.Message = ex.ToString();
                 if (webEx != null )
                 {
-                    err = BuddyError.InternetConnectionError;
+                    err = "InternetConnectionError";
 
                     if (webEx.Response != null) {
                         response = (HttpWebResponse)webEx.Response;
@@ -162,13 +147,13 @@ namespace BuddyServiceClient
                 }
                
                 bcr.Error = err;
-                LogResponse(methodName, bcr.Message,DateTime.Now.Subtract(start), response);
+                LogResponse(verb + " + " + path, bcr.Message,DateTime.Now.Subtract(start), response);
                   
                 callback(bcr);
             };
 
            
-            GetResponse(methodName, parameters, requestType, (ex, response) =>
+            GetResponse(verb, path, ParametersToDictionary(parameters), (ex, response) =>
             {
                 var bcr = new BuddyCallResult<T>();
 				var isResponseRequest = typeof(T).Equals(typeof(HttpWebResponse));
@@ -178,7 +163,15 @@ namespace BuddyServiceClient
                     bcr.Result = (T)(object)response;
                 }
 
-                if (ex != null)
+                if (response == null && ex != null && ex is WebException)
+                {
+                    response = (HttpWebResponse)((WebException)ex).Response;
+
+                   
+                }
+                
+
+                if (response == null && ex != null)
                 {
                     handleException(ex, bcr);
                     
@@ -206,40 +199,38 @@ namespace BuddyServiceClient
                         }
 
 
-                        LogResponse(methodName, body, DateTime.Now.Subtract(start), response);
+                        LogResponse(MethodName(verb, path), body, DateTime.Now.Subtract(start), response);
 
-                        var err = GetBuddyError(body);
 
-                        if (err != BuddyError.None)
+                        //json parse
+                        try
                         {
-                            bcr.Error = err;
-                            callback(bcr);
-                            return;
-                        }
+                            var envelope = JsonConvert.DeserializeObject<JsonEnvelope<T>>(body);
 
-
-                        if (typeof(T).Equals(typeof(string)))
-                        {
-                            bcr.Result = (T)Convert.ChangeType(body, typeof(T), CultureInfo.InvariantCulture);
-                        }
-                        else
-                        {
-                            var serializer = Newtonsoft.Json.JsonSerializer.Create(null);
-
-
-                            //json parse
-                            try
+                            if (envelope.error != null)
                             {
-                                var envelope = serializer.Deserialize<JsonEnvelope<T>>(new JsonTextReader(new StringReader(body)));
-                                bcr.Result = envelope.data;
-
+                                bcr.Error = envelope.error;
+                                bcr.Message = envelope.message;
                             }
-                            catch
+                            else
                             {
-                                bcr.Error = BuddyError.UnknownServiceError;
-                                bcr.Message = body;
+                                // special case dictionary.
+                                if (typeof(IDictionary<string,object>).IsAssignableFrom(typeof(T))) {
+                                    object obj = envelope.result;
+                                    IDictionary<string,object> d = (IDictionary<string,object>)obj;
+                                    obj = new Dictionary<string,object>(d, StringComparer.InvariantCultureIgnoreCase);
+                                    envelope.result =(T)obj;
+                                }
+                                bcr.Result = envelope.result;
                             }
+
                         }
+                        catch
+                        {
+                            bcr.Error = "BadJsonResponse";
+                            bcr.Message = "Couldn't parse JSON: \r\n" + body;
+                        }
+                        
                     }
                     try
                     {
@@ -303,22 +294,58 @@ namespace BuddyServiceClient
         }
 
         private const int TimeoutMilliseconds = 30000;
-
-        private void GetResponse(string methodName, IDictionary<string, object> parameters, HttpRequestType requestType, Action<Exception, HttpWebResponse> callback)
+        private static string MethodName(string verb, string path)
         {
-
-            var url = String.Format("{0}/Service/V1/BuddyService.ashx?{1}", ServiceRoot, methodName);
-
-
-            switch (requestType)
+            return verb + " " + path;
+        }
+        private void GetResponse(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
+        {
+            if (!path.StartsWith("/"))
             {
+                path = "/" + path;
+            }
+            var url = String.Format("{0}{1}", ServiceRoot, path);
+            var requestType = HttpRequestType.HttpPostJson;
+            IEnumerable<KeyValuePair<string, object>> files = null;
 
-                case HttpRequestType.HttpGet:
-                    // add the parameters to the url.
+            switch (verb.ToUpperInvariant())
+            {
+                case "GET":
+                    url += "?" + GetUrlEncodedParameters(parameters);
+                    requestType = HttpRequestType.HttpGet;
+                    break;
+                default:
+                    // do we have any file parameters.
                     //
-                    url += "&" + GetUrlEncodedParameters(parameters);
+                    files = from p in parameters where p.Value is BuddyFile select p;
+
+                    if (files.Any())
+                    {
+                        // remove the files from the main array.
+                        requestType = HttpRequestType.HttpPostMultipartForm;
+                        var newParameters = new Dictionary<string, object>();
+                        foreach (var fileKvp in files)
+                        {
+                            parameters.Remove(fileKvp.Key);
+                            newParameters.Add(fileKvp.Key, fileKvp.Value);
+                        }
+
+                        // get json for the remainder and make it into a file
+                        var json = JsonConvert.SerializeObject(parameters, Formatting.None);
+
+                        var jsonFile = new BuddyFile()
+                        {
+                            ContentType = "application/json",
+                            Data = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)),
+                            Name = "body"
+                        };
+                        newParameters.Add(jsonFile.Name, jsonFile);
+                        parameters = newParameters;
+                    }
+                   
                     break;
             }
+           
 
             HttpWebRequest wr = null;
 
@@ -333,26 +360,16 @@ namespace BuddyServiceClient
             }
 
             wr.Headers["BuddyPlatformSDK"] = SdkVersion;
-          
-            switch (requestType)
-            {
-
-                case HttpRequestType.HttpGet:
-                    wr.Method = "GET";
-                    break;
-                default:
-                    wr.Method = "POST";
-                    break;
-
-            }
+            wr.Method = verb;
+           
 
             Action getResponse = () =>
             {
                 try
                 {
                     int requestStatus = -1;
-                    LogRequest(methodName, url, null);
-                    var asyncResult = wr.BeginGetResponse((async2) =>
+                    LogRequest(MethodName(verb,path) , url, null);
+                    wr.BeginGetResponse((async2) =>
                     {   
                         try
                         {
@@ -371,7 +388,7 @@ namespace BuddyServiceClient
                         }
                         catch (WebException ex)
                         {
-                            callback(ex, null);
+                           callback(ex, null);
                         }
                     }, null);
 
@@ -408,7 +425,7 @@ namespace BuddyServiceClient
                 }
                 catch (WebException wex)
                 {
-                    LogResponse(methodName, wex.ToString(), TimeSpan.Zero);
+                    LogResponse(MethodName(verb, path), wex.ToString(), TimeSpan.Zero);
                     callback(wex, null);
                 }
             };
@@ -429,12 +446,13 @@ namespace BuddyServiceClient
                             {
                                 switch (requestType)
                                 {
-                                    case HttpRequestType.HttpPostUrlEncoded:
-                                        wr.ContentType = "application/x-www-form-urlencoded; charset=utf-8;";
-                                        var body = GetUrlEncodedParameters(parameters);
-                                        byte[] formitembytes = System.Text.Encoding.UTF8.GetBytes(body);
-                                        rs.Write(formitembytes, 0, formitembytes.Length);
-                                        LogRequest(methodName, url, body);
+                                    case HttpRequestType.HttpPostJson:
+                                        wr.ContentType = "application/json";
+                                        var json = JsonConvert.SerializeObject(parameters, Formatting.None);
+                                        byte[] jsonbytes = System.Text.Encoding.UTF8.GetBytes(json);
+
+                                        rs.Write(jsonbytes, 0, jsonbytes.Length);
+                                        LogRequest(MethodName(verb, path),url, json);
                                         break;
                                     case HttpRequestType.HttpPostMultipartForm:
                                         HttpPostMultipart(wr, rs, parameters);
@@ -448,7 +466,7 @@ namespace BuddyServiceClient
                         }
                         catch (WebException wex)
                         {
-                            LogResponse(methodName, wex.ToString(), TimeSpan.Zero);
+                            LogResponse(MethodName(verb, path), wex.ToString(), TimeSpan.Zero);
                                
                             callback(wex, null);
                         }
@@ -459,7 +477,7 @@ namespace BuddyServiceClient
             }
             catch (WebException wex)
             {
-                LogResponse(methodName, wex.ToString(), TimeSpan.Zero);
+                LogResponse(MethodName(verb, path), wex.ToString(), TimeSpan.Zero);
                                
                 callback(wex, null);
             }
@@ -523,10 +541,34 @@ namespace BuddyServiceClient
 #else
      internal
 #endif
- class JsonEnvelope<T>
-     {
-         public T data = default(T);
-     }
+   class JsonEnvelope<T> {
+
+            public int status
+            {
+                get;
+                set;
+            }
+            public string error {
+                get;
+                set;
+            }
+
+            public string message
+            {
+                get;
+                set;
+            }
+
+            public T result {
+                get;
+                set;
+            }
+
+            public string request_id {
+                get;
+                set;
+            }
+        }
 
 
 }

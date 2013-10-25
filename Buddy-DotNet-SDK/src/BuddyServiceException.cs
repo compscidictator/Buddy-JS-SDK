@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Buddy
+namespace BuddySDK
 {
     /// <summary>
     /// Occurs when there is an error processing the service request.
@@ -13,12 +13,9 @@ namespace Buddy
         /// </summary>
         public string Error { get; protected set; }
 
-        internal BuddyServiceException(BuddyServiceClient.BuddyError err)
-        {
-            Error = err.ToString();
-        }
+      
 
-        internal BuddyServiceException(string error)
+        internal BuddyServiceException(string error, string message): base(message)
         {
             this.Error = error;
         }

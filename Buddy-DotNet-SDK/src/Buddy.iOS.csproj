@@ -9,7 +9,7 @@
     <ProjectGuid>{6CDE8A47-1F4D-489D-B06B-7C334C76886A}</ProjectGuid>
     <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <OutputType>Library</OutputType>
-    <RootNamespace>Buddy</RootNamespace>
+    <RootNamespace>BuddySDK</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Buddy</AssemblyName>
   </PropertyGroup>
@@ -35,20 +35,17 @@
     <DocumentationFile>bin\Release\iOS\Buddy.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\..\..\..\..\..\..\Projects\Buddy.iOS.Sample\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
-    <Compile Include="AppMetadata.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="AuthenticatedUser.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -64,156 +61,15 @@
     <Compile Include="BuddyServiceClient\BuddyServiceClientBase.cs" />
     <Compile Include="BuddyServiceClient\BuddyServiceClientHttp.cs" />
     <Compile Include="BuddyServiceException.cs" />
-    <Compile Include="BuddyTaskWrappers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CheckInLocation.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Commerce.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Device.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FriendRequests.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Friends.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameBoards.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GamePlayer.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GamePlayers.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameScore.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameScores.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameState.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameStates.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GroupMessage.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Identity.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IdentityItem.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IdentityItemSearchResult.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Message.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MessageGroup.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MessageGroups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Messages.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MetadataItem.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MetadataSum.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MetroArea.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Notifications.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NotificationsAndroid.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NotificationsApple.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NotificationsWin8.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PhotoAlbum.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PhotoAlbumPublic.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PhotoAlbums.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Picture.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PicturePublic.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Place.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Places.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfoNet.cs" />
-    <Compile Include="Receipt.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RegisteredDevice.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RegisteredDeviceAndroid.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RegisteredDeviceApple.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RegisteredDeviceWin8.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Sound.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Startup.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Startups.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="StoreItem.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="User.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UserMetadata.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="VirtualAlbum.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="VirtualAlbums.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Blob.cs" />
-    <Compile Include="Blobs.cs" />
-    <Compile Include="Video.cs" />
-    <Compile Include="Videos.cs" />
+    <Compile Include="Buddy.cs" />
+    <Compile Include="CheckinCollection.cs" />
+    <Compile Include="Checkin.cs" />
+    <Compile Include="BuddyCollectionBase.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -223,4 +79,10 @@
   <Target Name="AfterBuild">
   </Target>
   -->
+  <ItemGroup>
+    <XamarinComponentReference Include="json.net">
+      <Version>4.5.11</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+  </ItemGroup>
 </Project>

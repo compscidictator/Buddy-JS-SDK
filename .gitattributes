@@ -3,10 +3,7 @@
 *.sln		text
 *.cshtml	text diff=html
 *.js		text diff=java
-*.m		text
-*.h		text
-*.java		text diff=java
-
+*.sql		text diff
 
 *.png		binary
 *.dll		binary

@@ -1,10 +1,11 @@
 using BuddyServiceClient;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
 
-namespace Buddy
+namespace BuddySDK
 {
     /// <summary>
     /// Represents the gender of a user.
@@ -45,18 +46,47 @@ namespace Buddy
     public class User : BuddyBase
     {
 
-
+        protected override string Path
+        {
+            get
+            {
+                return "/users";
+            }
+        }
 
         /// <summary>
         /// Gets the name of the user.
         /// </summary>
-        public string Name { get; protected set; }
+        public string Name
+        {
+            get
+            {
+                return GetValueOrDefault<string>("Name");
+            }
+            set
+            {
+                SetValue("Name", value);
+            }
+        }
 
-        /// <summary>
-        /// Gets the system-wide unique ID of the user.
-        /// </summary>
-        public int ID { get; protected set; }
+      
+    
 
+        [JsonProperty("username")]
+        public string Username
+        {
+            get
+            {
+                return GetValueOrDefault<string>("Username");
+            }
+            set
+            {
+                SetValue<string>("Username", value, checkIsProp: false);
+            }
+            
+        }
+
+       
         /// <summary>
         /// Gets the gender of the user.
         /// </summary>
@@ -135,12 +165,12 @@ namespace Buddy
         /// <summary>
         /// Add and remove gamescore for this user.
         /// </summary>
-        public GameScores GameScores { get; protected set; }
+       // public GameScores GameScores { get; protected set; }
 
         /// <summary>
         /// Add and remove GameStates for this user.
         /// </summary>
-        public GameStates GameStates { get; protected set; }
+       // public GameStates GameStates { get; protected set; }
 
 
 
@@ -153,97 +183,111 @@ namespace Buddy
         }
 
         internal User(BuddyClient client, int id)
-            : base(client)
+            : base(client, id.ToString())
         {
-            this.ID = id;
-            this.GameScores = new GameScores(this.Client, null, this);
-            this.GameStates = new GameStates(this.Client, this);
+            //this.GameScores = new GameScores(this.Client, null, this);
+            //this.GameStates = new GameStates(this.Client, this);
         }
 
-        internal User(BuddyClient client, InternalModels.DataContract_PublicUserProfile publicProfile)
-            : this(client, Int32.Parse(publicProfile.UserID))
-        {
-            this.ID = Int32.Parse(publicProfile.UserID);
-            this.Name = publicProfile.UserName;
-            this.Gender = (UserGender)Enum.Parse(typeof(UserGender), publicProfile.UserGender, true);
-            this.ApplicationTag = publicProfile.UserApplicationTag;
-            this.Latitude = this.Client.TryParseDouble(publicProfile.UserLatitude);
-            this.Longitude = this.Client.TryParseDouble(publicProfile.UserLongitude);
-            this.LastLoginOn = publicProfile.LastLoginDate;
-            this.InitializeProfilePicture(publicProfile.ProfilePictureUrl);
-            this.CreatedOn = publicProfile.CreatedDate;
-            this.Status = (UserStatus)Int32.Parse(publicProfile.StatusID);
-            this.Age = Int32.Parse(publicProfile.Age);
-        }
+        //internal User(BuddyClient client, InternalModels.DataContract_PublicUserProfile publicProfile)
+        //    : this(client, publicProfile.UserID)
+        //{
+        //    this.Name = publicProfile.UserName;
+        //    this.Gender = (UserGender)Enum.Parse(typeof(UserGender), publicProfile.UserGender, true);
+        //    this.ApplicationTag = publicProfile.UserApplicationTag;
+        //    this.Latitude = this.Client.TryParseDouble(publicProfile.UserLatitude);
+        //    this.Longitude = this.Client.TryParseDouble(publicProfile.UserLongitude);
+        //    this.LastLoginOn = publicProfile.LastLoginDate;
+        //    this.InitializeProfilePicture(publicProfile.ProfilePictureUrl);
+        //    this.CreatedOn = publicProfile.CreatedDate;
+        //    this.Status = (UserStatus)Int32.Parse(publicProfile.StatusID);
+        //    this.Age = Int32.Parse(publicProfile.Age);
+        //}
 
-        internal User(BuddyClient client, InternalModels.DataContract_ApplicationUserProfile applicationUserProfile)
-            : this(client, Int32.Parse(applicationUserProfile.UserID))
-        {
-            this.Name = applicationUserProfile.UserName;
-            this.ID = Int32.Parse(applicationUserProfile.UserID);
-            this.Gender = (UserGender)Enum.Parse(typeof(UserGender), applicationUserProfile.UserGender, true);
-            this.Latitude = this.Client.TryParseDouble(applicationUserProfile.UserLatitude);
-            this.Longitude = this.Client.TryParseDouble(applicationUserProfile.UserLongitude);
-            this.LastLoginOn = DateTime.Parse(applicationUserProfile.LastLoginDate, CultureInfo.InvariantCulture);
-            this.InitializeProfilePicture(applicationUserProfile.ProfilePictureUrl);
-            this.CreatedOn = DateTime.Parse(applicationUserProfile.CreatedDate, CultureInfo.InvariantCulture);
-            this.Status = (UserStatus)Int32.Parse(applicationUserProfile.StatusID);
-            this.Age = Int32.Parse(applicationUserProfile.Age);
-        }
+        //internal User(BuddyClient client, InternalModels.DataContract_ApplicationUserProfile applicationUserProfile)
+        //    : this(client, Int32.Parse(applicationUserProfile.UserID))
+        //{
+        //    this.Name = applicationUserProfile.UserName;
+        //   // this.ID = Int32.Parse(applicationUserProfile.UserID);
+        //    this.Gender = (UserGender)Enum.Parse(typeof(UserGender), applicationUserProfile.UserGender, true);
+        //    this.Latitude = this.Client.TryParseDouble(applicationUserProfile.UserLatitude);
+        //    this.Longitude = this.Client.TryParseDouble(applicationUserProfile.UserLongitude);
+        //    this.LastLoginOn = DateTime.Parse(applicationUserProfile.LastLoginDate, CultureInfo.InvariantCulture);
+        //    this.InitializeProfilePicture(applicationUserProfile.ProfilePictureUrl);
+        //    this.CreatedOn = DateTime.Parse(applicationUserProfile.CreatedDate, CultureInfo.InvariantCulture);
+        //    this.Status = (UserStatus)Int32.Parse(applicationUserProfile.StatusID);
+        //    this.Age = Int32.Parse(applicationUserProfile.Age);
+        //}
 
-        internal User(BuddyClient client, InternalModels.DataContract_FriendList publicProfile, int userId)
-            : this(client, Int32.Parse(publicProfile.FriendID) == userId ? Int32.Parse(publicProfile.UserID) : Int32.Parse(publicProfile.FriendID))
-        {
-            this.ID = Int32.Parse(publicProfile.UserID);
-            this.Name = publicProfile.UserName;
-            this.Gender = (UserGender)Enum.Parse(typeof(UserGender), publicProfile.UserGender, true);
-            this.ApplicationTag = publicProfile.UserApplicationTag;
-            this.Latitude = this.Client.TryParseDouble(publicProfile.UserLatitude);
-            this.Longitude = this.Client.TryParseDouble(publicProfile.UserLongitude);
-            this.LastLoginOn = publicProfile.LastLoginDate;
-            this.InitializeProfilePicture(publicProfile.ProfilePictureUrl);
-            this.CreatedOn = publicProfile.CreatedDate;
-            this.Status = (UserStatus)Int32.Parse(publicProfile.StatusID);
-            this.Age = Int32.Parse(publicProfile.Age);
-            this.FriendRequestPending = publicProfile.Status == "0";
-        }
 
-        internal User(BuddyClient client, InternalModels.DataContract_FriendRequests publicProfile, int userId)
-            : this(client, Int32.Parse(publicProfile.FriendID) == userId ? Int32.Parse(publicProfile.UserID) : Int32.Parse(publicProfile.FriendID))
-        {
-            this.ID = int.Parse(publicProfile.FriendID);
-            this.Name = publicProfile.UserName;
-            this.Gender = (UserGender)Enum.Parse(typeof(UserGender), publicProfile.UserGender, true);
-            this.ApplicationTag = publicProfile.UserApplicationTag;
-            this.Latitude = this.Client.TryParseDouble(publicProfile.UserLatitude);
-            this.Longitude = this.Client.TryParseDouble(publicProfile.UserLongitude);
-            this.LastLoginOn = publicProfile.LastLoginDate;
-            this.InitializeProfilePicture(publicProfile.ProfilePictureUrl);
-            this.CreatedOn = publicProfile.CreatedDate;
-            this.Status = (UserStatus)Int32.Parse(publicProfile.StatusID);
-            this.Age = Int32.Parse(publicProfile.Age);
-        }
 
-        internal User(BuddyClient client, InternalModels.DataContract_SearchPeople publicProfile)
-            : base(client)
-        {
-            this.Name = publicProfile.UserName;
-            this.ID = Int32.Parse(publicProfile.UserID);
-            this.Gender = (UserGender)Enum.Parse(typeof(UserGender), publicProfile.UserGender, true);
-            this.ApplicationTag = publicProfile.UserApplicationTag;
-            this.Latitude = this.Client.TryParseDouble(publicProfile.UserLatitude);
-            this.Longitude = this.Client.TryParseDouble(publicProfile.UserLongitude);
-            //this.LastLoginOn = publicProfile.LastLoginDate;
-            this.InitializeProfilePicture(publicProfile.ProfilePictureUrl);
-            //this.CreatedOn = publicProfile.CreatedDate;
-            this.Status = (UserStatus)Int32.Parse(publicProfile.StatusID);
-            this.Age = Int32.Parse(publicProfile.Age);
-            this.DistanceInKilometers = this.Client.TryParseDouble(publicProfile.DistanceInKilometers);
-            this.DistanceInMeters = this.Client.TryParseDouble(publicProfile.DistanceInMeters);
-            this.DistanceInMiles = this.Client.TryParseDouble(publicProfile.DistanceInMiles);
-            this.DistanceInYards = this.Client.TryParseDouble(publicProfile.DistanceInYards);
-        }
+        //internal User(BuddyClient client, InternalModels.DataContract_FriendList publicProfile, string userId)
+        //    : this(client,userId)
+        //{
+        //}
+        //internal User(BuddyClient client, InternalModels.DataContract_FriendList publicProfile, int userId)
+        //    : this(client, Int32.Parse(publicProfile.FriendID) == userId ? Int32.Parse(publicProfile.UserID) : Int32.Parse(publicProfile.FriendID))
+        //{
+        //    //this.ID = Int32.Parse(publicProfile.UserID);
+        //    this.Name = publicProfile.UserName;
+        //    this.Gender = (UserGender)Enum.Parse(typeof(UserGender), publicProfile.UserGender, true);
+        //    this.ApplicationTag = publicProfile.UserApplicationTag;
+        //    this.Latitude = this.Client.TryParseDouble(publicProfile.UserLatitude);
+        //    this.Longitude = this.Client.TryParseDouble(publicProfile.UserLongitude);
+        //    this.LastLoginOn = publicProfile.LastLoginDate;
+        //    this.InitializeProfilePicture(publicProfile.ProfilePictureUrl);
+        //    this.CreatedOn = publicProfile.CreatedDate;
+        //    this.Status = (UserStatus)Int32.Parse(publicProfile.StatusID);
+        //    this.Age = Int32.Parse(publicProfile.Age);
+        //    this.FriendRequestPending = publicProfile.Status == "0";
+        //}
 
+        // internal User(BuddyClient client, InternalModels.DataContract_FriendRequests publicProfile, string userId) : this(client, userId) {
+
+        // }
+
+        //internal User(BuddyClient client, InternalModels.DataContract_FriendRequests publicProfile, int userId)
+        //    : this(client, Int32.Parse(publicProfile.FriendID) == userId ? Int32.Parse(publicProfile.UserID) : Int32.Parse(publicProfile.FriendID))
+        //{
+        //    //this.ID = int.Parse(publicProfile.FriendID);
+        //    this.Name = publicProfile.UserName;
+        //    this.Gender = (UserGender)Enum.Parse(typeof(UserGender), publicProfile.UserGender, true);
+        //    this.ApplicationTag = publicProfile.UserApplicationTag;
+        //    this.Latitude = this.Client.TryParseDouble(publicProfile.UserLatitude);
+        //    this.Longitude = this.Client.TryParseDouble(publicProfile.UserLongitude);
+        //    this.LastLoginOn = publicProfile.LastLoginDate;
+        //    this.InitializeProfilePicture(publicProfile.ProfilePictureUrl);
+        //    this.CreatedOn = publicProfile.CreatedDate;
+        //    this.Status = (UserStatus)Int32.Parse(publicProfile.StatusID);
+        //    this.Age = Int32.Parse(publicProfile.Age);
+        //}
+
+        //internal User(BuddyClient client, InternalModels.DataContract_SearchPeople publicProfile)
+        //    : base(client)
+        //{
+        //    this.Name = publicProfile.UserName;
+        //    //this.ID = Int32.Parse(publicProfile.UserID);
+        //    this.Gender = (UserGender)Enum.Parse(typeof(UserGender), publicProfile.UserGender, true);
+        //    this.ApplicationTag = publicProfile.UserApplicationTag;
+        //    this.Latitude = this.Client.TryParseDouble(publicProfile.UserLatitude);
+        //    this.Longitude = this.Client.TryParseDouble(publicProfile.UserLongitude);
+        //    //this.LastLoginOn = publicProfile.LastLoginDate;
+        //    this.InitializeProfilePicture(publicProfile.ProfilePictureUrl);
+        //    //this.CreatedOn = publicProfile.CreatedDate;
+        //    this.Status = (UserStatus)Int32.Parse(publicProfile.StatusID);
+        //    this.Age = Int32.Parse(publicProfile.Age);
+        //    this.DistanceInKilometers = this.Client.TryParseDouble(publicProfile.DistanceInKilometers);
+        //    this.DistanceInMeters = this.Client.TryParseDouble(publicProfile.DistanceInMeters);
+        //    this.DistanceInMiles = this.Client.TryParseDouble(publicProfile.DistanceInMiles);
+        //    this.DistanceInYards = this.Client.TryParseDouble(publicProfile.DistanceInYards);
+        //}
+
+        internal User(BuddyClient client, string id)
+            : base(client, id)
+        {
+
+        }
+#if false
         protected void InitializeProfilePicture(string profilePictureUrlOrId)
         {
             Uri parsedUri;
@@ -294,11 +338,11 @@ namespace Buddy
 
         internal void GetProfilePhotosInternal(Action<BuddyCallResult<List<PicturePublic>>> callback)
         {
-            this.Client.Service.Pictures_ProfilePhoto_GetAll(this.Client.AppName, this.Client.AppPassword, this.ID.ToString(), (bcr) =>
+            this.Client.Service.Pictures_ProfilePhoto_GetAll(this.Client.AppId, this.Client.AppKey, this.ID.ToString(), (bcr) =>
             {
                 var result = bcr.Result;
 
-                if (bcr.Error != BuddyError.None)
+                if (bcr.Error != null)
                 {
                     callback(BuddyResultCreator.Create<List<PicturePublic>>(null, bcr.Error));
                     return;
@@ -332,6 +376,8 @@ namespace Buddy
             });
             return tcs.Task;
         }
+
+#endif
 
 #endif
     }

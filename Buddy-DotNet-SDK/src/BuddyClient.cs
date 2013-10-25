@@ -18,8 +18,9 @@ using System.Net;
 #endif
 using System.Xml.Linq;
 using System.Threading.Tasks;
+using System.IO;
 
-namespace Buddy
+namespace BuddySDK
 {
     /// <summary>
     /// Represents the main class and entry point to the Buddy platform. Use this class to interact with the platform, create and login users and modify general
@@ -43,52 +44,39 @@ namespace Buddy
         /// <summary>
         /// Gets the application name for this client.
         /// </summary>
-        public string AppName { get; protected set; }
+        public string AppId { get; protected set; }
 
         /// <summary>
         /// Gets the application password for this client.
         /// </summary>
-        public string AppPassword { get; protected set; }
+        public string AppKey { get; protected set; }
 
-        /// <summary>
-        /// Gets the optional string that describes the version of the app you are building. This string is used when uploading
-        /// device information to buddy or submitting crash reports. It will default to 1.0.
-        /// </summary>
-        public string AppVersion { get; protected set; }
 
-        /// <summary>
-        /// Gets an object that can be used to manipulate application-level metadata. Metadata is used to store custom values on the platform.
-        /// </summary>
-        public AppMetadata Metadata { get; protected set; }
 
-        /// <summary>
-        /// Gets an object that can be used to record device information about this client or upload crashes.
-        /// </summary>
-        public Device Device { get; protected set; }
+        private BuddyClientFlags _flags;
+        private static string _WebServiceUrl;
 
-        /// <summary>
-        /// Gets an object that can be used to retrieve high score rankings or search for game boards in this application.
-        /// </summary>
-        public GameBoards GameBoards { get; protected set; }
+        public static string WebServiceUrl {
+            get {
+                return _WebServiceUrl ?? "https://webservice.buddyplatform.com";
+            }
+            set {
+                _WebServiceUrl = value;
+            }
 
+        }
+        
         /// <summary>
-        /// Gets an object that can be used to retrieve sounds.
-        /// </summary>
-        public Sounds Sounds { get; protected set; }
-
-        private bool recordDeviceInfo = true;
-        private const string WebServiceUrl = "https://webservice.buddyplatform.com";
-        /// <summary>
-        /// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://buddy.com, create a new
+        /// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://BuddySDK.com, create a new
         /// developer account and create a new application.
         /// </summary>
-        /// <param name="appName">The name of the application to use with this client. Can't be null or empty.</param>
-        /// <param name="appPassword">The password of the application to use with this client. Can't be null or empty.</param>
+        /// <param name="appid">The name of the application to use with this client. Can't be null or empty.</param>
+        /// <param name="appkey">The password of the application to use with this client. Can't be null or empty.</param>
         /// <param name="appVersion">Optional string that describes the version of the app you are building. This string will then be used when uploading
         /// device information to buddy or submitting crash reports.</param>
         /// <param name="autoRecordDeviceInfo">If true automatically records the current device profile with the Buddy Service (device type, os version, etc.). Note that this
         /// only works for Windows Phone clients.</param>
-        public BuddyClient(string appName, string appPassword, string appVersion = "1.0", bool autoRecordDeviceInfo = true)
+        public BuddyClient(string appid, string appkey, string appVersion = "1.0", BuddyClientFlags flags = BuddyClientFlags.Default)
         {
 
 #if WINDOWS_PHONE
@@ -100,410 +88,126 @@ namespace Buddy
 
             var sdkVersion = "Version=" + attr.Version;
 
-            this.Service = new BuddyServiceClientHttp(WebServiceUrl, sdkVersion);
+            var root = WebServiceUrl; // System.Configuration.ConfigurationManager.AppSettings["rootUrl"] ?? WebServiceUrl;
 
-            if (String.IsNullOrEmpty(appName))
+          
+
+            this.Service = new BuddyServiceClientHttp(root, sdkVersion);
+
+            if (String.IsNullOrEmpty(appid))
                 throw new ArgumentException("Can't be null or empty.", "appName");
-            if (String.IsNullOrEmpty(appPassword))
-                throw new ArgumentException("Can't be null or empty.", "appPassword");
+            if (String.IsNullOrEmpty(appkey))
+                throw new ArgumentException("Can't be null or empty.", "AppKey");
 
-            this.AppName = appName;
-            this.AppPassword = appPassword;
+            this.AppId = appid;
+            this.AppKey = appkey;
             this.AppVersion = String.IsNullOrEmpty(appVersion) ? "1.0" : appVersion;
-            this.Metadata = new AppMetadata(this);
-            this.Device = new Device(this);
-            this.GameBoards = new GameBoards(this);
-            this.Sounds = new Sounds(this);
+            //this.Metadata = new AppMetadata(this);
+            //this.Device = new Device(this);
+            //this.GameBoards = new GameBoards(this);
+            //this.Sounds = new Sounds(this);
 
-            this.recordDeviceInfo = autoRecordDeviceInfo;
+            this._flags = flags;
         }
 
-      
 
-        /// <summary>
-        /// Ping the service.
-        /// </summary>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is a string "Pong" if this method was successful.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of PingAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult PingAsync(Action<string, BuddyCallbackParams> callback, object state = null)
+        private string _deviceToken = null;
+        private string _userToken = null;
+        
+        public string AccessToken
         {
-            PingInternal((bcr) =>
+            get
             {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void PingInternal(Action<BuddyCallResult<string>> callback)
-        {
-            this.Service.Service_Ping_Get(this.AppName, this.AppPassword, (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
+                if (_userToken != null)
                 {
-                    callback(BuddyResultCreator.Create<string>(null, bcr.Error));
-                    return;
+                    return _userToken;
                 }
+                else if (_deviceToken != null)
                 {
-                    callback(BuddyResultCreator.Create(result, bcr.Error));
-                    return;
+                    return _deviceToken;
                 }
-                ;
-            });
-            return;
-
-        }
-
-
-        /// <summary>
-        /// Get the current Buddy web-service date/time.
-        /// </summary>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is the datetime of the Buddy web-service.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of GetServiceTimeAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult GetServiceTimeAsync(Action<DateTime, BuddyCallbackParams> callback, object state = null)
-        {
-            GetServiceTimeInternal((bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void GetServiceTimeInternal(Action<BuddyCallResult<DateTime>> callback)
-        {
-            this.Service.Service_DateTime_Get(this.AppName, this.AppPassword, (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
-                {
-                    callback(BuddyResultCreator.Create(default(DateTime), bcr.Error));
-                    return;
-                }
-                {
-                    callback(BuddyResultCreator.Create(Convert.ToDateTime(result, CultureInfo.InvariantCulture), bcr.Error));
-                    return;
-                }
-                ;
-            });
-            return;
-
-        }
-
-
-        /// <summary>
-        /// Get the current version of the service that is being used by this SDK.
-        /// </summary>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is the version of the service.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of GetServiceVersionAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult GetServiceVersionAsync(Action<string, BuddyCallbackParams> callback, object state = null)
-        {
-            GetServiceVersionInternal((bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void GetServiceVersionInternal(Action<BuddyCallResult<string>> callback)
-        {
-            this.Service.Service_Version_Get(this.AppName, this.AppPassword, (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
-                {
-                    callback(BuddyResultCreator.Create<string>(null, bcr.Error));
-                    return;
-                }
-                {
-                    callback(BuddyResultCreator.Create(result, bcr.Error));
-                    return;
-                }
-                ;
-            });
-            return;
-
-        }
-
-        /// <summary>
-        /// Gets a list of emails for all registered users for this app.
-        /// </summary>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is the list of emails.</param>
-        /// <param name="fromRow">Used for paging, retrieve only records starting fromRow.</param>
-        /// <param name="pageSize">Used for paginig, specify page size.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of GetUserEmailsAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult GetUserEmailsAsync(Action<List<string>, BuddyCallbackParams> callback, int fromRow, int pageSize = 10, object state = null)
-        {
-            GetUserEmailsInternal(fromRow, pageSize, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void GetUserEmailsInternal(int fromRow, int pageSize, Action<BuddyCallResult<List<string>>> callback)
-        {
-            this.Service.Application_Users_GetEmailList(this.AppName, this.AppPassword, fromRow.ToString(),
-                    (fromRow + pageSize).ToString(), (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
-                {
-                    callback(BuddyResultCreator.Create<List<string>>(null, bcr.Error));
-                    return;
-                }
-                List<string> emails = new List<string>();
-                foreach (var d in result)
-                    emails.Add(d.UserEmail);
-                {
-                    callback(BuddyResultCreator.Create(emails, bcr.Error));
-                    return;
-                }
-                ;
-            });
-            return;
-
-        }
-
-       
-
-        /// <summary>
-        /// Gets a list of all user profiles for this app.
-        /// </summary>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is the list of user profiles.</param>
-        /// <param name="fromRow">Used for paging, retrieve only records starting fromRow.</param>
-        /// <param name="pageSize">Used for paginig, specify page size.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of GetUserProfilesAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult GetUserProfilesAsync(Action<List<User>, BuddyCallbackParams> callback, int fromRow, int pageSize = 10, object state = null)
-        {
-            GetUserProfilesInternal(fromRow, pageSize, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void GetUserProfilesInternal(int fromRow, int pageSize, Action<BuddyCallResult<List<User>>> callback)
-        {
-            this.Service.Application_Users_GetProfileList(this.AppName, this.AppPassword, fromRow.ToString(),
-                    (fromRow + pageSize).ToString(), (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
-                {
-                    callback(BuddyResultCreator.Create<List<User>>(null, bcr.Error));
-                    return;
-                }
-                var userProfiles = new List<User>();
-                foreach (var userProfile in result)
-                {
-                    userProfiles.Add(new User(this, userProfile));
-                }
-                {
-                    callback(BuddyResultCreator.Create(userProfiles, bcr.Error));
-                    return;
-                }
-                ;
-            });
-            return;
-
-        }
-
-        /// <summary>
-        /// This method will return a list of statistics for the application covering items such as total users, photos, etc. 
-        /// </summary>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is the list of application stats.</param>   
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of GetApplicationStatisticsAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult GetApplicationStatisticsAsync(Action<List<ApplicationStatistics>, BuddyCallbackParams> callback, object state = null)
-        {
-            GetApplicationStatisticsInternal((bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void GetApplicationStatisticsInternal(Action<BuddyCallResult<List<ApplicationStatistics>>> callback)
-        {
-            this.Service.Application_Metrics_GetStats(this.AppName, this.AppPassword, (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
-                {
-                    callback(BuddyResultCreator.Create<List<ApplicationStatistics>>(null, bcr.Error));
-                    return;
-                }
-                List<ApplicationStatistics> stats = new List<ApplicationStatistics>();
-                foreach (var d in result)
-                    stats.Add(new ApplicationStatistics(d, this));
-                {
-                    callback(BuddyResultCreator.Create(stats, bcr.Error));
-                    return;
-                }
-                ;
-            });
-            return;
-
-        }
-
-
-        /// <summary>
-        /// Login an existing user with their secret token. Each user is assigned a token on creation, you can store it instead of a
-        /// username/password combination.
-        /// </summary>
-        /// <param name="token">The private token of the user to login.</param>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is a the authenticated user if the login was successful.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of LoginAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult LoginAsync(Action<AuthenticatedUser, BuddyCallbackParams> callback, string token, object state = null)
-        {
-            LoginInternal(token, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void LoginInternal(string token, Action<BuddyCallResult<AuthenticatedUser>> callback)
-        {
-            if (String.IsNullOrEmpty("token"))
-                throw new ArgumentException("Can't be null or empty.", "token");
-
-            this.Service.UserAccount_Profile_GetFromUserToken(this.AppName, this.AppPassword, token, (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
-                {
-                    callback(BuddyResultCreator.Create<AuthenticatedUser>(null, bcr.Error));
-                    return;
-                }
-                if (result.Length == 0)
-                {
-                    callback(BuddyResultCreator.Create<AuthenticatedUser>(null, bcr.Error));
-                    return;
-                }
-                ;
-
-                var user = new AuthenticatedUser(token, result[0], this);
-
-                this.RecordDeviceInfo(user);
-
-                {
-                    callback(BuddyResultCreator.Create(new AuthenticatedUser(token, result[0], this), bcr.Error));
-                    return;
-                }
-                ;
-            });
-            return;
-
-
-        }
-
-        public Task<AuthenticatedUser> SocialLoginAsync(string providerName, string providerUserId, string accessToken) 
-        {
-            var tcs = new TaskCompletionSource<AuthenticatedUser>();
-
-            this.SocialLoginInternal(providerName, providerUserId, accessToken, (bcr) =>
-                {
-                    if (bcr.Error != BuddyServiceClient.BuddyError.None)
-                    {
-                        tcs.TrySetException(new BuddyServiceException(bcr.Error));
-                    }
-                    else
-                    {
-                        tcs.TrySetResult(bcr.Result);
-                    }
-                });
-            return tcs.Task;
-        }
-
-        internal void SocialLoginInternal(string providerName, string providerUserId, string accessToken, Action<BuddyServiceClient.BuddyCallResult<AuthenticatedUser>> callback)
-        {
-            Dictionary<string, object> parameters = new Dictionary<string, object>();
-
-            parameters.Add("BuddyApplicationName", this.AppName);
-            parameters.Add("BuddyApplicationPassword", this.AppPassword);
-            parameters.Add("ProviderName", providerName);
-            parameters.Add("ProviderUserId", providerUserId);
-            parameters.Add("AccessToken", accessToken);
-
-            this.Service.CallMethodAsync<InternalModels.DataContract_SocialLoginReply[]>("UserAccount_Profile_SocialLogin", parameters, (bcr) =>
-                {
-                    if (bcr.Result != null)
-                    {
-                        this.LoginInternal(bcr.Result.First().UserToken, (bdr) =>
-                            {
-                                callback(bdr);
-                            });
-                    }
-                });
-        }
-
-        private void RecordDeviceInfo(AuthenticatedUser user)
-        {
-            if (this.recordDeviceInfo)
-            {
-                var osVersion = this.GetOSVersion();
-                var deviceName = this.GetDeviceName();
-                var applicationId = this.GetApplicationId();
-
-                this.Device.RecordInformationInternal(osVersion, deviceName, user, this.AppVersion, 0, 0, applicationId, (bcr) =>
-                {
-                    this.recordDeviceInfo = bcr.Error == BuddyError.None;
-                });
-
-
+                return _deviceToken = GetDeviceToken();
+                
             }
         }
 
-        private string GetOSVersion()
+        AuthenticatedUser _user;
+        public AuthenticatedUser User
+        {
+            get
+            {
+                return _user;
+            }
+            private set
+            {
+                _user = value;
+                if (_user != null)
+                {
+                    _userToken = _user.AccessToken;
+                }
+                else
+                {
+                    _userToken = null;
+                }
+            }
+        }
+
+
+        public class DeviceRegistration
+        {
+            public string AccessToken { get; set; }
+            public string ServiceRoot { get; set; }
+        }
+
+        private static string DeviceUniqueId
+        {
+            get
+            {
+                var isoStore = System.IO.IsolatedStorage.IsolatedStorageFile.GetMachineStoreForAssembly();
+                System.IO.IsolatedStorage.IsolatedStorageFileStream stream = null;
+                if (!isoStore.FileExists("uniqueid"))
+                {
+                    stream = isoStore.CreateFile("uniqueid");
+                    var writer = new StreamWriter(stream);
+                    writer.Write(Guid.NewGuid().ToString());
+                    writer.Flush();
+                    stream.Seek(0, SeekOrigin.Begin);
+                }
+                else
+                {
+                    stream = isoStore.OpenFile("uniqueid", FileMode.Open);
+                }
+                var reader = new StreamReader(stream);
+                var guid = Guid.Parse(reader.ReadToEnd());
+                stream.Close();
+
+                return guid.ToString();
+            }
+        }
+
+        private string GetDeviceToken()
+        {
+            var result = Service.CallMethodAsync<DeviceRegistration>("POST", "/devices",
+                new
+                {
+                    AppId = AppId,
+                    AppKey = AppKey,
+                    Platform = GetDeviceName(),
+                    UniqueID = DeviceUniqueId,
+                    Model = GetDeviceName(),
+                    OSVersion = GetOSVersion()
+                }
+            );
+            result.Wait();
+            if (result.Result.ServiceRoot != null)
+            {
+                Service.ServiceRoot = result.Result.ServiceRoot;
+            }
+            return result.Result.AccessToken;
+        }
+
+
+               private string GetOSVersion()
         {
 #if WINDOWS_PHONE
             return System.Environment.OSVersion.Version.ToString();
@@ -582,12 +286,69 @@ namespace Buddy
             }
 
             return "ApplicationId not found";
-#endif
         }
 
+        // service
+        //
+        public Task<string> PingAsync()
+        {
+            return Service.CallMethodAsync<string>("GET", "/service/ping", new { });
+        }
+
+        // User auth.
+        //
 
 
-        
+        /// <summary>
+        /// Create a new Buddy user. Note that this method internally does two web-service calls, and the IAsyncResult object
+        /// returned is only valid for the first one.
+        /// </summary>
+        /// <param name="name">The name of the new user. Can't be null or empty.</param>
+        /// <param name="password">The password of the new user. Can't be null.</param>
+        /// <param name="gender">An optional gender for the user.</param>
+        /// <param name="age">An optional age for the user.</param>
+        /// <param name="email">An optional email for the user.</param>
+        /// <param name="status">An optional status for the user.</param>
+        /// <param name="fuzzLocation">Optionally set location fuzzing for this user. When enabled user location is randomized in searches.</param>
+        /// <param name="celebrityMode">Optionally set the celebrity mode for this user. When enabled this user will be absent from all searches.</param>
+        /// <param name="defaultMetadata">An optional custom tag for this user.</param>
+        /// <returns>A Task&lt;AuthenticatedUser&gt;that can be used to monitor progress on this call.</returns>
+        public System.Threading.Tasks.Task<AuthenticatedUser> CreateUserAsync(string name, string password, string username, BuddySDK.UserGender gender = UserGender.Any, DateTime? dateOfBirth = null, string email = "", BuddySDK.UserStatus status = UserStatus.Any, bool fuzzLocation = false, bool celebrityMode = false, string defaultMetadata = "")
+        {
+
+            if (String.IsNullOrEmpty(name))
+                throw new ArgumentException("Can't be null or empty.", "name");
+            if (password == null)
+                throw new ArgumentNullException("password");
+            if (dateOfBirth > DateTime.Now)
+                throw new ArgumentException("dateOfBirth must be in the past.", "dateOfBirth");
+
+
+            var task = new Task<AuthenticatedUser>(() =>
+            {
+
+                var r = this.Service.CallMethodAsync<IDictionary<string, object>>("POST", "/users", new
+                {
+                    name = name,
+                    username = username,
+                    password = password,
+                    email = email,
+                    gender = gender.ToString(),
+                    defaultMetadata = defaultMetadata,
+                    relationshipStatus = status
+                });
+
+                r.Wait();
+
+                var user = new AuthenticatedUser(this, (string)r.Result["ID"], (string)r.Result["accessToken"]);
+
+                this.User = user;
+                return user;
+            });
+
+            return task;
+         
+        }
 
         /// <summary>
         /// Login an existing user with their username and password. Note that this method internally does two web-service calls, and the IAsyncResult object
@@ -595,25 +356,277 @@ namespace Buddy
         /// </summary>
         /// <param name="username">The username of the user. Can't be null or empty.</param>
         /// <param name="password">The password of the user. Can't be null.</param>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is an authenticated user if the Login was successful.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of LoginAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult LoginAsync(Action<AuthenticatedUser, BuddyCallbackParams> callback, string username, string password, object state = null)
+        /// <returns>A Task&lt;AuthenticatedUser&gt;that can be used to monitor progress on this call.</returns>
+        public System.Threading.Tasks.Task<AuthenticatedUser> LoginUserAsync(string username, string password)
         {
-            LoginInternal(username, password, (bcr) =>
+            var task = new Task<AuthenticatedUser>(() =>
             {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
+                var r = Service.CallMethodAsync<IDictionary<string, object>>("POST", "/users/login", new
+                {
+                    AccessToken = AccessToken,
+                    Username = username,
+                    password = password
+                });
+
+                r.Wait();
+
+                var user = new AuthenticatedUser(this, (string)r.Result["ID"], (string)r.Result["accessToken"]);
+
+                this.User = user;
+
+                return user;
+
             });
-            return null;
+            task.Start();
+            return task;
         }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+        /// <summary>
+        /// Gets the optional string that describes the version of the app you are building. This string is used when uploading
+        /// device information to buddy or submitting crash reports. It will default to 1.0.
+        /// </summary>
+        public string AppVersion { get; protected set; }
+
+#if false
+        /// <summary>
+        /// Gets an object that can be used to manipulate application-level metadata. Metadata is used to store custom values on the platform.
+        /// </summary>
+        public AppMetadata Metadata { get; protected set; }
+
+        /// <summary>
+        /// Gets an object that can be used to record device information about this client or upload crashes.
+        /// </summary>
+        public Device Device { get; protected set; }
+
+        /// <summary>
+        /// Gets an object that can be used to retrieve high score rankings or search for game boards in this application.
+        /// </summary>
+        public GameBoards GameBoards { get; protected set; }
+
+        /// <summary>
+        /// Gets an object that can be used to retrieve sounds.
+        /// </summary>
+        public Sounds Sounds { get; protected set; }
+       
+
+        internal void PingInternal(Action<BuddyCallResult<string>> callback)
+        {
+            this.Service.Service_Ping_Get(this.AppId, this.AppKey, (bcr) =>
+            {
+                var result = bcr.Result;
+                if (bcr.Error != null)
+                {
+                    callback(BuddyResultCreator.Create<string>(null, bcr.Error));
+                    return;
+                }
+                {
+                    callback(BuddyResultCreator.Create(result, bcr.Error));
+                    return;
+                }
+                ;
+            });
+            return;
+
+        }
+
+
+
+        internal void GetServiceTimeInternal(Action<BuddyCallResult<DateTime>> callback)
+        {
+            this.Service.Service_DateTime_Get(this.AppId, this.AppKey, (bcr) =>
+            {
+                var result = bcr.Result;
+                if (bcr.Error != null)
+                {
+                    callback(BuddyResultCreator.Create(default(DateTime), bcr.Error));
+                    return;
+                }
+                {
+                    callback(BuddyResultCreator.Create(Convert.ToDateTime(result, CultureInfo.InvariantCulture), bcr.Error));
+                    return;
+                }
+                ;
+            });
+            return;
+
+        }
+
+
+
+        internal void GetServiceVersionInternal(Action<BuddyCallResult<string>> callback)
+        {
+            this.Service.Service_Version_Get(this.AppId, this.AppKey, (bcr) =>
+            {
+                var result = bcr.Result;
+                if (bcr.Error != null)
+                {
+                    callback(BuddyResultCreator.Create<string>(null, bcr.Error));
+                    return;
+                }
+                {
+                    callback(BuddyResultCreator.Create(result, bcr.Error));
+                    return;
+                }
+                ;
+            });
+            return;
+
+        }
+
+
+
+        internal void GetUserEmailsInternal(int fromRow, int pageSize, Action<BuddyCallResult<List<string>>> callback)
+        {
+            this.Service.Application_Users_GetEmailList(this.AppId, this.AppKey, fromRow.ToString(),
+                    (fromRow + pageSize).ToString(), (bcr) =>
+            {
+                var result = bcr.Result;
+                if (bcr.Error != null)
+                {
+                    callback(BuddyResultCreator.Create<List<string>>(null, bcr.Error));
+                    return;
+                }
+                List<string> emails = new List<string>();
+                foreach (var d in result)
+                    emails.Add(d.UserEmail);
+                {
+                    callback(BuddyResultCreator.Create(emails, bcr.Error));
+                    return;
+                }
+                ;
+            });
+            return;
+
+        }
+
+       
+
+   
+
+        internal void GetUserProfilesInternal(int fromRow, int pageSize, Action<BuddyCallResult<List<User>>> callback)
+        {
+            this.Service.Application_Users_GetProfileList(this.AppId, this.AppKey, fromRow.ToString(),
+                    (fromRow + pageSize).ToString(), (bcr) =>
+            {
+                var result = bcr.Result;
+                if (bcr.Error != null)
+                {
+                    callback(BuddyResultCreator.Create<List<User>>(null, bcr.Error));
+                    return;
+                }
+                var userProfiles = new List<User>();
+                foreach (var userProfile in result)
+                {
+                    userProfiles.Add(new User(this, userProfile));
+                }
+                {
+                    callback(BuddyResultCreator.Create(userProfiles, bcr.Error));
+                    return;
+                }
+                ;
+            });
+            return;
+
+        }
+
+        internal void GetApplicationStatisticsInternal(Action<BuddyCallResult<List<ApplicationStatistics>>> callback)
+        {
+            this.Service.Application_Metrics_GetStats(this.AppId, this.AppKey, (bcr) =>
+            {
+                var result = bcr.Result;
+                if (bcr.Error != null)
+                {
+                    callback(BuddyResultCreator.Create<List<ApplicationStatistics>>(null, bcr.Error));
+                    return;
+                }
+                List<ApplicationStatistics> stats = new List<ApplicationStatistics>();
+                foreach (var d in result)
+                    stats.Add(new ApplicationStatistics(d, this));
+                {
+                    callback(BuddyResultCreator.Create(stats, bcr.Error));
+                    return;
+                }
+                ;
+            });
+            return;
+
+        }
+
+
+     
+
+        internal void LoginInternal(string token, Action<BuddyCallResult<AuthenticatedUser>> callback)
+        {
+
+            throw new NotImplementedException();
+
+
+        }
+
+        public Task<AuthenticatedUser> SocialLoginAsync(string providerName, string providerUserId, string accessToken) 
+        {
+            var tcs = new TaskCompletionSource<AuthenticatedUser>();
+
+            this.SocialLoginInternal(providerName, providerUserId, accessToken, (bcr) =>
+                {
+                    if (bcr.Error != BuddyServiceClient.BuddyError.None)
+                    {
+                        tcs.TrySetException(new BuddyServiceException(bcr.Error));
+                    }
+                    else
+                    {
+                        tcs.TrySetResult(bcr.Result);
+                    }
+                });
+            return tcs.Task;
+        }
+
+        internal void SocialLoginInternal(string providerName, string providerUserId, string accessToken, Action<BuddyServiceClient.BuddyCallResult<AuthenticatedUser>> callback)
+        {
+            Dictionary<string, object> parameters = new Dictionary<string, object>();
+
+            parameters.Add("BuddyApplicationName", this.AppId);
+            parameters.Add("BuddyApplicationPassword", this.AppKey);
+            parameters.Add("ProviderName", providerName);
+            parameters.Add("ProviderUserId", providerUserId);
+            parameters.Add("AccessToken", accessToken);
+
+            this.Service.CallMethodAsync<InternalModels.DataContract_SocialLoginReply[]>("UserAccount_Profile_SocialLogin", parameters, (bcr) =>
+                {
+                    if (bcr.Result != null)
+                    {
+                        this.LoginInternal(bcr.Result.First().UserToken, (bdr) =>
+                            {
+                                callback(bdr);
+                            });
+                    }
+                });
+        }
+
+       
+
+ 
+
+        
+
+
+
+        
+
+      
         internal void LoginInternal(string username, string password, Action<BuddyCallResult<AuthenticatedUser>> callback)
         {
             if (String.IsNullOrEmpty("username"))
@@ -621,10 +634,10 @@ namespace Buddy
             if (password == null)
                 throw new ArgumentNullException("password");
 
-            this.Service.UserAccount_Profile_Recover(this.AppName, this.AppPassword, username, password, (bcr) =>
+            this.Service.UserAccount_Profile_Recover(this.AppId, this.AppKey, username, password, (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
+                if (bcr.Error != null)
                 {
                     callback(BuddyResultCreator.Create<AuthenticatedUser>(null, bcr.Error));
                     return;
@@ -638,34 +651,14 @@ namespace Buddy
 
        
 
-        /// <summary>
-        /// Check if another user with the same email already exists in the system.
-        /// </summary>
-        /// <param name="email">The email to check for, can't be null or empty.</param>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is true if the email exists in the system, false otherwise.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of CheckIfEmailExistsAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult CheckIfEmailExistsAsync(Action<bool, BuddyCallbackParams> callback, string email, object state = null)
-        {
-            CheckIfEmailExistsInternal(email, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
+     
 
         internal void CheckIfEmailExistsInternal(string email, Action<BuddyCallResult<bool>> callback)
         {
             if (String.IsNullOrEmpty(email))
                 throw new ArgumentException("Can't be null or empty.", "email");
 
-            this.Service.UserAccount_Profile_CheckUserEmail(this.AppName, this.AppPassword, email, (bcr) =>
+            this.Service.UserAccount_Profile_CheckUserEmail(this.AppId, this.AppKey, email, (bcr) =>
             {
 
                 callback(BuddyResultCreator.Create(bcr.Error == BuddyError.UserEmailTaken, BuddyError.None));
@@ -676,36 +669,16 @@ namespace Buddy
 
       
 
-        /// <summary>
-        /// Check if another user with the same name already exists in the system.
-        /// </summary>
-        /// <param name="username">The name to check for, can't be null or empty.</param>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is true if the name exists in the system, false otherwise.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of CheckIfUsernameExistsAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult CheckIfUsernameExistsAsync(Action<bool, BuddyCallbackParams> callback, string username, object state = null)
-        {
-            CheckIfUsernameExistsInternal(username, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
+      
 
         internal void CheckIfUsernameExistsInternal(string username, Action<BuddyCallResult<bool>> callback)
         {
             if (String.IsNullOrEmpty(username))
                 throw new ArgumentException("Can't be null or empty.", "username");
 
-            this.Service.UserAccount_Profile_CheckUserName(this.AppName, this.AppPassword, username, (bcr) =>
+            this.Service.UserAccount_Profile_CheckUserName(this.AppId, this.AppKey, username, (bcr) =>
             {
-                if (bcr.Error != BuddyError.None && bcr.Error != BuddyError.UserNameAvailble && bcr.Error != BuddyError.UserNameAlreadyInUse)
+                if (bcr.Error != null && bcr.Error != BuddyError.UserNameAvailble && bcr.Error != BuddyError.UserNameAlreadyInUse)
                 {
                     callback(BuddyResultCreator.Create(default(bool), bcr.Error));
                     return;
@@ -719,36 +692,7 @@ namespace Buddy
 
 
         /// <summary>
-        /// Create a new Buddy user. Note that this method internally does two web-service calls, and the IAsyncResult object
-        /// returned is only valid for the first one.
-        /// </summary>
-        /// <param name="callback">The async callback to call on success or error. The first parameter is an AuthenticatedUser object is returned.</param>
-        /// <param name="name">The name of the new user. Can't be null or empty.</param>
-        /// <param name="password">The password of the new user. Can't be null.</param>
-        /// <param name="gender">An optional gender for the user.</param>
-        /// <param name="age">An optional age for the user.</param>
-        /// <param name="email">An optional email for the user.</param>
-        /// <param name="status">An optional status for the user.</param>
-        /// <param name="fuzzLocation">Optionally set location fuzzing for this user. When enabled user location is randomized in searches.</param>
-        /// <param name="celebrityMode">Optionally set the celebrity mode for this user. When enabled this user will be absent from all searches.</param>
-        /// <param name="appTag">An optional custom tag for this user.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns>An IAsyncResult handle that can be used to monitor progress on this call.</returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of CreateUserAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult CreateUserAsync(Action<AuthenticatedUser, BuddyCallbackParams> callback, string name, string password, UserGender gender = UserGender.Any, int age = 0,
-                            string email = "", UserStatus status = UserStatus.Any, bool fuzzLocation = false, bool celebrityMode = false, string appTag = "", object state = null)
-        {
-            CreateUserInternal(name, password, gender, age, email, status, fuzzLocation, celebrityMode, appTag, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
+      
 
         internal void CreateUserInternal(string name, string password, UserGender gender, int age,
                     string email, UserStatus status, bool fuzzLocation, bool celebrityMode, string appTag, Action<BuddyCallResult<AuthenticatedUser>> callback)
@@ -760,11 +704,11 @@ namespace Buddy
             if (age < 0)
                 throw new ArgumentException("Can't be less than 0.", "age");
 
-            this.Service.UserAccount_Profile_Create(this.AppName, this.AppPassword, name, password,
+            this.Service.UserAccount_Profile_Create(this.AppId, this.AppKey, name, password,
                             gender == UserGender.Female ? "female" : "male", age, email == null ? "" : email, (int)status, fuzzLocation ? 1 : 0,
                             celebrityMode ? 1 : 0, appTag, (bcr) =>
             {
-                if (bcr.Error != BuddyError.None)
+                if (bcr.Error != null)
                 {
                     callback(BuddyResultCreator.Create<AuthenticatedUser>(null, bcr.Error));
                     return;
@@ -782,148 +726,26 @@ namespace Buddy
 
       
 
-        /// <summary>
-        /// Starts an analytics session
-        /// </summary>
-        /// <param name="callback">The callback to call upon success or error.  The first parameter is an identifier for the session.</param>
-        /// <param name="user">The user that is starting this session</param>
-        /// <param name="sessionName">The name of the session</param>
-        /// <param name="appTag">An optional custom tag to include with the session.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns></returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of StartSessionAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult StartSessionAsync(Action<int, BuddyCallbackParams> callback, AuthenticatedUser user, string sessionName, string appTag = null, object state = null)
-        {
 
-            StartSessionInternal(user, sessionName, appTag, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void StartSessionInternal(AuthenticatedUser user, string sessionName, string appTag, Action<BuddyCallResult<int>> callback)
-        {
-            if (user == null || user.Token == null)
-                throw new ArgumentNullException("user", "An AuthenticatedUser value is required.");
-            if (String.IsNullOrEmpty(sessionName))
-                throw new ArgumentException("sessionNae", "sessionName must not be null or empty.");
-
-            this.Service.Analytics_Session_Start(this.AppName, this.AppPassword, user.Token, sessionName, appTag, (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
-                {
-                    callback(BuddyResultCreator.Create(default(int), bcr.Error));
-                    return;
-                }
-                {
-                    callback(BuddyResultCreator.Create(Int32.Parse(result), bcr.Error));
-                    return;
-                }
-                ;
-            });
-            return;
-
-        }
 
      
 
-        /// <summary>
-        /// Ends an analytics session
-        /// </summary>
-        /// <param name="callback">The callback to call upon success or error.  The first parameter a boolean which is true upon success.</param>
-        /// <param name="user">The user that is starting this session</param>
-        /// <param name="sessionId">The id of the session, returned from StartSessionAsync.</param>
-        /// <param name="appTag">An optional custom tag to include with the session.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns></returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of EndSessionAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult EndSessionAsync(Action<bool, BuddyCallbackParams> callback, AuthenticatedUser user, int sessionId, string appTag = null, object state = null)
-        {
+     
 
-            EndSessionInternal(user, sessionId, appTag, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
-
-        internal void EndSessionInternal(AuthenticatedUser user, int sessionId, string appTag, Action<BuddyCallResult<bool>> callback)
-        {
-            if (user == null || user.Token == null)
-                throw new ArgumentNullException("An AuthenticatedUser value is required for parmaeter user");
-
-
-            this.Service.Analytics_Session_End(this.AppName, this.AppPassword, user.Token, sessionId.ToString(), appTag, (bcr) =>
-            {
-                var result = bcr.Result;
-                if (bcr.Error != BuddyError.None && bcr.Error != BuddyError.ServiceErrorNegativeOne)
-                {
-                    callback(BuddyResultCreator.Create(default(bool), bcr.Error));
-                    return;
-                }
-                {
-                    callback(BuddyResultCreator.Create(result == "1", bcr.Error));
-                    return;
-                }
-                ;
-            });
-            return;
-
-        }
-
-
-        /// <summary>
-        /// Records a session metric value
-        /// </summary>
-        /// <param name="callback">The callback to call upon success or error.  The first parameter a boolean which is true upon success.</param>
-        /// <param name="user">The user that is starting this session</param>
-        /// <param name="sessionId">The id of the session, returned from StartSessionAsync.</param>
-        /// <param name="metricKey">A custom key describing the metric.</param>
-        /// <param name="metricValue">The value to set.</param>
-        /// <param name="appTag">An optional custom tag to include with the metric.</param>
-        /// <param name="state">An optional user defined object that will be passed to the callback.</param>
-        /// <returns></returns>
-        #if AWAIT_SUPPORTED
-	[Obsolete("This method has been deprecated, please call one of the other overloads of RecordSessionMetricAsync.")]
-        [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
-#endif
-        public IAsyncResult RecordSessionMetricAsync(Action<bool, BuddyCallbackParams> callback, AuthenticatedUser user, int sessionId, string metricKey, string metricValue, string appTag = null, object state = null)
-        {
-
-            RecordSessionMetricInternal(user, sessionId, metricKey, metricValue, appTag, (bcr) =>
-            {
-                if (callback == null)
-                    return;
-                callback(bcr.Result, new BuddyCallbackParams(bcr.Error));
-            });
-            return null;
-        }
 
         internal void RecordSessionMetricInternal(AuthenticatedUser user, int sessionId, string metricKey, string metricValue, string appTag, Action<BuddyCallResult<bool>> callback)
         {
-            if (user == null || user.Token == null)
+            if (user == null || user.AccessToken == null)
                 throw new ArgumentNullException("user", "An AuthenticatedUser value is required for parmaeter user");
             if (String.IsNullOrEmpty(metricKey))
                 throw new ArgumentException("metricKey", "metricKey must not be null or empty.");
             if (metricValue == null)
                 throw new ArgumentNullException("metricValue", "metrickValue must not be null.");
 
-            this.Service.Analytics_Session_RecordMetric(this.AppName, this.AppPassword, user.Token, sessionId.ToString(), metricKey, metricValue, appTag, (bcr) =>
+            this.Service.Analytics_Session_RecordMetric(this.AppId, this.AppKey, user.AccessToken, sessionId.ToString(), metricKey, metricValue, appTag, (bcr) =>
             {
                 var result = bcr.Result;
-                if (bcr.Error != BuddyError.None)
+                if (bcr.Error != null)
                 {
                     callback(BuddyResultCreator.Create(default(bool), bcr.Error));
                     return;
@@ -979,84 +801,11 @@ namespace Buddy
             return tcs.Task;
         }
 
-        /// <summary>
-        /// Create a new Buddy user. Note that this method internally does two web-service calls, and the IAsyncResult object
-        /// returned is only valid for the first one.
-        /// </summary>
-        /// <param name="name">The name of the new user. Can't be null or empty.</param>
-        /// <param name="password">The password of the new user. Can't be null.</param>
-        /// <param name="gender">An optional gender for the user.</param>
-        /// <param name="age">An optional age for the user.</param>
-        /// <param name="email">An optional email for the user.</param>
-        /// <param name="status">An optional status for the user.</param>
-        /// <param name="fuzzLocation">Optionally set location fuzzing for this user. When enabled user location is randomized in searches.</param>
-        /// <param name="celebrityMode">Optionally set the celebrity mode for this user. When enabled this user will be absent from all searches.</param>
-        /// <param name="appTag">An optional custom tag for this user.</param>
-        /// <returns>A Task&lt;AuthenticatedUser&gt;that can be used to monitor progress on this call.</returns>
-        public System.Threading.Tasks.Task<AuthenticatedUser> CreateUserAsync( string name, string password, Buddy.UserGender gender = UserGender.Any, int age = 0, string email = "", Buddy.UserStatus status = UserStatus.Any, bool fuzzLocation = false, bool celebrityMode = false, string appTag = "")
-        {
-            var tcs = new System.Threading.Tasks.TaskCompletionSource<AuthenticatedUser>();
-            CreateUserInternal(name, password, gender, age, email, status, fuzzLocation, celebrityMode, appTag, (bcr) =>
-            {
-                if (bcr.Error != BuddyServiceClient.BuddyError.None)
-                {
-                    tcs.TrySetException(new BuddyServiceException(bcr.Error));
-                }
-                else
-                {
-                    tcs.TrySetResult(bcr.Result);
-                }
-            });
-            return tcs.Task;
-        }
+     
 
-        /// <summary>
-        /// Starts an analytics session
-        /// </summary>
-        /// <param name="user">The user that is starting this session</param>
-        /// <param name="sessionName">The name of the session</param>
-        /// <param name="appTag">An optional custom tag to include with the session.</param>
-        /// <returns></returns>
-        public System.Threading.Tasks.Task<Int32> StartSessionAsync( Buddy.AuthenticatedUser user, string sessionName, string appTag = null)
-        {
-            var tcs = new System.Threading.Tasks.TaskCompletionSource<Int32>();
-            StartSessionInternal(user, sessionName, appTag, (bcr) =>
-            {
-                if (bcr.Error != BuddyServiceClient.BuddyError.None)
-                {
-                    tcs.TrySetException(new BuddyServiceException(bcr.Error));
-                }
-                else
-                {
-                    tcs.TrySetResult(bcr.Result);
-                }
-            });
-            return tcs.Task;
-        }
+      
 
-        /// <summary>
-        /// Ends an analytics session
-        /// </summary>
-        /// <param name="user">The user that is starting this session</param>
-        /// <param name="sessionId">The id of the session, returned from StartSessionAsync.</param>
-        /// <param name="appTag">An optional custom tag to include with the session.</param>
-        /// <returns></returns>
-        public System.Threading.Tasks.Task<Boolean> EndSessionAsync( Buddy.AuthenticatedUser user, int sessionId, string appTag = null)
-        {
-            var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
-            EndSessionInternal(user, sessionId, appTag, (bcr) =>
-            {
-                if (bcr.Error != BuddyServiceClient.BuddyError.None)
-                {
-                    tcs.TrySetException(new BuddyServiceException(bcr.Error));
-                }
-                else
-                {
-                    tcs.TrySetResult(bcr.Result);
-                }
-            });
-            return tcs.Task;
-        }
+       
 
         /// <summary>
         /// Records a session metric value
@@ -1067,7 +816,7 @@ namespace Buddy
         /// <param name="metricValue">The value to set.</param>
         /// <param name="appTag">An optional custom tag to include with the metric.</param>
         /// <returns></returns>
-        public System.Threading.Tasks.Task<Boolean> RecordSessionMetricAsync( Buddy.AuthenticatedUser user, int sessionId, string metricKey, string metricValue, string appTag = null)
+        public System.Threading.Tasks.Task<Boolean> RecordSessionMetricAsync( BuddySDK.AuthenticatedUser user, int sessionId, string metricKey, string metricValue, string appTag = null)
         {
             var tcs = new System.Threading.Tasks.TaskCompletionSource<Boolean>();
             RecordSessionMetricInternal(user, sessionId, metricKey, metricValue, appTag, (bcr) =>
@@ -1214,16 +963,21 @@ namespace Buddy
             return tcs.Task;
         }
 
+
+
+
         /// <summary>
         /// Login an existing user with their secret token. Each user is assigned a token on creation, you can store it instead of a
         /// username/password combination.
         /// </summary>
-        /// <param name="token">The private token of the user to login.</param>
+        /// <param name="accessToken">The private token of the user to login.</param>
         /// <returns>A Task&lt;AuthenticatedUser&gt;that can be used to monitor progress on this call.</returns>
-        public System.Threading.Tasks.Task<AuthenticatedUser> LoginAsync( string token)
+        public System.Threading.Tasks.Task<AuthenticatedUser> LoginAsync( string accessToken)
         {
+
+
             var tcs = new System.Threading.Tasks.TaskCompletionSource<AuthenticatedUser>();
-            LoginInternal(token, (bcr) =>
+            LoginInternal(accessToken, (bcr) =>
             {
                 if (bcr.Error != BuddyServiceClient.BuddyError.None)
                 {
@@ -1237,29 +991,7 @@ namespace Buddy
             return tcs.Task;
         }
 
-        /// <summary>
-        /// Login an existing user with their username and password. Note that this method internally does two web-service calls, and the IAsyncResult object
-        /// returned is only valid for the first one.
-        /// </summary>
-        /// <param name="username">The username of the user. Can't be null or empty.</param>
-        /// <param name="password">The password of the user. Can't be null.</param>
-        /// <returns>A Task&lt;AuthenticatedUser&gt;that can be used to monitor progress on this call.</returns>
-        public System.Threading.Tasks.Task<AuthenticatedUser> LoginAsync( string username, string password)
-        {
-            var tcs = new System.Threading.Tasks.TaskCompletionSource<AuthenticatedUser>();
-            LoginInternal(username, password, (bcr) =>
-            {
-                if (bcr.Error != BuddyServiceClient.BuddyError.None)
-                {
-                    tcs.TrySetException(new BuddyServiceException(bcr.Error));
-                }
-                else
-                {
-                    tcs.TrySetResult(bcr.Result);
-                }
-            });
-            return tcs.Task;
-        }
+       
 
         /// <summary>
         /// Check if another user with the same email already exists in the system.
@@ -1284,6 +1016,7 @@ namespace Buddy
         }
 #endif
 
+#endif
 
 
 
@@ -1405,7 +1138,7 @@ namespace Buddy
             this.TotalUserMetadata = appStats.TotalUserMetadata;
         }
 
-
+#endif
     }
 
 #if NET40
@@ -1436,6 +1169,7 @@ namespace Buddy
         {
             return type.GetMethod(name, parameterTypes);
         }
+       
     }
 #endif
 

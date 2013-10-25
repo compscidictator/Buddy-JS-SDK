@@ -7,7 +7,7 @@
     <ProjectGuid>{20ED7BC7-5C2F-4E5F-8A0F-34B86984082A}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Buddy.Net40</RootNamespace>
+    <RootNamespace>BuddySDK</RootNamespace>
     <AssemblyName>Buddy</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -37,10 +37,12 @@
     <DocumentationFile>bin\Release\net45\Buddy.XML</DocumentationFile>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json">
-      <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\webservice.buddyplatform.com\BuddyV2TestApp\Binaries\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,16 +50,16 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Compile Include="AppMetadata.cs">
+    <None Include="V1\AppMetadata.cs">
       <SubType>Code</SubType>
-    </Compile>
+    </None>
     <Compile Include="AuthenticatedUser.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Blob.cs" />
-    <Compile Include="Blobs.cs" />
+    <None Include="V1\Blob.cs" />
+    <None Include="V1\Blobs.cs" />
+    <Compile Include="Buddy.cs" />
     <Compile Include="BuddyBase.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -67,157 +69,160 @@
     <Compile Include="BuddyClient.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="BuddyCollectionBase.cs" />
     <Compile Include="BuddyServiceClient\BuddyServiceClientBase.cs" />
     <Compile Include="BuddyServiceClient\BuddyServiceClientHttp.cs" />
     <Compile Include="BuddyServiceException.cs" />
-    <Compile Include="BuddyTaskWrappers.cs">
+    <None Include="BuddyTaskWrappers.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="CheckInLocation.cs">
+    </None>
+    <Compile Include="Checkin.cs" />
+    <None Include="V1\CheckInLocation.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Commerce.cs">
+    </None>
+    <None Include="V1\Commerce.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Device.cs">
+    </None>
+    <None Include="V1\Device.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="FriendRequests.cs">
+    </None>
+    <None Include="V1\FriendRequests.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Friends.cs">
+    </None>
+    <None Include="V1\Friends.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameBoards.cs">
+    </None>
+    <None Include="V1\GameBoards.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GamePlayer.cs">
+    </None>
+    <None Include="V1\GamePlayer.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GamePlayers.cs">
+    </None>
+    <None Include="V1\GamePlayers.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameScore.cs">
+    </None>
+    <None Include="V1\GameScore.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameScores.cs">
+    </None>
+    <None Include="V1\GameScores.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameState.cs">
+    </None>
+    <None Include="V1\GameState.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GameStates.cs">
+    </None>
+    <None Include="V1\GameStates.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="GroupMessage.cs">
+    </None>
+    <None Include="V1\GroupMessage.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Identity.cs">
+    </None>
+    <None Include="V1\Identity.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IdentityItem.cs">
+    </None>
+    <None Include="V1\IdentityItem.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="IdentityItemSearchResult.cs">
+    </None>
+    <None Include="V1\IdentityItemSearchResult.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Message.cs">
+    </None>
+    <None Include="V1\Message.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MessageGroup.cs">
+    </None>
+    <None Include="V1\MessageGroup.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MessageGroups.cs">
+    </None>
+    <None Include="V1\MessageGroups.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Messages.cs">
+    </None>
+    <None Include="V1\Messages.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MetadataItem.cs">
+    </None>
+    <None Include="V1\MetadataItem.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MetadataSum.cs">
+    </None>
+    <None Include="V1\MetadataSum.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="MetroArea.cs">
+    </None>
+    <None Include="V1\MetroArea.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Notifications.cs">
+    </None>
+    <None Include="V1\Notifications.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NotificationsAndroid.cs">
+    </None>
+    <None Include="V1\NotificationsAndroid.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NotificationsApple.cs">
+    </None>
+    <None Include="V1\NotificationsApple.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NotificationsWin8.cs">
+    </None>
+    <None Include="V1\NotificationsWin8.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PhotoAlbum.cs">
+    </None>
+    <None Include="V1\PhotoAlbum.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PhotoAlbumPublic.cs">
+    </None>
+    <None Include="V1\PhotoAlbumPublic.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PhotoAlbums.cs">
+    </None>
+    <None Include="V1\PhotoAlbums.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Picture.cs">
+    </None>
+    <None Include="V1\Picture.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PicturePublic.cs">
+    </None>
+    <None Include="V1\PicturePublic.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Place.cs">
+    </None>
+    <None Include="V1\Place.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Places.cs">
+    </None>
+    <None Include="V1\Places.cs">
       <SubType>Code</SubType>
-    </Compile>
+    </None>
+    <Compile Include="CheckinCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\AssemblyInfoNet.cs" />
-    <Compile Include="Receipt.cs">
+    <None Include="V1\Receipt.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RegisteredDevice.cs">
+    </None>
+    <None Include="V1\RegisteredDevice.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RegisteredDeviceAndroid.cs">
+    </None>
+    <None Include="V1\RegisteredDeviceAndroid.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RegisteredDeviceApple.cs">
+    </None>
+    <None Include="V1\RegisteredDeviceApple.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="RegisteredDeviceWin8.cs">
+    </None>
+    <None Include="V1\RegisteredDeviceWin8.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Sound.cs">
+    </None>
+    <None Include="V1\Sound.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Startup.cs">
+    </None>
+    <None Include="V1\Startup.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Startups.cs">
+    </None>
+    <None Include="V1\Startups.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="StoreItem.cs">
+    </None>
+    <None Include="V1\StoreItem.cs">
       <SubType>Code</SubType>
-    </Compile>
+    </None>
     <Compile Include="User.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="UserMetadata.cs">
+    <None Include="V1\UserMetadata.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="Video.cs" />
-    <Compile Include="Videos.cs" />
-    <Compile Include="VirtualAlbum.cs">
+    </None>
+    <None Include="V1\Video.cs" />
+    <None Include="V1\Videos.cs" />
+    <None Include="V1\VirtualAlbum.cs">
       <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="VirtualAlbums.cs">
+    </None>
+    <None Include="V1\VirtualAlbums.cs">
       <SubType>Code</SubType>
-    </Compile>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

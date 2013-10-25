@@ -6,6 +6,7 @@ using System.Threading;
 using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.IO;
+using System.Threading.Tasks;
 
 namespace BuddyServiceClient
 {
@@ -13,34 +14,26 @@ namespace BuddyServiceClient
     internal class BuddyException : Exception
     {
         public string Method { get; private set; }
-        public BuddyError Error { get; private set; }
+        public string ErrorCode { get; private set; }
 
-        public override string Message
+        public BuddyException(string error, string message)
+            : base( message)
         {
-            get
-            {
-                return Error.ToString();
-            }
+            ErrorCode = error;
         }
-        public BuddyException(BuddyError error, string method)
-        {
-            Error = error;
-            Method = method;
-            Debug.WriteLine(method + ": " + error);
-        }
+
+       
     }
 
     internal class BuddyCallResult<T>
     {
-        public BuddyError Error { get; set; }
+        public string Error { get; set; }
         public string Message { get; set; }
         public T Result { get; set; }
 
         public BuddyCallResult()
         {
         }
-
-
     }
 
     internal class BuddyFile
@@ -70,20 +63,7 @@ namespace BuddyServiceClient
         }
     }
 
-    internal enum BuddyError
-    {
-        None = 0,
-        WrongSocketLoginOrPass, SecurityTokenInvalidPleaseRenew, SecurityTokenRenewed, SecurityTokenCouldNotBeRenewed, SecurityFailedBannedDeviceID,
-        SecurityFailedBadUserNameOrPassword, SecurityFailedBadUserName, SecurityFailedBadUserPassword, DeviceIDAlreadyInSystem, UserNameAlreadyInUse,
-        UserNameAvailble, UserAccountNotFound, UserInvalidAccountSetting, UserAccountErrorSettingMetaValue, UserErrorUpdatingAccount, UserEmailTaken,
-        UserEmailAvailable, UserProfileIDEmpty, IdentityValueEmpty, DeviceIDNotFound, DateTimeFormatWasIncorrect, LatLongFormatWasIncorrect,
-        GeoLocationCategoryIncorrect, BadGeoLocationName, GeoLocationIDIncorrect, BadParameter, PhotoUploadGenericError, CouldNotFindPhotoTodelete,
-        CouldNotDeleteFileGenericError, PhotoAlbumDoesNotExist, AlbumNamesCannotBeBlank, PhotoIDDoesNotExistInContext, dupelocation, invalidflagreason,
-        EmptyDeviceURI, EmptyGroupName, EmptyImageURI, EmptyMessageCount, EmptyMessageTitle, EmptyRawMessage, EmptyToastTitle, EmptyToastSubTitle,
-        EmptyToastParameter, GroupNameCannotBeEmpty, GroupSecurityCanOnlyBy0or1, GroupAlreadyExists, GroupChatIDEmpty, GroupChatNotFound, GroupOwnerSecurityError,
-        ApplicationAPICallDisabledByDeveloper, ServiceErrorNull, ServiceErrorNegativeOne, UnknownServiceError, InternetConnectionError, UserIDMustBeAnInteger, BlobDoesNotExist,
-        NoSuchSocialProvider, AccessTokenInvalid, FileLargerThanMaxSize
-    }
+  
 
     internal abstract partial class BuddyServiceClientBase
     {
@@ -117,79 +97,68 @@ namespace BuddyServiceClient
             }
         }
 
-        public virtual BuddyCallResult<T> CallMethod<T>(string methodName, IDictionary<string, object> parameters)
+        public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters)
         {
-            AutoResetEvent waitHandle = new AutoResetEvent(false);
-            BuddyCallResult<T> bcr = null;
+            var tcs = new TaskCompletionSource<T1>();
 
-            CallMethodAsync<T>(methodName, parameters, (r) =>
+
+            CallMethodAsync<T1>(verb, path, parameters, (bcr) =>
             {
-                bcr = r;
-                waitHandle.Set();
-            });
 
-            waitHandle.WaitOne();
-            return bcr;
-        }
-
-        public abstract void CallMethodAsync<T>(string methodName, IDictionary<string, object> parameters, Action<BuddyCallResult<T>> callback);
-               
-        private Regex IntRegex = new Regex("-?\\d+");
-
-        private static bool ParseBuddyError(string str, out BuddyError err)
-        {
-            err = BuddyError.None;
-            try
-            {
-                if (!str.StartsWith("{")) {
-                    err = (BuddyError)Enum.Parse(typeof(BuddyError), str, true);
+                if (bcr.Error != null)
+                {
+                    tcs.TrySetException(new BuddySDK.BuddyServiceException(bcr.Error, bcr.Message));
                 }
-                return true;
-            }
-            catch
-            {
-                err = BuddyError.None;
-                return false;
-            }
+                else
+                {
+                    tcs.TrySetResult(bcr.Result);
+                }
+
+            });
+            return tcs.Task;
         }
 
-        protected virtual BuddyError GetBuddyError(string response)
+        public void CallMethodAsync<T>(string method, IDictionary<string, object> p, Action<BuddyCallResult<T>> callback)
         {
-            BuddyError err;
-            if (response == "-1") {
-                return BuddyError.ServiceErrorNegativeOne;
-            }
-            else if (response == "null" || response == null)
-            {
-                return BuddyError.ServiceErrorNull;
-            }
-            else if (String.IsNullOrEmpty(response))
-            {
-                return BuddyError.UnknownServiceError;
-            }
-            else if (!IntRegex.IsMatch(response) && ParseBuddyError(response, out err))
-            {
-                return err;
-            }
-            else if (response.StartsWith("Specified argument was out of the range of valid values.\r\n"))
-            {
-                return BuddyError.BadParameter;
-            }
-            return BuddyError.None;
+            throw new NotImplementedException();
+        }
+
+        public abstract void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback);
+
+
+        public string ServiceRoot
+        {
+            get;
+            set;
         }
 
 
-       
+
     }
 
   
 
     internal static class BuddyResultCreator
     {
-        public static BuddyCallResult<T> Create<T>(T result, BuddyError err)
+        public static BuddyCallResult<T> Create<T>(T result, object err)
         {
-            return new BuddyCallResult<T>(){Result = result, Error = err};
+           // return new BuddyCallResult<T>(){Result = result, Error = err};
+            return null;
         }
+    }
+
+
+    public static class BuddyError
+    {
+        public const string None = "";
+        public const string UnknownServiceError = "UnknownServiceError";
+        public const string InternetConnectionError = "InternetConnectionError";
+
+        public static string UserEmailTaken { get; set; }
+
+        public static string UserNameAvailble { get; set; }
+
+        public static string UserNameAlreadyInUse { get; set; }
     }
 
 
