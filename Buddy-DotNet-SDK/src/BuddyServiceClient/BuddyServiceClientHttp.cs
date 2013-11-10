@@ -10,6 +10,7 @@ using System.Threading;
 using System.Diagnostics;
 using System.Globalization;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace BuddyServiceClient
 {
@@ -60,7 +61,7 @@ namespace BuddyServiceClient
        
 
        
-        public BuddyServiceClientHttp(string root, string sdkVersion)
+        public BuddyServiceClientHttp(string root)
         {
             if (String.IsNullOrEmpty(root)) throw new ArgumentNullException("root");
             if (root.EndsWith("/"))
@@ -68,6 +69,17 @@ namespace BuddyServiceClient
                 root = root.Substring(0, root.Length - 1);
             }
             ServiceRoot = root;
+
+
+#if WINDOWS_PHONE
+             var  versionAttrs = Assembly.GetExecutingAssembly().GetCustomAttributes(false);
+#else
+            var versionAttrs = typeof(BuddyServiceClientHttp).GetTypeInfo().Assembly.GetCustomAttributes();
+#endif
+            var attr = versionAttrs.OfType<AssemblyFileVersionAttribute>().First();
+
+            var sdkVersion = "Version=" + attr.Version;
+
             this.sdkVersion = sdkVersion;
             LoggingEnabled = true;
         }
@@ -326,8 +338,12 @@ namespace BuddyServiceClient
                         var newParameters = new Dictionary<string, object>();
                         foreach (var fileKvp in files)
                         {
-                            parameters.Remove(fileKvp.Key);
                             newParameters.Add(fileKvp.Key, fileKvp.Value);
+                        }
+
+                        foreach (var kvp in newParameters)
+                        {
+                            parameters.Remove(kvp.Key);
                         }
 
                         // get json for the remainder and make it into a file
@@ -518,7 +534,7 @@ namespace BuddyServiceClient
 
             requestStream.Write(boundarybytes, 0, boundarybytes.Length);
 
-            for (var i = 0; i < files.Count; i++)
+            for (var i = files.Count-1; i >=0; i--)
             {
                 var file = files[i];
                 string headerTemplate = "Content-Disposition: form-data; name=\"{0}\"; filename=\"{1}\"\r\nContent-Type: {2}\r\n\r\n";
@@ -526,6 +542,9 @@ namespace BuddyServiceClient
                 byte[] headerbytes = System.Text.Encoding.UTF8.GetBytes(header);
                 requestStream.Write(headerbytes, 0, headerbytes.Length);
                 requestStream.Write(file.Bytes, 0, (int)file.Data.Length);
+                requestStream.Write(boundarybytes, 0, boundarybytes.Length);
+
+              
             }
 
             byte[] trailer = System.Text.Encoding.UTF8.GetBytes("\r\n--" + boundary + "--\r\n");

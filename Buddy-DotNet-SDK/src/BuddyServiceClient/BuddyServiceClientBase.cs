@@ -7,6 +7,7 @@ using System.Text.RegularExpressions;
 using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
+using System.Configuration;
 
 namespace BuddyServiceClient
 {
@@ -25,7 +26,7 @@ namespace BuddyServiceClient
        
     }
 
-    internal class BuddyCallResult<T>
+    public class BuddyCallResult<T>
     {
         public string Error { get; set; }
         public string Message { get; set; }
@@ -65,8 +66,28 @@ namespace BuddyServiceClient
 
   
 
-    internal abstract partial class BuddyServiceClientBase
+    public abstract partial class BuddyServiceClientBase
     {
+
+
+        public static BuddyServiceClientBase CreateServiceClient(string serviceRoot)
+        {
+            var type = typeof(BuddyServiceClientHttp);
+            var typeName = ConfigurationManager.AppSettings["BuddyServiceClientType"];
+
+            if (typeName != null)
+            {
+                type = Type.GetType(typeName, true);
+                
+            }
+
+            if (!typeof(BuddyServiceClientBase).IsAssignableFrom(type))
+            {
+                throw new ArgumentException(type.FullName + " is not a BuddyServiceClientBase implementor.");
+            }
+
+            return (BuddyServiceClientBase)Activator.CreateInstance(type, serviceRoot);
+        }
 
         protected abstract string ClientName { get; }
         protected abstract string ClientVersion { get; }
@@ -118,10 +139,7 @@ namespace BuddyServiceClient
             return tcs.Task;
         }
 
-        public void CallMethodAsync<T>(string method, IDictionary<string, object> p, Action<BuddyCallResult<T>> callback)
-        {
-            throw new NotImplementedException();
-        }
+      
 
         public abstract void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback);
 
@@ -168,7 +186,7 @@ namespace BuddyServiceClient
 
 
 
-
+#if false
 #region gen
 
 
@@ -3774,5 +3792,5 @@ public void UserAccount_Identity_GetMyList(String BuddyApplicationName, String B
 
 
 #endregion
-
+#endif
 }

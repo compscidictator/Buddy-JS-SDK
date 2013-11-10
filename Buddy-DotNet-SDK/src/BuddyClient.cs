@@ -79,20 +79,14 @@ namespace BuddySDK
         public BuddyClient(string appid, string appkey, string appVersion = "1.0", BuddyClientFlags flags = BuddyClientFlags.Default)
         {
 
-#if WINDOWS_PHONE
-             var  versionAttrs = Assembly.GetExecutingAssembly().GetCustomAttributes(false);
-#else
-            var versionAttrs = typeof(BuddyClient).GetTypeInfo().Assembly.GetCustomAttributes();
-#endif
-            var attr = versionAttrs.OfType<AssemblyFileVersionAttribute>().First();
 
-            var sdkVersion = "Version=" + attr.Version;
-
-            var root = WebServiceUrl; // System.Configuration.ConfigurationManager.AppSettings["rootUrl"] ?? WebServiceUrl;
-
+           
           
+            var root = System.Configuration.ConfigurationManager.AppSettings["rootUrl"] ?? WebServiceUrl;
 
-            this.Service = new BuddyServiceClientHttp(root, sdkVersion);
+
+
+            this.Service = BuddyServiceClientBase.CreateServiceClient(root);
 
             if (String.IsNullOrEmpty(appid))
                 throw new ArgumentException("Can't be null or empty.", "appName");
@@ -1024,7 +1018,7 @@ namespace BuddySDK
 
    
 
-   
+#if false  
 
     /// <summary>
     /// 
@@ -1034,6 +1028,8 @@ namespace BuddySDK
     /// </code>
     /// </example>
     /// </summary>
+    /// 
+    
     public class ApplicationStatistics
     {
         /// <summary>
@@ -1141,6 +1137,8 @@ namespace BuddySDK
 #endif
     }
 
+
+#endif
 #if NET40
     public static class ReflectionExtensions
     {
@@ -1173,5 +1171,5 @@ namespace BuddySDK
     }
 #endif
 
-}
+
 

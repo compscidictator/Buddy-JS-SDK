@@ -30,3 +30,6 @@ Release-Lib/
 
 bin/
 obj/
+
+# NuGet Crap
+Buddy-DotNet-SDK/src/Components

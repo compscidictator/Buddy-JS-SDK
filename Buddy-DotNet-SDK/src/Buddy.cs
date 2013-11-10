@@ -78,6 +78,20 @@ namespace BuddySDK
             }
         }
 
+        private static PhotoCollection _photos;
+
+        public static PhotoCollection Photos
+        {
+            get
+            {
+                if (_photos == null)
+                {
+                    _photos = new PhotoCollection(Instance);
+                }
+                return _photos;
+            }
+        }
+
        
     }
 }
