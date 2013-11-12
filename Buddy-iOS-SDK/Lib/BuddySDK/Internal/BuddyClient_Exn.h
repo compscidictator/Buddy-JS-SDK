@@ -340,7 +340,7 @@
 	NSNumber *_age;
 }
 
-@property (readonly, nonatomic, assign) BuddyClient *client;
+@property (nonatomic, weak) BuddyClient *client;
 
 - (id)initWithUserId:(BuddyClient *)client
               userId:(NSNumber *)userId;

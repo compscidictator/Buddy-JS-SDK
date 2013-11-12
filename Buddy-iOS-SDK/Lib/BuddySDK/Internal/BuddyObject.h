@@ -11,8 +11,6 @@
 
 @interface BuddyObject : NSObject
 
--(id)initWithExternalRepresentation:(NSDictionary *)json;
-
 @property (nonatomic, copy) NSString *resourceString;
 @property (nonatomic, strong) id<BuddyRequests> client;
 
@@ -31,6 +29,5 @@
 
 // "Abstracts" meant to be overidden.
 -(NSDictionary *)buildUpdateDictionary;
--(void)updateObjectWithJSON:(NSString *)json;
 
 @end

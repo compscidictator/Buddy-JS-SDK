@@ -42,7 +42,26 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "C1E0D1E01831C2E8001A7A01"
+               BuildableName = "BuddySDK Unit Tests.xctest"
+               BlueprintName = "BuddySDK Unit Tests"
+               ReferencedContainer = "container:BuddySDK.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "A6291F31165C01640051F83C"
+            BuildableName = "BuddyUnitTestHarness.app"
+            BlueprintName = "BuddyUnitTestHarness"
+            ReferencedContainer = "container:../test/BuddySDKTests.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"

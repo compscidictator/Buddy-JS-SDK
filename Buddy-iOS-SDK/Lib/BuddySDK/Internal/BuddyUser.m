@@ -26,27 +26,6 @@
 
 @implementation BuddyUser
 
-@synthesize client;
-@synthesize name = _name;
-@synthesize userId = _userId;
-@synthesize gender = _gender;
-@synthesize applicationTag = _applicationTag;
-@synthesize latitude;
-@synthesize longitude;
-@synthesize lastLoginOn;
-@synthesize profilePicture;
-@synthesize profilePictureId;
-@synthesize age = _age;
-@synthesize status = _status;
-@synthesize createdOn;
-@synthesize distanceInKilometers;
-@synthesize distanceInMeters;
-@synthesize distanceInMiles;
-@synthesize distanceInYards;
-@synthesize friendRequestPending;
-@synthesize gameScores;
-@synthesize gameStates;
-
 - (NSString *)tokenOrId
 {
 	return [self.userId stringValue];
@@ -86,11 +65,11 @@
 		return nil;
 	}
 
-	client = localClient;
+	self.client = localClient;
 	_userId = userId;
 
-	gameScores = [[BuddyGameScores alloc] initGameScores:localClient authUser:nil user:self];
-	gameStates = [[BuddyGameStates alloc] initGameStates:localClient user:self];
+	_gameScores = [[BuddyGameScores alloc] initGameScores:localClient authUser:nil user:self];
+	_gameStates = [[BuddyGameStates alloc] initGameStates:localClient user:self];
 
 	return self;
 }
@@ -125,7 +104,7 @@
 
 - (void)dealloc
 {
-	client = nil;
+	self.client = nil;
 }
 
 - (void)initParams:(NSDictionary *)profile
@@ -133,22 +112,22 @@
 	_name = [BuddyUtility stringFromString:[profile objectForKey:@"userName"]];
 	_gender = [BuddyUtility stringToUserGender:[BuddyUtility stringFromString:[profile objectForKey:@"userGender"]]];
 	_applicationTag = [BuddyUtility stringFromString:[profile objectForKey:@"userApplicationTag"]];
-	latitude = [BuddyUtility doubleFromString:[profile objectForKey:@"userLatitude"]];
-	longitude = [BuddyUtility doubleFromString:[profile objectForKey:@"userLongitude"]];
-	lastLoginOn = [BuddyUtility dateFromString:[profile objectForKey:@"lastLoginDate"]];
+	_latitude = [BuddyUtility doubleFromString:[profile objectForKey:@"userLatitude"]];
+	_longitude = [BuddyUtility doubleFromString:[profile objectForKey:@"userLongitude"]];
+	_lastLoginOn = [BuddyUtility dateFromString:[profile objectForKey:@"lastLoginDate"]];
 
-	profilePicture = [NSURL URLWithString:[BuddyUtility stringFromString:[profile objectForKey:@"profilePictureUrl"]]];
-	if (!profilePicture.scheme || !profilePicture.host)
+	_profilePicture = [NSURL URLWithString:[BuddyUtility stringFromString:[profile objectForKey:@"profilePictureUrl"]]];
+	if (!_profilePicture.scheme || !_profilePicture.host)
 	{
-		profilePicture = nil;
-		profilePictureId = [BuddyUtility stringFromString:[profile objectForKey:@"profilePictureUrl"]];
+		_profilePicture = nil;
+		_profilePictureId = [BuddyUtility stringFromString:[profile objectForKey:@"profilePictureUrl"]];
 	}
 
-	createdOn = [BuddyUtility dateFromString:[profile objectForKey:@"createdDate"]];
+	_createdOn = [BuddyUtility dateFromString:[profile objectForKey:@"createdDate"]];
 	_status = [BuddyUtility stringToUserStatus:[BuddyUtility stringFromString:[profile objectForKey:@"statusID"]]];
 	_age = [BuddyUtility NSNumberFromStringInt:[profile objectForKey:@"age"]];
 
-	friendRequestPending = FALSE;
+	_friendRequestPending = FALSE;
 }
 
 - (id)initWithClientFriendList:(BuddyClient *)localClient
@@ -164,7 +143,7 @@
 	self = [self completeInit:localClient userProfile:profile userId:userId];
 	[self initParams:(NSMutableDictionary *)profile];
 
-	friendRequestPending = FALSE;
+	_friendRequestPending = FALSE;
 	_status = UserStatus_AnyUserStatus;
 
 	return self;
@@ -199,7 +178,7 @@
 	NSNumber *userIdString = [NSNumber numberWithInt:[userId intValue]];
 
 	self = [self initWithUserId:localClient userId:userIdString];
-	friendRequestPending = FALSE;
+	_friendRequestPending = FALSE;
 	[self initParams:profile];
 
 	return self;
@@ -244,10 +223,10 @@
 
 	_userId = [BuddyUtility NSNumberFromStringInt:[profile objectForKey:@"userID"]];
 
-	distanceInKilometers = [BuddyUtility doubleFromString:[profile objectForKey:@"distanceInKilometers"]];
-	distanceInMeters = [BuddyUtility doubleFromString:[profile objectForKey:@"distanceInMeters"]];
-	distanceInMiles = [BuddyUtility doubleFromString:[profile objectForKey:@"distanceInMiles"]];
-	distanceInYards = [BuddyUtility doubleFromString:[profile objectForKey:@"distanceInYards"]];
+	_distanceInKilometers = [BuddyUtility doubleFromString:[profile objectForKey:@"distanceInKilometers"]];
+	_distanceInMeters = [BuddyUtility doubleFromString:[profile objectForKey:@"distanceInMeters"]];
+	_distanceInMiles = [BuddyUtility doubleFromString:[profile objectForKey:@"distanceInMiles"]];
+	_distanceInYards = [BuddyUtility doubleFromString:[profile objectForKey:@"distanceInYards"]];
 
 	return self;
 }
@@ -264,7 +243,7 @@
 			NSDictionary *dict = (NSDictionary *)[data objectAtIndex:(unsigned int)j];
 			if (dict != nil && [dict count] > 0)
 			{
-				BuddyPicturePublic *picture = [[BuddyPicturePublic alloc] initPicturePublic:client publicPhotoData:dict user:self];
+				BuddyPicturePublic *picture = [[BuddyPicturePublic alloc] initPicturePublic:self.client publicPhotoData:dict user:self];
 				if (picture)
 				{
 					[pictures addObject:picture];
@@ -280,7 +259,7 @@
 {
 	__block BuddyUser *_self = self;
 
-	[[client webService] Pictures_ProfilePhoto_GetAll:self.userId 
+	[[self.client webService] Pictures_ProfilePhoto_GetAll:self.userId
 											 callback:[^(BuddyCallbackParams *callbackParams, id jsonArray)
 													   {
 														   if (callback)

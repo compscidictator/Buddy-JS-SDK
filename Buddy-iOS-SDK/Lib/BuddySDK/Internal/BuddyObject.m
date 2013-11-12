@@ -7,11 +7,14 @@
 //
 
 #import "BuddyObject.h"
+#import "JAGPropertyConverter.h"
 
 @interface BuddyObject()
 
 @property (nonatomic, readwrite, assign) BOOL isDirty;
 @property (nonatomic, strong) NSMutableArray *keyPaths;
+@property (nonatomic, strong) JAGPropertyConverter *converter;
+
 @end
 
 @implementation BuddyObject
@@ -27,22 +30,17 @@
         [self registerProperty:@selector(tag)];
         [self registerProperty:@selector(userId)];
         [self registerProperty:@selector(identifier)];
-    }
-    return self;
-}
-
--(id)initWithExternalRepresentation:(NSDictionary *)json
-{
-    self = [super init];
-    if(self)
-    {
-        self.keyPaths = [NSMutableArray array];
-        [self registerProperty:@selector(created)];
-        [self registerProperty:@selector(lastModified)];
-        [self registerProperty:@selector(tag)];
-        [self registerProperty:@selector(userId)];
-        [self registerProperty:@selector(identifier)];
-
+        
+        // Setup property converter.
+        self.converter = [JAGPropertyConverter new];
+        // TODO - necessary?
+        __weak typeof(self) weakSelf = self;
+        _converter.identifyDict = ^Class(NSDictionary *dict) {
+            if ([dict valueForKey:@"userID"]) {
+                return [weakSelf class];
+            }
+            return [weakSelf class];
+        };
     }
     return self;
 }
@@ -89,14 +87,14 @@
 -(void)refresh
 {
     [self.client getRequest:self.resourceString withId:self.identifier callback:^(BuddyCallbackParams *callbackParams, id jsonString) {
-        [self updateObjectWithJSON:jsonString];
+        [self.converter setPropertiesOf:self fromDictionary:jsonString];
     }];
 }
 
 -(void)update
 {
     [self.client updateRequest:self.resourceString withId:self.identifier payload:[self buildUpdateDictionary] callback:^(BuddyCallbackParams *callbackParams, id jsonString) {
-        // TODO - Anything?
+        [self.converter setPropertiesOf:self fromDictionary:jsonString];
     }];
 }
 

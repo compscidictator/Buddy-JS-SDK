@@ -15,7 +15,7 @@
  */
 
 #import <Foundation/Foundation.h>
-
+#import "BuddyObject.h";
 
 /// <summary>
 /// Represents a game player object.
