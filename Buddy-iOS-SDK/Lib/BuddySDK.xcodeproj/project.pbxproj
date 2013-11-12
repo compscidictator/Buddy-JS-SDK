@@ -154,6 +154,16 @@
 		C19ECC7317DEAEDA008A9130 /* BuddyVirtualAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = D4A9F2961696EAAE001C54B7 /* BuddyVirtualAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC7417DEAEDA008A9130 /* BuddyVirtualAlbums.h in Headers */ = {isa = PBXBuildFile; fileRef = D4F4199116962D3E00C38DD3 /* BuddyVirtualAlbums.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C19ECC8017DEE047008A9130 /* Buddy.h in Headers */ = {isa = PBXBuildFile; fileRef = C19ECC7F17DEE047008A9130 /* Buddy.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */; };
+		C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */; };
+		C1E0D1D31831BAD3001A7A01 /* JAGProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */; };
+		C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CC1831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch */; };
+		C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CD1831BAD3001A7A01 /* JAGPropertyConverter.h */; };
+		C1E0D1D61831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1CE1831BAD3001A7A01 /* JAGPropertyConverter.m */; };
+		C1E0D1D71831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1CE1831BAD3001A7A01 /* JAGPropertyConverter.m */; };
+		C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CF1831BAD3001A7A01 /* JAGPropertyFinder.h */; };
+		C1E0D1D91831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1D01831BAD3001A7A01 /* JAGPropertyFinder.m */; };
+		C1E0D1DA1831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1D01831BAD3001A7A01 /* JAGPropertyFinder.m */; };
 		C1F0917417FD03E300B2B9F2 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C1F0918617FD03F000B2B9F2 /* AppUserMetaDataUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F0918317FD03F000B2B9F2 /* AppUserMetaDataUnitTests.m */; };
 		C1F0918717FD03F000B2B9F2 /* CommerceUnitTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F0918517FD03F000B2B9F2 /* CommerceUnitTests.m */; };
@@ -527,6 +537,13 @@
 		C17E2B531803BACC00F64FB6 /* BuddyClientProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyClientProvider.m; path = ../../../../Lib/BuddySDK/Internal/Networking/BuddyClientProvider.m; sourceTree = "<group>"; };
 		C19911E117EA8CB1002F5905 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buddy.m; sourceTree = "<group>"; };
 		C19ECC7F17DEE047008A9130 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
+		C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAGProperty.h; sourceTree = "<group>"; };
+		C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAGProperty.m; sourceTree = "<group>"; };
+		C1E0D1CC1831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JAGPropertyConverter-Prefix.pch"; sourceTree = "<group>"; };
+		C1E0D1CD1831BAD3001A7A01 /* JAGPropertyConverter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAGPropertyConverter.h; sourceTree = "<group>"; };
+		C1E0D1CE1831BAD3001A7A01 /* JAGPropertyConverter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAGPropertyConverter.m; sourceTree = "<group>"; };
+		C1E0D1CF1831BAD3001A7A01 /* JAGPropertyFinder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAGPropertyFinder.h; sourceTree = "<group>"; };
+		C1E0D1D01831BAD3001A7A01 /* JAGPropertyFinder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAGPropertyFinder.m; sourceTree = "<group>"; };
 		C1F0916F17FD03E300B2B9F2 /* BuddyTests.octest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BuddyTests.octest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C1F0918217FD03F000B2B9F2 /* AppUserMetaDataUnitTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppUserMetaDataUnitTests.h; sourceTree = "<group>"; };
 		C1F0918317FD03F000B2B9F2 /* AppUserMetaDataUnitTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppUserMetaDataUnitTests.m; sourceTree = "<group>"; };
@@ -785,6 +802,7 @@
 		A6291F81165C01800051F83C /* BuddySDK */ = {
 			isa = PBXGroup;
 			children = (
+				C1E0D1C81831BA9A001A7A01 /* Vendor */,
 				D47220C0169613F60066A899 /* Public */,
 				D4E9DE95166663AB00D28D59 /* Internal */,
 				A6291F82165C01800051F83C /* Supporting Files */,
@@ -824,7 +842,8 @@
 				C161A87317FD285D001F5361 /* UIImageView+AFNetworking.h */,
 				C161A87417FD285D001F5361 /* UIImageView+AFNetworking.m */,
 			);
-			path = AFNetworking;
+			name = AFNetworking;
+			path = ../../../lib/BuddySDK/Internal/Networking/AFNetworking;
 			sourceTree = "<group>";
 		};
 		C17E2B4818038EFE00F64FB6 /* BaseObjects */ = {
@@ -835,6 +854,30 @@
 			);
 			name = BaseObjects;
 			path = ../../Lib/BuddySDK/BaseObjects;
+			sourceTree = "<group>";
+		};
+		C1E0D1C81831BA9A001A7A01 /* Vendor */ = {
+			isa = PBXGroup;
+			children = (
+				C1E0D1C91831BAD3001A7A01 /* JAGPropertyConverter */,
+				C161A86117FD285C001F5361 /* AFNetworking */,
+			);
+			name = Vendor;
+			path = ../../Lib/BuddySDK/Vendor;
+			sourceTree = "<group>";
+		};
+		C1E0D1C91831BAD3001A7A01 /* JAGPropertyConverter */ = {
+			isa = PBXGroup;
+			children = (
+				C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */,
+				C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */,
+				C1E0D1CC1831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch */,
+				C1E0D1CD1831BAD3001A7A01 /* JAGPropertyConverter.h */,
+				C1E0D1CE1831BAD3001A7A01 /* JAGPropertyConverter.m */,
+				C1E0D1CF1831BAD3001A7A01 /* JAGPropertyFinder.h */,
+				C1E0D1D01831BAD3001A7A01 /* JAGPropertyFinder.m */,
+			);
+			path = JAGPropertyConverter;
 			sourceTree = "<group>";
 		};
 		C1F0916917FD03C300B2B9F2 /* Tests */ = {
@@ -958,7 +1001,6 @@
 			children = (
 				C161A89117FD2898001F5361 /* AFHTTPClient+Buddy.h */,
 				C161A89217FD2898001F5361 /* AFHTTPClient+Buddy.m */,
-				C161A86117FD285C001F5361 /* AFNetworking */,
 				D40FDA991695F5060028C609 /* ClientServiceJSON.h */,
 				D40FDA9A1695F5060028C609 /* ClientServiceJSON.m */,
 				D40FDA9B1695F5060028C609 /* ClientServicePlainText.h */,
@@ -1041,6 +1083,7 @@
 		D4E9DE95166663AB00D28D59 /* Internal */ = {
 			isa = PBXGroup;
 			children = (
+				D40FDA851695E3830028C609 /* Networking */,
 				C17E2B4818038EFE00F64FB6 /* BaseObjects */,
 				C1FBCECE17E670CB00275F6A /* LocationTracking */,
 				C19911E117EA8CB1002F5905 /* Buddy.m */,
@@ -1104,7 +1147,6 @@
 				D40FDAB91695FC7F0028C609 /* BuddyWebWrapper.m */,
 				2946DE03174D696A005BE2F4 /* BuddyFile.h */,
 				2946DE04174D696A005BE2F4 /* BuddyFile.m */,
-				D40FDA851695E3830028C609 /* Networking */,
 				16409F1F17C3DAC000A440C3 /* OpenUUID */,
 			);
 			name = Internal;
@@ -1171,6 +1213,7 @@
 				C19ECC7117DEAEDA008A9130 /* BuddyUser.h in Headers */,
 				C153F87717E17C12009CDC81 /* BuddyObject.h in Headers */,
 				C19ECC7217DEAEDA008A9130 /* BuddyUserMetadata.h in Headers */,
+				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
 				C19ECC7317DEAEDA008A9130 /* BuddyVirtualAlbum.h in Headers */,
 				C19ECC7417DEAEDA008A9130 /* BuddyVirtualAlbums.h in Headers */,
 				D40FDAB21695F5060028C609 /* ClientServiceJSON.h in Headers */,
@@ -1182,6 +1225,8 @@
 				C14475C717FD185300713095 /* BuddyTests-Prefix.pch in Headers */,
 				C161A82F17FD20AB001F5361 /* BuddyHTTPClient.h in Headers */,
 				C161A87517FD285D001F5361 /* AFHTTPClient.h in Headers */,
+				C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */,
+				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
 				C161A87817FD285D001F5361 /* AFHTTPRequestOperation.h in Headers */,
 				C161A87B17FD285D001F5361 /* AFImageRequestOperation.h in Headers */,
 				C161A87E17FD285D001F5361 /* AFJSONRequestOperation.h in Headers */,
@@ -1192,6 +1237,7 @@
 				C161A88B17FD285D001F5361 /* AFXMLRequestOperation.h in Headers */,
 				C161A88E17FD285D001F5361 /* UIImageView+AFNetworking.h in Headers */,
 				C161A89317FD2898001F5361 /* AFHTTPClient+Buddy.h in Headers */,
+				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
 				C17E2B4518038C3C00F64FB6 /* MockBuddyClient.h in Headers */,
 				C17E2B4B18038F4B00F64FB6 /* BuddyCollection.h in Headers */,
 				C17E2B541803BACD00F64FB6 /* BuddyClientProvider.h in Headers */,
@@ -1401,10 +1447,12 @@
 				D4A9F24D16965108001C54B7 /* BuddyGameScores.m in Sources */,
 				D4A9F24F16965122001C54B7 /* BuddyGameState.m in Sources */,
 				D4A9F25116965161001C54B7 /* BuddyGameStates.m in Sources */,
+				C1E0D1D91831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */,
 				D4A9F25316965185001C54B7 /* BuddyNotificationsApple.m in Sources */,
 				D4A9F2551696524D001C54B7 /* BuddyPhotoAlbum.m in Sources */,
 				D4A9F25716965261001C54B7 /* BuddyPhotoAlbumPublic.m in Sources */,
 				D4A9F25916965276001C54B7 /* BuddyPhotoAlbums.m in Sources */,
+				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				D4A9F25B169652BE001C54B7 /* BuddyRegisteredDeviceApple.m in Sources */,
 				D4A9F25D169652D2001C54B7 /* BuddyAuthenticatedUser.m in Sources */,
 				D4A9F25F16965312001C54B7 /* BuddyPicturePublic.m in Sources */,
@@ -1420,6 +1468,7 @@
 				D4A9F27516965749001C54B7 /* BuddyVirtualAlbums.m in Sources */,
 				D4A9F27716965766001C54B7 /* BuddyIdentityItem.m in Sources */,
 				D4A9F27916965784001C54B7 /* BuddyIdentityItemSearchResult.m in Sources */,
+				C1E0D1D61831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */,
 				D4A9F27B16965798001C54B7 /* BuddyIdentity.m in Sources */,
 				D4A9F27F16965801001C54B7 /* BuddyMessageGroup.m in Sources */,
 				D4A9F2811696581D001C54B7 /* BuddyMetadataSum.m in Sources */,
@@ -1506,6 +1555,7 @@
 				C1F091C717FD046B00B2B9F2 /* BuddyCheckInLocation.m in Sources */,
 				C1F091C817FD046B00B2B9F2 /* BuddyClient.m in Sources */,
 				C1F091C917FD046B00B2B9F2 /* BuddyDataResponses.m in Sources */,
+				C1E0D1D31831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				C1F091CA17FD046B00B2B9F2 /* BuddyDevice.m in Sources */,
 				C1F091CB17FD046B00B2B9F2 /* BuddyFriendRequests.m in Sources */,
 				C1F091CC17FD046B00B2B9F2 /* BuddyFriends.m in Sources */,
@@ -1521,6 +1571,7 @@
 				C1F091D617FD046B00B2B9F2 /* BuddyIdentityItem.m in Sources */,
 				C1F091D717FD046B00B2B9F2 /* BuddyIdentityItemSearchResult.m in Sources */,
 				C1F091D817FD046B00B2B9F2 /* BuddyMessage.m in Sources */,
+				C1E0D1D71831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */,
 				C1F091D917FD046B00B2B9F2 /* BuddyMessageGroup.m in Sources */,
 				C1F091DA17FD046B00B2B9F2 /* BuddyMessageGroups.m in Sources */,
 				C1F091DB17FD046B00B2B9F2 /* BuddyMessages.m in Sources */,
@@ -1546,6 +1597,7 @@
 				C1F091F817FD046F00B2B9F2 /* ClientServicePlainText.m in Sources */,
 				C1F091FA17FD04CA00B2B9F2 /* OpenUDID.m in Sources */,
 				C161A87A17FD285D001F5361 /* AFHTTPRequestOperation.m in Sources */,
+				C1E0D1DA1831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */,
 				C161A87D17FD285D001F5361 /* AFImageRequestOperation.m in Sources */,
 				C161A88017FD285D001F5361 /* AFJSONRequestOperation.m in Sources */,
 				C161A88317FD285D001F5361 /* AFNetworkActivityIndicatorManager.m in Sources */,
