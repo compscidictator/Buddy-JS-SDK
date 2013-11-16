@@ -17,9 +17,13 @@
 @property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, assign) NSInteger identifier;
 
+-(instancetype) init __attribute__((unavailable("init not available")));
++(instancetype) new __attribute__((unavailable("new not available")));
+
+
 +(NSString *)requestPath;
 
-+(instancetype)create;
++(void)create;
 -(void)deleteMe;
 -(void)refresh;
 -(void)update;
