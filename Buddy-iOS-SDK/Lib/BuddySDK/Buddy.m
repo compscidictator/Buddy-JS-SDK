@@ -15,7 +15,6 @@
  */
 
 #import "Buddy.h"
-#import "BuddyClient.h"
 
 /// <summary>
 /// TODO
@@ -23,39 +22,39 @@
 
 @implementation Buddy
 
-+ (BuddyAuthenticatedUser *)user{
-    return [[BuddyClient defaultClient] user];
++ (BPAuthenticatedUser *)user{
+    return [[BPClient defaultClient] user];
 }
 
 + (BuddyDevice *)device{
-    return [[BuddyClient defaultClient] device];
+    return [[BPClient defaultClient] device];
     
 }
 
-+ (BuddyGameBoards *)gameBoards{
-    return [[BuddyClient defaultClient] gameBoards];
++ (BPGameBoards *)gameBoards{
+    return [[BPClient defaultClient] gameBoards];
     
 }
 
-+ (BuddyAppMetadata *)metadata{
-    return [[BuddyClient defaultClient] metadata];
++ (BPAppMetadata *)metadata{
+    return [[BPClient defaultClient] metadata];
     
 }
 
-+ (BuddySounds *)sounds{
-    return [[BuddyClient defaultClient] sounds];
++ (BPSounds *)sounds{
+    return [[BPClient defaultClient] sounds];
 }
 
 + (BOOL) locationEnabled{
     @synchronized(self){
-        return [[BuddyClient defaultClient] locationEnabled];
+        return [[BPClient defaultClient] locationEnabled];
     }
 }
 
 + (void) setLocationEnabled:(BOOL)val
 {
     @synchronized(self){
-        [[BuddyClient defaultClient] setLocationEnabled:val];
+        [[BPClient defaultClient] setLocationEnabled:val];
     }
 }
 
@@ -73,7 +72,7 @@
            appPassword:(NSString *)password
            withOptions:(NSDictionary *)options
 {
-    [[BuddyClient defaultClient] setupWithApp:name
+    [[BPClient defaultClient] setupWithApp:name
                                      password:password
                                       options:options];
 }
@@ -91,7 +90,7 @@
     NSMutableDictionary *combined = [NSMutableDictionary dictionaryWithDictionary:defaultOptions];
     // TODO - merge options
     
-    [[BuddyClient defaultClient] setupWithApp:name
+    [[BPClient defaultClient] setupWithApp:name
                                      password:password
                                       options:combined];
 }
