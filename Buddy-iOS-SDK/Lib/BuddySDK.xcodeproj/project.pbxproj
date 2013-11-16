@@ -34,6 +34,9 @@
 		C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90D718371FF70074B7E8 /* BPServiceController.m */; };
 		C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */ = {isa = PBXBuildFile; fileRef = C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */; };
 		C1AA90DE1837376E0074B7E8 /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */; };
+		C1AA90E418373BF80074B7E8 /* BPUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90E318373BF80074B7E8 /* BPUserTests.m */; };
+		C1AA90E518373D8E0074B7E8 /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */; };
+		C1AA90E6183740960074B7E8 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */; };
 		C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959D1183703E8000C8417 /* BuddyCollection.h */; };
 		C1B959DF1837053D000C8417 /* BPAuthenticatedUser.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */; };
 		C1B959E01837053D000C8417 /* BPAuthenticatedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */; };
@@ -148,7 +151,6 @@
 		C1E0D1E51831C2E8001A7A01 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		C1E0D1EB1831C2E8001A7A01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1E0D1E91831C2E8001A7A01 /* InfoPlist.strings */; };
 		C1E0D1ED1831C2E8001A7A01 /* BuddySDK_Unit_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1EC1831C2E8001A7A01 /* BuddySDK_Unit_Tests.m */; };
-		C1E0D1FA1831D609001A7A01 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E0D1F91831D609001A7A01 /* XCTest.framework */; };
 		C1E0D2361831DC76001A7A01 /* BuddyCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */; };
 		C1E0D2371831DC7E001A7A01 /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1E0D2481831DE56001A7A01 /* JAGProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */; };
@@ -200,6 +202,8 @@
 		C1AA90D718371FF70074B7E8 /* BPServiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPServiceController.m; sourceTree = "<group>"; };
 		C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Merge.h"; path = "../../Lib/BuddySDK/NSDictionary+Merge.h"; sourceTree = "<group>"; };
 		C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Merge.m"; path = "../../Lib/BuddySDK/NSDictionary+Merge.m"; sourceTree = "<group>"; };
+		C1AA90E218373BF80074B7E8 /* BPUserTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPUserTests.h; path = "../../Lib/BuddySDK Unit Tests/BPUserTests.h"; sourceTree = "<group>"; };
+		C1AA90E318373BF80074B7E8 /* BPUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPUserTests.m; path = "../../Lib/BuddySDK Unit Tests/BPUserTests.m"; sourceTree = "<group>"; };
 		C1B959D1183703E8000C8417 /* BuddyCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyCollection.h; sourceTree = "<group>"; };
 		C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAuthenticatedUser.h; sourceTree = "<group>"; };
 		C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAuthenticatedUser.m; sourceTree = "<group>"; };
@@ -334,7 +338,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1E0D1FA1831D609001A7A01 /* XCTest.framework in Frameworks */,
+				C1AA90E6183740960074B7E8 /* SenTestingKit.framework in Frameworks */,
 				C1E0D1E51831C2E8001A7A01 /* UIKit.framework in Frameworks */,
 				C1E0D1E41831C2E8001A7A01 /* Foundation.framework in Frameworks */,
 			);
@@ -562,6 +566,8 @@
 				C1B95A2B183708E8000C8417 /* Test Data */,
 				C1E0D1EC1831C2E8001A7A01 /* BuddySDK_Unit_Tests.m */,
 				C1E0D1E71831C2E8001A7A01 /* Supporting Files */,
+				C1AA90E218373BF80074B7E8 /* BPUserTests.h */,
+				C1AA90E318373BF80074B7E8 /* BPUserTests.m */,
 			);
 			path = "BuddySDK Unit Tests";
 			sourceTree = "<group>";
@@ -834,12 +840,14 @@
 				C1B959EE1837053D000C8417 /* BPPhoto.m in Sources */,
 				C1B95B171837169F000C8417 /* AFURLConnectionOperation.m in Sources */,
 				C1B95B161837169F000C8417 /* AFSecurityPolicy.m in Sources */,
+				C1AA90E418373BF80074B7E8 /* BPUserTests.m in Sources */,
 				C1E0D2481831DE56001A7A01 /* JAGProperty.m in Sources */,
 				C1B95B141837169F000C8417 /* AFHTTPSessionManager.m in Sources */,
 				C1B95AF818371443000C8417 /* BPAppMetadata.m in Sources */,
 				C1B95A8A18370962000C8417 /* LocationTests.m in Sources */,
 				C1E0D2861835C910001A7A01 /* OpenUDID.m in Sources */,
 				C1B959E21837053D000C8417 /* BPAuthenticatedUser.m in Sources */,
+				C1AA90E518373D8E0074B7E8 /* NSDictionary+Merge.m in Sources */,
 				C1B95B2418371843000C8417 /* BuddyDevice.m in Sources */,
 				C1B959F21837053D000C8417 /* BPUser.m in Sources */,
 				C1B95B131837169F000C8417 /* AFHTTPRequestOperationManager.m in Sources */,

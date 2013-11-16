@@ -9,4 +9,5 @@
     #import <Foundation/Foundation.h>
     #import "BuddyObject.h"
     #import "BuddyCollection.h"
+    #import "NSDictionary+Merge.h"
 #endif
