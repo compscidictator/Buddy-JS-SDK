@@ -10,8 +10,6 @@
 
 @interface BuddyObject : NSObject
 
-@property (nonatomic, copy) NSString *resourceString;
-
 @property (nonatomic, readonly, assign) BOOL isDirty;
 @property (nonatomic, strong) NSDate *created;
 @property (nonatomic, strong) NSDate *lastModified;
@@ -19,6 +17,7 @@
 @property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, assign) NSInteger identifier;
 
++(NSString *)requestPath;
 
 +(instancetype)create;
 -(void)deleteMe;
@@ -27,5 +26,8 @@
 
 // "Abstracts" meant to be overidden.
 -(NSDictionary *)buildUpdateDictionary;
+
+-(void)registerProperty:(SEL)property;
+
 
 @end

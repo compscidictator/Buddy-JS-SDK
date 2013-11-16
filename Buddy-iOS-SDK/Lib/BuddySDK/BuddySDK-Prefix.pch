@@ -8,5 +8,5 @@
    #import <SystemConfiguration/SystemConfiguration.h>
    #import "Util.h"
    #import "BuddyObject.h"
-
+   #import "NSDictionary+Merge.h"
 #endif

@@ -30,6 +30,10 @@
 		C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */; };
 		C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
 		C17E2B511803924300F64FB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
+		C1AA90D818371FF70074B7E8 /* BPServiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C1AA90D618371FF70074B7E8 /* BPServiceController.h */; };
+		C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90D718371FF70074B7E8 /* BPServiceController.m */; };
+		C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */ = {isa = PBXBuildFile; fileRef = C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */; };
+		C1AA90DE1837376E0074B7E8 /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */; };
 		C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959D1183703E8000C8417 /* BuddyCollection.h */; };
 		C1B959DF1837053D000C8417 /* BPAuthenticatedUser.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */; };
 		C1B959E01837053D000C8417 /* BPAuthenticatedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */; };
@@ -192,6 +196,10 @@
 		C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyCollection.m; sourceTree = "<group>"; };
 		C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C17E2B501803924300F64FB6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C1AA90D618371FF70074B7E8 /* BPServiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPServiceController.h; sourceTree = "<group>"; };
+		C1AA90D718371FF70074B7E8 /* BPServiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPServiceController.m; sourceTree = "<group>"; };
+		C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Merge.h"; path = "../../Lib/BuddySDK/NSDictionary+Merge.h"; sourceTree = "<group>"; };
+		C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Merge.m"; path = "../../Lib/BuddySDK/NSDictionary+Merge.m"; sourceTree = "<group>"; };
 		C1B959D1183703E8000C8417 /* BuddyCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyCollection.h; sourceTree = "<group>"; };
 		C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAuthenticatedUser.h; sourceTree = "<group>"; };
 		C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAuthenticatedUser.m; sourceTree = "<group>"; };
@@ -377,12 +385,12 @@
 		A6291F81165C01800051F83C /* BuddySDK */ = {
 			isa = PBXGroup;
 			children = (
+				C17E2B4818038EFE00F64FB6 /* BaseObjects */,
 				C1B95A9D18370FFD000C8417 /* Networking */,
+				C1FBCECE17E670CB00275F6A /* LocationTracking */,
 				C1B95A9B18370C07000C8417 /* BuddyDevice.m */,
 				C1B95A9918370BFF000C8417 /* BuddyDevice.h */,
 				C1B95A9718370B5D000C8417 /* BuddyEnums.h */,
-				C17E2B4818038EFE00F64FB6 /* BaseObjects */,
-				C1FBCECE17E670CB00275F6A /* LocationTracking */,
 				C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */,
 				C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */,
 				C1B959D51837053D000C8417 /* BPCheckin.h */,
@@ -395,7 +403,6 @@
 				C1B959DC1837053D000C8417 /* BPUser.m */,
 				C1B959DD1837053D000C8417 /* Buddy.h */,
 				C1B959DE1837053D000C8417 /* Buddy.m */,
-				A6291F82165C01800051F83C /* Supporting Files */,
 				C153F86F17E15FC1009CDC81 /* Util.h */,
 				C1B95A9E1837102C000C8417 /* BPClient.h */,
 				C1B95A9F1837102C000C8417 /* BPClient.m */,
@@ -405,6 +412,9 @@
 				C1B95AF518371443000C8417 /* BPAppMetadata.m */,
 				C1B95AF918371468000C8417 /* BPSounds.h */,
 				C1B95AFA18371468000C8417 /* BPSounds.m */,
+				A6291F82165C01800051F83C /* Supporting Files */,
+				C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */,
+				C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -486,6 +496,8 @@
 		C1B95A9D18370FFD000C8417 /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				C1AA90D618371FF70074B7E8 /* BPServiceController.h */,
+				C1AA90D718371FF70074B7E8 /* BPServiceController.m */,
 			);
 			name = Networking;
 			path = ../../Lib/BuddySDK/Networking;
@@ -601,12 +613,14 @@
 				C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */,
 				C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */,
 				C1B95AF618371443000C8417 /* BPAppMetadata.h in Headers */,
+				C1AA90D818371FF70074B7E8 /* BPServiceController.h in Headers */,
 				C1B959EF1837053D000C8417 /* BPUser.h in Headers */,
 				C1B959DF1837053D000C8417 /* BPAuthenticatedUser.h in Headers */,
 				C1B959EB1837053D000C8417 /* BPPhoto.h in Headers */,
 				C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */,
 				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
 				C1B95AFB18371468000C8417 /* BPSounds.h in Headers */,
+				C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */,
 				C1B959E31837053D000C8417 /* BPCheckin.h in Headers */,
 				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
 				C1B95A9A18370BFF000C8417 /* BuddyDevice.h in Headers */,
@@ -780,11 +794,13 @@
 			files = (
 				C1B959E81837053D000C8417 /* BPCheckinCollection.m in Sources */,
 				C1E0D2871835C911001A7A01 /* OpenUDID.m in Sources */,
+				C1AA90DE1837376E0074B7E8 /* NSDictionary+Merge.m in Sources */,
 				C1B95B1F18371834000C8417 /* AFSecurityPolicy.m in Sources */,
 				C1B95B1C18371834000C8417 /* AFHTTPRequestOperationManager.m in Sources */,
 				C1B95B1B18371834000C8417 /* AFHTTPRequestOperation.m in Sources */,
 				C1E0D1D91831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */,
 				C1B95AA11837102C000C8417 /* BPClient.m in Sources */,
+				C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */,
 				C1B95AF218371425000C8417 /* BPGameBoards.m in Sources */,
 				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				C1B959F01837053D000C8417 /* BPUser.m in Sources */,

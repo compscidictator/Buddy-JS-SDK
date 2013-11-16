@@ -8,6 +8,7 @@
 
 #import "BuddyObject.h"
 #import "JAGPropertyConverter.h"
+#import "BPClient.h"
 
 @interface BuddyObject()
 
@@ -45,6 +46,12 @@
     return self;
 }
 
++(NSString *)requestPath
+{
+    [NSException raise:@"requestPathNotSpecified" format:@"Class did not specify requestPath"];
+    return nil;
+}
+
 -(void)registerProperty:(SEL)property
 {
     NSString *propertyName = NSStringFromSelector(property);
@@ -68,10 +75,15 @@
         self.isDirty = YES;
 }
 
+
+
 #pragma mark CRUD
 
 +(instancetype)create
 {
+    [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
+        
+    }];
     // TODO - shared instance.
     //[self.client deleteRequest:self.resourceString withId:self.identifier];
     return nil;

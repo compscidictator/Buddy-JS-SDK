@@ -15,7 +15,7 @@
  */
 
 #import "OpenUDID.h"
-
+#import "BuddyDevice.h"
 #import <UIKit/UIKit.h>
 
 

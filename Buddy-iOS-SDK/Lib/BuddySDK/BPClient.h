@@ -15,6 +15,14 @@
 
 @interface BPClient : NSObject
 
+typedef void (^BPBuddyObjectCallback)(id json);
+
+
+/** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.
+ */
+typedef void (^BPPingCallback)(NSDecimalNumber *ping);
+
+
 /// <summary>
 /// Gets the application name for this client.
 /// </summary>
@@ -57,18 +65,38 @@
 @property (nonatomic, assign) BOOL locationEnabled;
 
 /// <summary>
+/// Current BuddyAuthenticatedUser as of the last login
+/// </summary>
+@property (nonatomic, readonly, strong) BPAuthenticatedUser *user;
+
+
+/// <summary>
 /// Singleton instance of the client.
 /// </summary>
 + (instancetype)defaultClient;
-
-/// <summary>
-/// Current BuddyAuthenticatedUser as of the last login
-/// </summary>
-- (BPAuthenticatedUser *)user;
 
 /// TODO
 -(void)     setupWithApp:(NSString *)appName
                 password:(NSString *)appPassword
                  options:(NSDictionary *)options;
 
+
+
+-(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
+
+-(void)refreshObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
+
+-(void)updateObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
+
+-(void)deleteObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
+
+/// <summary>
+/// Ping the service.
+/// </summary>
+/// <param name="callback">The callback to call on success or error. The .result field of BuddyStringResponse will be "Pong" if the server responded. If the BuddyBoolResponse.isCompleted field is FALSE check the BuddyStringResponse.dataResult and/or BuddyStringResponse.exception for error information.</param>
+- (void)ping:(BPPingCallback)callback;
+
+
 @end
+
+
