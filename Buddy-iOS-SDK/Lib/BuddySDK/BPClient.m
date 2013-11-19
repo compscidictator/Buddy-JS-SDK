@@ -31,7 +31,7 @@
     return self;
 }
 
--(void)setupWithApp:(NSString *)appID password:(NSString *)appKey options:(NSDictionary *)options
+-(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options
 {
     _appID = appID;
     _appKey = appKey;
