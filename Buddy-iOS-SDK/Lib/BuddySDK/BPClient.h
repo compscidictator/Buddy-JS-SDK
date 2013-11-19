@@ -15,8 +15,6 @@
 
 @interface BPClient : NSObject
 
-typedef void (^BPBuddyObjectCallback)(id json);
-
 
 /** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.
  */
@@ -81,6 +79,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
                  options:(NSDictionary *)options;
 
 
+typedef void (^BPBuddyObjectCallback)(id json);
 
 -(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
 
