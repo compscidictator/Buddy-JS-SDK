@@ -23,7 +23,9 @@
 
 +(NSString *)requestPath;
 
-+(void)create;
++(instancetype)create;
+//+(void)createFromServer:(BuddyObjectCallback)callback;
+//+(void)queryFromServerWithId:(NSInteger)identifier callback:(BuddyObjectCallback)callback;
 -(void)deleteMe;
 -(void)refresh;
 -(void)update;

@@ -45,10 +45,7 @@ typedef enum
 //@property (nonatomic, assign) double latitude;
 //@property (nonatomic, assign) double longitude;
 
-//@property (nonatomic, assign) double distanceInKilometers;
-//@property (nonatomic, assign) double distanceInmeters;
-//@property (nonatomic, assign) double distanceInMiles;
-//@property (nonatomic, assign) double distanceInYards;
+//@property (nonatomic, assign) double distanceInMeters;
 
 @property (nonatomic, strong) NSDate *lastLogin;
 

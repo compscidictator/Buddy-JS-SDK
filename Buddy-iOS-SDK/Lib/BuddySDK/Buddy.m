@@ -58,27 +58,27 @@
     }
 }
 
-+ (void)initClient:(NSString *)name
-       appPassword:(NSString *)password
++ (void)initClient:(NSString *)appID
+       appKey:(NSString *)appKey
 {
-	[Buddy initClient:name
-          appPassword:password
+	[Buddy initClient:appID
+          appKey:appKey
  autoRecordDeviceInfo:NO
    autoRecordLocation:NO
           withOptions:nil];
 }
 
-+ (void)    initClient:(NSString *)name
-           appPassword:(NSString *)password
++ (void)    initClient:(NSString *)appID
+           appKey:(NSString *)appKey
            withOptions:(NSDictionary *)options
 {
-    [[BPClient defaultClient] setupWithApp:name
-                                     password:password
+    [[BPClient defaultClient] setupWithApp:appID
+                                     appKey:appKey
                                       options:options];
 }
 
-+ (void)   initClient:(NSString *)name
-          appPassword:(NSString *)password
++ (void)   initClient:(NSString *)appID
+          appKey:(NSString *)appKey
  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
    autoRecordLocation:(BOOL)autoRecordLocation
           withOptions:(NSDictionary *)options
@@ -90,8 +90,8 @@
     NSMutableDictionary *combined = [NSMutableDictionary dictionaryWithDictionary:defaultOptions];
     // TODO - merge options
     
-    [[BPClient defaultClient] setupWithApp:name
-                                     password:password
+    [[BPClient defaultClient] setupWithApp:appID
+                                     appKey:appKey
                                       options:combined];
 }
 

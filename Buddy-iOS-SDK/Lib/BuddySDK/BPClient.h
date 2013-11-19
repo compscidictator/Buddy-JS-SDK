@@ -26,12 +26,12 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// <summary>
 /// Gets the application name for this client.
 /// </summary>
-@property (readonly, nonatomic, assign) NSString *appName;
+@property (readonly, nonatomic, assign) NSString *appID;
 
 /// <summary>
 /// Gets the application password for this client.
 /// </summary>
-@property (readonly, nonatomic, assign) NSString *appPassword;
+@property (readonly, nonatomic, assign) NSString *appKey;
 
 /// <summary>
 /// Gets the optional string that describes the version of the app you are building. This string is used when uploading
@@ -76,8 +76,8 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 + (instancetype)defaultClient;
 
 /// TODO
--(void)     setupWithApp:(NSString *)appName
-                password:(NSString *)appPassword
+-(void)     setupWithApp:(NSString *)appID
+                appKey:(NSString *)appKey
                  options:(NSDictionary *)options;
 
 

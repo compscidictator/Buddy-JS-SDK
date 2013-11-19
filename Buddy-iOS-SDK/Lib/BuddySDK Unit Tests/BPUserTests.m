@@ -23,6 +23,8 @@
 
 -(void)testInit
 {
+    NSString *d = [NSString stringWithFormat:@"%@", [NSNumber numberWithInteger:2]];
+    NSLog(d);
     //BPUser *user = [BPUser new];
 }
 @end

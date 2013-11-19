@@ -31,10 +31,10 @@
     return self;
 }
 
--(void)setupWithApp:(NSString *)appName password:(NSString *)appPassword options:(NSDictionary *)options
+-(void)setupWithApp:(NSString *)appID password:(NSString *)appKey options:(NSDictionary *)options
 {
-    _appName = appName;
-    _appPassword = appPassword;
+    _appID = appID;
+    _appKey = appKey;
 }
 
 # pragma mark -
@@ -53,8 +53,8 @@
 
 -(NSDictionary *)buildGetParameters
 {
-    return @{@"appPassword": self.appPassword,
-             @"appName": self.appName};
+    return @{@"appKey": self.appKey,
+             @"appID": self.appID};
 }
 
 -(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback

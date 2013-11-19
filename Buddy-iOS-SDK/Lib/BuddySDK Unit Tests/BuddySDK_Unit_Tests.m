@@ -28,7 +28,9 @@
 
 - (void)testExample
 {
-    XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
+    NSString *d = [NSString stringWithFormat:@"%@", [NSNumber numberWithInteger:2]];
+    NSLog(d);
+    //XCTFail(@"No implementation for \"%s\"", __PRETTY_FUNCTION__);
 }
 
 @end
