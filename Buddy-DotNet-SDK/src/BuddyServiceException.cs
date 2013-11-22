@@ -20,4 +20,19 @@ namespace BuddySDK
             this.Error = error;
         }
     }
+
+    public class BuddyUnauthorizedException : BuddyServiceException {
+
+        internal BuddyUnauthorizedException(string e, string m): base(e,m) {
+
+
+        }
+    }
+
+    public class BuddyNoInternetException : BuddyServiceException {
+
+        internal BuddyNoInternetException(string e): base(e, null) {
+
+        }
+    }
 }

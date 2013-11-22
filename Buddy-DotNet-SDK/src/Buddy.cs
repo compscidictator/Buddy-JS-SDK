@@ -30,7 +30,7 @@ namespace BuddySDK
                 }
                 if (_client == null)
                 {
-                    _client = new BuddyClient(_creds.Item1, _creds.Item2, null, _creds.Item3);
+                    _client = new BuddyClient(_creds.Item1, _creds.Item2, _creds.Item3);
                 }
                 return _client;
             }
@@ -52,6 +52,10 @@ namespace BuddySDK
             }
             _creds = new Tuple<string, string, BuddyClientFlags>(appId, appKey, flags);
 
+        }
+
+        public static Task<AuthenticatedUser> CreateUserAsync(string username, string password, string name = null, string email = null, UserGender? gender = null, DateTime? dateOfBirth = null, string defaultMetadata = null) {
+            return Instance.CreateUserAsync (username, password, name, email, gender, dateOfBirth, defaultMetadata : defaultMetadata);
         }
 
         public static Task<AuthenticatedUser> LoginUserAsync(string username, string password)

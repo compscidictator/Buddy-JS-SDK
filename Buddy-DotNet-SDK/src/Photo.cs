@@ -60,13 +60,15 @@ namespace BuddySDK
                 var r = Client.Service.CallMethodAsync<HttpWebResponse>(
                                   "GET", GetObjectPath() + "/file", new
                                   {
-                                      AccessToken = Client.AccessToken,
                                       Size =size
                                   });
 
                 r.Wait();
                 var response = r.Result;
 
+                if (response == null) {
+                    return null;
+                }
                 return response.GetResponseStream();
             });
             t.Start();

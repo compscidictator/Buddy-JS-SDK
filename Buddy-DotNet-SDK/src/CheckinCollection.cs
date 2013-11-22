@@ -16,7 +16,7 @@ namespace BuddySDK
         }
 
 
-        public Task<Checkin> AddAsync(string comment, string description, BuddyGeoLocation location, BuddyPermissions read = BuddyPermissions.Owner, BuddyPermissions write = BuddyPermissions.Owner)
+        public Task<Checkin> AddAsync(string comment, string description, BuddyGeoLocation location, string defaultMetadata = null, BuddyPermissions read = BuddyPermissions.Owner, BuddyPermissions write = BuddyPermissions.Owner)
         {
             Task<Checkin> ct = new Task<Checkin>(() =>
             {
@@ -25,6 +25,7 @@ namespace BuddySDK
                     Comment = comment,
                     Description = description,
                     Location = location,
+                    DefaultMetadata = defaultMetadata
                     //  ReadPermissions = read,
                     //  WritePemissions = write
                 };

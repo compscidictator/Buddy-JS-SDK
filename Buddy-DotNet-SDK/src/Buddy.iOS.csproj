@@ -18,7 +18,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\iOS\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET40;AWAIT_SUPPORTED</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET40;AWAIT_SUPPORTED;IOS</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\iOS\Buddy.XML</DocumentationFile>
@@ -43,6 +43,7 @@
     <Reference Include="Newtonsoft.Json">
       <HintPath>..\..\..\..\..\..\..\Projects\Buddy.iOS.Sample\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="monotouch" />
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
@@ -50,9 +51,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BuddyBase.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="BuddyCallbackParams.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BuddyClient.cs">
@@ -70,6 +68,9 @@
     <Compile Include="CheckinCollection.cs" />
     <Compile Include="Checkin.cs" />
     <Compile Include="BuddyCollectionBase.cs" />
+    <Compile Include="Photo.cs" />
+    <Compile Include="Photos.cs" />
+    <Compile Include="PlatformAccess.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
