@@ -1,4 +1,4 @@
-﻿using Newtonsoft.Json;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 
@@ -19,7 +19,7 @@ namespace BuddyServiceClient
      internal class BuddyServiceClientHttp :BuddyServiceClientBase
      {
          
-
+      
          public bool LoggingEnabled { get; set; }
 
          protected override string ClientName
@@ -57,10 +57,6 @@ namespace BuddyServiceClient
         }
 
       
-
-       
-
-       
         public BuddyServiceClientHttp(string root)
         {
             if (String.IsNullOrEmpty(root)) throw new ArgumentNullException("root");
@@ -69,7 +65,6 @@ namespace BuddyServiceClient
                 root = root.Substring(0, root.Length - 1);
             }
             ServiceRoot = root;
-
 
 #if WINDOWS_PHONE
              var  versionAttrs = Assembly.GetExecutingAssembly().GetCustomAttributes(false);
@@ -110,7 +105,17 @@ namespace BuddyServiceClient
         }
 
 
+        private void StartRequest() {
 
+             BuddySDK.PlatformAccess.Current.ShowActivity = true;
+
+        }
+
+        private void EndRequest() {
+
+            BuddySDK.PlatformAccess.Current.ShowActivity = false;
+
+        }
        
 
 
@@ -136,8 +141,15 @@ namespace BuddyServiceClient
         {
             DateTime start = DateTime.Now;
 
-            Action<Exception, BuddyCallResult<T>> handleException = (ex, bcr) =>
+           
+
+            Action<Exception, BuddyCallResult<T>> finishMethodCall = (ex, bcr) =>
             {
+                EndRequest();
+                if (ex == null) {
+                    callback(bcr);
+                    return;
+                }
                
                 WebException webEx = ex as WebException;
                 HttpWebResponse response = null;
@@ -164,10 +176,11 @@ namespace BuddyServiceClient
                 callback(bcr);
             };
 
-           
-            GetResponse(verb, path, ParametersToDictionary(parameters), (ex, response) =>
+            parameters = parameters ?? new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
+            MakeRequest(verb, path, ParametersToDictionary(parameters), (ex, response) =>
             {
                 var bcr = new BuddyCallResult<T>();
+                
 				var isResponseRequest = typeof(T).Equals(typeof(HttpWebResponse));
 
                 if (isResponseRequest)
@@ -185,13 +198,13 @@ namespace BuddyServiceClient
 
                 if (response == null && ex != null)
                 {
-                    handleException(ex, bcr);
+                    finishMethodCall(ex, bcr);
                     
                     return;
                 }
                 else if (response != null)
                 {
-
+                    bcr.StatusCode = (int)response.StatusCode;
                     if (!isResponseRequest)
                     {
                     
@@ -206,7 +219,7 @@ namespace BuddyServiceClient
                         }
                         catch (Exception rex)
                         {
-                            handleException(rex, bcr);
+                            finishMethodCall(rex, bcr);
                             return;
                         }
 
@@ -219,7 +232,10 @@ namespace BuddyServiceClient
                         {
                             var envelope = JsonConvert.DeserializeObject<JsonEnvelope<T>>(body);
 
-                            if (envelope.error != null)
+                            if (envelope == null) {
+                                    // fall through
+                            }
+                            else if (envelope.error != null)
                             {
                                 bcr.Error = envelope.error;
                                 bcr.Message = envelope.message;
@@ -246,11 +262,11 @@ namespace BuddyServiceClient
                     }
                     try
                     {
-                        callback(bcr);
+                            finishMethodCall(null, bcr);
                     }
                     catch (Exception ex3)
                     {
-                        handleException(ex3, bcr);
+                        finishMethodCall(ex3, bcr);
                     }
 
                 }
@@ -310,12 +326,13 @@ namespace BuddyServiceClient
         {
             return verb + " " + path;
         }
-        private void GetResponse(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
+        private void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
         {
             if (!path.StartsWith("/"))
             {
                 path = "/" + path;
             }
+
             var url = String.Format("{0}{1}", ServiceRoot, path);
             var requestType = HttpRequestType.HttpPostJson;
             IEnumerable<KeyValuePair<string, object>> files = null;
@@ -376,6 +393,11 @@ namespace BuddyServiceClient
             }
 
             wr.Headers["BuddyPlatformSDK"] = SdkVersion;
+
+            if (Client.AccessToken != null)
+            {
+                wr.Headers["Authorization"] = String.Format("Buddy {0}", Client.AccessToken);
+            }
             wr.Method = verb;
            
 

@@ -69,6 +69,8 @@ namespace BuddySDK
         [JsonProperty("longitude")]
         public double Longitude { get; set; }
 
+
+       
         public string LocationID { get; set; }
 
         public BuddyGeoLocation()
@@ -149,6 +151,41 @@ namespace BuddySDK
                 SetValue<BuddyGeoLocation>("Location", value, checkIsProp:false);
             }
         }
+
+        [JsonProperty("created")]
+        public DateTime Created {
+            get {
+                return GetValueOrDefault<DateTime>("Created");
+            }
+            set
+            {
+                SetValue<DateTime>("Created", value, checkIsProp:false);
+            }
+        }
+
+        [JsonProperty("lastModified")]
+        public DateTime LastModified {
+            get {
+                return GetValueOrDefault<DateTime>("LastModified");
+            }
+            set
+            {
+                SetValue<DateTime>("LastModified", value, checkIsProp:false);
+            }
+        }
+
+        [JsonProperty("defaultMetadata")]
+        public string DefaultMetadata { 
+
+            get {
+                return GetValueOrDefault<string>("DefaultMetadata");
+            }
+            set
+            {
+                SetValue<string>("DefaultMetadata", value, checkIsProp:false);
+            }
+        }
+
 
 
         protected virtual string Path
@@ -234,7 +271,7 @@ namespace BuddySDK
         }
 
         Task _pendingRefresh;
-        public virtual Task FetchAsync()
+        public virtual Task FetchAsync(Action updateComplete = null)
         {
             EnsureValid();
             lock (this)
@@ -245,21 +282,14 @@ namespace BuddySDK
                 }
                 else
                 {
-                    _pendingRefresh = new Task(async () =>
+                    _pendingRefresh = new Task( () =>
                    {
 
-                       var r = await Client.Service.CallMethodAsync<IDictionary<string, object>>(
-                              "GET", GetObjectPath(), new
-                              {
-                                  AccessToken = Client.AccessToken
-                              });
+                       var r =  Client.Service.CallMethodAsync<IDictionary<string, object>>(
+                              "GET", GetObjectPath());
 
-                       Client.Service.CallOnUiThread((s) =>
-                       {
-                           Update(r);
-                          
-                       });
-
+                        r.Wait();
+                        Update(r.Result);
                        _pendingRefresh = null;
                        
                    });
@@ -368,7 +398,6 @@ namespace BuddySDK
                 }
                 t = new Task(() =>
                 {
-                    d["accessToken"] = Client.AccessToken;
                     IDictionary<string, object> updateDict = null;
                     if (isNew)
                     {
@@ -385,7 +414,7 @@ namespace BuddySDK
                         updateDict = r.Result;
                     }
 
-                    Client.Service.CallOnUiThread((s) =>
+                    Client.Service.CallOnUiThread(() =>
                     {
                         Update(updateDict);
                     });
@@ -426,7 +455,7 @@ namespace BuddySDK
             {
                 kvp.Value.IsDirty = false;
             }
-            OnPropertyChanged(null);
+            OnPropertyChanged (null);
         }
 
         // Metadata stuff
@@ -439,7 +468,6 @@ namespace BuddySDK
             var t = Client.Service.CallMethodAsync<bool> ("PUT", 
                                                           GetMetadataPath (key), 
                                                           new  {
-                accessToken = Client.AccessToken,
                 value = value,
                 permissions = permissions
             });
@@ -460,10 +488,7 @@ namespace BuddySDK
         }
 
         private Task<T> GetMetatadataCore<T>(string key) {
-            return Client.Service.CallMethodAsync<T> ("GET", GetMetadataPath (key),
-                                                          new {
-                           accessToken = Client.AccessToken
-            });                                               
+            return Client.Service.CallMethodAsync<T> ("GET", GetMetadataPath (key));                                               
         }
 
         public Task<int> GetMetadataIntAsync(string key) {
@@ -489,10 +514,8 @@ namespace BuddySDK
         public Task<bool> DeleteMetadataAsync(string key) {
 
             var t = Client.Service.CallMethodAsync<bool> ("DELETE", 
-                                                          GetMetadataPath (key), 
-                                                          new  {
-                accessToken = Client.AccessToken
-            });
+                                                          GetMetadataPath (key)
+                                                         );
 
             t.Start ();
             return t;
@@ -505,7 +528,9 @@ namespace BuddySDK
         protected virtual void OnPropertyChanged(string prop) {
             if (PropertyChanged != null)
             {
-                PropertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(prop));
+                PlatformAccess.Current.InvokeOnUiThread (() => {
+                    PropertyChanged (this, new System.ComponentModel.PropertyChangedEventArgs (prop));
+                });
             }
          }
 

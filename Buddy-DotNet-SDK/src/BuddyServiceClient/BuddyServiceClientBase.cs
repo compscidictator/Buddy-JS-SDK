@@ -8,28 +8,17 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading.Tasks;
 using System.Configuration;
+using BuddySDK;
 
 namespace BuddyServiceClient
 {
 
-    internal class BuddyException : Exception
-    {
-        public string Method { get; private set; }
-        public string ErrorCode { get; private set; }
-
-        public BuddyException(string error, string message)
-            : base( message)
-        {
-            ErrorCode = error;
-        }
-
-       
-    }
-
+   
     public class BuddyCallResult<T>
     {
         public string Error { get; set; }
         public string Message { get; set; }
+        public int    StatusCode { get; set; }
         public T Result { get; set; }
 
         public BuddyCallResult()
@@ -64,21 +53,34 @@ namespace BuddyServiceClient
         }
     }
 
+
+    public class ExceptionEventArgs : EventArgs {
+        public Exception Exception { get; set; }
+
+        public bool ThrowException { get; set; }
+        public ExceptionEventArgs(Exception bex) {
+            Exception = bex;
+            ThrowException = true;
+        }
+    }
   
 
     public abstract partial class BuddyServiceClientBase
     {
+        public BuddySDK.BuddyClient Client
+        {
+            get;
+            protected set;
+        }
 
-
-        public static BuddyServiceClientBase CreateServiceClient(string serviceRoot)
+        public static BuddyServiceClientBase CreateServiceClient(BuddySDK.BuddyClient client, string serviceRoot)
         {
             var type = typeof(BuddyServiceClientHttp);
-            var typeName = ConfigurationManager.AppSettings["BuddyServiceClientType"];
+            var typeName = PlatformAccess.Current.GetConfigSetting("BuddyServiceClientType");
 
             if (typeName != null)
             {
                 type = Type.GetType(typeName, true);
-                
             }
 
             if (!typeof(BuddyServiceClientBase).IsAssignableFrom(type))
@@ -86,11 +88,15 @@ namespace BuddyServiceClient
                 throw new ArgumentException(type.FullName + " is not a BuddyServiceClientBase implementor.");
             }
 
-            return (BuddyServiceClientBase)Activator.CreateInstance(type, serviceRoot);
+            var bsc = (BuddyServiceClientBase)Activator.CreateInstance(type, serviceRoot);
+            bsc.Client = client;
+            return bsc;
         }
 
         protected abstract string ClientName { get; }
         protected abstract string ClientVersion { get; }
+
+        public event EventHandler<ExceptionEventArgs> ServiceException;
 
         public virtual bool IsLocal
         {
@@ -102,23 +108,14 @@ namespace BuddyServiceClient
 
         protected BuddyServiceClientBase()
         {
-            _syncContext = System.Threading.SynchronizationContext.Current;
         }
 
-        private SynchronizationContext _syncContext;
-        internal void CallOnUiThread(SendOrPostCallback callback)
+        internal void CallOnUiThread(Action callback)
         {
-            if (_syncContext != null)
-            {
-                _syncContext.Post(callback, null);
-            }
-            else
-            {
-                callback(null);
-            }
+            PlatformAccess.Current.InvokeOnUiThread (callback);
         }
 
-        public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters)
+        public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters = null)
         {
             var tcs = new TaskCompletionSource<T1>();
 
@@ -128,7 +125,31 @@ namespace BuddyServiceClient
 
                 if (bcr.Error != null)
                 {
-                    tcs.TrySetException(new BuddySDK.BuddyServiceException(bcr.Error, bcr.Message));
+                        BuddyServiceException buddyException = null;
+
+                        switch(bcr.StatusCode) {
+                        case 0: 
+                            buddyException = new BuddyNoInternetException(bcr.Error);
+                            break;
+                        case 403:
+                            buddyException = new BuddyUnauthorizedException(bcr.Error, bcr.Message);
+                            break;
+                        default:
+                            buddyException = new BuddySDK.BuddyServiceException(bcr.Error, bcr.Message);
+                            break;
+                        }
+                        var e = new ExceptionEventArgs(buddyException);
+
+                        if (ServiceException != null) {
+                            ServiceException(this, e);
+                        }
+
+                        if (e.ThrowException) {
+                            tcs.TrySetException(e.Exception);
+                        }
+                        else {
+                            tcs.TrySetResult(default(T1));
+                        }
                 }
                 else
                 {

@@ -63,7 +63,6 @@ namespace BuddySDK
                     Path,
                     new
                     {
-                        accessToken = Client.AccessToken,
                         userId = ownerId,
                         startDate=startDate,
                         endDate = endDate
