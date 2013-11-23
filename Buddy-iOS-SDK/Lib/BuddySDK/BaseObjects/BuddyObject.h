@@ -8,12 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
+typedef enum{
+    Owner,
+    App,
+    Defult = Owner
+}BuddyPermissions;
+
 @interface BuddyObject : NSObject
 
 @property (nonatomic, readonly, assign) BOOL isDirty;
 @property (nonatomic, strong) NSDate *created;
 @property (nonatomic, strong) NSDate *lastModified;
-@property (nonatomic, strong) NSString *tag;
+@property (nonatomic, strong) NSString *defaultMetadata;
 @property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, assign) NSInteger identifier;
 

@@ -45,6 +45,14 @@
     return [[BPClient defaultClient] sounds];
 }
 
++ (BPCheckinCollection *) checkins{
+    return nil;
+}
+
++ (BPPhotoCollection *) photos{
+    return nil;
+}
+
 + (BOOL) locationEnabled{
     @synchronized(self){
         return [[BPClient defaultClient] locationEnabled];
@@ -68,9 +76,9 @@
           withOptions:nil];
 }
 
-+ (void)    initClient:(NSString *)appID
-           appKey:(NSString *)appKey
-           withOptions:(NSDictionary *)options
++ (void) initClient:(NSString *)appID
+             appKey:(NSString *)appKey
+        withOptions:(NSDictionary *)options
 {
     [[BPClient defaultClient] setupWithApp:appID
                                      appKey:appKey

@@ -10,4 +10,18 @@
 
 @implementation BPPhoto
 
+-(id)init{
+    self = [super init];
+    if(self)
+    {
+        [self registerProperty:@selector(caption)];
+    }
+    return self;
+}
+
+static NSString *checkins = @"/photos";
++(NSString *) requestPath{
+    return checkins;
+}
+
 @end

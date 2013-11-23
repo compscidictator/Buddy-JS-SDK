@@ -18,6 +18,7 @@
         [self registerProperty:@selector(name)];
         [self registerProperty:@selector(username)];
         [self registerProperty:@selector(gender)];
+        [self registerProperty:@selector(dateOfBirth)];
         [self registerProperty:@selector(applicationTag)];
         [self registerProperty:@selector(lastLogin)];
         [self registerProperty:@selector(createdOn)];
@@ -37,6 +38,16 @@
     return @"/users";
 }
 
+-(NSInteger)age
+{
+    NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+    NSDateComponents *components = [calendar components:NSYearCalendarUnit
+                                               fromDate:self.dateOfBirth
+                                                 toDate:[NSDate date]
+                                                options:0];
+    
+    return components.year;
+}
 
 
 @end

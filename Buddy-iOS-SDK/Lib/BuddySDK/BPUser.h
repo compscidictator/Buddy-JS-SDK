@@ -39,6 +39,8 @@ typedef enum
 
 @property (nonatomic, assign) BPUserGender gender;
 
+@property (nonatomic, assign) NSDate *dateOfBirth;
+
 @property (nonatomic, copy) NSString *applicationTag;
 
 // TODO - method?
@@ -55,9 +57,9 @@ typedef enum
 
 @property (nonatomic, copy) NSString *profilePictureId;
 
-@property (nonatomic, assign) NSInteger age;
+@property (nonatomic, readonly) NSInteger age;
 
-@property (nonatomic, assign) BPUserStatus userStatus;
+@property (nonatomic, assign) BPUserRelationshipStatus userStatus;
 
 @property (nonatomic, assign) BOOL friendRequestPending;
 

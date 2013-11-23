@@ -10,4 +10,7 @@
 
 @interface BPCheckin : BuddyObject
 
+@property (nonatomic, copy) NSString *comment;
+@property (nonatomic, copy) NSString *description;
+
 @end

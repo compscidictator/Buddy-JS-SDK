@@ -10,4 +10,8 @@
 
 @interface BPPhoto : BuddyObject
 
+@property (nonatomic, copy) NSString *caption;
+
+@property (nonatomic, strong) NSDate *data;
+
 @end

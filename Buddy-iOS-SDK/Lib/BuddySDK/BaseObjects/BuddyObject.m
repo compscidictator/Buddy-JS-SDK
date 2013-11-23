@@ -28,7 +28,7 @@
         self.keyPaths = [NSMutableArray array];
         [self registerProperty:@selector(created)];
         [self registerProperty:@selector(lastModified)];
-        [self registerProperty:@selector(tag)];
+        [self registerProperty:@selector(defaultMetadata)];
         [self registerProperty:@selector(userId)];
         [self registerProperty:@selector(identifier)];
         
@@ -84,30 +84,28 @@
     [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
         
     }];
-    // TODO - shared instance.
-    //[self.client deleteRequest:self.resourceString withId:self.identifier];
     return nil;
 }
 
 -(void)deleteMe
 {
-//    [self.client deleteRequest:self.resourceString withId:self.identifier callback:^(BuddyCallbackParams *callbackParams, id jsonString) {
-//        // TODO - Anything?
-//    }];
+    [[BPClient defaultClient] deleteObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
+        // TODO - anything?
+    }];
 }
 
 -(void)refresh
 {
-//    [self.client getRequest:self.resourceString withId:self.identifier callback:^(BuddyCallbackParams *callbackParams, id jsonString) {
-//        [self.converter setPropertiesOf:self fromDictionary:jsonString];
-//    }];
+    [[BPClient defaultClient] refreshObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
+        [self.converter setPropertiesOf:self fromDictionary:json];
+    }];
 }
 
 -(void)update
 {
-//    [self.client updateRequest:self.resourceString withId:self.identifier payload:[self buildUpdateDictionary] callback:^(BuddyCallbackParams *callbackParams, id jsonString) {
-//        [self.converter setPropertiesOf:self fromDictionary:jsonString];
-//    }];
+    [[BPClient defaultClient] updateObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
+        [self.converter setPropertiesOf:self fromDictionary:json];
+    }];
 }
 
 #pragma mark Abstract implementors

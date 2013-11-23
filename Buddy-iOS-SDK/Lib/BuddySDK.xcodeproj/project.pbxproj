@@ -158,6 +158,8 @@
 		C1E0D24A1831DE56001A7A01 /* JAGPropertyFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1D01831BAD3001A7A01 /* JAGPropertyFinder.m */; };
 		C1E0D2861835C910001A7A01 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D2721835C8E1001A7A01 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C1E0D2871835C911001A7A01 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D2721835C8E1001A7A01 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C1EAFD8E1840517700420D10 /* BPPhotoCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1EAFD8C1840517700420D10 /* BPPhotoCollection.h */; };
+		C1EAFD8F1840517700420D10 /* BPPhotoCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1EAFD8D1840517700420D10 /* BPPhotoCollection.m */; };
 		C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FBCED417E6718E00275F6A /* BuddyLocation.h */; };
 		C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
@@ -313,6 +315,8 @@
 		C1E0D1F91831D609001A7A01 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C1E0D2711835C8E1001A7A01 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		C1E0D2721835C8E1001A7A01 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
+		C1EAFD8C1840517700420D10 /* BPPhotoCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPPhotoCollection.h; path = ../../Lib/BuddySDK/BPPhotoCollection.h; sourceTree = "<group>"; };
+		C1EAFD8D1840517700420D10 /* BPPhotoCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPPhotoCollection.m; path = ../../Lib/BuddySDK/BPPhotoCollection.m; sourceTree = "<group>"; };
 		C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
 		C1FBCED417E6718E00275F6A /* BuddyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyLocation.h; sourceTree = "<group>"; };
 		C1FBCED517E6718E00275F6A /* BuddyLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyLocation.m; sourceTree = "<group>"; };
@@ -419,6 +423,8 @@
 				A6291F82165C01800051F83C /* Supporting Files */,
 				C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */,
 				C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */,
+				C1EAFD8C1840517700420D10 /* BPPhotoCollection.h */,
+				C1EAFD8D1840517700420D10 /* BPPhotoCollection.m */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -626,6 +632,7 @@
 				C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */,
 				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
 				C1B95AFB18371468000C8417 /* BPSounds.h in Headers */,
+				C1EAFD8E1840517700420D10 /* BPPhotoCollection.h in Headers */,
 				C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */,
 				C1B959E31837053D000C8417 /* BPCheckin.h in Headers */,
 				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
@@ -822,6 +829,7 @@
 				C1B95B2218371834000C8417 /* AFURLResponseSerialization.m in Sources */,
 				C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */,
 				C1B959EC1837053D000C8417 /* BPPhoto.m in Sources */,
+				C1EAFD8F1840517700420D10 /* BPPhotoCollection.m in Sources */,
 				C1B95AF718371443000C8417 /* BPAppMetadata.m in Sources */,
 				C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
 				C1B959E41837053D000C8417 /* BPCheckin.m in Sources */,
