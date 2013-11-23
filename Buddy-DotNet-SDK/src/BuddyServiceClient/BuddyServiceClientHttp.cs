@@ -141,7 +141,7 @@ namespace BuddyServiceClient
         {
             DateTime start = DateTime.Now;
 
-           
+            StartRequest ();
 
             Action<Exception, BuddyCallResult<T>> finishMethodCall = (ex, bcr) =>
             {

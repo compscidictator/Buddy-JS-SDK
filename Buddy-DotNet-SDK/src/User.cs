@@ -44,17 +44,10 @@ namespace BuddySDK
     /// </code>
     /// </example>
     /// </summary>
+    /// 
+    [BuddyObjectPath("/users")]
     public class User : BuddyBase
     {
-
-        protected override string Path
-        {
-            get
-            {
-                return "/users";
-            }
-        }
-
         /// <summary>
         /// Gets the name of the user.
         /// </summary>
