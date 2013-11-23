@@ -206,19 +206,20 @@
 		C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Merge.m"; path = "../../Lib/BuddySDK/NSDictionary+Merge.m"; sourceTree = "<group>"; };
 		C1AA90E218373BF80074B7E8 /* BPUserTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPUserTests.h; path = "../../Lib/BuddySDK Unit Tests/BPUserTests.h"; sourceTree = "<group>"; };
 		C1AA90E318373BF80074B7E8 /* BPUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPUserTests.m; path = "../../Lib/BuddySDK Unit Tests/BPUserTests.m"; sourceTree = "<group>"; };
+		C1B8076A184061070086B843 /* BPClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPClientDelegate.h; path = ../../Lib/BuddySDK/BPClientDelegate.h; sourceTree = "<group>"; };
 		C1B959D1183703E8000C8417 /* BuddyCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyCollection.h; sourceTree = "<group>"; };
-		C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAuthenticatedUser.h; sourceTree = "<group>"; };
-		C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAuthenticatedUser.m; sourceTree = "<group>"; };
-		C1B959D51837053D000C8417 /* BPCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCheckin.h; sourceTree = "<group>"; };
-		C1B959D61837053D000C8417 /* BPCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCheckin.m; sourceTree = "<group>"; };
+		C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPAuthenticatedUser.h; path = ../../../lib/BuddySDK/BPAuthenticatedUser.h; sourceTree = "<group>"; };
+		C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPAuthenticatedUser.m; path = ../../../lib/BuddySDK/BPAuthenticatedUser.m; sourceTree = "<group>"; };
+		C1B959D51837053D000C8417 /* BPCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPCheckin.h; path = ../../../lib/BuddySDK/BPCheckin.h; sourceTree = "<group>"; };
+		C1B959D61837053D000C8417 /* BPCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCheckin.m; path = ../../../lib/BuddySDK/BPCheckin.m; sourceTree = "<group>"; };
 		C1B959D71837053D000C8417 /* BPCheckinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCheckinCollection.h; sourceTree = "<group>"; };
 		C1B959D81837053D000C8417 /* BPCheckinCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCheckinCollection.m; sourceTree = "<group>"; };
-		C1B959D91837053D000C8417 /* BPPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPPhoto.h; sourceTree = "<group>"; };
-		C1B959DA1837053D000C8417 /* BPPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPPhoto.m; sourceTree = "<group>"; };
-		C1B959DB1837053D000C8417 /* BPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPUser.h; sourceTree = "<group>"; };
-		C1B959DC1837053D000C8417 /* BPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPUser.m; sourceTree = "<group>"; };
-		C1B959DD1837053D000C8417 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Buddy.h; sourceTree = "<group>"; };
-		C1B959DE1837053D000C8417 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Buddy.m; sourceTree = "<group>"; };
+		C1B959D91837053D000C8417 /* BPPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPPhoto.h; path = ../../../lib/BuddySDK/BPPhoto.h; sourceTree = "<group>"; };
+		C1B959DA1837053D000C8417 /* BPPhoto.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPPhoto.m; path = ../../../lib/BuddySDK/BPPhoto.m; sourceTree = "<group>"; };
+		C1B959DB1837053D000C8417 /* BPUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPUser.h; path = ../../../lib/BuddySDK/BPUser.h; sourceTree = "<group>"; };
+		C1B959DC1837053D000C8417 /* BPUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPUser.m; path = ../../../lib/BuddySDK/BPUser.m; sourceTree = "<group>"; };
+		C1B959DD1837053D000C8417 /* Buddy.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Buddy.h; path = ../../../lib/BuddySDK/Buddy.h; sourceTree = "<group>"; };
+		C1B959DE1837053D000C8417 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Buddy.m; path = ../../../lib/BuddySDK/Buddy.m; sourceTree = "<group>"; };
 		C1B959F71837061F000C8417 /* BuddyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyObject.h; sourceTree = "<group>"; };
 		C1B959F81837061F000C8417 /* BuddyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyObject.m; sourceTree = "<group>"; };
 		C1B95A2C183708E8000C8417 /* Test_AppSearchMetadata.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_AppSearchMetadata.txt; sourceTree = "<group>"; };
@@ -269,17 +270,17 @@
 		C1B95A59183708E8000C8417 /* Test_VirtualAlbumGetMyJsonDataBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_VirtualAlbumGetMyJsonDataBad.txt; sourceTree = "<group>"; };
 		C1B95A8818370962000C8417 /* LocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTests.h; sourceTree = "<group>"; };
 		C1B95A8918370962000C8417 /* LocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTests.m; sourceTree = "<group>"; };
-		C1B95A9718370B5D000C8417 /* BuddyEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyEnums.h; sourceTree = "<group>"; };
-		C1B95A9918370BFF000C8417 /* BuddyDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyDevice.h; sourceTree = "<group>"; };
-		C1B95A9B18370C07000C8417 /* BuddyDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyDevice.m; sourceTree = "<group>"; };
+		C1B95A9718370B5D000C8417 /* BuddyEnums.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyEnums.h; path = ../../../lib/BuddySDK/BuddyEnums.h; sourceTree = "<group>"; };
+		C1B95A9918370BFF000C8417 /* BuddyDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyDevice.h; path = ../../../lib/BuddySDK/BuddyDevice.h; sourceTree = "<group>"; };
+		C1B95A9B18370C07000C8417 /* BuddyDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyDevice.m; path = ../../../lib/BuddySDK/BuddyDevice.m; sourceTree = "<group>"; };
 		C1B95A9E1837102C000C8417 /* BPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPClient.h; path = ../../Lib/BuddySDK/BPClient.h; sourceTree = "<group>"; };
 		C1B95A9F1837102C000C8417 /* BPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPClient.m; path = ../../Lib/BuddySDK/BPClient.m; sourceTree = "<group>"; };
-		C1B95AEF18371425000C8417 /* BPGameBoards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPGameBoards.h; path = ../../Lib/BuddySDK/BPGameBoards.h; sourceTree = "<group>"; };
-		C1B95AF018371425000C8417 /* BPGameBoards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPGameBoards.m; path = ../../Lib/BuddySDK/BPGameBoards.m; sourceTree = "<group>"; };
-		C1B95AF418371443000C8417 /* BPAppMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPAppMetadata.h; path = ../../Lib/BuddySDK/BPAppMetadata.h; sourceTree = "<group>"; };
-		C1B95AF518371443000C8417 /* BPAppMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPAppMetadata.m; path = ../../Lib/BuddySDK/BPAppMetadata.m; sourceTree = "<group>"; };
-		C1B95AF918371468000C8417 /* BPSounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPSounds.h; path = ../../Lib/BuddySDK/BPSounds.h; sourceTree = "<group>"; };
-		C1B95AFA18371468000C8417 /* BPSounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPSounds.m; path = ../../Lib/BuddySDK/BPSounds.m; sourceTree = "<group>"; };
+		C1B95AEF18371425000C8417 /* BPGameBoards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPGameBoards.h; path = ../BPGameBoards.h; sourceTree = "<group>"; };
+		C1B95AF018371425000C8417 /* BPGameBoards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPGameBoards.m; path = ../BPGameBoards.m; sourceTree = "<group>"; };
+		C1B95AF418371443000C8417 /* BPAppMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPAppMetadata.h; path = ../BPAppMetadata.h; sourceTree = "<group>"; };
+		C1B95AF518371443000C8417 /* BPAppMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPAppMetadata.m; path = ../BPAppMetadata.m; sourceTree = "<group>"; };
+		C1B95AF918371468000C8417 /* BPSounds.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPSounds.h; path = ../BPSounds.h; sourceTree = "<group>"; };
+		C1B95AFA18371468000C8417 /* BPSounds.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPSounds.m; path = ../BPSounds.m; sourceTree = "<group>"; };
 		C1B95AFF1837169F000C8417 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		C1B95B001837169F000C8417 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		C1B95B011837169F000C8417 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -393,38 +394,21 @@
 		A6291F81165C01800051F83C /* BuddySDK */ = {
 			isa = PBXGroup;
 			children = (
+				C1B807691840609F0086B843 /* BPObjects */,
 				C17E2B4818038EFE00F64FB6 /* BaseObjects */,
 				C1B95A9D18370FFD000C8417 /* Networking */,
 				C1FBCECE17E670CB00275F6A /* LocationTracking */,
-				C1B95A9B18370C07000C8417 /* BuddyDevice.m */,
-				C1B95A9918370BFF000C8417 /* BuddyDevice.h */,
-				C1B95A9718370B5D000C8417 /* BuddyEnums.h */,
-				C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */,
-				C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */,
-				C1B959D51837053D000C8417 /* BPCheckin.h */,
-				C1B959D61837053D000C8417 /* BPCheckin.m */,
 				C1B959D71837053D000C8417 /* BPCheckinCollection.h */,
 				C1B959D81837053D000C8417 /* BPCheckinCollection.m */,
-				C1B959D91837053D000C8417 /* BPPhoto.h */,
-				C1B959DA1837053D000C8417 /* BPPhoto.m */,
-				C1B959DB1837053D000C8417 /* BPUser.h */,
-				C1B959DC1837053D000C8417 /* BPUser.m */,
-				C1B959DD1837053D000C8417 /* Buddy.h */,
-				C1B959DE1837053D000C8417 /* Buddy.m */,
 				C153F86F17E15FC1009CDC81 /* Util.h */,
 				C1B95A9E1837102C000C8417 /* BPClient.h */,
 				C1B95A9F1837102C000C8417 /* BPClient.m */,
-				C1B95AEF18371425000C8417 /* BPGameBoards.h */,
-				C1B95AF018371425000C8417 /* BPGameBoards.m */,
-				C1B95AF418371443000C8417 /* BPAppMetadata.h */,
-				C1B95AF518371443000C8417 /* BPAppMetadata.m */,
-				C1B95AF918371468000C8417 /* BPSounds.h */,
-				C1B95AFA18371468000C8417 /* BPSounds.m */,
 				A6291F82165C01800051F83C /* Supporting Files */,
 				C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */,
 				C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */,
 				C1EAFD8C1840517700420D10 /* BPPhotoCollection.h */,
 				C1EAFD8D1840517700420D10 /* BPPhotoCollection.m */,
+				C1B8076A184061070086B843 /* BPClientDelegate.h */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -447,6 +431,33 @@
 			);
 			name = BaseObjects;
 			path = ../../Lib/BuddySDK/BaseObjects;
+			sourceTree = "<group>";
+		};
+		C1B807691840609F0086B843 /* BPObjects */ = {
+			isa = PBXGroup;
+			children = (
+				C1B95A9B18370C07000C8417 /* BuddyDevice.m */,
+				C1B95A9918370BFF000C8417 /* BuddyDevice.h */,
+				C1B95A9718370B5D000C8417 /* BuddyEnums.h */,
+				C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */,
+				C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */,
+				C1B959D51837053D000C8417 /* BPCheckin.h */,
+				C1B959D61837053D000C8417 /* BPCheckin.m */,
+				C1B959D91837053D000C8417 /* BPPhoto.h */,
+				C1B959DA1837053D000C8417 /* BPPhoto.m */,
+				C1B959DB1837053D000C8417 /* BPUser.h */,
+				C1B959DC1837053D000C8417 /* BPUser.m */,
+				C1B959DD1837053D000C8417 /* Buddy.h */,
+				C1B959DE1837053D000C8417 /* Buddy.m */,
+				C1B95AEF18371425000C8417 /* BPGameBoards.h */,
+				C1B95AF018371425000C8417 /* BPGameBoards.m */,
+				C1B95AF418371443000C8417 /* BPAppMetadata.h */,
+				C1B95AF518371443000C8417 /* BPAppMetadata.m */,
+				C1B95AF918371468000C8417 /* BPSounds.h */,
+				C1B95AFA18371468000C8417 /* BPSounds.m */,
+			);
+			name = BPObjects;
+			path = ../../Lib/BuddySDK/BPObjects;
 			sourceTree = "<group>";
 		};
 		C1B95A2B183708E8000C8417 /* Test Data */ = {

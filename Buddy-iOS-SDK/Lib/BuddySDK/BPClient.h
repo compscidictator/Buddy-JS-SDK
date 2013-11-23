@@ -13,6 +13,12 @@
 @class BPSounds;
 @class BPAuthenticatedUser;
 
+typedef enum {
+    BPAuthenticationLevelNone,
+    BPAuthenticationLevelDevice,
+    BPAuthenticationLevelUser
+}BPAuthenticationLevel;
+
 @interface BPClient : NSObject
 
 
