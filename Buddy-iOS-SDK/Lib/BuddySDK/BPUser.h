@@ -13,7 +13,7 @@ typedef enum
 {
 	BPUserGender_Male = 1,
 	BPUserGender_Female = 2,
-	BPUserGender_Any = 3
+	//BPUserGender_Any = 3
 } BPUserGender;
 
 /// <summary>
@@ -28,8 +28,8 @@ typedef enum
     Divorced = 5,
     Widowed = 6,
     OnTheProwl = 7,
-    Any = -1
-} BPUserStatus;
+//    Any = -1
+} BPUserRelationshipStatus;
 
 @interface BPUser : BuddyObject
 
