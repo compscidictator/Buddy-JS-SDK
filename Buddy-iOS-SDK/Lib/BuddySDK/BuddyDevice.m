@@ -26,8 +26,8 @@
 @implementation BuddyDevice
 
 
-/*
--(NSString*)id {
+
+-(NSString*)identifier {
  
     NSArray *versionCompatibility = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
     
@@ -40,7 +40,7 @@
         return [BuddyOpenUDID value];
     }
 }
-
+/*
 - (void)recordInformation:(NSString *)osVersion
                deviceType:(NSString *)deviceType
                  authUser:(NSString *)authUserToken
