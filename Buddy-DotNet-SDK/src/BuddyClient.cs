@@ -68,7 +68,7 @@ namespace BuddySDK
 
         public static string WebServiceUrl {
             get {
-                return _WebServiceUrl ?? "http://10.211.55.3/buddyus";
+                return _WebServiceUrl ?? "http://craig.buddyservers.net:8080/api";
             }
             set {
                 _WebServiceUrl = value;
@@ -402,7 +402,7 @@ namespace BuddySDK
                 this.User = user;
                 return user;
             });
-
+            task.Start ();
             return task;
          
         }
