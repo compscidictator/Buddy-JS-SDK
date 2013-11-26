@@ -20,7 +20,9 @@ typedef void (^AFNetworkingCallback)(id json);
 @property (nonatomic, readonly, retain) NSString *appID;
 @property (nonatomic, readonly, retain) NSString *appKey;
 
--(void)setAppID:(NSString *)appID withKey:(NSString *)appKey;
+-(void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(void (^)())complete;
+
+-(void)createBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
 
 -(void)getBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
 
@@ -28,5 +30,6 @@ typedef void (^AFNetworkingCallback)(id json);
 
 -(void)updateBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
 
+-(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback;
 
 @end

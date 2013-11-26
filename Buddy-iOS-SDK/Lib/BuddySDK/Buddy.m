@@ -68,21 +68,25 @@
 
 + (void)initClient:(NSString *)appID
        appKey:(NSString *)appKey
+          complete:(void (^)())complete
 {
 	[Buddy initClient:appID
           appKey:appKey
  autoRecordDeviceInfo:NO
    autoRecordLocation:NO
-          withOptions:nil];
+          withOptions:nil
+             complete:complete];
 }
 
 + (void) initClient:(NSString *)appID
              appKey:(NSString *)appKey
         withOptions:(NSDictionary *)options
+           complete:(void (^)())complete
 {
     [[BPClient defaultClient] setupWithApp:appID
                                      appKey:appKey
-                                      options:options];
+                                      options:options
+                                  complete:complete];
 }
 
 + (void)   initClient:(NSString *)appID
@@ -90,6 +94,7 @@
  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
    autoRecordLocation:(BOOL)autoRecordLocation
           withOptions:(NSDictionary *)options
+             complete:(void (^)())complete
 {
     
     NSDictionary *defaultOptions = @{@"autoRecordLocation": @(autoRecordLocation),
@@ -99,10 +104,18 @@
     // TODO - merge options
     
     [[BPClient defaultClient] setupWithApp:appID
-                                     appKey:appKey
-                                      options:combined];
+                                    appKey:appKey
+                                   options:combined
+                                  complete:complete];
 }
 
+#pragma mark User
 
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback
+{
+    [BPUser createUserWithName:username password:password callback:^(id newBuddyObject) {
+        callback(newBuddyObject);
+    }];
+}
 
 @end

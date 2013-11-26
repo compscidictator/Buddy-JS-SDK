@@ -21,22 +21,32 @@
     self = [super init];
     if(self)
     {
-        self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:url]];
-        
-        self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
-        self.manager.requestSerializer = [AFJSONRequestSerializer serializer];
+        [self setupManagerWithBaseUrl:url withToken:nil];
 
     }
     return self;
 }
 
--(NSDictionary *)buildGetParameters
+-(void)setupManagerWithBaseUrl:(NSString *)baseUrl withToken:(NSString *)token
 {
-    return @{@"appKey": self.appKey,
-             @"appID": self.appID};
+    self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
+    
+    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
+    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
+
+    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    if(token){
+        // Tell our serializer our new Authorization string.
+        NSString *authString = [@"Buddy " stringByAppendingString:self.token];
+        [requestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
+    }
+
+    
+    self.manager.responseSerializer = responseSerializer;
+    self.manager.requestSerializer = requestSerializer;
 }
 
--(void)setAppID:(NSString *)appID withKey:(NSString *)appKey
+-(void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(void (^)())complete
 {
     NSDictionary *getTokenParams = @{
                                      @"appId": appID,
@@ -47,11 +57,31 @@
                                      @"OSVersion": @"TODO - os version"
                                      };
     
-    [self.manager POST:@"/devices" parameters:getTokenParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        // TODO - JSON WAG
-        self.token = responseObject[@"AccessToken"];
+    [self.manager POST:@"/api/devices" parameters:getTokenParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        
+        if(operation.response.statusCode == 200){
+            
+            // Grab the potentially different base url.
+            NSString *baseUrl = responseObject[@"result"][@"serviceRoot"];
+            
+            // Grab the access token
+            self.token = responseObject[@"result"][@"accessToken"];
+            
+            [self setupManagerWithBaseUrl:baseUrl withToken:self.token];
+            
+            complete();
+        }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
        // TODO - Bad login - let the caller know.
+    }];
+}
+
+-(void)createBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+{
+    [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        callback(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callback(nil);
     }];
 }
 
@@ -77,6 +107,17 @@
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         callback(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callback(nil);
+    }];
+}
+
+
+#pragma mark AFNetworking by composisition. Not sure if I want to keep these.
+-(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
+{
+    [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        callback(nil);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];

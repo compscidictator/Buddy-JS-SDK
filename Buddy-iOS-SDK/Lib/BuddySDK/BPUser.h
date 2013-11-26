@@ -33,6 +33,8 @@ typedef enum
 
 @interface BPUser : BuddyObject
 
++(void)createUserWithName:(NSString *)name password:(NSString *)password callback:(BuddyObjectCallback)callback;
+
 @property (nonatomic, copy) NSString *name;
 
 @property (nonatomic, copy) NSString *username;

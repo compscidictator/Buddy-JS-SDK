@@ -10,6 +10,8 @@
 
 #import "BuddyDevice.h"
 
+#import "BPClient.h"
+
 #import "BPAuthenticatedUser.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"
@@ -42,15 +44,20 @@
 + (void) setLocationEnabled:(BOOL)enabled;
 
 + (void)initClient:(NSString *)appID
-            appKey:(NSString *)appKey;
+            appKey:(NSString *)appKey
+          complete:(void (^)())complete;
 
 + (void) initClient:(NSString *)appID
              appKey:(NSString *)appKey
-        withOptions:(NSDictionary *)options;
+        withOptions:(NSDictionary *)options
+           complete:(void (^)())complete;
 
 + (void)   initClient:(NSString *)appID
                appKey:(NSString *)appKey
  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
    autoRecordLocation:(BOOL)autoRecordLocation
-          withOptions:(NSDictionary *)options;
+          withOptions:(NSDictionary *)options
+             complete:(void (^)())complete;
+
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback;
 @end

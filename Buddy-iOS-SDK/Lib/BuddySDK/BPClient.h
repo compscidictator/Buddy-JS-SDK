@@ -80,9 +80,8 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 + (instancetype)defaultClient;
 
 /// TODO
--(void)     setupWithApp:(NSString *)appID
-                appKey:(NSString *)appKey
-                 options:(NSDictionary *)options;
+-(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options complete:(void (^)())complete;
+
 
 
 typedef void (^BPBuddyObjectCallback)(id json);

@@ -24,7 +24,12 @@
 -(void)testInit
 {
     NSString *d = [NSString stringWithFormat:@"%@", [NSNumber numberWithInteger:2]];
-    NSLog(d);
+    NSLog(@"%@", d);
     //BPUser *user = [BPUser new];
+}
+
+-(void)testThings
+{
+    
 }
 @end

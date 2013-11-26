@@ -36,7 +36,10 @@
 		C1AA90DE1837376E0074B7E8 /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */; };
 		C1AA90E418373BF80074B7E8 /* BPUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90E318373BF80074B7E8 /* BPUserTests.m */; };
 		C1AA90E518373D8E0074B7E8 /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */; };
-		C1AA90E6183740960074B7E8 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */; };
+		C1B8076B18441A6A0086B843 /* BPServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90D718371FF70074B7E8 /* BPServiceController.m */; };
+		C1B8076C18441B1A0086B843 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E0D1E21831C2E8001A7A01 /* XCTest.framework */; };
+		C1B8076F18441BD30086B843 /* BuddyIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */; };
+		C1B8077218441D660086B843 /* libBuddySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7C165C01800051F83C /* libBuddySDK.a */; };
 		C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959D1183703E8000C8417 /* BuddyCollection.h */; };
 		C1B959DF1837053D000C8417 /* BPAuthenticatedUser.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */; };
 		C1B959E01837053D000C8417 /* BPAuthenticatedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */; };
@@ -173,6 +176,13 @@
 			remoteGlobalIDString = A6291F7B165C01800051F83C;
 			remoteInfo = BuddySDK;
 		};
+		C1B8077018441D2F0086B843 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = A6291F73165C01800051F83C /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = A6291F7B165C01800051F83C;
+			remoteInfo = BuddySDK;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -207,6 +217,8 @@
 		C1AA90E218373BF80074B7E8 /* BPUserTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPUserTests.h; path = "../../Lib/BuddySDK Unit Tests/BPUserTests.h"; sourceTree = "<group>"; };
 		C1AA90E318373BF80074B7E8 /* BPUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPUserTests.m; path = "../../Lib/BuddySDK Unit Tests/BPUserTests.m"; sourceTree = "<group>"; };
 		C1B8076A184061070086B843 /* BPClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPClientDelegate.h; path = ../../Lib/BuddySDK/BPClientDelegate.h; sourceTree = "<group>"; };
+		C1B8076D18441BD30086B843 /* BuddyIntegrationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyIntegrationTests.h; path = "../../Lib/BuddySDK Unit Tests/BuddyIntegrationTests.h"; sourceTree = "<group>"; };
+		C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/BuddyIntegrationTests.m"; sourceTree = "<group>"; };
 		C1B959D1183703E8000C8417 /* BuddyCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyCollection.h; sourceTree = "<group>"; };
 		C1B959D31837053D000C8417 /* BPAuthenticatedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPAuthenticatedUser.h; path = ../../../lib/BuddySDK/BPAuthenticatedUser.h; sourceTree = "<group>"; };
 		C1B959D41837053D000C8417 /* BPAuthenticatedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPAuthenticatedUser.m; path = ../../../lib/BuddySDK/BPAuthenticatedUser.m; sourceTree = "<group>"; };
@@ -343,7 +355,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1AA90E6183740960074B7E8 /* SenTestingKit.framework in Frameworks */,
+				C1B8077218441D660086B843 /* libBuddySDK.a in Frameworks */,
+				C1B8076C18441B1A0086B843 /* XCTest.framework in Frameworks */,
 				C1E0D1E51831C2E8001A7A01 /* UIKit.framework in Frameworks */,
 				C1E0D1E41831C2E8001A7A01 /* Foundation.framework in Frameworks */,
 			);
@@ -585,6 +598,8 @@
 				C1E0D1E71831C2E8001A7A01 /* Supporting Files */,
 				C1AA90E218373BF80074B7E8 /* BPUserTests.h */,
 				C1AA90E318373BF80074B7E8 /* BPUserTests.m */,
+				C1B8076D18441BD30086B843 /* BuddyIntegrationTests.h */,
+				C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */,
 			);
 			path = "BuddySDK Unit Tests";
 			sourceTree = "<group>";
@@ -684,6 +699,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				C1B8077118441D2F0086B843 /* PBXTargetDependency */,
 			);
 			name = "BuddySDK Unit Tests";
 			productName = "BuddySDK Unit Tests";
@@ -870,12 +886,14 @@
 				C1B95B2418371843000C8417 /* BuddyDevice.m in Sources */,
 				C1B959F21837053D000C8417 /* BPUser.m in Sources */,
 				C1B95B131837169F000C8417 /* AFHTTPRequestOperationManager.m in Sources */,
+				C1B8076F18441BD30086B843 /* BuddyIntegrationTests.m in Sources */,
 				C1B959E61837053D000C8417 /* BPCheckin.m in Sources */,
 				C1B95B121837169F000C8417 /* AFHTTPRequestOperation.m in Sources */,
 				C1B95B1A1837169F000C8417 /* AFURLSessionManager.m in Sources */,
 				C1E0D24A1831DE56001A7A01 /* JAGPropertyFinder.m in Sources */,
 				C1B95B151837169F000C8417 /* AFNetworkReachabilityManager.m in Sources */,
 				C1B95B191837169F000C8417 /* AFURLResponseSerialization.m in Sources */,
+				C1B8076B18441A6A0086B843 /* BPServiceController.m in Sources */,
 				C1B95B181837169F000C8417 /* AFURLRequestSerialization.m in Sources */,
 				C1B959F61837053D000C8417 /* Buddy.m in Sources */,
 				C1B95AF318371425000C8417 /* BPGameBoards.m in Sources */,
@@ -894,6 +912,11 @@
 			isa = PBXTargetDependency;
 			target = A6291F7B165C01800051F83C /* BuddySDK */;
 			targetProxy = C19ECC3717DEA319008A9130 /* PBXContainerItemProxy */;
+		};
+		C1B8077118441D2F0086B843 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = A6291F7B165C01800051F83C /* BuddySDK */;
+			targetProxy = C1B8077018441D2F0086B843 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 

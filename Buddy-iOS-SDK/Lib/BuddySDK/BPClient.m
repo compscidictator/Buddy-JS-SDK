@@ -30,16 +30,19 @@
     return self;
 }
 
--(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options
+-(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options complete:(void (^)())complete
+
 {
-    self.service = [[BPServiceController alloc] initWithBuddyUrl:@"buddy.com"];
+    self.service = [[BPServiceController alloc] initWithBuddyUrl:@"http://craig.buddyservers.net:8080/api"];
     
     // TODO - Does the client need a copy? Do users need to read back key/id?
     _appKey = appKey;
     _appID = appID;
     
     
-    [self.service setAppID:appKey withKey:appKey];
+    [self.service setAppID:appID withKey:appKey complete:^{
+        complete();
+    }];
 }
 
 # pragma mark -
@@ -60,7 +63,7 @@
 
 -(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback
 {
-    [self.service getBuddyObject:path parameters:parameters callback:^(id json) {
+    [self.service createBuddyObject:path parameters:parameters callback:^(id json) {
         callback(json);
     }];
     
@@ -92,11 +95,9 @@
 
 -(void)ping:(BPPingCallback)callback
 {
-//    [self.service GET:@"/ping" parameters:nil success:^(AFHTTPRequestOperation *operation, id responseObject) {
-//        callback([NSDecimalNumber decimalNumberWithString:@"2.0"]);
-//    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-//        callback([NSDecimalNumber decimalNumberWithString:@"2.0"]);
-//    }];
+    [self.service GET:@"/ping" parameters:nil success:^(id json) {
+        callback([NSDecimalNumber decimalNumberWithString:@"2.0"]);
+    }];
 }
 
 

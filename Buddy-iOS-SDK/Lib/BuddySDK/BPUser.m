@@ -33,9 +33,21 @@
     }
     return self;
 }
--(NSString *)requestPath
+
++(void)createUserWithName:(NSString *)name password:(NSString *)password callback:(BuddyObjectCallback)callback
 {
-    return @"/users";
+    NSDictionary *parameters = @{@"username": name,
+                                 @"password": password,
+                                 @"email": @"erik.kerber@gmail.com"};
+    
+    [self createFromServerWithParameters:parameters callback:^(id newBuddyObject) {
+        callback(newBuddyObject);
+    }];
+}
+
++(NSString *)requestPath
+{
+    return @"users";
 }
 
 -(NSInteger)age

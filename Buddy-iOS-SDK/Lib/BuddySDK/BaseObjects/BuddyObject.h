@@ -14,6 +14,8 @@ typedef enum{
     Defult = Owner
 }BuddyPermissions;
 
+typedef void (^BuddyObjectCallback)(id newBuddyObject);
+
 @interface BuddyObject : NSObject
 
 @property (nonatomic, readonly, assign) BOOL isDirty;
@@ -30,7 +32,7 @@ typedef enum{
 +(NSString *)requestPath;
 
 +(instancetype)create;
-//+(void)createFromServer:(BuddyObjectCallback)callback;
++(void)createFromServerWithParameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback;
 //+(void)queryFromServerWithId:(NSInteger)identifier callback:(BuddyObjectCallback)callback;
 -(void)deleteMe;
 -(void)refresh;
