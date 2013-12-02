@@ -17,7 +17,7 @@
 #import "OpenUDID.h"
 #import "BuddyDevice.h"
 #import <UIKit/UIKit.h>
-
+#include <sys/sysctl.h>
 
 /// <summary>
 /// Represents an object that can be used to record device analytics, like device types and app crashes.
@@ -27,8 +27,8 @@
 
 
 
--(NSString*)identifier {
- 
++(NSString *)identifier {
+
     NSArray *versionCompatibility = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
     
     if ([[versionCompatibility objectAtIndex:0] intValue] >= 6)
@@ -39,6 +39,38 @@
     {
         return [BuddyOpenUDID value];
     }
+}
+
++ (NSString *)osVersion
+{
+	return [[UIDevice currentDevice] systemVersion];
+}
+
++ (NSString *)appVersion
+{
+	return [[NSBundle mainBundle] objectForInfoDictionaryKey:(NSString *)kCFBundleVersionKey];
+}
+
++ (NSString *)deviceModel
+{
+    static NSString *deviceModel;
+    
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        size_t size;
+        
+        sysctlbyname("hw.machine", NULL, &size, NULL, 0);
+        
+        char *model = malloc(size);
+        
+        sysctlbyname("hw.machine", model, &size, NULL, 0);
+        
+        deviceModel = [NSString stringWithCString:model encoding:NSUTF8StringEncoding];
+        
+        free(model);
+    });
+    
+	return deviceModel;
 }
 /*
 - (void)recordInformation:(NSString *)osVersion

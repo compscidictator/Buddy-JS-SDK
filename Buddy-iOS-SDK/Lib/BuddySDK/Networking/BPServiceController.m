@@ -8,6 +8,7 @@
 
 #import "BPServiceController.h"
 #import "AFNetworking.h"
+#import "BuddyDevice.h"
 
 @interface BPServiceController()
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
@@ -51,10 +52,10 @@
     NSDictionary *getTokenParams = @{
                                      @"appId": appID,
                                      @"appKey": appKey,
-                                     @"Platform": @"TODO",
-                                     @"UniqueId": @"TODO - unique id",
-                                     @"Model": @"TODO - device name",
-                                     @"OSVersion": @"TODO - os version"
+                                     @"Platform": @"iOS",
+                                     @"UniqueId": [BuddyDevice identifier],
+                                     @"Model": [BuddyDevice deviceModel],
+                                     @"OSVersion": [BuddyDevice osVersion]
                                      };
     
     [self.manager POST:@"/api/devices" parameters:getTokenParams success:^(AFHTTPRequestOperation *operation, id responseObject) {

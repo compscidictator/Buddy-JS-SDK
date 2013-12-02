@@ -24,6 +24,12 @@ typedef void (^BuddyDeviceCallback)(id response);
 
 @interface BuddyDevice : BuddyObject
 
++(NSString *)identifier;
+
++(NSString *)osVersion;
+
++(NSString *)deviceModel;
+
 /// <summary>
 /// Record runtime device type information. This info will be uploaded to the Buddy service and can later be used for analytics purposes.
 /// </summary>
