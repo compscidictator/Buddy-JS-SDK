@@ -9,6 +9,8 @@
 #import "BPClient.h"
 #import "AFNetworking.h"
 #import "BPServiceController.h"
+#import "AFNetworking.h"
+#import <CoreFoundation/CoreFoundation.h>
 
 @interface BPClient()
 @property (nonatomic, strong) BPServiceController *service;
@@ -69,24 +71,39 @@
     
 }
 
--(void)refreshObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
+-(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-    [self.service getBuddyObject:path parameters:parameters callback:^(id json) {
+    NSString *numberOnly = [[object.identifier componentsSeparatedByString:@"/"] lastObject];
+    
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",
+                          [[object class] requestPath],
+                          numberOnly];
+    
+    [self.service getBuddyObject:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
 }
 
--(void)updateObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
+-(void)updateObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-
-    [self.service updateBuddyObject:path parameters:parameters callback:^(id json) {
+    NSString *resource = @"TODO - no update API's available yet";
+    
+    
+    [self.service updateBuddyObject:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
 }
 
--(void)deleteObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
+-(void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-    [self.service deleteBuddyObject:path parameters:parameters callback:^(id json) {
+    NSString *numberOnly = [[object.identifier componentsSeparatedByString:@"/"] lastObject];
+    
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",
+                          [[object class] requestPath],
+                          numberOnly];
+    
+    
+    [self.service deleteBuddyObject:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
 }

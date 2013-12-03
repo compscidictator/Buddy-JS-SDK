@@ -15,15 +15,17 @@ typedef enum{
 }BuddyPermissions;
 
 typedef void (^BuddyObjectCallback)(id newBuddyObject);
+typedef void (^BuddyCompletionCallback)();
+
 
 @interface BuddyObject : NSObject
 
 @property (nonatomic, readonly, assign) BOOL isDirty;
 @property (nonatomic, strong) NSDate *created;
 @property (nonatomic, strong) NSDate *lastModified;
-@property (nonatomic, strong) NSString *defaultMetadata;
+@property (nonatomic, copy) NSString *defaultMetadata;
 @property (nonatomic, strong) NSNumber *userId;
-@property (nonatomic, assign) NSInteger identifier;
+@property (nonatomic, copy) NSString *identifier;
 
 -(instancetype) init __attribute__((unavailable("init not available")));
 +(instancetype) new __attribute__((unavailable("new not available")));
@@ -36,6 +38,7 @@ typedef void (^BuddyObjectCallback)(id newBuddyObject);
 //+(void)queryFromServerWithId:(NSInteger)identifier callback:(BuddyObjectCallback)callback;
 -(void)deleteMe;
 -(void)refresh;
+-(void)refresh:(BuddyCompletionCallback)complete;
 -(void)update;
 
 // "Abstracts" meant to be overidden.

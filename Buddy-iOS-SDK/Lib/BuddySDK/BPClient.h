@@ -88,11 +88,11 @@ typedef void (^BPBuddyObjectCallback)(id json);
 
 -(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
 
--(void)refreshObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
+-(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
 
--(void)updateObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
+-(void)updateObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
 
--(void)deleteObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
+-(void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
 
 -(void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback;
 

@@ -19,7 +19,7 @@
     return self;
 }
 
-static NSString *checkins = @"/photos";
+static NSString *checkins = @"photos";
 +(NSString *) requestPath{
     return checkins;
 }

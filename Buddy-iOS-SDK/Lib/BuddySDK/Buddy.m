@@ -112,17 +112,26 @@
 
 #pragma mark User
 
-+ (void)completed:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options completed:(BuddyObjectCallback)callback
 {
-    [BPUser createUserWithName:username password:password completed:^(id newBuddyObject) {
+    NSDictionary *parameters = @{@"username": username,
+                                 @"password": password,
+                                 @"email": @"erik.kerber@gmail.com"};
+    
+    // On BPUser for now for consistency. Probably will move.
+    [BPUser createFromServerWithParameters:parameters complete:^(id newBuddyObject) {
         callback(newBuddyObject);
     }];
 }
 
 + (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback
 {
-    [BPUser login:username password:password completed:^(id newBuddyObject) {
-        callback(newBuddyObject);
+    [[BPClient defaultClient] login:username password:password success:^(id json) {
+        BPUser *user = [[BPUser alloc] initBuddy];
+        user.identifier = json[@"result"][@"id"];
+        [user refresh:^{
+            callback(user);
+        }];
     }];
 }
 

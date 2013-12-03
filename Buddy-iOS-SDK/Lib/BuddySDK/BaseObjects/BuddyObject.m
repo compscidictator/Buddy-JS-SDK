@@ -107,21 +107,28 @@
 
 -(void)deleteMe
 {
-    [[BPClient defaultClient] deleteObjectWithPath:[[self class] requestPath] parameters:nil complete:^(id json) {
+    [[BPClient defaultClient] deleteObject:self complete:^(id json) {
         // TODO - anything?
     }];
 }
 
 -(void)refresh
 {
-    [[BPClient defaultClient] refreshObjectWithPath:[[self class] requestPath] parameters:nil complete:^(id json) {
+    [self refresh:nil];
+}
+
+-(void)refresh:(BuddyCompletionCallback)complete
+{
+    [[BPClient defaultClient] refreshObject:self complete:^(id json) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
+        if(complete)
+            complete();
     }];
 }
 
 -(void)update
 {
-    [[BPClient defaultClient] updateObjectWithPath:[[self class] requestPath] parameters:nil complete:^(id json) {
+    [[BPClient defaultClient] updateObject:self complete:^(id json) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
     }];
 }
