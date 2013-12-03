@@ -7,6 +7,8 @@
 //
 
 #import "BPUser.h"
+#import "BuddyObject+Private.h"
+#import "BPClient.h"
 
 @implementation BPUser
 
@@ -34,14 +36,23 @@
     return self;
 }
 
-+(void)createUserWithName:(NSString *)name password:(NSString *)password callback:(BuddyObjectCallback)callback
++(void)createUserWithName:(NSString *)name password:(NSString *)password completed:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"username": name,
                                  @"password": password,
                                  @"email": @"erik.kerber@gmail.com"};
     
-    [self createFromServerWithParameters:parameters callback:^(id newBuddyObject) {
+    [self createFromServerWithParameters:parameters complete:^(id newBuddyObject) {
         callback(newBuddyObject);
+    }];
+}
+
++(void)login:(NSString *)name password:(NSString *)password completed:(BuddyObjectCallback)callback
+{
+    [[BPClient defaultClient] login:name password:password success:^(id json) {
+        BPUser *user = [[BPUser alloc] initBuddy];
+        // TODO - but I don't want to share the JAGConverter :(
+        callback(user);
     }];
 }
 

@@ -68,12 +68,10 @@
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     __block bool passed = NO;
     
-    [Buddy createUser:@"erik4" password:@"password" options:nil callback:^(BPUser *newBuddyObject) {
+    [Buddy createUser:@"erik4" password:@"password" options:nil completed:^(BPUser *newBuddyObject) {
         XCTAssertTrue([newBuddyObject.name isEqualToString:@"Erik"], @"Yay!");
+        dispatch_semaphore_signal(semaphore);
     }];
-    
-    
-    
     
     // Run loop
     while (dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))
@@ -81,8 +79,27 @@
                                  beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
     
     if(!passed)
-        XCTFail(@"No ping callback received");
+        XCTFail(@"No callback received");
 }
 
+-(void)testUserLogin
+{
+    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
+    __block bool passed = NO;
+    
+    [Buddy login:@"erik4" password:@"password" completed:^(BPUser *loggedInsUser) {
+        XCTAssertTrue([loggedInsUser.name isEqualToString:@"erik4"], @"Buddy object did not contain correct name");
+        dispatch_semaphore_signal(semaphore);
+        passed = YES;
+    }];
+    
+    // Run loop
+    while (dispatch_semaphore_wait(semaphore, DISPATCH_TIME_NOW))
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode
+                                 beforeDate:[NSDate dateWithTimeIntervalSinceNow:10]];
+    
+    if(!passed)
+        XCTFail(@"No callback received");
+}
 
 @end

@@ -86,13 +86,15 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 typedef void (^BPBuddyObjectCallback)(id json);
 
--(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
+-(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
 
--(void)refreshObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
+-(void)refreshObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
 
--(void)updateObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
+-(void)updateObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
 
--(void)deleteObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback;
+-(void)deleteObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
+
+-(void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback;
 
 /// <summary>
 /// Ping the service.

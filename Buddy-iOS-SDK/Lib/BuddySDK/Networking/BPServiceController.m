@@ -118,10 +118,20 @@
 -(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
 {
     [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        callback(nil);
+        callback(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];
 }
+
+-(void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
+{
+    [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        callback(responseObject);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callback(nil);
+    }];
+}
+
 
 @end

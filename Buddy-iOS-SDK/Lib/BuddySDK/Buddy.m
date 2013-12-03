@@ -15,6 +15,7 @@
  */
 
 #import "Buddy.h"
+#import "BuddyObject+Private.h"
 
 /// <summary>
 /// TODO
@@ -111,9 +112,16 @@
 
 #pragma mark User
 
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback
++ (void)completed:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback
 {
-    [BPUser createUserWithName:username password:password callback:^(id newBuddyObject) {
+    [BPUser createUserWithName:username password:password completed:^(id newBuddyObject) {
+        callback(newBuddyObject);
+    }];
+}
+
++ (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback
+{
+    [BPUser login:username password:password completed:^(id newBuddyObject) {
         callback(newBuddyObject);
     }];
 }

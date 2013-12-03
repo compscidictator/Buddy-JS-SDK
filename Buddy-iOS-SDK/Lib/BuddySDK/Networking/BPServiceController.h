@@ -32,4 +32,6 @@ typedef void (^AFNetworkingCallback)(id json);
 
 -(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback;
 
+-(void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback;
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "BuddyObject.h"
+#import "BuddyObject+Private.h"
 #import "JAGPropertyConverter.h"
 #import "BPClient.h"
 
@@ -39,7 +40,7 @@
     return c;
 }
 
--(id)initPrivate
+-(instancetype)initBuddy
 {
     self = [super init];
     if(self)
@@ -50,8 +51,6 @@
         [self registerProperty:@selector(defaultMetadata)];
         [self registerProperty:@selector(userId)];
         [self registerProperty:@selector(identifier)];
-        
-
     }
     return self;
 }
@@ -89,17 +88,17 @@
 
 +(instancetype)create
 {
-    [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
+    [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:nil complete:^(id json) {
         
     }];
     return nil;
 }
 
-+(void)createFromServerWithParameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback
++(void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback
 {
-    [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:parameters withCallback:^(id json) {
+    [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:parameters complete:^(id json) {
         
-        id newObject = [[[self class] alloc] initPrivate];
+        id newObject = [[[self class] alloc] initBuddy];
 
         [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
         callback(newObject);
@@ -108,21 +107,21 @@
 
 -(void)deleteMe
 {
-    [[BPClient defaultClient] deleteObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
+    [[BPClient defaultClient] deleteObjectWithPath:[[self class] requestPath] parameters:nil complete:^(id json) {
         // TODO - anything?
     }];
 }
 
 -(void)refresh
 {
-    [[BPClient defaultClient] refreshObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
+    [[BPClient defaultClient] refreshObjectWithPath:[[self class] requestPath] parameters:nil complete:^(id json) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
     }];
 }
 
 -(void)update
 {
-    [[BPClient defaultClient] updateObjectWithPath:[[self class] requestPath] parameters:nil withCallback:^(id json) {
+    [[BPClient defaultClient] updateObjectWithPath:[[self class] requestPath] parameters:nil complete:^(id json) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
     }];
 }

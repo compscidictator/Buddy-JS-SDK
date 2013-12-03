@@ -8,6 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
+struct BPCoordinate {
+    float lattitude;
+    float longitude;
+};
+
 @interface BuddyLocation : NSObject
 
 ///<summary>

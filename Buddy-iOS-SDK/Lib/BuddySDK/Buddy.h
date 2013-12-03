@@ -59,5 +59,10 @@
           withOptions:(NSDictionary *)options
              complete:(void (^)())complete;
 
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback;
+
+// TODO - document options
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options completed:(BuddyObjectCallback)callback;
+
++ (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback;
+
 @end

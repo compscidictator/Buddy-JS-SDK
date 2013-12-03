@@ -10,4 +10,6 @@
 
 @interface BuddyCollection : NSObject
 
+@property (nonatomic) Class type;
+
 @end

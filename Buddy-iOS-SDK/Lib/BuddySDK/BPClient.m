@@ -61,7 +61,7 @@
 
 
 
--(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback
+-(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
 {
     [self.service createBuddyObject:path parameters:parameters callback:^(id json) {
         callback(json);
@@ -69,14 +69,14 @@
     
 }
 
--(void)refreshObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback
+-(void)refreshObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
 {
     [self.service getBuddyObject:path parameters:parameters callback:^(id json) {
         callback(json);
     }];
 }
 
--(void)updateObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback
+-(void)updateObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
 {
 
     [self.service updateBuddyObject:path parameters:parameters callback:^(id json) {
@@ -84,9 +84,18 @@
     }];
 }
 
--(void)deleteObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters withCallback:(BPBuddyObjectCallback) callback
+-(void)deleteObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
 {
     [self.service deleteBuddyObject:path parameters:parameters callback:^(id json) {
+        callback(json);
+    }];
+}
+
+-(void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback
+{
+    NSDictionary *parameters = @{@"username": username,
+                                 @"password": password};
+    [self.service POST:@"users/login" parameters:parameters success:^(id json) {
         callback(json);
     }];
 }
@@ -95,7 +104,7 @@
 
 -(void)ping:(BPPingCallback)callback
 {
-    [self.service GET:@"/ping" parameters:nil success:^(id json) {
+    [self.service GET:@"ping" parameters:nil success:^(id json) {
         callback([NSDecimalNumber decimalNumberWithString:@"2.0"]);
     }];
 }

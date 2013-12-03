@@ -32,7 +32,7 @@ typedef void (^BuddyObjectCallback)(id newBuddyObject);
 +(NSString *)requestPath;
 
 +(instancetype)create;
-+(void)createFromServerWithParameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback;
++(void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback;
 //+(void)queryFromServerWithId:(NSInteger)identifier callback:(BuddyObjectCallback)callback;
 -(void)deleteMe;
 -(void)refresh;
