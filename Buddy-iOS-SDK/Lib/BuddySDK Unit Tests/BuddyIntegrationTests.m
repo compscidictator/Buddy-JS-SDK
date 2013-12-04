@@ -10,7 +10,6 @@
 #import "Buddy.h"
 
 @interface BuddyIntegrationTests()
-@property (nonatomic, strong) NSObject *once;
 @end
 
 @implementation BuddyIntegrationTests
