@@ -20,7 +20,7 @@
     
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
 
-    [Buddy initClient:@"78766986829496375" appKey:@"783C82AE-5E11-4EEF-8A14-388EA1848060" complete:^{
+    [Buddy initClient:@"92538700814090257" appKey:@"55E419A6-C732-4C5A-9778-0B62F66323FE" complete:^{
         dispatch_semaphore_signal(semaphore);
     }];
     
