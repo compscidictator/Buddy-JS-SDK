@@ -9,9 +9,9 @@
 #import <Foundation/Foundation.h>
 
 typedef enum{
-    Owner,
-    App,
-    Defult = Owner
+    BuddyPermissionsOwner,
+    BuddyPermissionsApp,
+    BuddyPermissionsDefult = BuddyPermissionsOwner
 }BuddyPermissions;
 
 typedef void (^BuddyObjectCallback)(id newBuddyObject);
