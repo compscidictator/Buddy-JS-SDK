@@ -73,7 +73,7 @@
             complete();
         }
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-       // TODO - Bad login -    let the caller know.
+        complete();// TODO NSError?
     }];
 }
 
