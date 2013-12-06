@@ -10,6 +10,7 @@
 #import "AFNetworking.h"
 #import "BPServiceController.h"
 #import "AFNetworking.h"
+#import "BPCheckinCollection.h"
 #import <CoreFoundation/CoreFoundation.h>
 
 @interface BPClient()
@@ -27,6 +28,7 @@
     self = [super self];
     if(self)
     {
+        _checkins = [BPCheckinCollection new];
         // Mostly empty init. Use setupWithApp to help facilitate singleton BPClient.
     }
     return self;

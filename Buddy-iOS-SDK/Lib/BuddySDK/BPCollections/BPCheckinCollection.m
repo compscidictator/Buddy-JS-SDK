@@ -19,12 +19,32 @@
     return self;
 }
 
--(void)addWithComment:(NSString *)comment
+-(void)checkinWithComment:(NSString *)comment
+              description:(NSString *)description
+                 complete:(BuddyObjectCallback)complete
+{
+    NSDictionary *parameters = @{@"comment": comment,
+                                 @"description": description,
+                                 @"location": @"1.2, 3.4"};
+    
+    [BPCheckin createFromServerWithParameters:parameters complete:^(BPCheckin *newBuddyObject) {
+        [newBuddyObject refresh:^{
+            complete(newBuddyObject);
+        }];
+    }];
+}
+
+-(void)checkinWithComment:(NSString *)comment
           description:(NSString *)description
-             location:(struct BPCoordinate)coordinate
       defaultMetadata:(NSString *)defaultMetadata
       readPermissions:(BuddyPermissions)readPermissions
      writePermissions:(BuddyPermissions)writePermissions
+             complete:(BuddyObjectCallback)complete
+{
+    [NSException raise:@"NotImplementedException" format:@"Not Implemented."];
+}
+
+-(void)addCheckin:(BPCheckin *)checkin
 {
     
 }

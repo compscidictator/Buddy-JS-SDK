@@ -47,7 +47,7 @@
 }
 
 + (BPCheckinCollection *) checkins{
-    return nil;
+    return [[BPClient defaultClient] checkins];
 }
 
 + (BPPhotoCollection *) photos{

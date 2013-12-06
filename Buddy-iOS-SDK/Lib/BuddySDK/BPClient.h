@@ -12,6 +12,7 @@
 @class BPAppMetadata;
 @class BPSounds;
 @class BPAuthenticatedUser;
+@class BPCheckinCollection;
 
 typedef enum {
     BPAuthenticationLevelNone,
@@ -62,6 +63,11 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// Gets an object that can be used to retrieve sounds.
 /// </summary>
 @property (readonly, nonatomic, strong) BPSounds *sounds;
+
+/// <summary>
+/// Gets an object that can be used to retrieve sounds.
+/// </summary>
+@property (readonly, nonatomic, strong) BPCheckinCollection *checkins;
 
 /// <summary>
 /// TODO

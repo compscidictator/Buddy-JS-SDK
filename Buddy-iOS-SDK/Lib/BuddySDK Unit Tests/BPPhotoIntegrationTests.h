@@ -7,7 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "BuddyTestCase.h"
 
-@interface BPPhotoIntegrationTests : XCTestCase
+@interface BPPhotoIntegrationTests : BuddyTestCase
 
 @end

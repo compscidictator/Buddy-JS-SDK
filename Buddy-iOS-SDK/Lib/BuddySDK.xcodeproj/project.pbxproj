@@ -24,6 +24,7 @@
 /* Begin PBXBuildFile section */
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
+		C11AF821185196C9002022F6 /* NSString+BuddyParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C14E966C185150D700BE8C7C /* NSString+BuddyParser.m */; };
 		C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */; };
 		C11E6C92184C57040034E1EB /* BPCheckinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */; };
 		C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */; };
@@ -31,6 +32,7 @@
 		C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C98184D58670034E1EB /* BuddyObject+Private.h */; };
 		C14E966D185150D700BE8C7C /* NSString+BuddyParser.h in Headers */ = {isa = PBXBuildFile; fileRef = C14E966B185150D700BE8C7C /* NSString+BuddyParser.h */; };
 		C14E966E185150D700BE8C7C /* NSString+BuddyParser.m in Sources */ = {isa = PBXBuildFile; fileRef = C14E966C185150D700BE8C7C /* NSString+BuddyParser.m */; };
+		C14E9671185188AD00BE8C7C /* TestHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C14E9670185188AD00BE8C7C /* TestHelper.m */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
 		C161A89B17FD2A33001F5361 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89917FD2A2C001F5361 /* CoreGraphics.framework */; };
 		C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
@@ -167,6 +169,7 @@
 		C1E0D24A1831DE56001A7A01 /* JAGPropertyFinder.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1D01831BAD3001A7A01 /* JAGPropertyFinder.m */; };
 		C1E0D2861835C910001A7A01 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D2721835C8E1001A7A01 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		C1E0D2871835C911001A7A01 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D2721835C8E1001A7A01 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C1FABBF51851A09B00E034FB /* BuddyTestCase.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FABBF41851A09B00E034FB /* BuddyTestCase.m */; };
 		C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FBCED417E6718E00275F6A /* BuddyLocation.h */; };
 		C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
@@ -214,6 +217,8 @@
 		C11E6C98184D58670034E1EB /* BuddyObject+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BuddyObject+Private.h"; sourceTree = "<group>"; };
 		C14E966B185150D700BE8C7C /* NSString+BuddyParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+BuddyParser.h"; sourceTree = "<group>"; };
 		C14E966C185150D700BE8C7C /* NSString+BuddyParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+BuddyParser.m"; sourceTree = "<group>"; };
+		C14E966F185188AD00BE8C7C /* TestHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TestHelper.h; path = "../../Lib/BuddySDK Unit Tests/TestHelper.h"; sourceTree = "<group>"; };
+		C14E9670185188AD00BE8C7C /* TestHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TestHelper.m; path = "../../Lib/BuddySDK Unit Tests/TestHelper.m"; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
 		C161A89617FD2A00001F5361 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C161A89917FD2A2C001F5361 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -342,6 +347,8 @@
 		C1E0D2711835C8E1001A7A01 /* OpenUDID.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OpenUDID.h; sourceTree = "<group>"; };
 		C1E0D2721835C8E1001A7A01 /* OpenUDID.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OpenUDID.m; sourceTree = "<group>"; };
 		C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SenTestingKit.framework; path = Library/Frameworks/SenTestingKit.framework; sourceTree = DEVELOPER_DIR; };
+		C1FABBF31851A09B00E034FB /* BuddyTestCase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyTestCase.h; path = "../../Lib/BuddySDK Unit Tests/BuddyTestCase.h"; sourceTree = "<group>"; };
+		C1FABBF41851A09B00E034FB /* BuddyTestCase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyTestCase.m; path = "../../Lib/BuddySDK Unit Tests/BuddyTestCase.m"; sourceTree = "<group>"; };
 		C1FBCED417E6718E00275F6A /* BuddyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyLocation.h; sourceTree = "<group>"; };
 		C1FBCED517E6718E00275F6A /* BuddyLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyLocation.m; sourceTree = "<group>"; };
 		C1FBCED817E671A900275F6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -643,6 +650,10 @@
 				C1ADD126184D96B800246313 /* CheckinIntegrationTests.m */,
 				C1ADD128184E2BF300246313 /* BPPhotoIntegrationTests.h */,
 				C1ADD129184E2BF300246313 /* BPPhotoIntegrationTests.m */,
+				C14E966F185188AD00BE8C7C /* TestHelper.h */,
+				C14E9670185188AD00BE8C7C /* TestHelper.m */,
+				C1FABBF31851A09B00E034FB /* BuddyTestCase.h */,
+				C1FABBF41851A09B00E034FB /* BuddyTestCase.m */,
 			);
 			path = "BuddySDK Unit Tests";
 			sourceTree = "<group>";
@@ -928,7 +939,9 @@
 				C1E0D2861835C910001A7A01 /* OpenUDID.m in Sources */,
 				C1B959E21837053D000C8417 /* BPAuthenticatedUser.m in Sources */,
 				C1AA90E518373D8E0074B7E8 /* NSDictionary+Merge.m in Sources */,
+				C1FABBF51851A09B00E034FB /* BuddyTestCase.m in Sources */,
 				C1B95B2418371843000C8417 /* BuddyDevice.m in Sources */,
+				C14E9671185188AD00BE8C7C /* TestHelper.m in Sources */,
 				C1ADD127184D96B800246313 /* CheckinIntegrationTests.m in Sources */,
 				C1ADD12A184E2BF300246313 /* BPPhotoIntegrationTests.m in Sources */,
 				C1B959F21837053D000C8417 /* BPUser.m in Sources */,
@@ -947,6 +960,7 @@
 				C1E0D2491831DE56001A7A01 /* JAGPropertyConverter.m in Sources */,
 				C1B95B2518371847000C8417 /* BPClient.m in Sources */,
 				C1E0D2371831DC7E001A7A01 /* BuddyLocation.m in Sources */,
+				C11AF821185196C9002022F6 /* NSString+BuddyParser.m in Sources */,
 				C1E0D1ED1831C2E8001A7A01 /* BuddySDK_Unit_Tests.m in Sources */,
 				C1B959FC1837061F000C8417 /* BuddyObject.m in Sources */,
 			);

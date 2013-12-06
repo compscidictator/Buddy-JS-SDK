@@ -11,6 +11,6 @@
 @implementation NSString (BuddyParser)
 -(NSString *)stripBuddyId
 {
-    return [self componentsSeparatedByString:@"/"] lastObject];
+    return [[self componentsSeparatedByString:@"/"] lastObject];
 }
 @end

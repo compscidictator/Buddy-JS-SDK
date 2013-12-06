@@ -98,8 +98,9 @@
 {
     [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:parameters complete:^(id json) {
         
-        id newObject = [[[self class] alloc] initBuddy];
-
+        BuddyObject *newObject = [[[self class] alloc] initBuddy];
+        newObject.identifier = json[@"result"][@"id"];
+        
         [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
         callback(newObject);
     }];
@@ -120,7 +121,7 @@
 -(void)refresh:(BuddyCompletionCallback)complete
 {
     [[BPClient defaultClient] refreshObject:self complete:^(id json) {
-        [[[self class] converter] setPropertiesOf:self fromDictionary:json];
+        [[[self class] converter] setPropertiesOf:self fromDictionary:json[@"result"]];
         if(complete)
             complete();
     }];

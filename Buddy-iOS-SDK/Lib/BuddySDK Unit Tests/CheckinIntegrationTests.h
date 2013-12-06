@@ -7,7 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
+#import "BuddyTestCase.h"
 
-@interface CheckinIntegrationTests : XCTestCase
+@interface CheckinIntegrationTests : BuddyTestCase
 
 @end

@@ -30,19 +30,24 @@
 
 -(void)setupManagerWithBaseUrl:(NSString *)baseUrl withToken:(NSString *)token
 {
+    assert([baseUrl length] > 0);
     self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
     
     AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
     AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
 
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    [requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [requestSerializer setValue:@"craig.buddyservers.net:8080" forHTTPHeaderField:@"Host"];
+
+
     if(token){
         // Tell our serializer our new Authorization string.
-        NSString *authString = [@"Buddy " stringByAppendingString:self.token];
+        NSString *authString = [@"Buddy " stringByAppendingString:token];
         [requestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
     }
 
-    
+    self.token = token;
     self.manager.responseSerializer = responseSerializer;
     self.manager.requestSerializer = requestSerializer;
 }
@@ -62,13 +67,7 @@
         
         if(operation.response.statusCode == 200){
             
-            // Grab the potentially different base url.
-            NSString *baseUrl = responseObject[@"result"][@"serviceRoot"];
-            
-            // Grab the access token
-            self.token = responseObject[@"result"][@"accessToken"];
-            
-            [self setupManagerWithBaseUrl:baseUrl withToken:self.token];
+            [self updateConnectionWithResponse:responseObject];
             
             complete();
         }
@@ -77,9 +76,23 @@
     }];
 }
 
+-(void)updateConnectionWithResponse:(id)response
+{
+    if(!response[@"result"])return;
+    // Grab the access token
+    NSString *newToken = response[@"result"][@"accessToken"];
+    // Grab the potentially different base url.
+    NSString *newBaseUrl = response[@"result"][@"serviceRoot"];
+    
+    if (newToken && ![newToken isEqualToString:self.token]) {
+        [self setupManagerWithBaseUrl:(newBaseUrl ?: self.manager.baseURL.absoluteString) withToken:newToken];
+    }
+}
+
 -(void)createBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //[self updateConnectionWithResponse:responseObject];
         callback(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
@@ -89,6 +102,7 @@
 -(void)getBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self updateConnectionWithResponse:responseObject];
         callback(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
@@ -98,6 +112,7 @@
 -(void)deleteBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager DELETE:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self updateConnectionWithResponse:responseObject];
         callback(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
@@ -107,6 +122,7 @@
 -(void)updateBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self updateConnectionWithResponse:responseObject];
         callback(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
@@ -118,6 +134,7 @@
 -(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
 {
     [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self updateConnectionWithResponse:responseObject];
         callback(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
@@ -127,6 +144,7 @@
 -(void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        [self updateConnectionWithResponse:responseObject];
         callback(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);

@@ -7,11 +7,12 @@
 //
 
 #import "BPCheckin.h"
+#import "BuddyObject+Private.h"
 
 @implementation BPCheckin
 
--(id)init{
-    self = [super init];
+-(instancetype)initBuddy{
+    self = [super initBuddy];
     if(self)
     {
         [self registerProperty:@selector(comment)];
@@ -20,7 +21,12 @@
     return self;
 }
 
-static NSString *checkins = @"/checkins";
++(instancetype)checkin
+{
+    return [[[self class] alloc] initBuddy];
+}
+
+static NSString *checkins = @"checkins";
 +(NSString *) requestPath{
     return checkins;
 }
