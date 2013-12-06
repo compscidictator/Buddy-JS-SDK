@@ -19,9 +19,9 @@
     return self;
 }
 
-static NSString *checkins = @"photos";
+static NSString *photos = @"photos";
 +(NSString *) requestPath{
-    return checkins;
+    return photos;
 }
 
 @end
