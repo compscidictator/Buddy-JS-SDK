@@ -9,4 +9,5 @@
    #import "Util.h"
    #import "BuddyObject.h"
    #import "NSDictionary+Merge.h"
+   #import "NSString+BuddyParser.h"
 #endif

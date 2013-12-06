@@ -73,7 +73,7 @@
 
 -(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-    NSString *numberOnly = [[object.identifier componentsSeparatedByString:@"/"] lastObject];
+    NSString *numberOnly = [object.identifier stripBuddyId];
     
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[object class] requestPath],
@@ -96,7 +96,7 @@
 
 -(void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-    NSString *numberOnly = [[object.identifier componentsSeparatedByString:@"/"] lastObject];
+    NSString *numberOnly = [object.identifier stripBuddyId];
     
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[object class] requestPath],
