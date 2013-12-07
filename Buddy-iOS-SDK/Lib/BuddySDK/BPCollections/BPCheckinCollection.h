@@ -25,6 +25,8 @@
               description:(NSString *)description
                  complete:(BuddyObjectCallback)complete;
 
+-(void)getCheckins:(BuddyCollectionCallback)complete;
+
 // I think I like this? Create/populate object->dispatch away
 -(void)addCheckin:(BPCheckin *)checkin;
 

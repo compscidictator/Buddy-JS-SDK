@@ -7,7 +7,8 @@
 //
 
 #import "BPCheckinCollection.h"
-
+#import "BPCheckin.h"
+#import "BPClient.h"
 
 @implementation BPCheckinCollection
 
@@ -42,6 +43,13 @@
              complete:(BuddyObjectCallback)complete
 {
     [NSException raise:@"NotImplementedException" format:@"Not Implemented."];
+}
+
+-(void)getCheckins:(BuddyCollectionCallback)complete
+{
+    [[BPClient defaultClient] getAll:[[BPCheckin class] requestPath] complete:^(NSArray *buddyObjects) {
+        
+    }];
 }
 
 -(void)addCheckin:(BPCheckin *)checkin

@@ -73,6 +73,19 @@
     
 }
 
+-(void)queryObjectWithPath:(NSString *)path identifier:(NSString *)identifier complete:(BPBuddyObjectCallback) callback
+{
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",
+                          path,
+                          identifier];
+    
+    
+    [self.service createBuddyObject:resource parameters:nil callback:^(id json) {
+        callback(json);
+    }];
+    
+}
+
 -(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
     NSString *numberOnly = [object.identifier stripBuddyId];
@@ -107,6 +120,13 @@
     
     [self.service deleteBuddyObject:resource parameters:nil callback:^(id json) {
         callback(json);
+    }];
+}
+
+-(void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete
+{
+    [self.service GET:resource parameters:nil success:^(id json) {
+        complete(json);
     }];
 }
 

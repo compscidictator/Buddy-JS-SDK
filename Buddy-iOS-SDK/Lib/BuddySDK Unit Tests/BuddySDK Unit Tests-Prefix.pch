@@ -10,6 +10,7 @@
     #import <SystemConfiguration/SystemConfiguration.h>
     #import "Util.h"
     #import "BuddyObject.h"
+    #import "BuddyCollection.h"
     #import "NSDictionary+Merge.h"
     #import "NSString+BuddyParser.h"
 #endif

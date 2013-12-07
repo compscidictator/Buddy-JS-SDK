@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^BuddyCollectionCallback)(NSArray *buddyObjects);
+
 @interface BuddyCollection : NSObject
 
 @property (nonatomic) Class type;

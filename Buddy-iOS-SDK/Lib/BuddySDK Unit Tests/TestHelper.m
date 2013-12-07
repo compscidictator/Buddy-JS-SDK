@@ -7,6 +7,12 @@
 //
 
 #import "TestHelper.h"
+@interface ViewController : NSObject{
+    
+    ViewController *parent;  // error says ViewController does not exist
+}
+@end
+
 @interface TestHelper()
 @property (nonatomic, strong) dispatch_semaphore_t semaphore;
 @end

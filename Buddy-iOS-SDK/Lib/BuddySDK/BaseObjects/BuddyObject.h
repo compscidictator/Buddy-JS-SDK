@@ -35,7 +35,8 @@ typedef void (^BuddyCompletionCallback)();
 
 +(instancetype)create;
 +(void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback;
-//+(void)queryFromServerWithId:(NSInteger)identifier callback:(BuddyObjectCallback)callback;
++(void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback;
+-(void)deleteMe:(void(^)())complete;
 -(void)deleteMe;
 -(void)refresh;
 -(void)refresh:(BuddyCompletionCallback)complete;

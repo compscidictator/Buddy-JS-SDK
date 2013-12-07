@@ -106,10 +106,28 @@
     }];
 }
 
++(void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback
+{
+    [[BPClient defaultClient] queryObjectWithPath:[[self class] requestPath] identifier:identifier complete:^(id json) {
+        
+        BuddyObject *newObject = [[[self class] alloc] initBuddy];
+        newObject.identifier = json[@"result"][@"id"];
+        
+        [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
+        callback(newObject);
+    }];
+}
+
 -(void)deleteMe
 {
+    [self deleteMe:nil];
+}
+
+-(void)deleteMe:(void(^)())complete
+{
     [[BPClient defaultClient] deleteObject:self complete:^(id json) {
-        // TODO - anything?
+        if(complete)
+            complete();
     }];
 }
 

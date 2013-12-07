@@ -12,6 +12,9 @@
 
 @implementation CheckinIntegrationTests
 
+static NSString *tempCheckinId;
+static BPCheckin *tempCheckin;
+
 -(void)setUp{
     [super setUp];
     
@@ -41,6 +44,7 @@
                              description:@"Description"
                         complete:^(BPCheckin *checkin) {
                             XCTAssert([checkin.comment isEqualToString:@"Checking in!"], @"Didn't get the response back");
+                            tempCheckinId = [checkin.identifier stripBuddyId];
                                 [self.tester signalDone];
                         }];
     [self.tester wait];
@@ -62,12 +66,22 @@
 
 -(void)testGetCheckinList
 {
-//    [Buddy checkins]
+    [[Buddy checkins] getCheckins:^(NSArray *buddyObjects) {
+       //TODO
+    }];
 }
 
 -(void)testGetCheckin
 {
-    
+    [BPCheckin queryFromServerWithId:tempCheckinId callback:^(BPCheckin *newBuddyObject) {
+        XCTAssert([newBuddyObject.identifier isEqualToString:tempCheckinId], @"Did not retrive old identifier.");
+    }];
+}
+
+-(void)testDeleteCheckin
+{
+    [tempCheckin deleteMe];
+
 }
 
 -(void)testGetCheckinByRadius
