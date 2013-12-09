@@ -96,6 +96,19 @@ namespace BuddySDK
             }
         }
 
-       
+        private static AlbumCollection _albums;
+
+        public static AlbumCollection Albums
+        {
+            get
+            {
+                if (_albums == null)
+                {
+                    _albums = new AlbumCollection(Instance);
+                }
+
+                return _albums;
+            }
+        }
     }
 }

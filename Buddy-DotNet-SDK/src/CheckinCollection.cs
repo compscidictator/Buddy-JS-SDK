@@ -8,15 +8,12 @@ namespace BuddySDK
 {
     public class CheckinCollection : BuddyCollectionBase<Checkin>
     {
-
         internal CheckinCollection(BuddyClient client)
             : base(null, client)
         {
-
         }
 
-
-        public Task<Checkin> AddAsync(string comment, string description, BuddyGeoLocation location, string defaultMetadata = null, BuddyPermissions read = BuddyPermissions.Owner, BuddyPermissions write = BuddyPermissions.Owner)
+        public Task<Checkin> AddAsync(string comment, string description, BuddyGeoLocation location, string defaultMetadata = null, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
         {
             Task<Checkin> ct = new Task<Checkin>(() =>
             {

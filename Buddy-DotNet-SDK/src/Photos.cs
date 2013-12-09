@@ -17,7 +17,7 @@ namespace BuddySDK
         }
 
 
-        public Task<Photo> AddAsync(string caption, Stream photoData, string contentType, BuddyGeoLocation location, BuddyPermissions read = BuddyPermissions.Owner, BuddyPermissions write = BuddyPermissions.Owner)
+        public Task<Photo> AddAsync(string caption, Stream photoData, string contentType, BuddyGeoLocation location, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
         {
             Task<Photo> ct = new Task<Photo>(() =>
             {

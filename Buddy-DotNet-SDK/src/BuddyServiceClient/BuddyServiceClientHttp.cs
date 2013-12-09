@@ -245,9 +245,9 @@ namespace BuddyServiceClient
                                 // special case dictionary.
                                 if (typeof(IDictionary<string,object>).IsAssignableFrom(typeof(T))) {
                                     object obj = envelope.result;
-                                    IDictionary<string,object> d = (IDictionary<string,object>)obj;
-                                    obj = new Dictionary<string,object>(d, StringComparer.InvariantCultureIgnoreCase);
-                                    envelope.result =(T)obj;
+                                    IDictionary<string, object> d = (IDictionary<string, object>)obj;
+                                    obj = (obj == null) ? new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) : new Dictionary<string, object>(d, StringComparer.InvariantCultureIgnoreCase);
+                                    envelope.result = (T)obj;
                                 }
                                 bcr.Result = envelope.result;
                             }

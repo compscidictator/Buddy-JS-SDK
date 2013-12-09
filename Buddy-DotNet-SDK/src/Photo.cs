@@ -13,8 +13,6 @@ namespace BuddySDK
     [BuddyObjectPath("/photos")]
     public class Photo : BuddyBase
     {
-
-
         [Newtonsoft.Json.JsonProperty("caption")]
         public string Caption
         {
