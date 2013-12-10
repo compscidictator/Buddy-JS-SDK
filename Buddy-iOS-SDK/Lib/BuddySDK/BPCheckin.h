@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BuddyLocation.h"
+#import "BPCoordinate.h"
 
 @interface BPCheckin : BuddyObject
 
@@ -15,6 +15,6 @@
 
 @property (nonatomic, copy) NSString *comment;
 @property (nonatomic, copy) NSString *description;
-@property (nonatomic, strong) BuddyLocation *location;
+@property (nonatomic, strong) BPCoordinate *location;
 
 @end

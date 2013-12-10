@@ -57,10 +57,10 @@
         // TODO - necessary?
         __weak typeof(self) weakSelf = self;
         c.identifyDict = ^Class(NSDictionary *dict) {
-            if ([dict valueForKey:@"userID"]) {
-                return [weakSelf class];
+            if ([dict valueForKey:@"latitude"]) {
+                return [BPCoordinate class];
             }
-            return [weakSelf class];
+            return nil;
         };
         
     }
@@ -68,12 +68,13 @@
 }
 
 
+// TODO - probaly move the code up to base class, then make name specific methods that the user can call.
 -(void)getCheckins:(BuddyCollectionCallback)complete
 {
     [[BPClient defaultClient] getAll:[[BPCheckin class] requestPath] complete:^(NSArray *buddyObjects) {
         NSArray *f = [buddyObjects map:^id(id object) {
             id newO = [[self.type alloc] init];
-            [[[self class]converter] setPropertiesOf:newO fromDictionary:object];
+            [[[self class] converter] setPropertiesOf:newO fromDictionary:object];
             return newO;
         }];
         complete(f);

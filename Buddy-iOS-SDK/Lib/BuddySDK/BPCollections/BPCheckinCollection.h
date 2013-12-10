@@ -8,7 +8,7 @@
 
 #import "BuddyCollection.h"
 #import "BPCheckin.h"
-#import "BuddyLocation.h"
+#import "BPCoordinate.h"
 
 @interface BPCheckinCollection : BuddyCollection
 

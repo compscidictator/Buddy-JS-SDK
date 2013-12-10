@@ -189,6 +189,9 @@
 		C1FABC581856BA0900E034FB /* NSString+ObjectiveSugar.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FABC461856BA0800E034FB /* NSString+ObjectiveSugar.m */; };
 		C1FABC591856BA0900E034FB /* NSString+ObjectiveSugar.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FABC461856BA0800E034FB /* NSString+ObjectiveSugar.m */; };
 		C1FABC5A1856BA0900E034FB /* ObjectiveSugar.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FABC471856BA0800E034FB /* ObjectiveSugar.h */; };
+		C1FABC5D1856C03300E034FB /* BPCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FABC5B1856C03300E034FB /* BPCoordinate.h */; };
+		C1FABC5E1856C03300E034FB /* BPCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FABC5C1856C03300E034FB /* BPCoordinate.m */; };
+		C1FABC5F1856C03300E034FB /* BPCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FABC5C1856C03300E034FB /* BPCoordinate.m */; };
 		C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FBCED417E6718E00275F6A /* BuddyLocation.h */; };
 		C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
@@ -381,6 +384,8 @@
 		C1FABC451856BA0800E034FB /* NSString+ObjectiveSugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ObjectiveSugar.h"; sourceTree = "<group>"; };
 		C1FABC461856BA0800E034FB /* NSString+ObjectiveSugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ObjectiveSugar.m"; sourceTree = "<group>"; };
 		C1FABC471856BA0800E034FB /* ObjectiveSugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveSugar.h; sourceTree = "<group>"; };
+		C1FABC5B1856C03300E034FB /* BPCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPCoordinate.h; path = ../../Lib/BuddySDK/BPCoordinate.h; sourceTree = "<group>"; };
+		C1FABC5C1856C03300E034FB /* BPCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCoordinate.m; path = ../../Lib/BuddySDK/BPCoordinate.m; sourceTree = "<group>"; };
 		C1FBCED417E6718E00275F6A /* BuddyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyLocation.h; sourceTree = "<group>"; };
 		C1FBCED517E6718E00275F6A /* BuddyLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyLocation.m; sourceTree = "<group>"; };
 		C1FBCED817E671A900275F6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
@@ -471,6 +476,8 @@
 				C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */,
 				C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */,
 				C1B8076A184061070086B843 /* BPClientDelegate.h */,
+				C1FABC5B1856C03300E034FB /* BPCoordinate.h */,
+				C1FABC5C1856C03300E034FB /* BPCoordinate.m */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -766,6 +773,7 @@
 				C1FABC481856BA0900E034FB /* NSArray+ObjectiveSugar.h in Headers */,
 				C1B95AF618371443000C8417 /* BPAppMetadata.h in Headers */,
 				C1AA90D818371FF70074B7E8 /* BPServiceController.h in Headers */,
+				C1FABC5D1856C03300E034FB /* BPCoordinate.h in Headers */,
 				C1B959EF1837053D000C8417 /* BPUser.h in Headers */,
 				C1FABC511856BA0900E034FB /* NSNumber+ObjectiveSugar.h in Headers */,
 				C1B959DF1837053D000C8417 /* BPAuthenticatedUser.h in Headers */,
@@ -961,6 +969,7 @@
 				C1B959F01837053D000C8417 /* BPUser.m in Sources */,
 				C1B95A9C18370C07000C8417 /* BuddyDevice.m in Sources */,
 				C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */,
+				C1FABC5E1856C03300E034FB /* BPCoordinate.m in Sources */,
 				C1E0D1D61831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */,
 				C1FABC551856BA0900E034FB /* NSSet+ObjectiveSugar.m in Sources */,
 				C1B95B1D18371834000C8417 /* AFHTTPSessionManager.m in Sources */,
@@ -1019,6 +1028,7 @@
 				C1B8076F18441BD30086B843 /* BuddyIntegrationTests.m in Sources */,
 				C1B959E61837053D000C8417 /* BPCheckin.m in Sources */,
 				C1FABC591856BA0900E034FB /* NSString+ObjectiveSugar.m in Sources */,
+				C1FABC5F1856C03300E034FB /* BPCoordinate.m in Sources */,
 				C1B95B121837169F000C8417 /* AFHTTPRequestOperation.m in Sources */,
 				C1B95B1A1837169F000C8417 /* AFURLSessionManager.m in Sources */,
 				C1E0D24A1831DE56001A7A01 /* JAGPropertyFinder.m in Sources */,

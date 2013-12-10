@@ -22,6 +22,7 @@
 #import "BPAppMetadata.h"
 #import "BPClient.h"
 #import "BPPhotoCollection.h"
+#import "BPCoordinate.h"
 
 @interface Buddy : NSObject
 

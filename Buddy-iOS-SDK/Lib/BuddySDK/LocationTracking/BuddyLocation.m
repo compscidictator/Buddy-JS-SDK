@@ -18,6 +18,7 @@
 
 @end
 
+
 @implementation BuddyLocation
 
 -(id)init

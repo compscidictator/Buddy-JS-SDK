@@ -34,7 +34,7 @@ static BPCheckin *tempCheckin;
 
 -(void)testCreateCheckin
 {
-    struct BPCoordinate coordinate;
+    BPCoordinate *coordinate = [BPCoordinate new];
     coordinate.latitude = 2.3;
     coordinate.longitude = 4.4;
 
@@ -52,7 +52,7 @@ static BPCheckin *tempCheckin;
 
 -(void)testCreateAlternateCheckin
 {
-    struct BPCoordinate coordinate;
+    BPCoordinate *coordinate = [BPCoordinate new];
     coordinate.latitude = 2.3;
     coordinate.longitude = 4.4;
     
