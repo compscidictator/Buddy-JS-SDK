@@ -65,9 +65,11 @@
     
     [self.manager POST:@"/api/devices" parameters:getTokenParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
+        id result = responseObject[@"result"];
+        
         if(operation.response.statusCode == 200){
             
-            [self updateConnectionWithResponse:responseObject];
+            [self updateConnectionWithResponse:result];
             
             complete();
         }
@@ -76,13 +78,13 @@
     }];
 }
 
--(void)updateConnectionWithResponse:(id)response
+-(void)updateConnectionWithResponse:(id)result
 {
-    if(!response[@"result"])return;
+    if(!result || [result isKindOfClass:[NSArray class]])return;
     // Grab the access token
-    NSString *newToken = response[@"result"][@"accessToken"];
+    NSString *newToken = result[@"accessToken"];
     // Grab the potentially different base url.
-    NSString *newBaseUrl = response[@"result"][@"serviceRoot"];
+    NSString *newBaseUrl = result[@"serviceRoot"];
     
     if (newToken && ![newToken isEqualToString:self.token]) {
         [self setupManagerWithBaseUrl:(newBaseUrl ?: self.manager.baseURL.absoluteString) withToken:newToken];
@@ -134,8 +136,11 @@
 -(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
 {
     [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self updateConnectionWithResponse:responseObject];
-        callback(responseObject);
+        
+        id result = responseObject[@"result"];
+        
+        [self updateConnectionWithResponse:result];
+        callback(responseObject[@"result"]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];
@@ -144,7 +149,10 @@
 -(void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self updateConnectionWithResponse:responseObject];
+        
+        id result = responseObject[@"result"];
+
+        [self updateConnectionWithResponse:result];
         callback(responseObject);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);

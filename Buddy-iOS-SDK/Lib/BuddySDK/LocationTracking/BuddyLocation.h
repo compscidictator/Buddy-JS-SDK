@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 struct BPCoordinate {
-    float lattitude;
+    float latitude;
     float longitude;
 };
 

@@ -35,7 +35,7 @@ static BPCheckin *tempCheckin;
 -(void)testCreateCheckin
 {
     struct BPCoordinate coordinate;
-    coordinate.lattitude = 2.3;
+    coordinate.latitude = 2.3;
     coordinate.longitude = 4.4;
 
     self.tester = [TestHelper new];
@@ -53,7 +53,7 @@ static BPCheckin *tempCheckin;
 -(void)testCreateAlternateCheckin
 {
     struct BPCoordinate coordinate;
-    coordinate.lattitude = 2.3;
+    coordinate.latitude = 2.3;
     coordinate.longitude = 4.4;
     
     BPCheckin *checkin = [BPCheckin checkin];
@@ -68,7 +68,10 @@ static BPCheckin *tempCheckin;
 {
     [[Buddy checkins] getCheckins:^(NSArray *buddyObjects) {
        //TODO
+        [self.tester signalDone];
     }];
+    
+    [self.tester wait];
 }
 
 -(void)testGetCheckin

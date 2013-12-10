@@ -9,6 +9,7 @@
 #import "BPCheckinCollection.h"
 #import "BPCheckin.h"
 #import "BPClient.h"
+#import "JAGPropertyConverter.h"
 
 @implementation BPCheckinCollection
 
@@ -45,10 +46,37 @@
     [NSException raise:@"NotImplementedException" format:@"Not Implemented."];
 }
 
+// TODO - don't put this here
++(JAGPropertyConverter *)converter
+{
+    static JAGPropertyConverter *c;
+    if(!c)
+    {
+        c = [JAGPropertyConverter new];
+        
+        // TODO - necessary?
+        __weak typeof(self) weakSelf = self;
+        c.identifyDict = ^Class(NSDictionary *dict) {
+            if ([dict valueForKey:@"userID"]) {
+                return [weakSelf class];
+            }
+            return [weakSelf class];
+        };
+        
+    }
+    return c;
+}
+
+
 -(void)getCheckins:(BuddyCollectionCallback)complete
 {
     [[BPClient defaultClient] getAll:[[BPCheckin class] requestPath] complete:^(NSArray *buddyObjects) {
-        
+        NSArray *f = [buddyObjects map:^id(id object) {
+            id newO = [[self.type alloc] init];
+            [[[self class]converter] setPropertiesOf:newO fromDictionary:object];
+            return newO;
+        }];
+        complete(f);
     }];
 }
 

@@ -6,6 +6,7 @@
    #import <Foundation/Foundation.h>
    #import <MobileCoreServices/MobileCoreServices.h>
    #import <SystemConfiguration/SystemConfiguration.h>
+   #import "ObjectiveSugar.h"
    #import "Util.h"
    #import "BuddyObject.h"
    #import "BuddyCollection.h"
