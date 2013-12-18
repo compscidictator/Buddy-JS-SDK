@@ -1,4 +1,5 @@
 using Newtonsoft.Json;
+using System.Reflection;
 using System.Threading.Tasks;
 
 namespace BuddySDK
@@ -50,20 +51,32 @@ namespace BuddySDK
             {
                 if (_items == null)
                 {
-                    _items = new AlbumItemCollection(this, this.Client);
+					_items = new AlbumItemCollection(this.GetObjectPath(), this.Client);
                 }
 
                 return _items;
             }
         }
+		
+		public Task<AlbumItem> AddAsync(string itemId, string comment, BuddyGeoLocation location, string defaultMetadata = null)
+		{
+			Task<AlbumItem> ct = new Task<AlbumItem>(() =>
+				{
+					var c = new AlbumItem(this.GetObjectPath() + typeof(AlbumItem).GetCustomAttribute<BuddyObjectPathAttribute>(true).Path, this.Client)
+					{
+						ItemId = itemId,
+						Comment = comment,
+						Location = location,
+						DefaultMetadata = defaultMetadata
+					};
 
-		internal string ObjectPath
-        {
-            get
-            {
-                return this.GetObjectPath();
-            }
-        }
+					var t = c.SaveAsync();
+					t.Wait();
+					return c;
+				});
+			ct.Start();
+			return ct;
+		}
 	}
 
     public class AlbumCollection : BuddyCollectionBase<Album>

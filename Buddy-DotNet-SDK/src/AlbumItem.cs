@@ -80,29 +80,9 @@ namespace BuddySDK
 
     public class AlbumItemCollection : BuddyCollectionBase<AlbumItem>
     {
-        internal AlbumItemCollection(Album parent, BuddyClient client)
-            : base(parent.ObjectPath + typeof(AlbumItem).GetCustomAttribute<BuddyObjectPathAttribute>(true).Path, client)
+		internal AlbumItemCollection(string parentObjectPath, BuddyClient client)
+			: base(parentObjectPath + typeof(AlbumItem).GetCustomAttribute<BuddyObjectPathAttribute>(true).Path, client)
         {
-        }
-
-        public Task<AlbumItem> AddAsync(string itemId, string comment, BuddyGeoLocation location, string defaultMetadata = null)
-        {
-            Task<AlbumItem> ct = new Task<AlbumItem>(() =>
-            {
-                var c = new AlbumItem(this.Path, this.Client)
-                {
-                    ItemId = itemId,
-                    Comment = comment,
-                    Location = location,
-                    DefaultMetadata = defaultMetadata
-                };
-
-                var t = c.SaveAsync();
-                t.Wait();
-                return c;
-            });
-            ct.Start();
-            return ct;
         }
     }
 }
