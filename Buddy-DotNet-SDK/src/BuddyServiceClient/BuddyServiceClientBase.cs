@@ -176,7 +176,7 @@ namespace BuddyServiceClient
             {
                 // TODO: should we be doing this here, or should setters be changed to not pass in trailing slashes?
 
-                serviceRoot = value.TrimEnd('/');
+                serviceRoot = value == null ? null : value.TrimEnd('/');
             }
         }
 

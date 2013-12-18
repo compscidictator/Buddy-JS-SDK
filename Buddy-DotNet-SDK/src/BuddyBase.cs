@@ -138,7 +138,6 @@ namespace BuddySDK
             }
         }
 
-
         [JsonProperty("location")]
         public BuddyGeoLocation Location
         {
@@ -149,6 +148,32 @@ namespace BuddySDK
             set
             {
                 SetValue<BuddyGeoLocation>("Location", value, checkIsProp:false);
+            }
+        }
+
+        [JsonProperty("readPermissions")]
+        public BuddyPermissions ReadPermissions
+        {
+            get
+            {
+                return GetValueOrDefault<BuddyPermissions>("ReadPermissions");
+            }
+            set
+            {
+                SetValue<BuddyPermissions>("ReadPermissions", value, checkIsProp: false);
+            }
+        }
+
+        [JsonProperty("writePermissions")]
+        public BuddyPermissions WritePermissions
+        {
+            get
+            {
+                return GetValueOrDefault<BuddyPermissions>("WritePermissions");
+            }
+            set
+            {
+                SetValue<BuddyPermissions>("WritePermissions", value, checkIsProp: false);
             }
         }
 
@@ -266,8 +291,7 @@ namespace BuddySDK
         {
             if (ID == null) throw new InvalidOperationException("ID required.");
            
-            var id = Regex.Match(ID, "\\d+").Value;
-            return String.Format("{0}/{1}", Path, id);
+            return String.Format("{0}/{1}", Path, ID);
         }
 
 		private Task _pendingRefresh;
@@ -350,12 +374,31 @@ namespace BuddySDK
         {
             if (typeof(T).IsEnum)
             {
-                return Enum.Parse(typeof(T), (string)value, true);
+                if (value is string)
+                {
+                    try // needed because Enum.IsDefined is case-sensitive, and passing in a non-enum string causes Enum.Parse to throw
+                    {
+                        return Enum.Parse(typeof(T), (string)value, true);
+                    }
+                    catch
+                    {
+                    }
+                }
+                else
+                {
+                    if (value is long)
+                    {
+                        value = Convert.ToInt32(value);
+                    }
+
+                    if (Enum.IsDefined(typeof(T), value))
+                    {
+                        return Enum.ToObject(typeof(T), value);
+                    }
+                }
             }
-            else
-            {
-                return Convert.ChangeType(value, typeof(T));
-            }
+
+            return Convert.ChangeType(value, typeof(T));
         }
 
         protected virtual void SetValueCore<T>(string key, T value)

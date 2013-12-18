@@ -43,33 +43,6 @@ namespace BuddySDK
 			}
 		}
 
-        [JsonProperty("readPermissions")]
-		public BuddyPermissions ReadPermissions
-		{
-			get
-			{
-				return GetValueOrDefault<BuddyPermissions>("ReadPermissions");
-			}
-			set
-			{
-				SetValue<BuddyPermissions>("ReadPermissions", value, checkIsProp: false);
-			}
-		}
-
-        [JsonProperty("writePermissions")]
-        public BuddyPermissions WritePermissions
-		{
-			get
-			{
-				return GetValueOrDefault<BuddyPermissions>("WritePermissions");
-			}
-			set
-			{
-				SetValue<BuddyPermissions>("WritePermissions", value, checkIsProp: false);
-			}
-		}
-
-
 		private AlbumItemCollection _items;
         public AlbumItemCollection Items
         {
@@ -84,7 +57,7 @@ namespace BuddySDK
             }
         }
 
-        public string ObjectPath
+		internal string ObjectPath
         {
             get
             {
