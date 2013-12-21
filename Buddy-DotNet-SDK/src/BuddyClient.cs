@@ -82,10 +82,6 @@ namespace BuddySDK
         /// </summary>
         /// <param name="appid">The name of the application to use with this client. Can't be null or empty.</param>
         /// <param name="appkey">The password of the application to use with this client. Can't be null or empty.</param>
-        /// <param name="appVersion">Optional string that describes the version of the app you are building. This string will then be used when uploading
-        /// device information to buddy or submitting crash reports.</param>
-        /// <param name="autoRecordDeviceInfo">If true automatically records the current device profile with the Buddy Service (device type, os version, etc.). Note that this
-        /// only works for Windows Phone clients.</param>
         public BuddyClient(string appid, string appkey, BuddyClientFlags flags = BuddyClientFlags.Default)
         {
             if (String.IsNullOrEmpty(appid))

@@ -10,9 +10,20 @@ using System.Threading.Tasks;
 using System.Configuration;
 using BuddySDK;
 
+
 namespace BuddyServiceClient
 {
-
+    public enum HttpVerb
+    {
+        Any = -1,
+        Get = 0,
+        Post = 1,
+        Patch = 2,
+        Put = 3,
+        Delete = 4,
+        Head = 5,
+        Options = 6
+    }
    
     public class BuddyCallResult<T>
     {
@@ -20,6 +31,7 @@ namespace BuddyServiceClient
         public string Message { get; set; }
         public int    StatusCode { get; set; }
         public T Result { get; set; }
+        public string RequestID { get; set; }
 
         public BuddyCallResult()
         {
@@ -115,6 +127,49 @@ namespace BuddyServiceClient
             PlatformAccess.Current.InvokeOnUiThread (callback);
         }
 
+        protected IDictionary<string, object> ParametersToDictionary(object parameters)
+        {
+            if (parameters == null || parameters is IDictionary<string, object>)
+            {
+                return (IDictionary<string, object>)parameters;
+            }
+            else
+            {
+                var d = new Dictionary<string, object>();
+                var props = parameters.GetType().GetProperties();
+                foreach (var prop in props)
+                {
+                    if (prop.GetValue(parameters, null) != null)
+                    {
+                        d[prop.Name] = prop.GetValue(parameters, null);
+                    }
+                }
+                return d;
+            }
+        }
+
+        public BuddyCallResult<T> CallMethod<T>(HttpVerb verb, string methodName, object parameters)
+        {
+            IDictionary<string, object> p = ParametersToDictionary(parameters);
+
+            p[typeof(HttpVerb).FullName] = verb;
+            return CallMethod<T>(methodName, p, "2");
+        }
+
+
+        public BuddyCallResult<T> CallMethod<T>(string methodName, IDictionary<string, object> parameters, string version = "1")
+        {
+            // CallMethodCore goes to BuddyServiceClientDirect. Base virtual  is temp exception patch to ensure change
+            return CallMethodCore<T>(methodName, parameters, version);
+        }
+
+
+        protected virtual BuddyCallResult<T> CallMethodCore<T>(string methodName, IDictionary<string, object> parameters, string version)
+        {
+            throw new Exception("CallMethodCore is a method that shoudl be implemented BuddyServiceClientDirect, as a temporary patch to integrate unit tests with .NET SDK BuddyServiceClientBase");
+        }
+
+
         public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters = null)
         {
             var tcs = new TaskCompletionSource<T1>();
@@ -170,8 +225,6 @@ namespace BuddyServiceClient
             get;
             set;
         }
-
-
 
     }
 
