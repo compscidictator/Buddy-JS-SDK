@@ -13,11 +13,6 @@
 @interface BuddyIntegrationTests()
 @end
 
-//#define APP_NAME @"92538700814090257"
-//#define APP_KEY @"55E419A6-C732-4C5A-9778-0B62F66323FE"
-
-
-
 @implementation BuddyIntegrationTests
 
 -(void)setUp
@@ -55,9 +50,15 @@
 {
     __block bool passed = NO;
     
+    
     NSDictionary *options = @{@"name": @"Erik Kerber",
                               @"gender": @(BPUserGender_Male),
-                              @"email": @"erik.kerber@gmail.com"};
+                              @"email": @"erik.kerber@gmail.com",
+                              @"dateOfBirth": [NSNull null],
+                              @"relationshipStatus": @(BPUserRelationshipStatusOnTheProwl),
+                              @"celebrityMode": @(YES),
+                              @"fuzzLocation": @(NO)
+                              };
     
     [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject) {
         

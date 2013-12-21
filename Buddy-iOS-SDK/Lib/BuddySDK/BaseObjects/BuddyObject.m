@@ -101,8 +101,9 @@
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
         newObject.id = json[@"id"];
         
-        [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
-        callback(newObject);
+        [newObject refresh:^{
+            callback(newObject);
+        }];
     }];
 }
 
