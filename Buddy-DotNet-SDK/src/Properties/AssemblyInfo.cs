@@ -20,4 +20,5 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyFileVersion("1.5.1.1")]
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("BuddySDK.ClientTest")]
+[assembly: System.Runtime.CompilerServices.InternalsVisibleTo("BuddyWebserviceTestProject")]
 

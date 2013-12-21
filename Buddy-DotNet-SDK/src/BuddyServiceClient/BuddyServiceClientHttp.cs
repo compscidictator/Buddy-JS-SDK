@@ -117,26 +117,6 @@ namespace BuddyServiceClient
 
         }
        
-
-
-        private IDictionary<string, object> ParametersToDictionary(object parameters)
-        {
-            if (parameters == null || parameters is IDictionary<string, object>)
-            {
-                return (IDictionary<string, object>)parameters;
-            }
-            else
-            {
-                var d = new Dictionary<string, object>();
-                var props = parameters.GetType().GetProperties();
-                foreach (var prop in props)
-                {
-                    d[prop.Name] = prop.GetValue(parameters, null);
-                }
-                return d;
-            }
-        }
-
         public override void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback)
         {
             DateTime start = DateTime.Now;
