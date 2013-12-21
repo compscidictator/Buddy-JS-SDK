@@ -9,17 +9,22 @@
 #import "BuddyIntegrationTests.h"
 #import "Buddy.h"
 
+
 @interface BuddyIntegrationTests()
 @end
+
+//#define APP_NAME @"92538700814090257"
+//#define APP_KEY @"55E419A6-C732-4C5A-9778-0B62F66323FE"
+
+
 
 @implementation BuddyIntegrationTests
 
 -(void)setUp
 {
     [super setUp];
-    
 
-    [Buddy initClient:@"92538700814090257" appKey:@"55E419A6-C732-4C5A-9778-0B62F66323FE" complete:^{
+    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
         [self.tester signalDone];
     }];
     
@@ -31,21 +36,11 @@
     [super tearDown];
 }
 
-//-(void (^)())startTest
-//{
-//    dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-//
-//    void (^testFinished)() = ^void(){
-//        dispatch_semaphore_signal(semaphore);
-//    };
-//}
-
 -(void)testBuddyAppIdPassword
 {
     __block bool passed = NO;
     
     [[BPClient defaultClient] ping:^(NSDecimalNumber *ping) {
-        NSLog(@"Hello!");
         passed = YES;
         [self.tester signalDone];
     }];
@@ -60,8 +55,17 @@
 {
     __block bool passed = NO;
     
-    [Buddy createUser:@"erik4" password:@"password" options:nil completed:^(BPUser *newBuddyObject) {
-        //XCTAssertTrue([newBuddyObject.name isEqualToString:@"Erik"], @"Yay!");
+    NSDictionary *options = @{@"name": @"Erik Kerber",
+                              @"gender": @(BPUserGender_Male),
+                              @"email": @"erik.kerber@gmail.com"};
+    
+    [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject) {
+        
+        // Hmm, this will only "pass" if we don't have a user. Maybe change this if I implement a delete test.
+        if(newBuddyObject.userName){
+            XCTAssertTrue([newBuddyObject.userName isEqualToString:TEST_USERNAME], @"Buddy object did not contain correct name");
+        }
+
         passed = YES;
         [self.tester signalDone];
     }];
@@ -76,8 +80,8 @@
 {
     __block bool passed = NO;
     
-    [Buddy login:@"erik4" password:@"password" completed:^(BPUser *loggedInsUser) {
-        XCTAssertTrue([loggedInsUser.name isEqualToString:@"erik4"], @"Buddy object did not contain correct name");
+    [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
+        XCTAssertTrue([loggedInsUser.userName isEqualToString:TEST_USERNAME], @"Buddy object did not contain correct name");
         [self.tester signalDone];
         passed = YES;
     }];

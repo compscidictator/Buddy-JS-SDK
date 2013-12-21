@@ -258,6 +258,7 @@
 		C1ADD126184D96B800246313 /* CheckinIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CheckinIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/CheckinIntegrationTests.m"; sourceTree = "<group>"; };
 		C1ADD128184E2BF300246313 /* BPPhotoIntegrationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPPhotoIntegrationTests.h; path = "../../Lib/BuddySDK Unit Tests/BPPhotoIntegrationTests.h"; sourceTree = "<group>"; };
 		C1ADD129184E2BF300246313 /* BPPhotoIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPPhotoIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/BPPhotoIntegrationTests.m"; sourceTree = "<group>"; };
+		C1B2375C18654884005C841E /* BuddyTestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyTestData.h; path = "../../Lib/BuddySDK Unit Tests/BuddyTestData.h"; sourceTree = "<group>"; };
 		C1B8076A184061070086B843 /* BPClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPClientDelegate.h; path = ../../Lib/BuddySDK/BPClientDelegate.h; sourceTree = "<group>"; };
 		C1B8076D18441BD30086B843 /* BuddyIntegrationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyIntegrationTests.h; path = "../../Lib/BuddySDK Unit Tests/BuddyIntegrationTests.h"; sourceTree = "<group>"; };
 		C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/BuddyIntegrationTests.m"; sourceTree = "<group>"; };
@@ -694,6 +695,7 @@
 				C14E9670185188AD00BE8C7C /* TestHelper.m */,
 				C1FABBF31851A09B00E034FB /* BuddyTestCase.h */,
 				C1FABBF41851A09B00E034FB /* BuddyTestCase.m */,
+				C1B2375C18654884005C841E /* BuddyTestData.h */,
 			);
 			path = "BuddySDK Unit Tests";
 			sourceTree = "<group>";

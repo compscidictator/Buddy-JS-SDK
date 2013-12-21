@@ -18,12 +18,12 @@
     if(self)
     {
         [self registerProperty:@selector(name)];
-        [self registerProperty:@selector(username)];
+        [self registerProperty:@selector(userName)];
         [self registerProperty:@selector(gender)];
         [self registerProperty:@selector(dateOfBirth)];
         [self registerProperty:@selector(applicationTag)];
         [self registerProperty:@selector(lastLogin)];
-        [self registerProperty:@selector(createdOn)];
+        [self registerProperty:@selector(created)];
         [self registerProperty:@selector(profilePicture)];
         [self registerProperty:@selector(profilePictureId)];
         [self registerProperty:@selector(age)];

@@ -35,7 +35,9 @@ typedef enum
 
 @property (nonatomic, copy) NSString *name;
 
-@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *userName;
+
+@property (nonatomic, assign) BOOL celebMode;
 
 @property (nonatomic, assign) BPUserGender gender;
 
@@ -51,7 +53,9 @@ typedef enum
 
 @property (nonatomic, strong) NSDate *lastLogin;
 
-@property (nonatomic, strong) NSDate *createdOn;
+@property (nonatomic, strong) NSDate *lastModified;
+
+@property (nonatomic, strong) NSDate *created;
 
 @property (nonatomic, strong) NSURL *profilePicture;
 

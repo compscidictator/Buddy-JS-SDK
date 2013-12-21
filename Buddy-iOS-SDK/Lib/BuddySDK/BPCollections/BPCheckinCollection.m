@@ -54,8 +54,6 @@
     {
         c = [JAGPropertyConverter new];
         
-        // TODO - necessary?
-        __weak typeof(self) weakSelf = self;
         c.identifyDict = ^Class(NSDictionary *dict) {
             if ([dict valueForKey:@"latitude"]) {
                 return [BPCoordinate class];

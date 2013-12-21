@@ -37,7 +37,7 @@
 -(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options complete:(void (^)())complete
 
 {
-    self.service = [[BPServiceController alloc] initWithBuddyUrl:@"http://craig.buddyservers.net:8080/api"];
+    self.service = [[BPServiceController alloc] initWithBuddyUrl:BUDDY_SERVER];
     
     // TODO - Does the client need a copy? Do users need to read back key/id?
     _appKey = appKey;
@@ -88,7 +88,7 @@
 
 -(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-    NSString *numberOnly = [object.identifier stripBuddyId];
+    NSString *numberOnly = [object.id stripBuddyId];
     
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[object class] requestPath],
@@ -111,7 +111,7 @@
 
 -(void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-    NSString *numberOnly = [object.identifier stripBuddyId];
+    NSString *numberOnly = [object.id stripBuddyId];
     
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[object class] requestPath],

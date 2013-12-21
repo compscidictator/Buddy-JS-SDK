@@ -63,7 +63,7 @@
                                      @"OSVersion": [BuddyDevice osVersion]
                                      };
     
-    [self.manager POST:@"/api/devices" parameters:getTokenParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.manager POST:@"devices" parameters:getTokenParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
         
         id result = responseObject[@"result"];
         
@@ -94,8 +94,9 @@
 -(void)createBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        //[self updateConnectionWithResponse:responseObject];
-        callback(responseObject);
+        // TODO - Will I ever care about request ID?
+        id result = responseObject[@"result"];
+        callback(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];
@@ -104,8 +105,8 @@
 -(void)getBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self updateConnectionWithResponse:responseObject];
-        callback(responseObject);
+        id result = responseObject[@"result"];
+        callback(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];
@@ -114,8 +115,8 @@
 -(void)deleteBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager DELETE:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self updateConnectionWithResponse:responseObject];
-        callback(responseObject);
+        id result = responseObject[@"result"];
+        callback(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];
@@ -124,8 +125,8 @@
 -(void)updateBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        [self updateConnectionWithResponse:responseObject];
-        callback(responseObject);
+        id result = responseObject[@"result"];
+        callback(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];
@@ -136,11 +137,8 @@
 -(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
 {
     [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         id result = responseObject[@"result"];
-        
-        [self updateConnectionWithResponse:result];
-        callback(responseObject[@"result"]);
+        callback(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];
@@ -149,11 +147,8 @@
 -(void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
         id result = responseObject[@"result"];
-
-        [self updateConnectionWithResponse:result];
-        callback(responseObject);
+        callback(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
     }];

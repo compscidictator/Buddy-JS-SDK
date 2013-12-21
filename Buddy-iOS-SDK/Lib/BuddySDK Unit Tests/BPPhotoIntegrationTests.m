@@ -14,7 +14,7 @@
 -(void)setUp{
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
     
-    [Buddy initClient:@"78766986829496375" appKey:@"783C82AE-5E11-4EEF-8A14-388EA1848060" complete:^{
+    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
         dispatch_semaphore_signal(semaphore);
     }];
     
