@@ -47,6 +47,9 @@
 		C1AA90E518373D8E0074B7E8 /* NSDictionary+Merge.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */; };
 		C1ADD127184D96B800246313 /* CheckinIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ADD126184D96B800246313 /* CheckinIntegrationTests.m */; };
 		C1ADD12A184E2BF300246313 /* BPPhotoIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ADD129184E2BF300246313 /* BPPhotoIntegrationTests.m */; };
+		C1B2375F1865569F005C841E /* NSString+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B2375D1865569E005C841E /* NSString+JSON.h */; };
+		C1B237601865569F005C841E /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B2375E1865569E005C841E /* NSString+JSON.m */; };
+		C1B23761186558F8005C841E /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B2375E1865569E005C841E /* NSString+JSON.m */; };
 		C1B8076B18441A6A0086B843 /* BPServiceController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90D718371FF70074B7E8 /* BPServiceController.m */; };
 		C1B8076C18441B1A0086B843 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E0D1E21831C2E8001A7A01 /* XCTest.framework */; };
 		C1B8076F18441BD30086B843 /* BuddyIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */; };
@@ -259,6 +262,8 @@
 		C1ADD128184E2BF300246313 /* BPPhotoIntegrationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPPhotoIntegrationTests.h; path = "../../Lib/BuddySDK Unit Tests/BPPhotoIntegrationTests.h"; sourceTree = "<group>"; };
 		C1ADD129184E2BF300246313 /* BPPhotoIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPPhotoIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/BPPhotoIntegrationTests.m"; sourceTree = "<group>"; };
 		C1B2375C18654884005C841E /* BuddyTestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyTestData.h; path = "../../Lib/BuddySDK Unit Tests/BuddyTestData.h"; sourceTree = "<group>"; };
+		C1B2375D1865569E005C841E /* NSString+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSON.h"; sourceTree = "<group>"; };
+		C1B2375E1865569E005C841E /* NSString+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
 		C1B8076A184061070086B843 /* BPClientDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = BPClientDelegate.h; path = ../../Lib/BuddySDK/BPClientDelegate.h; sourceTree = "<group>"; };
 		C1B8076D18441BD30086B843 /* BuddyIntegrationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyIntegrationTests.h; path = "../../Lib/BuddySDK Unit Tests/BuddyIntegrationTests.h"; sourceTree = "<group>"; };
 		C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BuddyIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/BuddyIntegrationTests.m"; sourceTree = "<group>"; };
@@ -514,6 +519,8 @@
 			children = (
 				C14E966B185150D700BE8C7C /* NSString+BuddyParser.h */,
 				C14E966C185150D700BE8C7C /* NSString+BuddyParser.m */,
+				C1B2375D1865569E005C841E /* NSString+JSON.h */,
+				C1B2375E1865569E005C841E /* NSString+JSON.m */,
 			);
 			name = Categories;
 			path = ../../Lib/BuddySDK/Categories;
@@ -787,6 +794,7 @@
 				C1FABC541856BA0900E034FB /* NSSet+ObjectiveSugar.h in Headers */,
 				C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */,
 				C1B959E31837053D000C8417 /* BPCheckin.h in Headers */,
+				C1B2375F1865569F005C841E /* NSString+JSON.h in Headers */,
 				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
 				C1B95A9A18370BFF000C8417 /* BuddyDevice.h in Headers */,
 			);
@@ -960,6 +968,7 @@
 			files = (
 				C1E0D2871835C911001A7A01 /* OpenUDID.m in Sources */,
 				C1AA90DE1837376E0074B7E8 /* NSDictionary+Merge.m in Sources */,
+				C1B237601865569F005C841E /* NSString+JSON.m in Sources */,
 				C1B95B1F18371834000C8417 /* AFSecurityPolicy.m in Sources */,
 				C1B95B1C18371834000C8417 /* AFHTTPRequestOperationManager.m in Sources */,
 				C1B95B1B18371834000C8417 /* AFHTTPRequestOperation.m in Sources */,
@@ -1043,6 +1052,7 @@
 				C1E0D2491831DE56001A7A01 /* JAGPropertyConverter.m in Sources */,
 				C1B95B2518371847000C8417 /* BPClient.m in Sources */,
 				C1E0D2371831DC7E001A7A01 /* BuddyLocation.m in Sources */,
+				C1B23761186558F8005C841E /* NSString+JSON.m in Sources */,
 				C11AF821185196C9002022F6 /* NSString+BuddyParser.m in Sources */,
 				C1E0D1ED1831C2E8001A7A01 /* BuddySDK_Unit_Tests.m in Sources */,
 				C1B959FC1837061F000C8417 /* BuddyObject.m in Sources */,
