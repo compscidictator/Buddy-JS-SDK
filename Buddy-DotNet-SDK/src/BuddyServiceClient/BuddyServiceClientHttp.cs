@@ -16,15 +16,14 @@ namespace BuddyServiceClient
 {
   
 
-     internal class BuddyServiceClientHttp :BuddyServiceClientBase
+     internal class BuddyServiceClientHttp : BuddyServiceClientBase
      {
-         
-      
          public bool LoggingEnabled { get; set; }
 
          protected override string ClientName
          {
-			get{
+			get 
+            {
         		return "DotNet";
 			}
          }
@@ -242,7 +241,7 @@ namespace BuddyServiceClient
                     }
                     try
                     {
-                            finishMethodCall(null, bcr);
+                        finishMethodCall(null, bcr);
                     }
                     catch (Exception ex3)
                     {
@@ -306,6 +305,7 @@ namespace BuddyServiceClient
         {
             return verb + " " + path;
         }
+
         private void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
         {
             if (!path.StartsWith("/"))
