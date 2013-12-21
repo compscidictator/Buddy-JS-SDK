@@ -148,36 +148,20 @@ namespace BuddyServiceClient
             }
         }
 
-        public BuddyCallResult<T> CallMethod<T>(HttpVerb verb, string methodName, object parameters)
+        // Temporary virtual CallMethodCore to allow for migration window of all unit tests for .NET SDK
+        // Will exceptions upon removal of CallMethodCore implementation in BuddyServiceClientDirect Driver
+        public virtual BuddyCallResult<T> CallMethod<T>(HttpVerb verb, string methodName, object parameters)
         {
-            IDictionary<string, object> p = ParametersToDictionary(parameters);
-
-            p[typeof(HttpVerb).FullName] = verb;
-            return CallMethod<T>(methodName, p, "2");
+            throw new Exception("CallMethod is implemented BuddyServiceClientDirect to allow for migration of all unit tests for .NET SDK");
         }
-
-
-        public BuddyCallResult<T> CallMethod<T>(string methodName, IDictionary<string, object> parameters, string version = "1")
-        {
-            // CallMethodCore goes to BuddyServiceClientDirect. Base virtual  is temp exception patch to ensure change
-            return CallMethodCore<T>(methodName, parameters, version);
-        }
-
-
-        protected virtual BuddyCallResult<T> CallMethodCore<T>(string methodName, IDictionary<string, object> parameters, string version)
-        {
-            throw new Exception("CallMethodCore is a method that shoudl be implemented BuddyServiceClientDirect, as a temporary patch to integrate unit tests with .NET SDK BuddyServiceClientBase");
-        }
-
 
         public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters = null)
         {
             var tcs = new TaskCompletionSource<T1>();
 
-
             CallMethodAsync<T1>(verb, path, parameters, (bcr) =>
             {
-
+                // TODO: Custom / extended handling of Buddy Exceptions, with BuddyResults
                 if (bcr.Error != null)
                 {
                         BuddyServiceException buddyException = null;
@@ -212,6 +196,7 @@ namespace BuddyServiceClient
                 }
 
             });
+
             return tcs.Task;
         }
 
