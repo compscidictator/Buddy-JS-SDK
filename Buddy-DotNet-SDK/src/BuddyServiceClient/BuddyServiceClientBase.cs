@@ -149,7 +149,7 @@ namespace BuddyServiceClient
         }
 
         // Temporary virtual CallMethodCore to allow for migration window of all unit tests for .NET SDK
-        // Will exceptions upon removal of CallMethodCore implementation in BuddyServiceClientDirect Driver
+        // Will exception upon removal of implementation in BuddyServiceClientDirect Driver
         public virtual BuddyCallResult<T> CallMethod<T>(HttpVerb verb, string methodName, object parameters)
         {
             throw new Exception("CallMethod is implemented BuddyServiceClientDirect to allow for migration of all unit tests for .NET SDK");
