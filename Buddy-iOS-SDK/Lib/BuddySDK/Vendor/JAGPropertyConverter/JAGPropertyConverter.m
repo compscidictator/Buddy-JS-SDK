@@ -265,7 +265,8 @@
     if (!object) {
         return nil;
     }
-    else if([object isDate]){
+    else if(   [object isKindOfClass:[NSString class]]
+            && [object isDate]){
         return [object deserializeJsonDateString];
     }
     else if ([object isKindOfClass: [NSArray class]]

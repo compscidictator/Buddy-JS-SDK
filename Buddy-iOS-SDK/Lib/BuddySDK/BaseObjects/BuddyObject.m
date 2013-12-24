@@ -99,7 +99,13 @@
     [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:parameters complete:^(id json) {
         
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
-        newObject.id = json[@"id"];
+
+#pragma warning TODO - Short term hack until response is always an object.
+        if([json isKindOfClass:[NSDictionary class]]){
+            newObject.id = json[@"id"];
+        }else{
+            newObject.id = json;
+        }
         
         [newObject refresh:^{
             callback(newObject);
