@@ -18,8 +18,8 @@ static BPCheckin *tempCheckin;
 -(void)setUp{
     [super setUp];
     
-    [Buddy initClient:@"92538700814090257" appKey:@"55E419A6-C732-4C5A-9778-0B62F66323FE" complete:^{
-        [Buddy login:@"erik4" password:@"password" completed:^(BPUser *loggedInsUser) {
+    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
+        [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
             [self.tester signalDone];
         }];
     }];

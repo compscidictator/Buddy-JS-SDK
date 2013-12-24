@@ -1,5 +1,5 @@
-#define APP_NAME @"aaaac.baaaHp4BFg"
-#define APP_KEY @"83D914B5-AAD5-430D-AA79-454605F0626E"
+#define APP_NAME @"aaaac.OaaadYUoWg"
+#define APP_KEY @"279F86AB-F620-4212-9335-CA8A7CC70764"
 
-#define TEST_USERNAME @"erik12"
+#define TEST_USERNAME @"erik13"
 #define TEST_PASSWORD @"password"
