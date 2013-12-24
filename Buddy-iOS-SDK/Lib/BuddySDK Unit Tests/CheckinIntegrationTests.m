@@ -44,8 +44,10 @@ static BPCheckin *tempCheckin;
                              description:@"Description"
                         complete:^(BPCheckin *checkin) {
                             XCTAssert([checkin.comment isEqualToString:@"Checking in!"], @"Didn't get the response back");
+                            XCTAssert([checkin.description isEqualToString:@"Description"], @"Didn't get the response back");
                             tempCheckinId = [checkin.id stripBuddyId];
                                 [self.tester signalDone];
+                            tempCheckin = checkin;
                         }];
     [self.tester wait];
 }
@@ -76,9 +78,17 @@ static BPCheckin *tempCheckin;
 
 -(void)testGetCheckin
 {
+    
     [BPCheckin queryFromServerWithId:tempCheckinId callback:^(BPCheckin *newBuddyObject) {
         XCTAssert([newBuddyObject.id isEqualToString:tempCheckinId], @"Did not retrive old identifier.");
+        XCTAssert([newBuddyObject.comment isEqualToString:tempCheckin.comment], @"Did not retrive old identifier.");
+        XCTAssert([newBuddyObject.description isEqualToString:tempCheckin.description], @"Did not retrive old identifier.");
+
+        [self.tester signalDone];
+
     }];
+    [self.tester wait];
+
 }
 
 -(void)testDeleteCheckin

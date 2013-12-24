@@ -80,7 +80,7 @@
                           identifier];
     
     
-    [self.service createBuddyObject:resource parameters:nil callback:^(id json) {
+    [self.service getBuddyObject:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
     
