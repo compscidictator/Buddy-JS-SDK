@@ -38,7 +38,6 @@
 
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-    [requestSerializer setValue:@"craig.buddyservers.net:8080" forHTTPHeaderField:@"Host"];
 
 
     if(token){
@@ -148,6 +147,7 @@
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         id result = responseObject[@"result"];
+        [self updateConnectionWithResponse:result];
         callback(result);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
         callback(nil);
