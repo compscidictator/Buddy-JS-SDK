@@ -148,15 +148,20 @@ namespace BuddyServiceClient
             }
         }
 
-        // Temporary virtual CallMethodCore to allow for migration window of all unit tests for .NET SDK
-        // Will exception upon removal of implementation in BuddyServiceClientDirect Driver
-        public virtual BuddyCallResult<T> CallMethod<T>(HttpVerb verb, string methodName, object parameters)
+        //// Temporary virtual CallMethodCore to allow for migration window of all unit tests for .NET SDK
+        //// Will exception upon removal of implementation in BuddyServiceClientDirect Driver
+        //public virtual BuddyCallResult<T> CallMethodAsync<T>(HttpVerb verb, string methodName, object parameters)
+        //{
+        //    throw new Exception("CallMethod is implemented BuddyServiceClientDirect to allow for migration of all unit tests for .NET SDK");
+        //}
+
+        public System.Threading.Tasks.Task<T1> CallMethod<T1>(string verb, string path, object parameters = null)
         {
-            throw new Exception("CallMethod is implemented BuddyServiceClientDirect to allow for migration of all unit tests for .NET SDK");
+            return CallMethodAsync<T1>(verb, path, parameters);
         }
 
         public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters = null)
-        {
+        {   
             var tcs = new TaskCompletionSource<T1>();
 
             CallMethodAsync<T1>(verb, path, parameters, (bcr) =>
