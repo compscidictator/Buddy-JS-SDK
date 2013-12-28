@@ -21,13 +21,13 @@ typedef enum
 /// </summary>
 typedef enum
 {
-    Single = 1,
-    Dating = 2,
-    Engaged = 3,
-    Married = 4,
-    Divorced = 5,
-    Widowed = 6,
-    OnTheProwl = 7,
+    BPUserRelationshipStatusSingle = 1,
+    BPUserRelationshipStatusDating = 2,
+    BPUserRelationshipStatusEngaged = 3,
+    BPUserRelationshipStatusMarried = 4,
+    BPUserRelationshipStatusDivorced = 5,
+    BPUserRelationshipStatusWidowed = 6,
+    BPUserRelationshipStatusOnTheProwl = 7,
 //    Any = -1
 } BPUserRelationshipStatus;
 
@@ -35,13 +35,13 @@ typedef enum
 
 @property (nonatomic, copy) NSString *name;
 
-@property (nonatomic, copy) NSString *username;
+@property (nonatomic, copy) NSString *userName;
+
+@property (nonatomic, assign) BOOL celebMode;
 
 @property (nonatomic, assign) BPUserGender gender;
 
 @property (nonatomic, assign) NSDate *dateOfBirth;
-
-@property (nonatomic, copy) NSString *applicationTag;
 
 // TODO - method?
 //@property (nonatomic, assign) double latitude;
@@ -51,7 +51,9 @@ typedef enum
 
 @property (nonatomic, strong) NSDate *lastLogin;
 
-@property (nonatomic, strong) NSDate *createdOn;
+@property (nonatomic, strong) NSDate *lastModified;
+
+@property (nonatomic, strong) NSDate *created;
 
 @property (nonatomic, strong) NSURL *profilePicture;
 
@@ -59,7 +61,7 @@ typedef enum
 
 @property (nonatomic, readonly) NSInteger age;
 
-@property (nonatomic, assign) BPUserRelationshipStatus userStatus;
+@property (nonatomic, assign) BPUserRelationshipStatus relationshipStatus;
 
 @property (nonatomic, assign) BOOL friendRequestPending;
 

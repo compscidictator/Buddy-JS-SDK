@@ -27,6 +27,7 @@
 #import "JAGPropertyConverter.h"
 #import "JAGPropertyFinder.h"
 #import "JAGProperty.h"
+#import "NSString+JSON.h"
 
 @interface JAGPropertyConverter () 
 
@@ -263,7 +264,12 @@
 - (id) composeModelFromObject: (id) object withTargetClass: (Class) targetClass {
     if (!object) {
         return nil;
-    } else if ([object isKindOfClass: [NSArray class]]
+    }
+    else if(   [object isKindOfClass:[NSString class]]
+            && [object isDate]){
+        return [object deserializeJsonDateString];
+    }
+    else if ([object isKindOfClass: [NSArray class]]
                || [object isKindOfClass: [NSSet class]]) {
         return [self composeCollection:object withTargetClass:targetClass];
     } else if ([object isKindOfClass: [NSDictionary class]]) {

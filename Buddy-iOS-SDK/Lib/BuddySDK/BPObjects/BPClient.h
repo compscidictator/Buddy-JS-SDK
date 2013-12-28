@@ -7,6 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+
+//#define BUDDY_SERVER @"http://craig.buddyservers.net:8080/api"
+#define BUDDY_SERVER @"http://10.211.55.3/BuddyWebService.V2/"
+
 @class BuddyDevice;
 @class BPGameBoards;
 @class BPAppMetadata;

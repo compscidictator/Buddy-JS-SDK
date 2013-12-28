@@ -210,11 +210,23 @@ namespace BuddyServiceClient
         public abstract void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback);
 
 
+<<<<<<< HEAD
 
+=======
+        private string serviceRoot;
+>>>>>>> origin
         public string ServiceRoot
         {
-            get;
-            set;
+            get
+            {
+                return serviceRoot;
+            }
+            set
+            {
+                // TODO: should we be doing this here, or should setters be changed to not pass in trailing slashes?
+
+                serviceRoot = value == null ? null : value.TrimEnd('/');
+            }
         }
 
     }

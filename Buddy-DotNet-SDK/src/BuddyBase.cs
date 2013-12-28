@@ -1,12 +1,12 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Converters;
+using Newtonsoft.Json.Linq;
+using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.Linq;
 using System.Reflection;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace BuddySDK
 {
@@ -53,11 +53,12 @@ namespace BuddySDK
         }
     }
 
+    [JsonConverter(typeof(StringEnumConverter))]
     public enum BuddyPermissions
     {
-        Owner,
         App,
-        Default = Owner
+        User,
+        Default = User
     }
 
     [JsonConverter(typeof(BuddyLocationGeoConverter))]
@@ -88,10 +89,9 @@ namespace BuddySDK
             return String.Format("{0},{1}", Latitude, Longitude);
         }
     }
-   
+
     public abstract class BuddyBase : System.ComponentModel.INotifyPropertyChanged
     {
-
         private static Dictionary<Type, List<Tuple<string, string>>> _propMappings = new Dictionary<Type, List<Tuple<string, string>>>();
 
         protected static void EnsureMappings(object t)
@@ -138,7 +138,6 @@ namespace BuddySDK
             }
         }
 
-
         [JsonProperty("location")]
         public BuddyGeoLocation Location
         {
@@ -149,6 +148,32 @@ namespace BuddySDK
             set
             {
                 SetValue<BuddyGeoLocation>("Location", value, checkIsProp:false);
+            }
+        }
+
+        [JsonProperty("readPermissions")]
+        public BuddyPermissions ReadPermissions
+        {
+            get
+            {
+                return GetValueOrDefault<BuddyPermissions>("ReadPermissions");
+            }
+            set
+            {
+                SetValue<BuddyPermissions>("ReadPermissions", value, checkIsProp: false);
+            }
+        }
+
+        [JsonProperty("writePermissions")]
+        public BuddyPermissions WritePermissions
+        {
+            get
+            {
+                return GetValueOrDefault<BuddyPermissions>("WritePermissions");
+            }
+            set
+            {
+                SetValue<BuddyPermissions>("WritePermissions", value, checkIsProp: false);
             }
         }
 
@@ -266,11 +291,10 @@ namespace BuddySDK
         {
             if (ID == null) throw new InvalidOperationException("ID required.");
            
-            var id = Regex.Match(ID, "\\d+").Value;
-            return String.Format("{0}/{1}", Path, id);
+            return String.Format("{0}/{1}", Path, ID);
         }
 
-        Task _pendingRefresh;
+		private Task _pendingRefresh;
         public virtual Task FetchAsync(Action updateComplete = null)
         {
             EnsureValid();
@@ -282,9 +306,8 @@ namespace BuddySDK
                 }
                 else
                 {
-                    _pendingRefresh = new Task( () =>
+                    _pendingRefresh = new Task(() =>
                    {
-
                        var r =  Client.Service.CallMethodAsync<IDictionary<string, object>>(
                               "GET", GetObjectPath());
 
@@ -295,7 +318,7 @@ namespace BuddySDK
                    });
                     _pendingRefresh.Start();
                 }
-            }     
+            }
             return _pendingRefresh;
         }
 
@@ -336,7 +359,7 @@ namespace BuddySDK
             ValueEntry  v;
             if (_values.TryGetValue(key, out v))
             {
-                return (T)Convert.ChangeType(v.Value, typeof(T));
+                return (T)ChangeType<T>(v.Value);
             }
             else if (autoPopulate && !_isPopulated)
             {
@@ -345,6 +368,37 @@ namespace BuddySDK
                 return GetValueOrDefault<T>(key, defaultValue, false);
             }
             return defaultValue;
+        }
+
+        private object ChangeType<T>(object value)
+        {
+            if (typeof(T).IsEnum)
+            {
+                if (value is string)
+                {
+                    try // needed because Enum.IsDefined is case-sensitive, and passing in a non-enum string causes Enum.Parse to throw
+                    {
+                        return Enum.Parse(typeof(T), (string)value, true);
+                    }
+                    catch
+                    {
+                    }
+                }
+                else
+                {
+                    if (value is long)
+                    {
+                        value = Convert.ToInt32(value);
+                    }
+
+                    if (Enum.IsDefined(typeof(T), value))
+                    {
+                        return Enum.ToObject(typeof(T), value);
+                    }
+                }
+            }
+
+            return Convert.ChangeType(value, typeof(T));
         }
 
         protected virtual void SetValueCore<T>(string key, T value)
@@ -366,11 +420,12 @@ namespace BuddySDK
             }
 
             var oldValue = GetValueOrDefault<T>(key, autoPopulate:false);
-            if (Object.Equals(value, oldValue))
-            {
-                return;
-            }
+                if (Object.Equals(value, oldValue))
+                {
+                    return;
+                }
             SetValueCore<T>(key, value);
+
             if (notify)
             {
                 OnPropertyChanged(key);
@@ -409,7 +464,7 @@ namespace BuddySDK
                     }
                     else
                     {
-                        var r = Client.Service.CallMethodAsync<IDictionary<string, object>>("PATCH", Path, d);
+                        var r = Client.Service.CallMethodAsync<IDictionary<string, object>>("PATCH", GetObjectPath(), d);
                         r.Wait();
                         updateDict = r.Result;
                     }

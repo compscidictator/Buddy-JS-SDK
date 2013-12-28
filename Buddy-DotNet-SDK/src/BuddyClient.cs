@@ -76,12 +76,15 @@ namespace BuddySDK
 
         }
         
+<<<<<<< HEAD
         /// <summary>
         /// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://BuddySDK.com, create a new
         /// developer account and create a new application.
         /// </summary>
         /// <param name="appid">The name of the application to use with this client. Can't be null or empty.</param>
         /// <param name="appkey">The password of the application to use with this client. Can't be null or empty.</param>
+=======
+>>>>>>> origin
         public BuddyClient(string appid, string appkey, BuddyClientFlags flags = BuddyClientFlags.Default)
         {
             if (String.IsNullOrEmpty(appid))
@@ -340,24 +343,7 @@ namespace BuddySDK
         }
 
         // User auth.
-        //
-
-
-        /// <summary>
-        /// Create a new Buddy user. Note that this method internally does two web-service calls, and the IAsyncResult object
-        /// returned is only valid for the first one.
-        /// </summary>
-        /// <param name="name">The name of the new user. Can't be null or empty.</param>
-        /// <param name="password">The password of the new user. Can't be null.</param>
-        /// <param name="gender">An optional gender for the user.</param>
-        /// <param name="age">An optional age for the user.</param>
-        /// <param name="email">An optional email for the user.</param>
-        /// <param name="status">An optional status for the user.</param>
-        /// <param name="fuzzLocation">Optionally set location fuzzing for this user. When enabled user location is randomized in searches.</param>
-        /// <param name="celebrityMode">Optionally set the celebrity mode for this user. When enabled this user will be absent from all searches.</param>
-        /// <param name="defaultMetadata">An optional custom tag for this user.</param>
-        /// <returns>A Task&lt;AuthenticatedUser&gt;that can be used to monitor progress on this call.</returns>
-        public System.Threading.Tasks.Task<AuthenticatedUser> CreateUserAsync(
+      public System.Threading.Tasks.Task<AuthenticatedUser> CreateUserAsync(
             string username, 
             string password, 
             string name = null, 

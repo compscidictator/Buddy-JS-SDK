@@ -12,4 +12,5 @@
    #import "BuddyCollection.h"
    #import "NSDictionary+Merge.h"
    #import "NSString+BuddyParser.h"
+   #import "NSString+JSON.h"
 #endif

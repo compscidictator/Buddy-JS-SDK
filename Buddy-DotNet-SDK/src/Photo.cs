@@ -10,11 +10,9 @@ using System.Threading.Tasks;
 
 namespace BuddySDK
 {
-    [BuddyObjectPath("/photos")]
+    [BuddyObjectPath("/pictures")]
     public class Photo : BuddyBase
     {
-
-
         [Newtonsoft.Json.JsonProperty("caption")]
         public string Caption
         {

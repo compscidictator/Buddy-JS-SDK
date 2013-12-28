@@ -18,8 +18,8 @@ static BPCheckin *tempCheckin;
 -(void)setUp{
     [super setUp];
     
-    [Buddy initClient:@"92538700814090257" appKey:@"55E419A6-C732-4C5A-9778-0B62F66323FE" complete:^{
-        [Buddy login:@"erik4" password:@"password" completed:^(BPUser *loggedInsUser) {
+    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
+        [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
             [self.tester signalDone];
         }];
     }];
@@ -44,8 +44,10 @@ static BPCheckin *tempCheckin;
                              description:@"Description"
                         complete:^(BPCheckin *checkin) {
                             XCTAssert([checkin.comment isEqualToString:@"Checking in!"], @"Didn't get the response back");
-                            tempCheckinId = [checkin.identifier stripBuddyId];
+                            XCTAssert([checkin.description isEqualToString:@"Description"], @"Didn't get the response back");
+                            tempCheckinId = [checkin.id stripBuddyId];
                                 [self.tester signalDone];
+                            tempCheckin = checkin;
                         }];
     [self.tester wait];
 }
@@ -76,9 +78,17 @@ static BPCheckin *tempCheckin;
 
 -(void)testGetCheckin
 {
+    
     [BPCheckin queryFromServerWithId:tempCheckinId callback:^(BPCheckin *newBuddyObject) {
-        XCTAssert([newBuddyObject.identifier isEqualToString:tempCheckinId], @"Did not retrive old identifier.");
+        XCTAssert([newBuddyObject.id isEqualToString:tempCheckinId], @"Did not retrive old identifier.");
+        XCTAssert([newBuddyObject.comment isEqualToString:tempCheckin.comment], @"Did not retrive old identifier.");
+        XCTAssert([newBuddyObject.description isEqualToString:tempCheckin.description], @"Did not retrive old identifier.");
+
+        [self.tester signalDone];
+
     }];
+    [self.tester wait];
+
 }
 
 -(void)testDeleteCheckin

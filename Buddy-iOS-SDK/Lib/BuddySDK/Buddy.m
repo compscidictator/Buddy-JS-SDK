@@ -115,8 +115,9 @@
 + (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options completed:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"username": username,
-                                 @"password": password,
-                                 @"email": @"erik.kerber@gmail.com"};
+                                 @"password": password };
+    
+    parameters = [NSDictionary dictionaryByMerging:parameters with:options];
     
     // On BPUser for now for consistency. Probably will move.
     [BPUser createFromServerWithParameters:parameters complete:^(id newBuddyObject) {
@@ -128,7 +129,7 @@
 {
     [[BPClient defaultClient] login:username password:password success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddy];
-        user.identifier = json[@"result"][@"id"];
+        user.id = json[@"id"];
         [user refresh:^{
             callback(user);
         }];

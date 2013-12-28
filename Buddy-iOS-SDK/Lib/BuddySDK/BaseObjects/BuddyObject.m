@@ -99,10 +99,17 @@
     [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:parameters complete:^(id json) {
         
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
-        newObject.identifier = json[@"result"][@"id"];
+
+#pragma warning TODO - Short term hack until response is always an object.
+        if([json isKindOfClass:[NSDictionary class]]){
+            newObject.id = json[@"id"];
+        }else{
+            newObject.id = json;
+        }
         
-        [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
-        callback(newObject);
+        [newObject refresh:^{
+            callback(newObject);
+        }];
     }];
 }
 
@@ -111,7 +118,7 @@
     [[BPClient defaultClient] queryObjectWithPath:[[self class] requestPath] identifier:identifier complete:^(id json) {
         
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
-        newObject.identifier = json[@"result"][@"id"];
+        newObject.id = json[@"id"];
         
         [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
         callback(newObject);
@@ -139,7 +146,7 @@
 -(void)refresh:(BuddyCompletionCallback)complete
 {
     [[BPClient defaultClient] refreshObject:self complete:^(id json) {
-        [[[self class] converter] setPropertiesOf:self fromDictionary:json[@"result"]];
+        [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         if(complete)
             complete();
     }];
