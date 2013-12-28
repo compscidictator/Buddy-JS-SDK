@@ -54,6 +54,7 @@
     <Compile Include="AlbumsActivity.cs" />
     <Compile Include="AlbumItemsActivity.cs" />
     <Compile Include="AlbumItemsAdapter.cs" />
+    <Compile Include="AlbumsApplication.cs" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Layout\Albums.axml" />

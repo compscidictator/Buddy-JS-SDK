@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using Android.App;
@@ -60,15 +61,21 @@ namespace AlbumsSample
 				imageView = (ImageView) convertView;
 			}
 
-			var picture = Buddy.Photos.FindAsync (albumItems.Skip (position).First ().ItemId);
-			picture.Wait ();
+			// Cache UI thread synchronization context.
+			var uiContext = TaskScheduler.FromCurrentSynchronizationContext ();
 
-			var pictureStream = picture.Result.First ().GetFileAsync ();
-			pictureStream.Wait ();
+			Task.Run (async () => {
+				var picture = await Buddy.Photos.FindAsync (albumItems.Skip (position).First ().ItemId);
 
-			var bitmap = BitmapFactory.DecodeStream (pictureStream.Result);
+				var pictureStream = await picture.First ().GetFileAsync ();
 
-			imageView.SetImageBitmap (bitmap);
+				// Use ContinueWith() instead of await here, so decodeTask, including SetImageBitmap(),
+				// will be called on the uiContext.
+				BitmapFactory.DecodeStreamAsync (pictureStream).ContinueWith((decodeTask) =>
+					{
+						imageView.SetImageBitmap (decodeTask.Result);
+					}, CancellationToken.None, TaskContinuationOptions.DenyChildAttach, uiContext);
+			});
 
 			return imageView;
 		}

@@ -26,9 +26,6 @@ namespace AlbumsSample
         {
             base.OnCreate(bundle);
 
-			// TODO: go to http://dev.buddy.com to get an app ID and app password"
-			Buddy.Init ("", "");
-
 			await CreateUser ();
 
 			SetContentView(Resource.Layout.Albums);
@@ -88,7 +85,7 @@ namespace AlbumsSample
 
 		private async Task GetAlbums()
 		{
-			await Buddy.Albums.AddAsync (_createAlbumText.Text, "", new BuddyGeoLocation ());
+			await Buddy.Albums.AddAsync (_createAlbumText.Text, "", null);
 		}
 
 		private void ResetAdapterControls()

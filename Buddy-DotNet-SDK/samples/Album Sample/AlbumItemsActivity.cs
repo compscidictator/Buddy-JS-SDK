@@ -77,9 +77,9 @@ namespace AlbumsSample
 		{
 			using (var streamReader = new StreamReader (path)) {
 				// Check stream for picture types other than JPEG
-				var picture = await BuddySDK.Buddy.Photos.AddAsync ("", streamReader.BaseStream, "image/jpeg", new BuddyGeoLocation ());
+				var picture = await BuddySDK.Buddy.Photos.AddAsync ("", streamReader.BaseStream, "image/jpeg", null);
 
-				await AlbumsActivity.SelectedAlbum.AddAsync (picture.ID, "", new BuddyGeoLocation ());
+				await AlbumsActivity.SelectedAlbum.AddItemAsync (picture.ID, "", null);
 			}
 		}
 

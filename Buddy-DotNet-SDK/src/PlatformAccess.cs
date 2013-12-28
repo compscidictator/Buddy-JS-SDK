@@ -212,7 +212,9 @@ namespace BuddySDK
 			var packageInfo = context.PackageManager.GetPackageInfo (context.PackageName, 
 				Android.Content.PM.PackageInfoFlags.Configurations);
 
-			var value = packageInfo.ApplicationInfo.MetaData.GetString (key);
+			var metaData = packageInfo.ApplicationInfo.MetaData;
+
+			var value = metaData != null && metaData.ContainsKey(key) ? metaData.GetString (key) : null;
 
 			return value;
         }
