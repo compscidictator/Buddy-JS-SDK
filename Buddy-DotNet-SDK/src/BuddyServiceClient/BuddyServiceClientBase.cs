@@ -10,28 +10,16 @@ using System.Threading.Tasks;
 using System.Configuration;
 using BuddySDK;
 
-
 namespace BuddyServiceClient
 {
-    public enum HttpVerb
-    {
-        Any = -1,
-        Get = 0,
-        Post = 1,
-        Patch = 2,
-        Put = 3,
-        Delete = 4,
-        Head = 5,
-        Options = 6
-    }
+
    
     public class BuddyCallResult<T>
     {
         public string Error { get; set; }
         public string Message { get; set; }
         public int    StatusCode { get; set; }
-        public T      Result { get; set; }
-        public string RequestID { get; set; }
+        public T Result { get; set; }
 
         public BuddyCallResult()
         {
@@ -127,46 +115,14 @@ namespace BuddyServiceClient
             PlatformAccess.Current.InvokeOnUiThread (callback);
         }
 
-        protected IDictionary<string, object> ParametersToDictionary(object parameters)
-        {
-            if (parameters == null || parameters is IDictionary<string, object>)
-            {
-                return (IDictionary<string, object>)parameters;
-            }
-            else
-            {
-                var d = new Dictionary<string, object>();
-                var props = parameters.GetType().GetProperties();
-                foreach (var prop in props)
-                {
-                    if (prop.GetValue(parameters, null) != null)
-                    {
-                        d[prop.Name] = prop.GetValue(parameters, null);
-                    }
-                }
-                return d;
-            }
-        }
-
-        //// Temporary virtual CallMethodCore to allow for migration window of all unit tests for .NET SDK
-        //// Will exception upon removal of implementation in BuddyServiceClientDirect Driver
-        //public virtual BuddyCallResult<T> CallMethodAsync<T>(HttpVerb verb, string methodName, object parameters)
-        //{
-        //    throw new Exception("CallMethod is implemented BuddyServiceClientDirect to allow for migration of all unit tests for .NET SDK");
-        //}
-
-        public System.Threading.Tasks.Task<T1> CallMethod<T1>(string verb, string path, object parameters = null)
-        {
-            return CallMethodAsync<T1>(verb, path, parameters);
-        }
-
         public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters = null)
-        {   
+        {
             var tcs = new TaskCompletionSource<T1>();
+
 
             CallMethodAsync<T1>(verb, path, parameters, (bcr) =>
             {
-                // TODO: Custom / extended handling of Buddy Exceptions, with BuddyResults
+
                 if (bcr.Error != null)
                 {
                         BuddyServiceException buddyException = null;
@@ -201,7 +157,6 @@ namespace BuddyServiceClient
                 }
 
             });
-
             return tcs.Task;
         }
 
@@ -210,11 +165,7 @@ namespace BuddyServiceClient
         public abstract void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback);
 
 
-<<<<<<< HEAD
-
-=======
         private string serviceRoot;
->>>>>>> origin
         public string ServiceRoot
         {
             get
@@ -228,6 +179,8 @@ namespace BuddyServiceClient
                 serviceRoot = value == null ? null : value.TrimEnd('/');
             }
         }
+
+
 
     }
 

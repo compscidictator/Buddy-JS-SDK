@@ -16,14 +16,15 @@ namespace BuddyServiceClient
 {
   
 
-     internal class BuddyServiceClientHttp : BuddyServiceClientBase
+     internal class BuddyServiceClientHttp :BuddyServiceClientBase
      {
+         
+      
          public bool LoggingEnabled { get; set; }
 
          protected override string ClientName
          {
-			get 
-            {
+			get{
         		return "DotNet";
 			}
          }
@@ -116,6 +117,26 @@ namespace BuddyServiceClient
 
         }
        
+
+
+        private IDictionary<string, object> ParametersToDictionary(object parameters)
+        {
+            if (parameters == null || parameters is IDictionary<string, object>)
+            {
+                return (IDictionary<string, object>)parameters;
+            }
+            else
+            {
+                var d = new Dictionary<string, object>();
+                var props = parameters.GetType().GetProperties();
+                foreach (var prop in props)
+                {
+                    d[prop.Name] = prop.GetValue(parameters, null);
+                }
+                return d;
+            }
+        }
+
         public override void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback)
         {
             DateTime start = DateTime.Now;
@@ -241,7 +262,7 @@ namespace BuddyServiceClient
                     }
                     try
                     {
-                        finishMethodCall(null, bcr);
+                            finishMethodCall(null, bcr);
                     }
                     catch (Exception ex3)
                     {
@@ -305,7 +326,6 @@ namespace BuddyServiceClient
         {
             return verb + " " + path;
         }
-
         private void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
         {
             if (!path.StartsWith("/"))

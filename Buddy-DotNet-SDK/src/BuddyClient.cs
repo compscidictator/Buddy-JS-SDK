@@ -76,15 +76,6 @@ namespace BuddySDK
 
         }
         
-<<<<<<< HEAD
-        /// <summary>
-        /// Initializes a new instance of the BuddyClient class. To get an application username and password, go to http://BuddySDK.com, create a new
-        /// developer account and create a new application.
-        /// </summary>
-        /// <param name="appid">The name of the application to use with this client. Can't be null or empty.</param>
-        /// <param name="appkey">The password of the application to use with this client. Can't be null or empty.</param>
-=======
->>>>>>> origin
         public BuddyClient(string appid, string appkey, BuddyClientFlags flags = BuddyClientFlags.Default)
         {
             if (String.IsNullOrEmpty(appid))
