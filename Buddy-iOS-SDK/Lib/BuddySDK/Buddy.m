@@ -136,4 +136,15 @@
     }];
 }
 
+-(void)socialLogin:(NSString *)provider password:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback
+{
+    [[BPClient defaultClient] socialLogin:providerId password:providerId success:^(id json) {
+        BPUser *user = [[BPUser alloc] initBuddy];
+        user.id = json[@"id"];
+        [user refresh:^{
+            callback(user);
+        }];
+    }];
+}
+
 @end

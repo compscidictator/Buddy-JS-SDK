@@ -21,13 +21,14 @@
         [self registerProperty:@selector(userName)];
         [self registerProperty:@selector(gender)];
         [self registerProperty:@selector(dateOfBirth)];
-        [self registerProperty:@selector(applicationTag)];
+        [self registerProperty:@selector(profilePicture)];
+        [self registerProperty:@selector(profilePictureId)];
         [self registerProperty:@selector(lastLogin)];
         [self registerProperty:@selector(created)];
         [self registerProperty:@selector(profilePicture)];
         [self registerProperty:@selector(profilePictureId)];
         [self registerProperty:@selector(age)];
-        [self registerProperty:@selector(userStatus)];
+        [self registerProperty:@selector(relationshipStatus)];
         [self registerProperty:@selector(friendRequestPending)];
         
         // TODO - if we make distance objects properties, add them.
@@ -55,5 +56,41 @@ static NSString *users = @"users";
     return components.year;
 }
 
+- (void)logout
+{
+    NSString *resource = @"users/logout";
+}
+
+- (void)requestPasswordReset
+{
+    NSString *resource = @"users/password";
+    NSDictionary *parameters = @{@"Creds": @"TODO",
+                                 @"UserName": @"TODO"};
+                                 
+
+                                     
+}
+
+- (void)resetPassword
+{
+    NSString *resource = @"users/password";
+    NSDictionary *parameters = @{@"UserName": @"TODO",
+                                 @"ResetCode": @"TODO",
+                                 @"NewPassword": @"TODO"};
+    
+    //[BPClient defaultClient]
+}
+
+- (void)addIdentityValue:(NSString *)identityValue
+{
+    NSString *resource = @"users/identity";
+
+}
+
+- (void)removeIdentityValue:(NSString *)identityValue
+{
+    NSString *resource = @"users/identity";
+
+}
 
 @end

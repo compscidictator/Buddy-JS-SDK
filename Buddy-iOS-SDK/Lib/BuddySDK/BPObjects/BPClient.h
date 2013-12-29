@@ -96,25 +96,22 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 typedef void (^BPBuddyObjectCallback)(id json);
 
--(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
+- (void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
 
--(void)queryObjectWithPath:(NSString *)path identifier:(NSString *)identifier complete:(BPBuddyObjectCallback) callback;
+- (void)queryObjectWithPath:(NSString *)path identifier:(NSString *)identifier complete:(BPBuddyObjectCallback) callback;
 
--(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
+- (void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
 
--(void)updateObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
+- (void)updateObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
 
--(void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
+- (void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
 
--(void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete;
+- (void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete;
 
+- (void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback;
 
--(void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback;
+- (void)socialLogin:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback;
 
-/// <summary>
-/// Ping the service.
-/// </summary>
-/// <param name="callback">The callback to call on success or error. The .result field of BuddyStringResponse will be "Pong" if the server responded. If the BuddyBoolResponse.isCompleted field is FALSE check the BuddyStringResponse.dataResult and/or BuddyStringResponse.exception for error information.</param>
 - (void)ping:(BPPingCallback)callback;
 
 
