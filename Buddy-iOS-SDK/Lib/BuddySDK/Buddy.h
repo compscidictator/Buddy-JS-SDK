@@ -66,4 +66,6 @@
 
 + (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback;
 
+-(void)socialLogin:(NSString *)provider password:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
+
 @end

@@ -139,6 +139,28 @@
     }];
 }
 
+-(void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback
+{
+    // providerName
+    // providerUniqueId
+    // providerAccessToken
+    // pageSize
+    // pageNumber
+    
+    // SocialProviderTokenMismatch
+    // NoSuchSocialProvider
+    // AccessTokenInvalid
+    // NoNameOrEmail
+
+    NSDictionary *parameters = @{@"providerName": provider,
+                                 @"providerUniqueId": providerId,
+                                 @"providerAccessToken": token};
+    
+    [self.service POST:@"users/login/social" parameters:parameters success:^(id json) {
+        callback(json);
+    }];
+}
+
 #pragma mark Non-BuddyObject Requests
 
 -(void)ping:(BPPingCallback)callback
