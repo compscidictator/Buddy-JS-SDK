@@ -58,7 +58,7 @@ namespace BuddySDK
             }
         }
 		
-		public Task<AlbumItem> AddAsync(string itemId, string comment, BuddyGeoLocation location, string defaultMetadata = null)
+		public Task<AlbumItem> AddItemAsync(string itemId, string comment, BuddyGeoLocation location, string defaultMetadata = null)
 		{
 			Task<AlbumItem> ct = new Task<AlbumItem>(() =>
 				{

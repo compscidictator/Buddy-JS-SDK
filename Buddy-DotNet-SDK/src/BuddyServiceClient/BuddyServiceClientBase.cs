@@ -12,7 +12,7 @@ using BuddySDK;
 
 namespace BuddyServiceClient
 {
-
+   
    
     public class BuddyCallResult<T>
     {
@@ -116,7 +116,7 @@ namespace BuddyServiceClient
         }
 
         public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters = null)
-        {
+        {   
             var tcs = new TaskCompletionSource<T1>();
 
 

@@ -11,8 +11,13 @@ using System.Text;
 using System.Linq;
 
 
-
-#if IOS
+#if ANDROID
+using Android.App;
+using Android.Content;
+using Android.Net;
+using Android.OS;
+using Android.Provider;
+#elif IOS
 using MonoTouch.CoreLocation;
 using MonoTouch.CoreFoundation;
 using MonoTouch.UIKit;
@@ -72,6 +77,35 @@ namespace BuddySDK
             }
         }
 
+		private const string UserSettingExpireEncodeDelimiter = "\t";
+
+		protected string EncodeUserSetting(string value, DateTime? expires = default(DateTime?))
+		{
+			var dt = expires.GetValueOrDefault (new DateTime (0)); // TODO: why both default(DateTime?) & new DateTime (0)?
+
+			return String.Format ("{0}{1}{2}", dt.Ticks, UserSettingExpireEncodeDelimiter, value);
+		}
+
+		protected string DecodeUserSetting(string value)
+		{
+			if (string.IsNullOrEmpty (value)) {
+				return null;
+			}
+
+			var tabIndex = value.IndexOf (UserSettingExpireEncodeDelimiter);
+
+			if (tabIndex == -1)
+				throw new ArgumentOutOfRangeException ("Unexpected Buddy user setting value.");
+
+			var ticks = Int64.Parse (value.Substring (0, tabIndex));
+
+			if (ticks > 0 && new DateTime(ticks) < DateTime.UtcNow) {
+				return null;
+			}
+
+			return value.Substring (tabIndex + 1);
+		}
+
         // settings
         public abstract string GetConfigSetting(string key);
 
@@ -90,12 +124,13 @@ namespace BuddySDK
         public static PlatformAccess Current {
             get {
                 if (_current == null) {
-                    #if IOS
+					#if ANDROID
+					_current = new AndroidPlatformAccess();
+					#elif IOS
                     _current = new IosPlatformAccess();
                     #else
                     _current = new DotNetPlatformAccess();
                     #endif
-
 
                     if (_current == null) {
                         throw new NotSupportedException ("Unknown platform");
@@ -107,7 +142,152 @@ namespace BuddySDK
 
     }
 
-    #if IOS
+	#if ANDROID
+	internal class AndroidPlatformAccess : PlatformAccess
+    {
+        public override string Platform {
+			get { return "Android"; }
+		}
+
+        public override string Model {
+			// TODO: verify this delimiter is a good one for analytics, and that it doesn't stomp on known Manufacturers and\or Models
+			get { return Build.Manufacturer + " : " + Build.Model; }
+		}
+
+        public override string DeviceUniqueId {
+			get {
+				// TODO: verify this is sufficient.  See http://developer.samsung.com/android/technical-docs/How-to-retrieve-the-Device-Unique-ID-from-android-device
+				// and http://android-developers.blogspot.com/2011/03/identifying-app-installations.html
+				return Settings.Secure.GetString (Application.Context.ContentResolver,
+					Settings.Secure.AndroidId);
+			}
+		}
+
+        public override string OSVersion {
+			get { return ((int) Build.VERSION.SdkInt).ToString(); }
+		}
+
+        public override bool IsEmulator {
+			get {
+				// The other recommended method is "goldfish".Equals (Android.OS.Build.Hardware.ToLowerInvariant());
+				return Android.OS.Build.Fingerprint.StartsWith("generic");
+			}
+		}
+
+        public override string ApplicationID {
+			get { 
+				return Application.Context.PackageName;
+			}
+		}
+
+        public override string AppVersion {
+			get {
+				var context = Application.Context;
+				 
+				var packageInfo = context.PackageManager.GetPackageInfo (context.PackageName, 
+					                  Android.Content.PM.PackageInfoFlags.Configurations);
+					
+				return packageInfo.VersionName;
+			}
+		}
+
+        public override PlatformAccess.NetworkConnectionType ConnectionType {
+			get {
+				var cs = (ConnectivityManager) Android.App.Application.Context.GetSystemService (Context.ConnectivityService);
+
+				if (!cs.ActiveNetworkInfo.IsConnected)
+					return PlatformAccess.NetworkConnectionType.None;
+
+				if (cs.ActiveNetworkInfo.Subtype == ConnectivityType.Wifi)
+					return PlatformAccess.NetworkConnectionType.WiFi;
+				else
+					return PlatformAccess.NetworkConnectionType.Carrier;
+			}
+		}
+
+        public override string GetConfigSetting(string key)
+        {
+			var context = Application.Context;
+
+			var packageInfo = context.PackageManager.GetPackageInfo (context.PackageName, 
+				Android.Content.PM.PackageInfoFlags.Configurations);
+
+			var metaData = packageInfo.ApplicationInfo.MetaData;
+
+			var value = metaData != null && metaData.ContainsKey(key) ? metaData.GetString (key) : null;
+
+			return value;
+        }
+
+		private Android.Content.ISharedPreferences GetPreferences()
+		{
+			var preferences = Application.Context.GetSharedPreferences ("com.buddy-" + ApplicationID, FileCreationMode.Private);
+
+			return preferences;
+		}
+
+		public override void SetUserSetting (string key, string value, DateTime? expires = default(DateTime?))
+		{
+			if (key == null)
+			throw new ArgumentNullException ("key");
+
+			var preferences = GetPreferences ();
+
+			var editor = preferences.Edit ();
+
+			string encodedValue = this.EncodeUserSetting (value, expires);
+
+			editor.PutString (key, encodedValue);
+
+			editor.Commit ();
+        }
+
+        public override string GetUserSetting(string key)
+        {
+			var preferences = GetPreferences ();
+
+			object val = null;
+			var keyExists = preferences.All.TryGetValue (key, out val);
+
+			if (!keyExists) {
+				return null;
+			}
+
+			var value = base.DecodeUserSetting ((string) val);
+
+			if (value == null) {
+				ClearUserSetting (key);
+			}
+
+			return value;
+		}
+
+		public override void ClearUserSetting(string key)
+        {
+			var preferences = GetPreferences ();
+
+			var editor = preferences.Edit ();
+
+			editor.Remove (key);
+
+			editor.Commit ();
+        }
+
+        public override void InvokeOnUiThread(Action a)
+		{
+			// SynchronizationContext can't be cached
+			if (SynchronizationContext.Current != null)
+			{
+				SynchronizationContext.Current.Post((s) => { a(); }, null);
+			}
+			else
+			{
+				a ();
+			}
+        }
+    }
+
+	#elif IOS
 
     internal class IosPlatformAccess : PlatformAccess {
         #region implemented abstract members of PlatformAccess
@@ -126,9 +306,9 @@ namespace BuddySDK
 
         public override void SetUserSetting (string key, string value, DateTime? expires = default(DateTime?))
         {
-            var dt = expires.GetValueOrDefault (new DateTime (0));
-            string encoded = String.Format ("{0}\t{1}", dt.Ticks, value);
-            NSUserDefaults.StandardUserDefaults.SetValueForKey (new NSString(encoded), new NSString(key));
+			string encodedValue = base.EncodeUserSetting (expires);
+
+			NSUserDefaults.StandardUserDefaults.SetValueForKey (new NSString(encodedValue), new NSString(key));
         }
 
         public override void ClearUserSetting (string key)
@@ -146,19 +326,14 @@ namespace BuddySDK
             if (value == null) {
                 return null;
             }
-            string val = value.ToString ();
-            var tabIndex = val.IndexOf ('\t');
 
-            if (tabIndex == -1)
-                throw new ArgumentOutOfRangeException ("Unexpected setting value.");
+			var decoded = base.DecodeUserSetting (ref value);
 
-            var ticks = Int64.Parse (val.Substring (0, tabIndex));
-
-            if (ticks > 0 && new DateTime(ticks) < DateTime.Now) {
-                ClearUserSetting (key);
-                return null;
-            }
-            return val.Substring (tabIndex + 1);
+			if (!decoded) {
+				ClearUserSetting (key);
+			}
+		
+			return value;
         }
 
         public override string Platform {
@@ -580,7 +755,7 @@ namespace BuddySDK
 
         public override string GetConfigSetting(string key)
         {
-            return System.Configuration.ConfigurationManager.AppSettings[key];
+		    return System.Configuration.ConfigurationManager.AppSettings[key];
         }
 
         private IDictionary<string, string> LoadSettings(IsolatedStorageFile isoStore)
