@@ -43,7 +43,7 @@ describe(@"BPCheckinIntegrationSpec", ^{
                                      description:@"Description"
                                         complete:^(BPCheckin *checkin, NSError *error) {
                                             newCheckin = checkin;
-                                            tempCheckinId = [checkin.id stripBuddyId];
+                                            tempCheckinId = checkin.id;
                                             tempCheckin = checkin;
                                         }];
 

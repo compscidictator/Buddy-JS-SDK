@@ -88,11 +88,9 @@
 
 -(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-    NSString *numberOnly = [object.id stripBuddyId];
-    
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[object class] requestPath],
-                          numberOnly];
+                          object.id];
     
     [self.service getBuddyObject:resource parameters:nil callback:^(id json) {
         callback(json);
@@ -103,7 +101,6 @@
 {
     NSString *resource = @"TODO - no update API's available yet";
     
-    
     [self.service updateBuddyObject:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
@@ -111,11 +108,9 @@
 
 -(void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
-    NSString *numberOnly = [object.id stripBuddyId];
-    
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[object class] requestPath],
-                          numberOnly];
+                          object.id];
     
     
     [self.service deleteBuddyObject:resource parameters:nil callback:^(id json) {
