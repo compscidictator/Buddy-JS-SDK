@@ -39,7 +39,6 @@
     [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
     [requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 
-
     if(token){
         NSLog(@"Setting token: %@", token);
         // Tell our serializer our new Authorization string.

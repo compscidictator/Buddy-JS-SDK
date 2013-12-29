@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BPRestProvider.h"
 
 //#define BUDDY_SERVER @"http://craig.buddyservers.net:8080/api"
 #define BUDDY_SERVER @"http://10.211.55.3/BuddyWebService.V2/"
@@ -30,7 +31,6 @@ typedef enum {
 /** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.
  */
 typedef void (^BPPingCallback)(NSDecimalNumber *ping);
-
 
 /// <summary>
 /// Gets the application name for this client.
@@ -83,35 +83,21 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// </summary>
 @property (nonatomic, readonly, strong) BPAuthenticatedUser *user;
 
-
 /// <summary>
 /// Singleton instance of the client.
 /// </summary>
 + (instancetype)defaultClient;
 
+
+@property (nonatomic, readonly, strong) id <BPRestProvider> restService;
 /// TODO
 -(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options complete:(void (^)())complete;
 
-
-
 typedef void (^BPBuddyObjectCallback)(id json);
 
-- (void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback;
-
-- (void)queryObjectWithPath:(NSString *)path identifier:(NSString *)identifier complete:(BPBuddyObjectCallback) callback;
-
-- (void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
-
-- (void)updateObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
-
-- (void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback) callback;
-
 - (void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete;
-
 - (void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback;
-
--(void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
-
+- (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 - (void)ping:(BPPingCallback)callback;
 
 

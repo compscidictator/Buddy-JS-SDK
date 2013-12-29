@@ -49,6 +49,11 @@
     }];
 }
 
+- (id<BPRestProvider>)restService
+{
+    return self.service;
+}
+
 # pragma mark -
 # pragma mark Singleton
 +(instancetype)defaultClient
@@ -62,62 +67,6 @@
 }
 
 #pragma mark BuddyObject
-
-
-
--(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
-{
-    [self.service POST:path parameters:parameters callback:^(id json) {
-        callback(json);
-    }];
-    
-}
-
--(void)queryObjectWithPath:(NSString *)path identifier:(NSString *)identifier complete:(BPBuddyObjectCallback) callback
-{
-    NSString *resource = [NSString stringWithFormat:@"%@/%@",
-                          path,
-                          identifier];
-    
-    
-    [self.service GET:resource parameters:nil callback:^(id json) {
-        callback(json);
-    }];
-    
-}
-
--(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
-{
-    assert(object.id);
-    NSString *resource = [NSString stringWithFormat:@"%@/%@",
-                          [[object class] requestPath],
-                          object.id];
-    
-    [self.service GET:resource parameters:nil callback:^(id json) {
-        callback(json);
-    }];
-}
-
--(void)updateObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
-{
-    NSString *resource = @"TODO - no update API's available yet";
-    
-    [self.service POST:resource parameters:nil callback:^(id json) {
-        callback(json);
-    }];
-}
-
--(void)deleteObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
-{
-    NSString *resource = [NSString stringWithFormat:@"%@/%@",
-                          [[object class] requestPath],
-                          object.id];
-    
-    
-    [self.service DELETE:resource parameters:nil callback:^(id json) {
-        callback(json);
-    }];
-}
 
 -(void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete
 {

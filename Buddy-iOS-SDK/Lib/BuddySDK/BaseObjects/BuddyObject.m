@@ -86,17 +86,9 @@
 
 #pragma mark CRUD
 
-+(instancetype)create
-{
-    [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:nil complete:^(id json) {
-        
-    }];
-    return nil;
-}
-
 +(void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback
 {
-    [[BPClient defaultClient] createObjectWithPath:[[self class] requestPath] parameters:parameters complete:^(id json) {
+    [[[BPClient defaultClient] restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json) {
         
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
 
@@ -122,8 +114,12 @@
 
 +(void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback
 {
-    [[BPClient defaultClient] queryObjectWithPath:[[self class] requestPath] identifier:identifier complete:^(id json) {
-        
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",
+                          [[self class] requestPath],
+                          identifier];
+    
+    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json) {
+
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
         newObject.id = json[@"id"];
         
@@ -140,7 +136,11 @@
 
 -(void)deleteMe:(void(^)())complete
 {
-    [[BPClient defaultClient] deleteObject:self complete:^(id json) {
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",
+                          [[self class] requestPath],
+                          self.id];
+    
+    [[[BPClient defaultClient] restService] DELETE:resource parameters:nil callback:^(id json) {
         if(complete)
             complete();
     }];
@@ -153,7 +153,12 @@
 
 -(void)refresh:(BuddyCompletionCallback)complete
 {
-    [[BPClient defaultClient] refreshObject:self complete:^(id json) {
+    assert(self.id);
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",
+                          [[self class] requestPath],
+                          self.id];
+    
+    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         if(complete)
             complete();
@@ -162,7 +167,9 @@
 
 -(void)update
 {
-    [[BPClient defaultClient] updateObject:self complete:^(id json) {
+    NSString *resource = @"TODO - no update API's available yet";
+
+    [[[BPClient defaultClient] restService] POST:resource parameters:nil callback:^(id json) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
     }];
 }
