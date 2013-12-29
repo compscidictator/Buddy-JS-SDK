@@ -30,6 +30,7 @@ typedef void (^BuddyDeviceCallback)(id response);
 
 +(NSString *)deviceModel;
 
+/*
 /// <summary>
 /// Record runtime device type information. This info will be uploaded to the Buddy service and can later be used for analytics purposes.
 /// </summary>
@@ -106,4 +107,5 @@ typedef void (^BuddyDeviceCallback)(id response);
            authUser:(NSString *)authUserToken
            callback:(BuddyDeviceCallback)callback;
 
+*/
 @end

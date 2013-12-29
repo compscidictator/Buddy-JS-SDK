@@ -58,14 +58,14 @@ static NSString *users = @"users";
 
 - (void)logout
 {
-    NSString *resource = @"users/logout";
+    //NSString *resource = @"users/logout";
 }
 
 - (void)requestPasswordReset
 {
-    NSString *resource = @"users/password";
-    NSDictionary *parameters = @{@"Creds": @"TODO",
-                                 @"UserName": @"TODO"};
+    //NSString *resource = @"users/password";
+    //NSDictionary *parameters = @{@"Creds": @"TODO",
+    //                             @"UserName": @"TODO"};
                                  
 
                                      
@@ -73,23 +73,23 @@ static NSString *users = @"users";
 
 - (void)resetPassword
 {
-    NSString *resource = @"users/password";
-    NSDictionary *parameters = @{@"UserName": @"TODO",
-                                 @"ResetCode": @"TODO",
-                                 @"NewPassword": @"TODO"};
+    //NSString *resource = @"users/password";
+    //NSDictionary *parameters = @{@"UserName": @"TODO",
+    //                             @"ResetCode": @"TODO",
+    //                             @"NewPassword": @"TODO"};
     
     //[BPClient defaultClient]
 }
 
 - (void)addIdentityValue:(NSString *)identityValue
 {
-    NSString *resource = @"users/identity";
+    //NSString *resource = @"users/identity";
 
 }
 
 - (void)removeIdentityValue:(NSString *)identityValue
 {
-    NSString *resource = @"users/identity";
+    //NSString *resource = @"users/identity";
 
 }
 

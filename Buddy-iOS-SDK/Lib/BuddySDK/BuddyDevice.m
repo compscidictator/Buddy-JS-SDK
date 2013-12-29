@@ -25,8 +25,6 @@
 
 @implementation BuddyDevice
 
-
-
 +(NSString *)identifier {
 
     NSArray *versionCompatibility = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];
