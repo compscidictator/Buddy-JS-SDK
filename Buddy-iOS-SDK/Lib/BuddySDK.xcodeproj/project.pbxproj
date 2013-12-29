@@ -47,6 +47,8 @@
 		C10E2BB6186951FA007A0136 /* Buddy.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2BB4186951FA007A0136 /* Buddy.h */; };
 		C10E2BB7186951FA007A0136 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2BB5186951FA007A0136 /* Buddy.m */; };
 		C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F1B77187095EA00D5364C /* BuddyIntegrationHelper.m */; };
+		C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B791870A6F500D5364C /* NSError+BuddyError.h */; };
+		C10F1B7C1870A6F500D5364C /* NSError+BuddyError.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F1B7A1870A6F500D5364C /* NSError+BuddyError.m */; };
 		C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */; };
 		C11E6C92184C57040034E1EB /* BPCheckinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */; };
 		C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */; };
@@ -217,6 +219,8 @@
 		C10E2BB5186951FA007A0136 /* Buddy.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Buddy.m; path = ../../Lib/BuddySDK/Buddy.m; sourceTree = "<group>"; };
 		C10F1B76187095EA00D5364C /* BuddyIntegrationHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyIntegrationHelper.h; sourceTree = "<group>"; };
 		C10F1B77187095EA00D5364C /* BuddyIntegrationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyIntegrationHelper.m; sourceTree = "<group>"; };
+		C10F1B791870A6F500D5364C /* NSError+BuddyError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BuddyError.h"; sourceTree = "<group>"; };
+		C10F1B7A1870A6F500D5364C /* NSError+BuddyError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+BuddyError.m"; sourceTree = "<group>"; };
 		C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPCheckinCollection.h; path = ../../Lib/BuddySDK/BPCollections/BPCheckinCollection.h; sourceTree = "<group>"; };
 		C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCheckinCollection.m; path = ../../Lib/BuddySDK/BPCollections/BPCheckinCollection.m; sourceTree = "<group>"; };
 		C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPPhotoCollection.h; path = ../../Lib/BuddySDK/BPCollections/BPPhotoCollection.h; sourceTree = "<group>"; };
@@ -461,6 +465,8 @@
 				C14E966C185150D700BE8C7C /* NSString+BuddyParser.m */,
 				C1B2375D1865569E005C841E /* NSString+JSON.h */,
 				C1B2375E1865569E005C841E /* NSString+JSON.m */,
+				C10F1B791870A6F500D5364C /* NSError+BuddyError.h */,
+				C10F1B7A1870A6F500D5364C /* NSError+BuddyError.m */,
 			);
 			name = Categories;
 			path = ../../Lib/BuddySDK/Categories;
@@ -674,6 +680,7 @@
 				C10E2B9D186950D8007A0136 /* BPClient.h in Headers */,
 				C1FABC5A1856BA0900E034FB /* ObjectiveSugar.h in Headers */,
 				C1B959F91837061F000C8417 /* BuddyObject.h in Headers */,
+				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
 				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
 				C1FABC4B1856BA0900E034FB /* NSDictionary+ObjectiveSugar.h in Headers */,
 				C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */,
@@ -940,6 +947,7 @@
 				C1B237601865569F005C841E /* NSString+JSON.m in Sources */,
 				C10E2BA1186950D8007A0136 /* BPCoordinate.m in Sources */,
 				C10E2B98186950D8007A0136 /* BPAuthenticatedUser.m in Sources */,
+				C10F1B7C1870A6F500D5364C /* NSError+BuddyError.m in Sources */,
 				C1E0D1D91831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */,
 				C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */,
 				C10E2BAA186950D8007A0136 /* BPSounds.m in Sources */,

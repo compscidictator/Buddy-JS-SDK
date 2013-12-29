@@ -120,8 +120,9 @@
     parameters = [NSDictionary dictionaryByMerging:parameters with:options];
     
     // On BPUser for now for consistency. Probably will move.
-    [BPUser createFromServerWithParameters:parameters complete:^(id newBuddyObject) {
-        callback(newBuddyObject);
+    [BPUser createFromServerWithParameters:parameters complete:^(id newBuddyObject, NSError *error) {
+#pragma warning TODO - Error
+        callback(newBuddyObject, nil);
     }];
 }
 
@@ -131,7 +132,8 @@
         BPUser *user = [[BPUser alloc] initBuddy];
         user.id = json[@"id"];
         [user refresh:^{
-            callback(user);
+#pragma warning TODO - Error
+            callback(user, nil);
         }];
     }];
 }

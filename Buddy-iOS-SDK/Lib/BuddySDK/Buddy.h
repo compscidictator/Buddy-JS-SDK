@@ -9,9 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "BuddyDevice.h"
-
 #import "BPClient.h"
-
 #import "BPAuthenticatedUser.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"

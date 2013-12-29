@@ -14,7 +14,7 @@ typedef enum{
     BuddyPermissionsDefult = BuddyPermissionsOwner
 }BuddyPermissions;
 
-typedef void (^BuddyObjectCallback)(id newBuddyObject);
+typedef void (^BuddyObjectCallback)(id newBuddyObject, NSError *error);
 typedef void (^BuddyCompletionCallback)();
 
 

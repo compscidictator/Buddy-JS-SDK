@@ -40,7 +40,7 @@ describe(@"BPUser", ^{
                                       };
             
             //NSString *tmpUsername = @"AB";
-            [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject) {
+            [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject, NSError *error) {
                 newUser = newBuddyObject;
             }];
             
@@ -50,7 +50,7 @@ describe(@"BPUser", ^{
         it(@"Should allow you to login.", ^{
             __block BPUser *newUser;
             
-            [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
+            [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
                 newUser = loggedInsUser;
             }];
             
@@ -59,10 +59,15 @@ describe(@"BPUser", ^{
 
         });
         
+        it(@"Should allow you to perform a social login.", ^{
+            pending(@"Social login", ^{
+            });
+        });
+        
         it(@"Should allow you to delete a user.", ^{
             __block BOOL deleted = NO;
             
-            [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
+            [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
                 [loggedInsUser deleteMe:^{
                     deleted = YES;
                 }];

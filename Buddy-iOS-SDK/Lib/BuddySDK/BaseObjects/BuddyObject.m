@@ -108,7 +108,8 @@
         }
         
         [newObject refresh:^{
-            callback(newObject);
+#pragma warning TODO - Error
+            callback(newObject, nil);
         }];
     }];
 }
@@ -121,7 +122,8 @@
         newObject.id = json[@"id"];
         
         [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
-        callback(newObject);
+#pragma warning TODO - Error
+        callback(newObject, nil);
     }];
 }
 

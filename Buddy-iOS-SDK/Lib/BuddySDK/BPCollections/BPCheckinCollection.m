@@ -29,9 +29,10 @@
                                  @"description": description,
                                  @"location": @"1.2, 3.4"};
     
-    [BPCheckin createFromServerWithParameters:parameters complete:^(BPCheckin *newBuddyObject) {
+    [BPCheckin createFromServerWithParameters:parameters complete:^(BPCheckin *newBuddyObject, NSError *error) {
         [newBuddyObject refresh:^{
-            complete(newBuddyObject);
+#pragma warning TODO - Error
+            complete(newBuddyObject, nil);
         }];
     }];
 }
