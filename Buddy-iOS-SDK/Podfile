@@ -1,0 +1,8 @@
+workspace 'BuddySDK.xcworkspace'
+xcodeproj 'Lib/BuddySDK.xcodeproj'
+
+target :'BuddySDK Unit Tests', :exclusive => true do
+   pod 'Kiwi/XCTest'
+end
+
+pod 'AFNetworking'

@@ -6,92 +6,72 @@
 //
 //
 
-#import "BuddyIntegrationTests.h"
 #import "Buddy.h"
+#import <Kiwi/Kiwi.h>
 
+SPEC_BEGIN(BuddyIntegrationSpec)
 
-@interface BuddyIntegrationTests()
-@end
-
-@implementation BuddyIntegrationTests
-
--(void)setUp
-{
-    [super setUp];
-
-    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
-        [self.tester signalDone];
-    }];
-    
-    [self.tester wait];
-}
-
--(void)tearDown
-{
-    [super tearDown];
-}
-
--(void)testBuddyAppIdPassword
-{
-    __block bool passed = NO;
-    
-    [[BPClient defaultClient] ping:^(NSDecimalNumber *ping) {
-        passed = YES;
-        [self.tester signalDone];
-    }];
-    
-    [self.tester wait];
-    
-    if(!passed)
-        XCTFail(@"No ping callback received");
-}
-
--(void)testUserCreation
-{
-    __block bool passed = NO;
-    
-    
-    NSDictionary *options = @{@"name": @"Erik Kerber",
-                              @"gender": @(BPUserGender_Male),
-                              @"email": @"erik.kerber@gmail.com",
-                              @"dateOfBirth": [NSNull null],
-                              @"relationshipStatus": @(BPUserRelationshipStatusOnTheProwl),
-                              @"celebrityMode": @(YES),
-                              @"fuzzLocation": @(NO)
-                              };
-    
-    [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject) {
+describe(@"BPUser", ^{
+    context(@"A clean boot of your app", ^{
         
-        // Hmm, this will only "pass" if we don't have a user. Maybe change this if I implement a delete test.
-        if(newBuddyObject.userName){
-            XCTAssertTrue([newBuddyObject.userName isEqualToString:TEST_USERNAME], @"Buddy object did not contain correct name");
-        }
+        beforeAll(^{
+            __block BOOL fin = NO;
 
-        passed = YES;
-        [self.tester signalDone];
-    }];
-    
-    [self.tester wait];
-    
-    if(!passed)
-        XCTFail(@"No callback received");
-}
+            [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
+                fin = YES;
+            }];
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+        });
+        
+        afterAll(^{
 
--(void)testUserLogin
-{
-    __block bool passed = NO;
-    
-    [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
-        XCTAssertTrue([loggedInsUser.userName isEqualToString:TEST_USERNAME], @"Buddy object did not contain correct name");
-        //XCTAssert(loggedInsUser.relationshipStatus == BPUserRelationshipStatusOnTheProwl, @"Should be on the prowl");
-        [self.tester signalDone];
-        passed = YES;
-    }];
-    
-    [self.tester wait];
-    
-    if(!passed)
-        XCTFail(@"No callback received");
-}
+        });
+        
+        it(@"Should allow you to create a user.", ^{
+            
+            __block BPUser *newUser;
+            NSDictionary *options = @{@"name": @"Erik Kerber",
+                                      @"gender": @(BPUserGender_Male),
+                                      @"email": @"erik.kerber@gmail.com",
+                                      @"dateOfBirth": [NSNull null],
+                                      @"relationshipStatus": @(BPUserRelationshipStatusOnTheProwl),
+                                      @"celebrityMode": @(YES),
+                                      @"fuzzLocation": @(NO)
+                                      };
+            
+            //NSString *tmpUsername = @"AB";
+            [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject) {
+                newUser = newBuddyObject;
+            }];
+            
+            [[expectFutureValue(newUser.userName) shouldEventuallyBeforeTimingOutAfter(2.0)] equal:TEST_USERNAME];
+        });
+        
+        it(@"Should allow you to login.", ^{
+            __block BPUser *newUser;
+            
+            [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
+                newUser = loggedInsUser;
+            }];
+            
+            [[expectFutureValue(newUser.userName) shouldEventually] equal:TEST_USERNAME];
+            //[[expectFutureValue(theValue(newUser.relationshipStatus)) shouldEventually] equal:theValue(BPUserRelationshipStatusOnTheProwl)];
 
-@end
+        });
+        
+        it(@"Should allow you to delete a user.", ^{
+            __block BOOL deleted = NO;
+            
+            [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
+                [loggedInsUser deleteMe:^{
+                    deleted = YES;
+                }];
+            }];
+            
+            [[expectFutureValue(theValue(deleted)) shouldEventually] beYes];
+            
+        });
+    });
+});
+
+SPEC_END

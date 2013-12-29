@@ -41,6 +41,7 @@
 
 
     if(token){
+        NSLog(@"Setting token: %@", token);
         // Tell our serializer our new Authorization string.
         NSString *authString = [@"Buddy " stringByAppendingString:token];
         [requestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];

@@ -6,100 +6,74 @@
 //
 //
 
-#import "CheckinIntegrationTests.h"
 #import "Buddy.h"
+#import "BuddyIntegrationHelper.h"
+#import <Kiwi/Kiwi.h>
 
+SPEC_BEGIN(BuddyCheckinSpec)
 
-@implementation CheckinIntegrationTests
+describe(@"BPCheckinIntegrationSpec", ^{
+    context(@"When a user is logged in", ^{
+        
+        __block BPCheckin *tempCheckin;
+        __block NSString *tempCheckinId;
+        
+        beforeAll(^{
+            __block BOOL fin = NO;
+            
+            [BuddyIntegrationHelper bootstrapLogin:^{
+                fin = YES;
+            }];
+            
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+        });
+        
+        afterAll(^{
+            
+        });
+        
+        it(@"Should allow you to checkin.", ^{
+            
+            __block BPCheckin *newCheckin;
+            BPCoordinate *coordinate = [BPCoordinate new];
+            coordinate.latitude = 2.3;
+            coordinate.longitude = 4.4;
+            
+            [[Buddy checkins] checkinWithComment:@"Checking in!"
+                                     description:@"Description"
+                                        complete:^(BPCheckin *checkin) {
+                                            newCheckin = checkin;
+                                            tempCheckinId = [checkin.id stripBuddyId];
+                                            tempCheckin = checkin;
+                                        }];
 
-static NSString *tempCheckinId;
-static BPCheckin *tempCheckin;
+            
+            [[expectFutureValue(newCheckin.comment) shouldEventually] equal:@"Checking in!"];
+            [[expectFutureValue(newCheckin.description) shouldEventually] equal:@"Description"];
+        });
+        
+        it(@"Should allow you to retrieve a list of checkins.", ^{
+            __block NSArray *checkins;
+            [[Buddy checkins] getCheckins:^(NSArray *buddyObjects) {
+                checkins = buddyObjects;
+                [[theValue([checkins count]) should] beGreaterThan:theValue(0)];
+                //int a = [checkins count];
+            }];
+            
+            [[expectFutureValue(theValue([checkins count])) shouldEventuallyBeforeTimingOutAfter(3.0)] beGreaterThan:theValue(0)];
+        });
+        
+        it(@"Should allow you to retrieve a specific checkin.", ^{
+            __block BPCheckin *retrievedCheckin;
+            [BPCheckin queryFromServerWithId:tempCheckinId callback:^(BPCheckin *newBuddyObject) {
+                retrievedCheckin = newBuddyObject;
+            }];
 
--(void)setUp{
-    [super setUp];
-    
-    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
-        [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser) {
-            [self.tester signalDone];
-        }];
-    }];
-    
-    [self.tester wait];
-}
+            [[expectFutureValue(retrievedCheckin.id) shouldEventually] equal:tempCheckin.id];
+            [[expectFutureValue(retrievedCheckin.comment) shouldEventually] equal:tempCheckin.comment];
+            [[expectFutureValue(retrievedCheckin.description) shouldEventually] equal:tempCheckin.description];
+        });
+    });
+});
 
--(void)tearDown
-{
-    
-}
-
--(void)testCreateCheckin
-{
-    BPCoordinate *coordinate = [BPCoordinate new];
-    coordinate.latitude = 2.3;
-    coordinate.longitude = 4.4;
-
-    self.tester = [TestHelper new];
-    
-    [[Buddy checkins] checkinWithComment:@"Checking in!"
-                             description:@"Description"
-                        complete:^(BPCheckin *checkin) {
-                            XCTAssert([checkin.comment isEqualToString:@"Checking in!"], @"Didn't get the response back");
-                            XCTAssert([checkin.description isEqualToString:@"Description"], @"Didn't get the response back");
-                            tempCheckinId = [checkin.id stripBuddyId];
-                                [self.tester signalDone];
-                            tempCheckin = checkin;
-                        }];
-    [self.tester wait];
-}
-
--(void)testCreateAlternateCheckin
-{
-    BPCoordinate *coordinate = [BPCoordinate new];
-    coordinate.latitude = 2.3;
-    coordinate.longitude = 4.4;
-    
-    BPCheckin *checkin = [BPCheckin checkin];
-    checkin.comment = @"Checking in 2!";
-    checkin.description = @"Description 2";
-    checkin.defaultMetadata = @"LOL I don't know what this is?";
-    
-    [[Buddy checkins] addCheckin:checkin];
-}
-
--(void)testGetCheckinList
-{
-    [[Buddy checkins] getCheckins:^(NSArray *buddyObjects) {
-       //TODO
-        [self.tester signalDone];
-    }];
-    
-    [self.tester wait];
-}
-
--(void)testGetCheckin
-{
-    
-    [BPCheckin queryFromServerWithId:tempCheckinId callback:^(BPCheckin *newBuddyObject) {
-        XCTAssert([newBuddyObject.id isEqualToString:tempCheckinId], @"Did not retrive old identifier.");
-        XCTAssert([newBuddyObject.comment isEqualToString:tempCheckin.comment], @"Did not retrive old identifier.");
-        XCTAssert([newBuddyObject.description isEqualToString:tempCheckin.description], @"Did not retrive old identifier.");
-
-        [self.tester signalDone];
-
-    }];
-    [self.tester wait];
-
-}
-
--(void)testDeleteCheckin
-{
-    [tempCheckin deleteMe];
-
-}
-
--(void)testGetCheckinByRadius
-{
-    
-}
-
-@end
+SPEC_END
