@@ -7,10 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "BPRestProvider.h"
 
-typedef void (^AFNetworkingCallback)(id json);
-
-@interface BPServiceController : NSObject
+@interface BPServiceController : NSObject <BPRestProvider>
 
 -(instancetype) init __attribute__((unavailable("Use initWithUrl:")));
 +(instancetype) new __attribute__((unavailable("Use with initWithUrl:")));
@@ -21,17 +20,5 @@ typedef void (^AFNetworkingCallback)(id json);
 @property (nonatomic, readonly, retain) NSString *appKey;
 
 -(void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(void (^)())complete;
-
--(void)createBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
-
--(void)getBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
-
--(void)deleteBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
-
--(void)updateBuddyObject:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
-
--(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback;
-
--(void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters success:(AFNetworkingCallback)callback;
 
 @end

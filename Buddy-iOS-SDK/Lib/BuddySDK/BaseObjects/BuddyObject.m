@@ -107,6 +107,12 @@
             newObject.id = json;
         }
         
+        if(!newObject.id){
+#pragma warning TODO - Error
+            callback(newObject, nil);
+            return;
+        }
+        
         [newObject refresh:^{
 #pragma warning TODO - Error
             callback(newObject, nil);

@@ -13,7 +13,7 @@ SPEC_BEGIN(BuddyIntegrationSpec)
 
 describe(@"BPUser", ^{
     context(@"A clean boot of your app", ^{
-        
+        __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin2";
         beforeAll(^{
             __block BOOL fin = NO;
 
@@ -39,41 +39,40 @@ describe(@"BPUser", ^{
                                       @"fuzzLocation": @(NO)
                                       };
             
-            //NSString *tmpUsername = @"AB";
-            [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject, NSError *error) {
+            [Buddy createUser:testCreateDeleteName password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject, NSError *error) {
                 newUser = newBuddyObject;
             }];
             
-            [[expectFutureValue(newUser.userName) shouldEventuallyBeforeTimingOutAfter(2.0)] equal:TEST_USERNAME];
+            [[expectFutureValue(newUser.userName) shouldEventuallyBeforeTimingOutAfter(4.0)] equal:testCreateDeleteName];
         });
         
         it(@"Should allow you to login.", ^{
             __block BPUser *newUser;
             
-            [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
+            [Buddy login:testCreateDeleteName password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
                 newUser = loggedInsUser;
             }];
             
-            [[expectFutureValue(newUser.userName) shouldEventually] equal:TEST_USERNAME];
+            [[expectFutureValue(newUser.userName) shouldEventuallyBeforeTimingOutAfter(4.0)] equal:testCreateDeleteName];
             //[[expectFutureValue(theValue(newUser.relationshipStatus)) shouldEventually] equal:theValue(BPUserRelationshipStatusOnTheProwl)];
 
         });
         
         it(@"Should allow you to perform a social login.", ^{
-            pending(@"Social login", ^{
-            });
+            //pending(@"Social login", ^{
+            //});
         });
         
         it(@"Should allow you to delete a user.", ^{
             __block BOOL deleted = NO;
             
-            [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
+            [Buddy login:testCreateDeleteName password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
                 [loggedInsUser deleteMe:^{
                     deleted = YES;
                 }];
             }];
             
-            [[expectFutureValue(theValue(deleted)) shouldEventually] beYes];
+            [[expectFutureValue(theValue(deleted)) shouldEventuallyBeforeTimingOutAfter(4.0)] beYes];
             
         });
     });

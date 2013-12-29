@@ -219,6 +219,7 @@
 		C10F1B77187095EA00D5364C /* BuddyIntegrationHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyIntegrationHelper.m; sourceTree = "<group>"; };
 		C10F1B791870A6F500D5364C /* NSError+BuddyError.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSError+BuddyError.h"; sourceTree = "<group>"; };
 		C10F1B7A1870A6F500D5364C /* NSError+BuddyError.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSError+BuddyError.m"; sourceTree = "<group>"; };
+		C10F1B7F1870C35A00D5364C /* BPRestProvider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPRestProvider.h; sourceTree = "<group>"; };
 		C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPCheckinCollection.h; path = ../../Lib/BuddySDK/BPCollections/BPCheckinCollection.h; sourceTree = "<group>"; };
 		C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCheckinCollection.m; path = ../../Lib/BuddySDK/BPCollections/BPCheckinCollection.m; sourceTree = "<group>"; };
 		C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPPhotoCollection.h; path = ../../Lib/BuddySDK/BPCollections/BPPhotoCollection.h; sourceTree = "<group>"; };
@@ -564,6 +565,7 @@
 			children = (
 				C1AA90D618371FF70074B7E8 /* BPServiceController.h */,
 				C1AA90D718371FF70074B7E8 /* BPServiceController.m */,
+				C10F1B7F1870C35A00D5364C /* BPRestProvider.h */,
 			);
 			name = Networking;
 			path = ../../Lib/BuddySDK/Networking;

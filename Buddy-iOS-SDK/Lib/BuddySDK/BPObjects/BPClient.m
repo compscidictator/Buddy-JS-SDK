@@ -67,7 +67,7 @@
 
 -(void)createObjectWithPath:(NSString *)path parameters:(NSDictionary *)parameters complete:(BPBuddyObjectCallback) callback
 {
-    [self.service createBuddyObject:path parameters:parameters callback:^(id json) {
+    [self.service POST:path parameters:parameters callback:^(id json) {
         callback(json);
     }];
     
@@ -80,7 +80,7 @@
                           identifier];
     
     
-    [self.service getBuddyObject:resource parameters:nil callback:^(id json) {
+    [self.service GET:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
     
@@ -88,11 +88,12 @@
 
 -(void)refreshObject:(BuddyObject *)object complete:(BPBuddyObjectCallback)callback
 {
+    assert(object.id);
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[object class] requestPath],
                           object.id];
     
-    [self.service getBuddyObject:resource parameters:nil callback:^(id json) {
+    [self.service GET:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
 }
@@ -101,7 +102,7 @@
 {
     NSString *resource = @"TODO - no update API's available yet";
     
-    [self.service updateBuddyObject:resource parameters:nil callback:^(id json) {
+    [self.service POST:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
 }
@@ -113,14 +114,14 @@
                           object.id];
     
     
-    [self.service deleteBuddyObject:resource parameters:nil callback:^(id json) {
+    [self.service DELETE:resource parameters:nil callback:^(id json) {
         callback(json);
     }];
 }
 
 -(void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete
 {
-    [self.service GET:resource parameters:nil success:^(id json) {
+    [self.service GET:resource parameters:nil callback:^(id json) {
         complete(json);
     }];
 }
@@ -129,7 +130,7 @@
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password};
-    [self.service POST:@"users/login" parameters:parameters success:^(id json) {
+    [self.service POST:@"users/login" parameters:parameters callback:^(id json) {
         callback(json);
     }];
 }
@@ -151,7 +152,7 @@
                                  @"providerUniqueId": providerId,
                                  @"providerAccessToken": token};
     
-    [self.service POST:@"users/login/social" parameters:parameters success:^(id json) {
+    [self.service POST:@"users/login/social" parameters:parameters callback:^(id json) {
         callback(json);
     }];
 }
@@ -160,7 +161,7 @@
 
 -(void)ping:(BPPingCallback)callback
 {
-    [self.service GET:@"ping" parameters:nil success:^(id json) {
+    [self.service GET:@"ping" parameters:nil callback:^(id json) {
         callback([NSDecimalNumber decimalNumberWithString:@"2.0"]);
     }];
 }
