@@ -6,3 +6,4 @@ target :'BuddySDK Unit Tests', :exclusive => true do
 end
 
 pod 'AFNetworking'
+pod 'ObjectiveSugar'
