@@ -13,7 +13,7 @@ SPEC_BEGIN(BuddyIntegrationSpec)
 
 describe(@"BPUser", ^{
     context(@"A clean boot of your app", ^{
-        __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin";
+        __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin3";
         beforeAll(^{
             __block BOOL fin = NO;
 

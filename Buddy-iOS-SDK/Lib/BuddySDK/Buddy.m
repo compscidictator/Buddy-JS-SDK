@@ -23,8 +23,11 @@
 
 @implementation Buddy
 
-+ (BPAuthenticatedUser *)user{
-    return [[BPClient defaultClient] user];
+static BPUser *_user;
++ (BPUser *)user{
+    return _user;
+#pragma mark TODO - Ugh, figure out my BPClient identity crisis.
+//    return [[BPClient defaultClient] user];
 }
 
 + (BuddyDevice *)device{
@@ -131,8 +134,10 @@
     [[BPClient defaultClient] login:username password:password success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddy];
         user.id = json[@"id"];
-        [user refresh:^{
+        [user refresh:^(NSError *error){
 #pragma warning TODO - Error
+#pragma warning TODO - hack
+            _user = user;
             callback(user, nil);
         }];
     }];
@@ -143,7 +148,7 @@
     [[BPClient defaultClient] socialLogin:provider providerId:providerId token:token success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddy];
         user.id = json[@"id"];
-        [user refresh:^{
+        [user refresh:^(NSError *error){
             callback(user);
         }];
     }];

@@ -15,7 +15,7 @@ typedef enum{
 }BuddyPermissions;
 
 typedef void (^BuddyObjectCallback)(id newBuddyObject, NSError *error);
-typedef void (^BuddyCompletionCallback)();
+typedef void (^BuddyCompletionCallback)(NSError *error);
 
 
 @interface BuddyObject : NSObject
@@ -33,7 +33,6 @@ typedef void (^BuddyCompletionCallback)();
 
 +(NSString *)requestPath;
 
-+(instancetype)create;
 +(void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback;
 +(void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback;
 -(void)deleteMe:(void(^)())complete;

@@ -105,7 +105,7 @@
             return;
         }
         
-        [newObject refresh:^{
+        [newObject refresh:^(NSError *error){
 #pragma warning TODO - Error
             callback(newObject, nil);
         }];
@@ -161,7 +161,8 @@
     [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         if(complete)
-            complete();
+#pragma warning TODO - NSError
+            complete(nil);
     }];
 }
 

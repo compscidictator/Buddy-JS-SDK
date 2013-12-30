@@ -49,6 +49,7 @@
 		C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F1B77187095EA00D5364C /* BuddyIntegrationHelper.m */; };
 		C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B791870A6F500D5364C /* NSError+BuddyError.h */; };
 		C10F1B7C1870A6F500D5364C /* NSError+BuddyError.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F1B7A1870A6F500D5364C /* NSError+BuddyError.m */; };
+		C10F1B80187103E500D5364C /* BPUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90E318373BF80074B7E8 /* BPUserTests.m */; };
 		C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */; };
 		C11E6C92184C57040034E1EB /* BPCheckinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */; };
 		C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */; };
@@ -974,6 +975,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C10F1B80187103E500D5364C /* BPUserTests.m in Sources */,
 				C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */,
 				C1B95A8A18370962000C8417 /* LocationTests.m in Sources */,
 				C1ADD127184D96B800246313 /* CheckinIntegrationTests.m in Sources */,

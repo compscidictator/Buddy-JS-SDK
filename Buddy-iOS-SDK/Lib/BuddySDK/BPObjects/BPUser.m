@@ -56,41 +56,57 @@ static NSString *users = @"users";
     return components.year;
 }
 
-- (void)logout
+
+- (void)logout:(BuddyCompletionCallback)callback
 {
-    //NSString *resource = @"users/logout";
+    NSString *resource = @"users/logout";
+    
+    [[[BPClient defaultClient] restService] POST:resource parameters:nil callback:^(id json) {
+        callback(nil);
+    }];
 }
 
-- (void)requestPasswordReset
+- (void)requestPasswordReset:(BuddyObjectCallback)callback
 {
-    //NSString *resource = @"users/password";
-    //NSDictionary *parameters = @{@"Creds": @"TODO",
-    //                             @"UserName": @"TODO"};
+    NSString *resource = @"users/password";
+    NSDictionary *parameters = @{@"UserName": self.userName};
                                  
 
-                                     
+    [[[BPClient defaultClient] restService] POST:resource parameters:parameters callback:^(id json) {
+        callback(json, nil);
+    }];
 }
 
-- (void)resetPassword
+- (void)resetPassword:(NSString *)resetCode newPassword:(NSString *)newPassword callback:(BuddyCollectionCallback)callback
 {
-    //NSString *resource = @"users/password";
-    //NSDictionary *parameters = @{@"UserName": @"TODO",
-    //                             @"ResetCode": @"TODO",
-    //                             @"NewPassword": @"TODO"};
+    NSString *resource = @"users/password";
+    NSDictionary *parameters = @{@"UserName": self.userName,
+                                 @"ResetCode": resetCode,
+                                 @"NewPassword": newPassword};
     
-    //[BPClient defaultClient]
+    [[[BPClient defaultClient] restService] PATCH:resource parameters:parameters callback:^(id json) {
+        callback(nil);
+    }];
 }
 
-- (void)addIdentityValue:(NSString *)identityValue
+- (void)addIdentityValue:(NSString *)identityValue callback:(BuddyCompletionCallback)callback;
 {
-    //NSString *resource = @"users/identity";
-
+    NSString *resource = @"users/identity";
+    NSDictionary *parameters = @{@"Identity": identityValue};
+    
+    [[[BPClient defaultClient] restService] PATCH:resource parameters:parameters callback:^(id json) {
+        callback(json);
+    }];
 }
 
-- (void)removeIdentityValue:(NSString *)identityValue
+- (void)removeIdentityValue:(NSString *)identityValue callback:(BuddyCompletionCallback)callback;
 {
-    //NSString *resource = @"users/identity";
-
+    NSString *resource = [@"users/identity/" stringByAppendingString:identityValue];
+    NSDictionary *parameters = @{@"Identity": identityValue};
+    
+    [[[BPClient defaultClient] restService] DELETE:resource parameters:parameters callback:^(id json) {
+        
+    }];
 }
 
 @end

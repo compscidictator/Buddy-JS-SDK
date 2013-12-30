@@ -24,7 +24,7 @@
 
 @interface Buddy : NSObject
 
-+ (BPAuthenticatedUser *)user;
++ (BPUser *)user;
 
 + (BuddyDevice *)device;
 

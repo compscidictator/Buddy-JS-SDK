@@ -30,10 +30,8 @@
                                  @"location": @"1.2, 3.4"};
     
     [BPCheckin createFromServerWithParameters:parameters complete:^(BPCheckin *newBuddyObject, NSError *error) {
-        [newBuddyObject refresh:^{
 #pragma warning TODO - Error
-            complete(newBuddyObject, nil);
-        }];
+        complete(newBuddyObject, nil);
     }];
 }
 

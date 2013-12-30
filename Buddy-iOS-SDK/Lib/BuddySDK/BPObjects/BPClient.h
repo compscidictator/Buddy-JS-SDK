@@ -16,7 +16,7 @@
 @class BPGameBoards;
 @class BPAppMetadata;
 @class BPSounds;
-@class BPAuthenticatedUser;
+@class BPUser;
 @class BPCheckinCollection;
 
 typedef enum {
@@ -81,7 +81,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// <summary>
 /// Current BuddyAuthenticatedUser as of the last login
 /// </summary>
-@property (nonatomic, readonly, strong) BPAuthenticatedUser *user;
+@property (nonatomic, readonly, strong) BPUser *user;
 
 /// <summary>
 /// Singleton instance of the client.

@@ -65,9 +65,9 @@ typedef enum
 
 @property (nonatomic, assign) BOOL friendRequestPending;
 
-- (void)requestPasswordReset;
-- (void)resetPassword;
-- (void)addIdentityValue:(NSString *)identityValue;
-- (void)removeIdentityValue:(NSString *)identityValue;
+- (void)requestPasswordReset:(BuddyObjectCallback)callback;
+- (void)resetPassword:(NSString *)resetCode newPassword:(NSString *)newPassword callback:(BuddyCollectionCallback)callback;
+- (void)addIdentityValue:(NSString *)identityValue callback:(BuddyCompletionCallback)callback;
+- (void)removeIdentityValue:(NSString *)identityValue callback:(BuddyCompletionCallback)callback;
 
 @end
