@@ -8,8 +8,8 @@ using Android.App;
 [assembly: AssemblyDescription ("")]
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
-[assembly: AssemblyProduct ("")]
-[assembly: AssemblyCopyright ("brad_000")]
+[assembly: AssemblyProduct ("Android Tests")]
+[assembly: AssemblyCopyright ("Copyright © Buddy Platform, Inc. 2014")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 // The assembly version has the format "{Major}.{Minor}.{Build}.{Revision}".

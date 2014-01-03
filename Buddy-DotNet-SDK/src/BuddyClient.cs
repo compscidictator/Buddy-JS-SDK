@@ -9,7 +9,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using BuddyServiceClient;
 using System.Reflection;
-#if IOS
+#if __IOS__
 using MonoTouch.Foundation;
 #endif
 
@@ -364,6 +364,7 @@ namespace BuddySDK
                     password = password,
                     email = email,
                     gender = gender,
+					dateOfBirth = dateOfBirth,
                     defaultMetadata = defaultMetadata,
                     relationshipStatus = status
                 });

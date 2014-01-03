@@ -12,7 +12,8 @@ namespace BuddySDK
     /// </summary>
     public enum UserGender
     {
-        Male,
+		Unknown,
+		Male,
         Female
     }
 
@@ -21,7 +22,7 @@ namespace BuddySDK
     /// </summary>
     public enum UserRelationshipStatus
     {
-        NotSpecified = 0,
+		Unknown = 0,
         Single = 1,
         Dating = 2,
         Engaged = 3,
@@ -48,26 +49,32 @@ namespace BuddySDK
     [BuddyObjectPath("/users")]
     public class User : BuddyBase
     {
-        /// <summary>
-        /// Gets the name of the user.
-        /// </summary>
-        /// 
-        [JsonProperty("fullName")]
-        public string Name
+		[JsonProperty("firstName")]
+		public string FirstName
         {
             get
             {
-                return GetValueOrDefault<string>("Name");
+				return GetValueOrDefault<string>("FirstName");
             }
             set
             {
-                SetValue("Name", value);
+				SetValue("FirstName", value);
             }
         }
 
-      
+		[JsonProperty("lastName")]
+		public string LastName
+		{
+			get
+			{
+				return GetValueOrDefault<string>("LastName");
+			}
+			set
+			{
+				SetValue("LastName", value);
+			}
+		}    
     
-
         [JsonProperty("userName")]
         public string Username
         {

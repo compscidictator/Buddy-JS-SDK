@@ -65,13 +65,12 @@ namespace AlbumsSample
 			var uiContext = TaskScheduler.FromCurrentSynchronizationContext ();
 
 			Task.Run (async () => {
-				var picture = await Buddy.Photos.FindAsync (albumItems.Skip (position).First ().ItemId);
+				var picture = new Photo (albumItems.Skip (position).First ().ItemId);
 
-				var pictureStream = await picture.First ().GetFileAsync ();
+				var pictureStream = await picture.GetFileAsync ();
 
-				// Use ContinueWith() instead of await here, so decodeTask, including SetImageBitmap(),
-				// will be called on the uiContext.
-				BitmapFactory.DecodeStreamAsync (pictureStream).ContinueWith((decodeTask) =>
+				// Use ContinueWith() here, so SetImageBitmap() will be called on the uiContext.
+				await BitmapFactory.DecodeStreamAsync (pictureStream).ContinueWith((decodeTask) =>
 					{
 						imageView.SetImageBitmap (decodeTask.Result);
 					}, CancellationToken.None, TaskContinuationOptions.DenyChildAttach, uiContext);

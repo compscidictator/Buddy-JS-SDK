@@ -11,13 +11,11 @@ using BuddySDK;
 
 namespace AlbumsSample
 {
-	[Activity(Label = "Albums", MainLauncher = true, Icon = "@drawable/icon")]
+	[Activity(Label = "Albums")]
     public class AlbumsActivity : Activity
     {
-		public const string DataTransferKey = "ListItem";
-
 		private Button _createAlbumButton;
-		private EditText _createAlbumText;
+		private EditText _createAlbumEditText;
 		private ListView _albumsListView;
 
 		public static BuddySDK.Album SelectedAlbum;
@@ -25,8 +23,6 @@ namespace AlbumsSample
 		protected override async void OnCreate(Bundle bundle)
         {
             base.OnCreate(bundle);
-
-			await CreateUser ();
 
 			SetContentView(Resource.Layout.Albums);
 
@@ -53,10 +49,10 @@ namespace AlbumsSample
 
 		private void InitializeCreateAlbumText()
 		{
-			_createAlbumText = FindViewById<EditText> (Resource.Id.createAlbumText);
+			_createAlbumEditText = FindViewById<EditText> (Resource.Id.createAlbumEditText);
 
-			_createAlbumText.KeyPress += (sender, keyEventArgs) => {
-				_createAlbumButton.Enabled = _createAlbumText.Text.Length > 0;
+			_createAlbumEditText.KeyPress += (sender, keyEventArgs) => {
+				_createAlbumButton.Enabled = _createAlbumEditText.Text.Length > 0;
 
 				keyEventArgs.Handled = false;
 			};
@@ -76,21 +72,14 @@ namespace AlbumsSample
 			};
 		}
 
-		private async Task CreateUser()
-		{
-			var randomString = new Random ().Next ().ToString ();
-
-			await Buddy.CreateUserAsync ("Album Sample User " + randomString, randomString);
-		}
-
 		private async Task GetAlbums()
 		{
-			await Buddy.Albums.AddAsync (_createAlbumText.Text, "", null);
+			await Buddy.Albums.AddAsync (_createAlbumEditText.Text, "", null);
 		}
 
 		private void ResetAdapterControls()
 		{
-			_createAlbumText.Text = "";
+			_createAlbumEditText.Text = "";
 			_createAlbumButton.Enabled = false;
 		}
 

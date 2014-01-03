@@ -5,9 +5,10 @@
     android:layout_height="fill_parent">
     <Button
         android:text="Add Picture"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/addPictureButton" />
+        android:id="@+id/addPictureButton"
+        android:layout_gravity="center" />
     <GridView
         android:id="@+id/albumItemsGridView"
         android:layout_width="fill_parent"

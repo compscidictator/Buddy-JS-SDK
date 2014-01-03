@@ -17,7 +17,7 @@ using BuddySDK;
 
 namespace AlbumsSample
 {
-	[Activity (Label = "Album Items", Icon = "@drawable/icon")]			
+	[Activity (Label = "Album Items")]			
 	public class AlbumItemsActivity : Activity
 	{
 		private const int PickImageId = 1000;

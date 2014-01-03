@@ -17,7 +17,7 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/createAlbumText" />
+            android:id="@+id/createAlbumEditText" />
     </LinearLayout>
     <ListView
         android:minWidth="25px"
