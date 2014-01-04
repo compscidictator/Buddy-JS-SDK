@@ -61,34 +61,7 @@ namespace BuddySDK
         Default = User
     }
 
-    [JsonConverter(typeof(BuddyLocationGeoConverter))]
-    public class BuddyGeoLocation
-    {
-        [JsonProperty("latitude")]
-        public double Latitude { get; set; }
 
-        [JsonProperty("longitude")]
-        public double Longitude { get; set; }
-
-
-       
-        public string LocationID { get; set; }
-
-        public BuddyGeoLocation()
-        {
-        }
-
-
-        public BuddyGeoLocation(double lat, double lng)
-        {
-            Latitude = lat;
-            Longitude = lng;
-        }
-        public override string ToString()
-        {
-            return String.Format("{0},{1}", Latitude, Longitude);
-        }
-    }
 
     public abstract class BuddyBase : System.ComponentModel.INotifyPropertyChanged
     {
@@ -139,7 +112,7 @@ namespace BuddySDK
         }
 
         [JsonProperty("location")]
-        public BuddyGeoLocation Location
+        public virtual BuddyGeoLocation Location
         {
             get
             {
@@ -311,11 +284,13 @@ namespace BuddySDK
                        var r =  Client.Service.CallMethodAsync<IDictionary<string, object>>(
                               "GET", GetObjectPath());
 
+                        
                         r.Wait();
                         Update(r.Result);
                        _pendingRefresh = null;
                        
-                   });
+                        });
+
                     _pendingRefresh.Start();
                 }
             }
@@ -364,7 +339,7 @@ namespace BuddySDK
             else if (autoPopulate && !_isPopulated)
             {
                 var r = FetchAsync();
-                r.Wait();
+                r.Wait ();
                 return GetValueOrDefault<T>(key, defaultValue, false);
             }
             return defaultValue;

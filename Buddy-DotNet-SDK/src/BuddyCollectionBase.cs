@@ -53,30 +53,45 @@ namespace BuddySDK
             task.Start();
             return task;
         }
-      
-        public Task<IEnumerable<T>> FindAsync(string ownerId = null, DateTime? startDate = null, DateTime? endDate = null)
+
+
+       
+        protected Task<IEnumerable<T>> FindAsync(
+            string userId = null,
+            DateTime? startDate = null, 
+            DateTime? endDate = null, 
+            BuddyGeoLocationRange location = null, int maxItems = 100, Action<IDictionary<string, object>> parameterCallback = null)
         {
 
             Task<IEnumerable<T>> t = new Task<IEnumerable<T>>(() =>
             {
-                var r = Client.Service.CallMethodAsync < IEnumerable<IDictionary<string, object>>>("GET",
-                    Path,
-                    new
-                    {
+                    var obj = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase){
+                        {"userID", userId},
+                        {"startDate", startDate},
+                        {"endDate", endDate},
+                        {"location", location},
+                        {"limit", maxItems}
+                    };
+
+                    if (parameterCallback != null) {
+                        parameterCallback(obj);
+                    }
+
+                    var r = Client.Service.CallMethodAsync<IEnumerable<IDictionary<string, object>>>("GET",
+                            Path, obj
+                        );
 						ownerId = ownerId,
 						startDate = startDate,
-                        endDate = endDate
-                    });
 
-                r.Wait();
-                var items = new ObservableCollection<T>();
-                foreach (var d in r.Result)
-                {
-                    T item = new T();
-                    item.Update(d);
-                    items.Add(item);
-                }
-                return items;
+                    r.Wait();
+                    var items = new ObservableCollection<T>();
+                    foreach (var d in r.Result)
+                    {
+                        T item = new T();
+                        item.Update(d);
+                        items.Add(item);
+                    }
+                    return items;
             });
             t.Start();
             return t;

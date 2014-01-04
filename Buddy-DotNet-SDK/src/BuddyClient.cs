@@ -68,7 +68,7 @@ namespace BuddySDK
 
         public static string WebServiceUrl {
             get {
-                return _WebServiceUrl ?? "http://craig.buddyservers.net:8080/api";
+                return _WebServiceUrl ?? "http://10.211.55.3:50800";
             }
             set {
                 _WebServiceUrl = value;
@@ -208,13 +208,21 @@ namespace BuddySDK
             return userSetting ?? setting ?? WebServiceUrl;
         }
 
-        private void ClearCredentials() {
-            PlatformAccess.Current.ClearUserSetting ("ServiceRoot");
-            PlatformAccess.Current.ClearUserSetting ("UserID");
-            PlatformAccess.Current.ClearUserSetting (this.AppId + "-DeviceAccessToken");
-            PlatformAccess.Current.ClearUserSetting (this.AppId + "-UserAccessToken");
-            _userToken = _deviceToken = null;
-            Service.ServiceRoot = GetRootUrl ();
+        private void ClearCredentials(bool clearUser = true, bool clearDevice = true) {
+
+            if (clearDevice) {
+                PlatformAccess.Current.ClearUserSetting ("ServiceRoot");
+                PlatformAccess.Current.ClearUserSetting (this.AppId + "-DeviceAccessToken");
+                _deviceToken = null;
+                Service.ServiceRoot = GetRootUrl ();
+            }
+
+            if (clearUser) {
+                PlatformAccess.Current.ClearUserSetting ("UserID");
+                PlatformAccess.Current.ClearUserSetting (this.AppId + "-UserAccessToken");
+                _userToken = null;
+            }
+
             UpdateAccessLevel ();
         }
 
@@ -245,7 +253,7 @@ namespace BuddySDK
             this._service.ServiceException += (object sender, ExceptionEventArgs e) => {
 
                 if (e.Exception is BuddyUnauthorizedException) {
-                    ClearCredentials();
+                    ClearCredentials(true, true);
                 }
 
             };
@@ -324,6 +332,16 @@ namespace BuddySDK
                 OnAuthLevelChanged ();
             }
 
+        }
+
+        private static TEX UnwrapException<TEX>(Exception ex) where TEX: Exception {
+            if (ex != null && ex.InnerException != null) {
+                return UnwrapException<TEX> (ex);
+            }
+            else if (typeof(TEX).IsInstanceOfType (ex)) {
+                return (TEX)ex;
+            } 
+            return null;
         }
 
         // service
@@ -409,7 +427,8 @@ namespace BuddySDK
 
                     }
                     catch(AggregateException aex) {
-                        throw aex.InnerException;
+                        ClearCredentials(true, false);
+                        throw UnwrapException<Exception>(aex);
                     }
 
             });

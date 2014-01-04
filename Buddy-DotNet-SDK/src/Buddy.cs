@@ -82,6 +82,21 @@ namespace BuddySDK
             }
         }
 
+
+        private static LocationCollection _locations;
+
+        public static LocationCollection Locations
+        {
+            get
+            {
+                if (_locations == null)
+                {
+                    _locations = new LocationCollection(Instance);
+                }
+                return _locations;
+            }
+        }
+
         private static PhotoCollection _photos;
 
         public static PhotoCollection Photos

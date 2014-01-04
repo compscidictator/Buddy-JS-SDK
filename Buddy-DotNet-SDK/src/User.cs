@@ -133,11 +133,6 @@ namespace BuddySDK
         }
 
        
-        /// <summary>
-        /// If this user profile was returned from a search, gets the distance in meters from the search origin.
-        /// </summary>
-        public double DistanceInMeters { get; protected set; }
-
         public string ProfilePictureID
         {
             get
@@ -150,10 +145,6 @@ namespace BuddySDK
             }
         }
 
-        internal User(BuddyClient client, int id)
-            : base(client, id.ToString())
-        {
-        }
 		
         internal User(BuddyClient client, string id)
             : base(client, id)

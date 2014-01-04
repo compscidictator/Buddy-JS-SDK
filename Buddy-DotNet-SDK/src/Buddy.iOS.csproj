@@ -73,6 +73,9 @@
     <Compile Include="PlatformAccess.cs" />
     <Compile Include="Album.cs" />
     <Compile Include="AlbumItem.cs" />
+    <Compile Include="LocationCollection.cs" />
+    <Compile Include="Location.cs" />
+    <Compile Include="BuddyGeoLocation.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
