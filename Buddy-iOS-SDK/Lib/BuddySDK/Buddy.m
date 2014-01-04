@@ -143,7 +143,7 @@ static BPUser *_user;
     }];
 }
 
--(void)socialLogin:(NSString *)provider password:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback
++ (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 {
     [[BPClient defaultClient] socialLogin:provider providerId:providerId token:token success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddy];

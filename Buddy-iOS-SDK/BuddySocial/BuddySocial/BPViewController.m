@@ -8,7 +8,7 @@
 
 #import "BPViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
-
+#import <BuddySDK/Buddy.h>
 @interface BPViewController () <FBLoginViewDelegate>
 
 @end
@@ -32,7 +32,9 @@
     NSLog(@"%@", user);
     NSString *fbAccessToken = [[[FBSession activeSession] accessTokenData] accessToken];
 
-    
+    [Buddy socialLogin:@"Facebook" providerId:user.id token:fbAccessToken success:^(id json) {
+        NSLog(@"Hello");
+    }];
 }
 
 @end

@@ -24,35 +24,35 @@
 /* Begin PBXBuildFile section */
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
-		C10E2B94186950D8007A0136 /* BPAppMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B82186950D8007A0136 /* BPAppMetadata.h */; };
+		C10E2B94186950D8007A0136 /* BPAppMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B82186950D8007A0136 /* BPAppMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2B95186950D8007A0136 /* BPAppMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B83186950D8007A0136 /* BPAppMetadata.m */; };
 		C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B84186950D8007A0136 /* BPAuthenticatedUser.h */; };
 		C10E2B98186950D8007A0136 /* BPAuthenticatedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */; };
-		C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B86186950D8007A0136 /* BPCheckin.h */; };
+		C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B86186950D8007A0136 /* BPCheckin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2B9B186950D8007A0136 /* BPCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B87186950D8007A0136 /* BPCheckin.m */; };
-		C10E2B9D186950D8007A0136 /* BPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B88186950D8007A0136 /* BPClient.h */; };
+		C10E2B9D186950D8007A0136 /* BPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B88186950D8007A0136 /* BPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2B9E186950D8007A0136 /* BPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B89186950D8007A0136 /* BPClient.m */; };
-		C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8A186950D8007A0136 /* BPCoordinate.h */; };
+		C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8A186950D8007A0136 /* BPCoordinate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BA1186950D8007A0136 /* BPCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B8B186950D8007A0136 /* BPCoordinate.m */; };
-		C10E2BA3186950D8007A0136 /* BPGameBoards.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8C186950D8007A0136 /* BPGameBoards.h */; };
+		C10E2BA3186950D8007A0136 /* BPGameBoards.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8C186950D8007A0136 /* BPGameBoards.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BA4186950D8007A0136 /* BPGameBoards.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B8D186950D8007A0136 /* BPGameBoards.m */; };
-		C10E2BA6186950D8007A0136 /* BPPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8E186950D8007A0136 /* BPPhoto.h */; };
+		C10E2BA6186950D8007A0136 /* BPPhoto.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8E186950D8007A0136 /* BPPhoto.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BA7186950D8007A0136 /* BPPhoto.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B8F186950D8007A0136 /* BPPhoto.m */; };
-		C10E2BA9186950D8007A0136 /* BPSounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B90186950D8007A0136 /* BPSounds.h */; };
+		C10E2BA9186950D8007A0136 /* BPSounds.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B90186950D8007A0136 /* BPSounds.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BAA186950D8007A0136 /* BPSounds.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B91186950D8007A0136 /* BPSounds.m */; };
-		C10E2BAC186950D8007A0136 /* BPUser.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B92186950D8007A0136 /* BPUser.h */; };
+		C10E2BAC186950D8007A0136 /* BPUser.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B92186950D8007A0136 /* BPUser.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BAD186950D8007A0136 /* BPUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B93186950D8007A0136 /* BPUser.m */; };
-		C10E2BB1186951C3007A0136 /* BuddyDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2BAF186951C3007A0136 /* BuddyDevice.h */; };
+		C10E2BB1186951C3007A0136 /* BuddyDevice.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2BAF186951C3007A0136 /* BuddyDevice.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BB2186951C3007A0136 /* BuddyDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2BB0186951C3007A0136 /* BuddyDevice.m */; };
-		C10E2BB6186951FA007A0136 /* Buddy.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2BB4186951FA007A0136 /* Buddy.h */; };
+		C10E2BB6186951FA007A0136 /* Buddy.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2BB4186951FA007A0136 /* Buddy.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BB7186951FA007A0136 /* Buddy.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2BB5186951FA007A0136 /* Buddy.m */; };
 		C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F1B77187095EA00D5364C /* BuddyIntegrationHelper.m */; };
 		C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B791870A6F500D5364C /* NSError+BuddyError.h */; };
 		C10F1B7C1870A6F500D5364C /* NSError+BuddyError.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F1B7A1870A6F500D5364C /* NSError+BuddyError.m */; };
 		C10F1B80187103E500D5364C /* BPUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90E318373BF80074B7E8 /* BPUserTests.m */; };
-		C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */; };
+		C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C11E6C92184C57040034E1EB /* BPCheckinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */; };
-		C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */; };
+		C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C90184C57040034E1EB /* BPPhotoCollection.m */; };
 		C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C98184D58670034E1EB /* BuddyObject+Private.h */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
@@ -74,8 +74,8 @@
 		C1B8076C18441B1A0086B843 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E0D1E21831C2E8001A7A01 /* XCTest.framework */; };
 		C1B8076F18441BD30086B843 /* BuddyIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */; };
 		C1B8077218441D660086B843 /* libBuddySDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7C165C01800051F83C /* libBuddySDK.a */; };
-		C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959D1183703E8000C8417 /* BuddyCollection.h */; };
-		C1B959F91837061F000C8417 /* BuddyObject.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959F71837061F000C8417 /* BuddyObject.h */; };
+		C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959D1183703E8000C8417 /* BuddyCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1B959F91837061F000C8417 /* BuddyObject.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959F71837061F000C8417 /* BuddyObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B959F81837061F000C8417 /* BuddyObject.m */; };
 		C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */; };
 		C1B95A5A183708E8000C8417 /* Test_AppSearchMetadata.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A2C183708E8000C8417 /* Test_AppSearchMetadata.txt */; };
@@ -125,6 +125,7 @@
 		C1B95A86183708E8000C8417 /* Test_VirtualAlbumGetMyBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A58183708E8000C8417 /* Test_VirtualAlbumGetMyBad.txt */; };
 		C1B95A87183708E8000C8417 /* Test_VirtualAlbumGetMyJsonDataBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A59183708E8000C8417 /* Test_VirtualAlbumGetMyJsonDataBad.txt */; };
 		C1B95A8A18370962000C8417 /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B95A8918370962000C8417 /* LocationTests.m */; };
+		C1C2394E1877C906000D0089 /* BPRestProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B7F1870C35A00D5364C /* BPRestProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */; };
 		C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */; };
 		C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CC1831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch */; };
@@ -136,7 +137,7 @@
 		C1E0D1E51831C2E8001A7A01 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		C1E0D1EB1831C2E8001A7A01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1E0D1E91831C2E8001A7A01 /* InfoPlist.strings */; };
 		C1E0D2871835C911001A7A01 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D2721835C8E1001A7A01 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
-		C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FBCED417E6718E00275F6A /* BuddyLocation.h */; };
+		C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FBCED417E6718E00275F6A /* BuddyLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
 		D6CB2CD0F9434224BC280EEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81137A46380B4BCCA3A2E417 /* libPods.a */; };
@@ -624,33 +625,34 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */,
-				C10E2B94186950D8007A0136 /* BPAppMetadata.h in Headers */,
-				C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */,
+				C10E2BB6186951FA007A0136 /* Buddy.h in Headers */,
 				C10E2B9D186950D8007A0136 /* BPClient.h in Headers */,
-				C1B959F91837061F000C8417 /* BuddyObject.h in Headers */,
-				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
-				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
-				C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */,
-				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
-				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
 				C10E2BAC186950D8007A0136 /* BPUser.h in Headers */,
+				C10E2BA9186950D8007A0136 /* BPSounds.h in Headers */,
+				C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */,
+				C1C2394E1877C906000D0089 /* BPRestProvider.h in Headers */,
+				C10E2BA3186950D8007A0136 /* BPGameBoards.h in Headers */,
+				C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */,
+				C1B959F91837061F000C8417 /* BuddyObject.h in Headers */,
+				C10E2BA6186950D8007A0136 /* BPPhoto.h in Headers */,
 				C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */,
-				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
 				C10E2BB1186951C3007A0136 /* BuddyDevice.h in Headers */,
 				C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */,
-				C10E2BA3186950D8007A0136 /* BPGameBoards.h in Headers */,
+				C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */,
+				C10E2B94186950D8007A0136 /* BPAppMetadata.h in Headers */,
+				C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */,
+				C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */,
+				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
+				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
+				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
+				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
+				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
 				C1AA90D818371FF70074B7E8 /* BPServiceController.h in Headers */,
-				C10E2BA9186950D8007A0136 /* BPSounds.h in Headers */,
 				C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */,
 				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
-				C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */,
-				C10E2BA6186950D8007A0136 /* BPPhoto.h in Headers */,
 				C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */,
 				C1B2375F1865569F005C841E /* NSString+JSON.h in Headers */,
-				C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */,
 				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
-				C10E2BB6186951FA007A0136 /* Buddy.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -666,8 +668,8 @@
 				A6291F79165C01800051F83C /* Frameworks */,
 				A6291F7A165C01800051F83C /* Headers */,
 				D45A7BB3166235BE000E5257 /* CopyFiles */,
-				D45FE76B16A5CC2A005FEE2F /* Create Universal Binary */,
 				17FEBE2AC3674A169875D82A /* Copy Pods Resources */,
+				C1C239471877BE97000D0089 /* Prepare Framework */,
 			);
 			buildRules = (
 			);
@@ -861,21 +863,21 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -e\nset +u\n# Avoid recursively calling this script.\nif [[ $SF_MASTER_SCRIPT_RUNNING ]]\nthen\nexit 0\nfi\nset -u\nexport SF_MASTER_SCRIPT_RUNNING=1\n\nSF_TARGET_NAME=${PROJECT_NAME}\nSF_EXECUTABLE_PATH=\"lib${SF_TARGET_NAME}.a\"\nSF_WRAPPER_NAME=\"${SF_TARGET_NAME}.framework\"\n\n# The following conditionals come from\n# https://github.com/kstenerud/iOS-Universal-Framework\n\nif [[ \"$SDK_NAME\" =~ ([A-Za-z]+) ]]\nthen\nSF_SDK_PLATFORM=${BASH_REMATCH[1]}\nelse\necho \"Could not find platform name from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SDK_NAME\" =~ ([0-9]+.*$) ]]\nthen\nSF_SDK_VERSION=${BASH_REMATCH[1]}\nelse\necho \"Could not find sdk version from SDK_NAME: $SDK_NAME\"\nexit 1\nfi\n\nif [[ \"$SF_SDK_PLATFORM\" = \"iphoneos\" ]]\nthen\nSF_OTHER_PLATFORM=iphonesimulator\nelse\nSF_OTHER_PLATFORM=iphoneos\nfi\n\nif [[ \"$BUILT_PRODUCTS_DIR\" =~ (.*)$SF_SDK_PLATFORM$ ]]\nthen\nSF_OTHER_BUILT_PRODUCTS_DIR=\"${BASH_REMATCH[1]}${SF_OTHER_PLATFORM}\"\nelse\necho \"Could not find platform name from build products directory: $BUILT_PRODUCTS_DIR\"\nexit 1\nfi\n\n# Build the other platform.\nxcodebuild -project \"${PROJECT_FILE_PATH}\" -target \"${TARGET_NAME}\" -configuration \"${CONFIGURATION}\" -sdk ${SF_OTHER_PLATFORM}${SF_SDK_VERSION} BUILD_DIR=\"${BUILD_DIR}\" OBJROOT=\"${OBJROOT}\" BUILD_ROOT=\"${BUILD_ROOT}\" SYMROOT=\"${SYMROOT}\" $ACTION\n\n# Smash the two static libraries into one fat binary and store it in the .framework\nlipo -create \"${BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_EXECUTABLE_PATH}\" -output \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n\n# Copy the binary to the other architecture folder to have a complete framework in both.\ncp -a \"${BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\" \"${SF_OTHER_BUILT_PRODUCTS_DIR}/${SF_WRAPPER_NAME}/Versions/A/${SF_TARGET_NAME}\"\n";
+			showEnvVarsInLog = 0;
 		};
-		D45FE76B16A5CC2A005FEE2F /* Create Universal Binary */ = {
+		C1C239471877BE97000D0089 /* Prepare Framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"",
 			);
-			name = "Create Universal Binary";
+			name = "Prepare Framework";
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "LIB_TARGET_NAME=\"BuddySDK.a\"\n\nARM_FILES=\"${BUILD_DIR}/${CONFIGURATION}-iphoneos/lib${LIB_TARGET_NAME}\"\nI386_FILES=\"${BUILD_DIR}/${CONFIGURATION}-iphonesimulator/lib${LIB_TARGET_NAME}\"\nif [ -f $ARM_FILES ] && [ -f $I386_FILES ]\nthen\nmkdir -p \"${BUILD_DIR}/${CONFIGURATION}-Universal\"\nlipo -create \"$I386_FILES\" \"$ARM_FILES\" -o \"${BUILD_DIR}/${CONFIGURATION}-Universal/lib${PRODUCT_NAME}.a\"\nmkdir -p \"${PROJECT_DIR}/BuddySDK/${CONFIGURATION}-Lib\"\nlipo -create \"$I386_FILES\" \"$ARM_FILES\" -o \"${PROJECT_DIR}/BuddySDK/${CONFIGURATION}-Lib/lib${PRODUCT_NAME}.a\"\nfi\n";
+			shellScript = "set -e\n\nmkdir -p \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n\n# Link the \"Current\" version to \"A\"\n/bin/ln -sfh A \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/Current\"\n/bin/ln -sfh Versions/Current/Headers \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Headers\"\n/bin/ln -sfh \"Versions/Current/${PRODUCT_NAME}\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/${PRODUCT_NAME}\"\n\n# The -a ensures that the headers maintain the source modification date so that we don't constantly\n# cause propagating rebuilds of files that import these headers.\n/bin/cp -a \"${TARGET_BUILD_DIR}/${PUBLIC_HEADERS_FOLDER_PATH}/\" \"${BUILT_PRODUCTS_DIR}/${PRODUCT_NAME}.framework/Versions/A/Headers\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -994,7 +996,7 @@
 					"-ftest_coverage",
 				);
 				OTHER_LDFLAGS = "-Objc";
-				PUBLIC_HEADERS_FOLDER_PATH = include/BuddySDK;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1038,7 +1040,7 @@
 					"-ftest_coverage",
 				);
 				OTHER_LDFLAGS = "-Objc";
-				PUBLIC_HEADERS_FOLDER_PATH = include/BuddySDK;
+				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1083,9 +1085,10 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = include;
 				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = "$(TARGET_NAME)";
 			};
@@ -1124,9 +1127,10 @@
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
-				USER_HEADER_SEARCH_PATHS = "";
+				USER_HEADER_SEARCH_PATHS = include;
 				VALID_ARCHS = "armv7 armv7s i386";
 				WRAPPER_EXTENSION = "$(TARGET_NAME)";
 			};
@@ -1136,6 +1140,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "non-global";
 			};
 			name = Debug;
 		};
@@ -1143,6 +1149,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_STYLE = "non-global";
 			};
 			name = Release;
 		};

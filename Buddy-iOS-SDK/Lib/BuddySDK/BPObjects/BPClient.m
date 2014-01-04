@@ -11,6 +11,7 @@
 #import "BPServiceController.h"
 #import "AFNetworking.h"
 #import "BPCheckinCollection.h"
+#import "BPRestProvider.h"
 #import <CoreFoundation/CoreFoundation.h>
 
 @interface BPClient()

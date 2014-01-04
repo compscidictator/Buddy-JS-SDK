@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BPRestProvider.h"
+#import "BuddyCollection.h" // TODO - remove dependency
 
 //#define BUDDY_SERVER @"http://craig.buddyservers.net:8080/api"
 #define BUDDY_SERVER @"http://10.211.55.3/BuddyWebService.V2/"

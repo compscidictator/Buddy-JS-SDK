@@ -8,12 +8,20 @@
 
 #import "BPAppDelegate.h"
 #import <FacebookSDK/FacebookSDK.h>
+#import <BuddySDK/Buddy.h>
+
+#define APP_NAME @"aaaac.baaanpvOJh"
+#define APP_KEY @"AF735ABD-35F3-4376-9775-2242AAEDF7BE"
 
 @implementation BPAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
+    }];
+    // Ensure FB libraries are loaded before ViewControllers get there (from docs).
     [FBLoginView class];
+    
 
     return YES;
 }

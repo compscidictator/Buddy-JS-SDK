@@ -10,7 +10,6 @@
 
 #import "BuddyDevice.h"
 #import "BPClient.h"
-#import "BPAuthenticatedUser.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"
 #import "BPPhoto.h"
@@ -64,6 +63,6 @@
 
 + (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback;
 
--(void)socialLogin:(NSString *)provider password:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
++ (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 
 @end

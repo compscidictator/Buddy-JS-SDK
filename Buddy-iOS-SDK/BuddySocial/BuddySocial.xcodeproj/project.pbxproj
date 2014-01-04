@@ -17,6 +17,8 @@
 		C1ACBF651877936E0069025B /* BPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ACBF641877936E0069025B /* BPViewController.m */; };
 		C1ACBF671877936E0069025B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1ACBF661877936E0069025B /* Images.xcassets */; };
 		C1ACBF8418779FA10069025B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1ACBF8318779FA10069025B /* FacebookSDK.framework */; };
+		C1C2394D1877C706000D0089 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C2394C1877C706000D0089 /* BuddySDK.framework */; };
+		C1C239501877CB0F000D0089 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C2394F1877CB0F000D0089 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		C1ACBF661877936E0069025B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C1ACBF6D1877936E0069025B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C1ACBF8318779FA10069025B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		C1C2394C1877C706000D0089 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		C1C2394F1877CB0F000D0089 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -43,7 +47,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1C239501877CB0F000D0089 /* SystemConfiguration.framework in Frameworks */,
 				C1ACBF511877936E0069025B /* CoreGraphics.framework in Frameworks */,
+				C1C2394D1877C706000D0089 /* BuddySDK.framework in Frameworks */,
 				C1ACBF8418779FA10069025B /* FacebookSDK.framework in Frameworks */,
 				C1ACBF531877936E0069025B /* UIKit.framework in Frameworks */,
 				C1ACBF4F1877936E0069025B /* Foundation.framework in Frameworks */,
@@ -73,6 +79,8 @@
 		C1ACBF4D1877936E0069025B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1C2394F1877CB0F000D0089 /* SystemConfiguration.framework */,
+				C1C2394C1877C706000D0089 /* BuddySDK.framework */,
 				C1ACBF8318779FA10069025B /* FacebookSDK.framework */,
 				C1ACBF4E1877936E0069025B /* Foundation.framework */,
 				C1ACBF501877936E0069025B /* CoreGraphics.framework */,
@@ -285,6 +293,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySocial/BuddySocial-Prefix.pch";
 				INFOPLIST_FILE = "BuddySocial/BuddySocial-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -302,6 +311,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySocial/BuddySocial-Prefix.pch";
 				INFOPLIST_FILE = "BuddySocial/BuddySocial-Info.plist";
+				OTHER_LDFLAGS = "-all_load";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
