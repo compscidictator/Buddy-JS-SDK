@@ -7,8 +7,9 @@
 //
 
 #import "BPViewController.h"
+#import <FacebookSDK/FacebookSDK.h>
 
-@interface BPViewController ()
+@interface BPViewController () <FBLoginViewDelegate>
 
 @end
 
@@ -17,13 +18,21 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
+
+    FBLoginView *loginView = [[FBLoginView alloc] init];
+    // Align the button in the center horizontally
+    loginView.frame = CGRectOffset(loginView.frame, self.view.center.x - (loginView.frame.size.width / 2), self.view.center.y - (loginView.frame.size.height / 2));
+    loginView.delegate = self;
+    [self.view addSubview:loginView];
 }
 
-- (void)didReceiveMemoryWarning
+
+- (void)loginViewFetchedUserInfo:(FBLoginView *)loginView user:(id<FBGraphUser>)user
 {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    NSLog(@"%@", user);
+    NSString *fbAccessToken = [[[FBSession activeSession] accessTokenData] accessToken];
+
+    
 }
 
 @end

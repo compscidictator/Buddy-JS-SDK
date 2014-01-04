@@ -16,6 +16,7 @@
 		C1ACBF621877936E0069025B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C1ACBF601877936E0069025B /* Main.storyboard */; };
 		C1ACBF651877936E0069025B /* BPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ACBF641877936E0069025B /* BPViewController.m */; };
 		C1ACBF671877936E0069025B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1ACBF661877936E0069025B /* Images.xcassets */; };
+		C1ACBF8418779FA10069025B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1ACBF8318779FA10069025B /* FacebookSDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		C1ACBF641877936E0069025B /* BPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BPViewController.m; sourceTree = "<group>"; };
 		C1ACBF661877936E0069025B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C1ACBF6D1877936E0069025B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		C1ACBF8318779FA10069025B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -42,6 +44,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C1ACBF511877936E0069025B /* CoreGraphics.framework in Frameworks */,
+				C1ACBF8418779FA10069025B /* FacebookSDK.framework in Frameworks */,
 				C1ACBF531877936E0069025B /* UIKit.framework in Frameworks */,
 				C1ACBF4F1877936E0069025B /* Foundation.framework in Frameworks */,
 			);
@@ -70,6 +73,7 @@
 		C1ACBF4D1877936E0069025B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1ACBF8318779FA10069025B /* FacebookSDK.framework */,
 				C1ACBF4E1877936E0069025B /* Foundation.framework */,
 				C1ACBF501877936E0069025B /* CoreGraphics.framework */,
 				C1ACBF521877936E0069025B /* UIKit.framework */,
@@ -274,6 +278,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/erikkerber/Dropbox/Projects/Buddy/BuddySource/V2SDK/Buddy-iOS-SDK/BuddySocial",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySocial/BuddySocial-Prefix.pch";
 				INFOPLIST_FILE = "BuddySocial/BuddySocial-Info.plist";
@@ -287,6 +295,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/erikkerber/Dropbox/Projects/Buddy/BuddySource/V2SDK/Buddy-iOS-SDK/BuddySocial",
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySocial/BuddySocial-Prefix.pch";
 				INFOPLIST_FILE = "BuddySocial/BuddySocial-Info.plist";
@@ -314,6 +326,7 @@
 				C1ACBF7F1877936E0069025B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
