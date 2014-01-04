@@ -124,7 +124,7 @@ static BPUser *_user;
     
     // On BPUser for now for consistency. Probably will move.
     [BPUser createFromServerWithParameters:parameters complete:^(id newBuddyObject, NSError *error) {
-#pragma warning TODO - Error
+#pragma messsage("TODO - Error")
         callback(newBuddyObject, nil);
     }];
 }
@@ -135,8 +135,8 @@ static BPUser *_user;
         BPUser *user = [[BPUser alloc] initBuddy];
         user.id = json[@"id"];
         [user refresh:^(NSError *error){
-#pragma warning TODO - Error
-#pragma warning TODO - hack
+#pragma messsage("TODO - Error")
+#pragma messsage("TODO - hack. Where to initialize session objects?")
             _user = user;
             callback(user, nil);
         }];

@@ -20,7 +20,7 @@
 
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
 
-#pragma warning TODO - Short term hack until response is always an object.
+#pragma messsage("TODO - Short term hack until response is always an object.")
         if([json isKindOfClass:[NSDictionary class]]){
             newObject.id = json[@"id"];
         }else{
@@ -28,13 +28,13 @@
         }
         
         if(!newObject.id){
-#pragma warning TODO - Error
+#pragma messsage("TODO - Error")
             callback(newObject, nil);
             return;
         }
         
         [newObject refresh:^(NSError *error){
-#pragma warning TODO - Error
+#pragma messsage("TODO - Error")
             callback(newObject, nil);
         }];
         

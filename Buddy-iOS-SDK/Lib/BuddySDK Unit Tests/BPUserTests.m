@@ -65,7 +65,7 @@ describe(@"BPUser", ^{
 //            "message":"Password Reset values must be configured in the Developer Dashboard->Security",
 //            "request_id":"7dc04781-41e0-483f-850c-186324a9cb29"}
             
-#pragma warning TODO - This can be turned on/off in the dev portal (response above). Look into it.
+#pragma messsage("TODO - This can be turned on/off in the dev portal (response above). Look into it.")
             [[Buddy user] requestPasswordReset:^(id newBuddyObject, NSError *error) {
                 resetCode = newBuddyObject;
             }];
@@ -99,7 +99,7 @@ describe(@"BPUser", ^{
         pending_(@"Should allow the user to logout", ^{
             [[Buddy user] removeIdentityValue:@"SomeValue" callback:^(NSError *error) {
                 [[Buddy user] deleteMe:^{
-#pragma warning TODO - Check error when I implement them. Ensure error exists for logged out user.
+#pragma messsage("TODO - Check error when I implement them. Ensure error exists for logged out user.")
                 }];
             }];
         });
