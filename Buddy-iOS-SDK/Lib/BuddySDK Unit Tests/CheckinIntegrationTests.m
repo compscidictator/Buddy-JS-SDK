@@ -25,7 +25,7 @@ describe(@"BPCheckinIntegrationSpec", ^{
                 fin = YES;
             }];
             
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+            [[expectFutureValue(theValue(fin)) shouldEventuallyBeforeTimingOutAfter(4.0)] beTrue];
         });
         
         afterAll(^{
