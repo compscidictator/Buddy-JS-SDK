@@ -301,12 +301,13 @@ namespace BuddySDK
             if (val != null) {
                 return val.ToString();
             }
+
             return null;
         }
 
         public override void SetUserSetting (string key, string value, DateTime? expires = default(DateTime?))
         {
-			string encodedValue = base.EncodeUserSetting (expires);
+			string encodedValue = base.EncodeUserSetting (value, expires);
 
 			NSUserDefaults.StandardUserDefaults.SetValueForKey (new NSString(encodedValue), new NSString(key));
         }
@@ -327,13 +328,13 @@ namespace BuddySDK
                 return null;
             }
 
-			var decoded = base.DecodeUserSetting (ref value);
+			var decodedValue = base.DecodeUserSetting (value.ToString());
 
-			if (!decoded) {
+			if (decodedValue == null) {
 				ClearUserSetting (key);
 			}
 		
-			return value;
+			return decodedValue;
         }
 
         public override string Platform {
