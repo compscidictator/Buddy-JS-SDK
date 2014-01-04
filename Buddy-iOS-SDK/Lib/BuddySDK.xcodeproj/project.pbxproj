@@ -78,52 +78,6 @@
 		C1B959F91837061F000C8417 /* BuddyObject.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959F71837061F000C8417 /* BuddyObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B959F81837061F000C8417 /* BuddyObject.m */; };
 		C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */; };
-		C1B95A5A183708E8000C8417 /* Test_AppSearchMetadata.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A2C183708E8000C8417 /* Test_AppSearchMetadata.txt */; };
-		C1B95A5B183708E8000C8417 /* Test_AppSearchMetadataBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A2D183708E8000C8417 /* Test_AppSearchMetadataBad.txt */; };
-		C1B95A5C183708E8000C8417 /* Test_CheckInLocations.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A2E183708E8000C8417 /* Test_CheckInLocations.txt */; };
-		C1B95A5D183708E8000C8417 /* Test_CommerceStore.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A2F183708E8000C8417 /* Test_CommerceStore.txt */; };
-		C1B95A5E183708E8000C8417 /* Test_CommerceStoreBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A30183708E8000C8417 /* Test_CommerceStoreBad.txt */; };
-		C1B95A5F183708E8000C8417 /* Test_EmptyData.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A31183708E8000C8417 /* Test_EmptyData.txt */; };
-		C1B95A60183708E8000C8417 /* Test_FilterList.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A32183708E8000C8417 /* Test_FilterList.txt */; };
-		C1B95A61183708E8000C8417 /* Test_FindUsers.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A33183708E8000C8417 /* Test_FindUsers.txt */; };
-		C1B95A62183708E8000C8417 /* Test_FriendRequest.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A34183708E8000C8417 /* Test_FriendRequest.txt */; };
-		C1B95A63183708E8000C8417 /* Test_FriendRequestBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A35183708E8000C8417 /* Test_FriendRequestBad.txt */; };
-		C1B95A64183708E8000C8417 /* Test_FriendsGetList.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A36183708E8000C8417 /* Test_FriendsGetList.txt */; };
-		C1B95A65183708E8000C8417 /* Test_FriendsGetListBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A37183708E8000C8417 /* Test_FriendsGetListBad.txt */; };
-		C1B95A66183708E8000C8417 /* Test_FriendsRequest.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A38183708E8000C8417 /* Test_FriendsRequest.txt */; };
-		C1B95A67183708E8000C8417 /* Test_GameScoreSearch.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A39183708E8000C8417 /* Test_GameScoreSearch.txt */; };
-		C1B95A68183708E8000C8417 /* Test_GameScoreSearchBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A3A183708E8000C8417 /* Test_GameScoreSearchBad.txt */; };
-		C1B95A69183708E8000C8417 /* Test_GameScoreSearchJson.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A3B183708E8000C8417 /* Test_GameScoreSearchJson.txt */; };
-		C1B95A6A183708E8000C8417 /* Test_GamesScores.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A3C183708E8000C8417 /* Test_GamesScores.txt */; };
-		C1B95A6B183708E8000C8417 /* Test_GamesScores2.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A3D183708E8000C8417 /* Test_GamesScores2.txt */; };
-		C1B95A6C183708E8000C8417 /* Test_GeoLocationCategoryGetList.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A3E183708E8000C8417 /* Test_GeoLocationCategoryGetList.txt */; };
-		C1B95A6D183708E8000C8417 /* Test_GeoLocationCategoryList.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A3F183708E8000C8417 /* Test_GeoLocationCategoryList.txt */; };
-		C1B95A6E183708E8000C8417 /* Test_GeoLocationLocationSearch.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A40183708E8000C8417 /* Test_GeoLocationLocationSearch.txt */; };
-		C1B95A6F183708E8000C8417 /* Test_GeoLocationSearch.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A41183708E8000C8417 /* Test_GeoLocationSearch.txt */; };
-		C1B95A70183708E8000C8417 /* Test_GetBlobs.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A42183708E8000C8417 /* Test_GetBlobs.txt */; };
-		C1B95A71183708E8000C8417 /* Test_GetLocationSearch.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A43183708E8000C8417 /* Test_GetLocationSearch.txt */; };
-		C1B95A72183708E8000C8417 /* Test_GroupMessage.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A44183708E8000C8417 /* Test_GroupMessage.txt */; };
-		C1B95A73183708E8000C8417 /* Test_GroupMessagesMembershipGetAllGroups.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A45183708E8000C8417 /* Test_GroupMessagesMembershipGetAllGroups.txt */; };
-		C1B95A74183708E8000C8417 /* Test_Identity.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A46183708E8000C8417 /* Test_Identity.txt */; };
-		C1B95A75183708E8000C8417 /* Test_IdentityBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A47183708E8000C8417 /* Test_IdentityBad.txt */; };
-		C1B95A76183708E8000C8417 /* Test_IdentityMyList.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A48183708E8000C8417 /* Test_IdentityMyList.txt */; };
-		C1B95A77183708E8000C8417 /* Test_LocationSearch.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A49183708E8000C8417 /* Test_LocationSearch.txt */; };
-		C1B95A78183708E8000C8417 /* Test_MessageListGet.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A4A183708E8000C8417 /* Test_MessageListGet.txt */; };
-		C1B95A79183708E8000C8417 /* Test_MessageListGetBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A4B183708E8000C8417 /* Test_MessageListGetBad.txt */; };
-		C1B95A7A183708E8000C8417 /* Test_MetadataSum.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A4C183708E8000C8417 /* Test_MetadataSum.txt */; };
-		C1B95A7B183708E8000C8417 /* Test_NoData.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A4D183708E8000C8417 /* Test_NoData.txt */; };
-		C1B95A7C183708E8000C8417 /* Test_PicturesPhotoAlbumGet.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A4E183708E8000C8417 /* Test_PicturesPhotoAlbumGet.txt */; };
-		C1B95A7D183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPictures.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A4F183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPictures.txt */; };
-		C1B95A7E183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPicturesBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A50183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPicturesBad.txt */; };
-		C1B95A7F183708E8000C8417 /* Test_PicturesSearchPhotosNearby.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A51183708E8000C8417 /* Test_PicturesSearchPhotosNearby.txt */; };
-		C1B95A80183708E8000C8417 /* Test_PlayerDataBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A52183708E8000C8417 /* Test_PlayerDataBad.txt */; };
-		C1B95A81183708E8000C8417 /* Test_PlayerDataGood.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A53183708E8000C8417 /* Test_PlayerDataGood.txt */; };
-		C1B95A82183708E8000C8417 /* Test_PublicPicture.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A54183708E8000C8417 /* Test_PublicPicture.txt */; };
-		C1B95A83183708E8000C8417 /* Test_Startup.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A55183708E8000C8417 /* Test_Startup.txt */; };
-		C1B95A84183708E8000C8417 /* Test_StartupBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A56183708E8000C8417 /* Test_StartupBad.txt */; };
-		C1B95A85183708E8000C8417 /* Test_VirtualAlbumGetMy.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A57183708E8000C8417 /* Test_VirtualAlbumGetMy.txt */; };
-		C1B95A86183708E8000C8417 /* Test_VirtualAlbumGetMyBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A58183708E8000C8417 /* Test_VirtualAlbumGetMyBad.txt */; };
-		C1B95A87183708E8000C8417 /* Test_VirtualAlbumGetMyJsonDataBad.txt in Resources */ = {isa = PBXBuildFile; fileRef = C1B95A59183708E8000C8417 /* Test_VirtualAlbumGetMyJsonDataBad.txt */; };
 		C1B95A8A18370962000C8417 /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B95A8918370962000C8417 /* LocationTests.m */; };
 		C1C2394E1877C906000D0089 /* BPRestProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B7F1870C35A00D5364C /* BPRestProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */; };
@@ -236,52 +190,6 @@
 		C1B959D1183703E8000C8417 /* BuddyCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyCollection.h; sourceTree = "<group>"; };
 		C1B959F71837061F000C8417 /* BuddyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyObject.h; sourceTree = "<group>"; };
 		C1B959F81837061F000C8417 /* BuddyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyObject.m; sourceTree = "<group>"; };
-		C1B95A2C183708E8000C8417 /* Test_AppSearchMetadata.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_AppSearchMetadata.txt; sourceTree = "<group>"; };
-		C1B95A2D183708E8000C8417 /* Test_AppSearchMetadataBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_AppSearchMetadataBad.txt; sourceTree = "<group>"; };
-		C1B95A2E183708E8000C8417 /* Test_CheckInLocations.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_CheckInLocations.txt; sourceTree = "<group>"; };
-		C1B95A2F183708E8000C8417 /* Test_CommerceStore.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_CommerceStore.txt; sourceTree = "<group>"; };
-		C1B95A30183708E8000C8417 /* Test_CommerceStoreBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_CommerceStoreBad.txt; sourceTree = "<group>"; };
-		C1B95A31183708E8000C8417 /* Test_EmptyData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_EmptyData.txt; sourceTree = "<group>"; };
-		C1B95A32183708E8000C8417 /* Test_FilterList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_FilterList.txt; sourceTree = "<group>"; };
-		C1B95A33183708E8000C8417 /* Test_FindUsers.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_FindUsers.txt; sourceTree = "<group>"; };
-		C1B95A34183708E8000C8417 /* Test_FriendRequest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_FriendRequest.txt; sourceTree = "<group>"; };
-		C1B95A35183708E8000C8417 /* Test_FriendRequestBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_FriendRequestBad.txt; sourceTree = "<group>"; };
-		C1B95A36183708E8000C8417 /* Test_FriendsGetList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_FriendsGetList.txt; sourceTree = "<group>"; };
-		C1B95A37183708E8000C8417 /* Test_FriendsGetListBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_FriendsGetListBad.txt; sourceTree = "<group>"; };
-		C1B95A38183708E8000C8417 /* Test_FriendsRequest.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_FriendsRequest.txt; sourceTree = "<group>"; };
-		C1B95A39183708E8000C8417 /* Test_GameScoreSearch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GameScoreSearch.txt; sourceTree = "<group>"; };
-		C1B95A3A183708E8000C8417 /* Test_GameScoreSearchBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GameScoreSearchBad.txt; sourceTree = "<group>"; };
-		C1B95A3B183708E8000C8417 /* Test_GameScoreSearchJson.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GameScoreSearchJson.txt; sourceTree = "<group>"; };
-		C1B95A3C183708E8000C8417 /* Test_GamesScores.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GamesScores.txt; sourceTree = "<group>"; };
-		C1B95A3D183708E8000C8417 /* Test_GamesScores2.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GamesScores2.txt; sourceTree = "<group>"; };
-		C1B95A3E183708E8000C8417 /* Test_GeoLocationCategoryGetList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GeoLocationCategoryGetList.txt; sourceTree = "<group>"; };
-		C1B95A3F183708E8000C8417 /* Test_GeoLocationCategoryList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GeoLocationCategoryList.txt; sourceTree = "<group>"; };
-		C1B95A40183708E8000C8417 /* Test_GeoLocationLocationSearch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GeoLocationLocationSearch.txt; sourceTree = "<group>"; };
-		C1B95A41183708E8000C8417 /* Test_GeoLocationSearch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GeoLocationSearch.txt; sourceTree = "<group>"; };
-		C1B95A42183708E8000C8417 /* Test_GetBlobs.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GetBlobs.txt; sourceTree = "<group>"; };
-		C1B95A43183708E8000C8417 /* Test_GetLocationSearch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GetLocationSearch.txt; sourceTree = "<group>"; };
-		C1B95A44183708E8000C8417 /* Test_GroupMessage.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GroupMessage.txt; sourceTree = "<group>"; };
-		C1B95A45183708E8000C8417 /* Test_GroupMessagesMembershipGetAllGroups.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_GroupMessagesMembershipGetAllGroups.txt; sourceTree = "<group>"; };
-		C1B95A46183708E8000C8417 /* Test_Identity.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_Identity.txt; sourceTree = "<group>"; };
-		C1B95A47183708E8000C8417 /* Test_IdentityBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_IdentityBad.txt; sourceTree = "<group>"; };
-		C1B95A48183708E8000C8417 /* Test_IdentityMyList.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_IdentityMyList.txt; sourceTree = "<group>"; };
-		C1B95A49183708E8000C8417 /* Test_LocationSearch.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_LocationSearch.txt; sourceTree = "<group>"; };
-		C1B95A4A183708E8000C8417 /* Test_MessageListGet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_MessageListGet.txt; sourceTree = "<group>"; };
-		C1B95A4B183708E8000C8417 /* Test_MessageListGetBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_MessageListGetBad.txt; sourceTree = "<group>"; };
-		C1B95A4C183708E8000C8417 /* Test_MetadataSum.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_MetadataSum.txt; sourceTree = "<group>"; };
-		C1B95A4D183708E8000C8417 /* Test_NoData.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_NoData.txt; sourceTree = "<group>"; };
-		C1B95A4E183708E8000C8417 /* Test_PicturesPhotoAlbumGet.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_PicturesPhotoAlbumGet.txt; sourceTree = "<group>"; };
-		C1B95A4F183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPictures.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_PicturesPhotoAlbumGetAllPictures.txt; sourceTree = "<group>"; };
-		C1B95A50183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPicturesBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_PicturesPhotoAlbumGetAllPicturesBad.txt; sourceTree = "<group>"; };
-		C1B95A51183708E8000C8417 /* Test_PicturesSearchPhotosNearby.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_PicturesSearchPhotosNearby.txt; sourceTree = "<group>"; };
-		C1B95A52183708E8000C8417 /* Test_PlayerDataBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_PlayerDataBad.txt; sourceTree = "<group>"; };
-		C1B95A53183708E8000C8417 /* Test_PlayerDataGood.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_PlayerDataGood.txt; sourceTree = "<group>"; };
-		C1B95A54183708E8000C8417 /* Test_PublicPicture.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_PublicPicture.txt; sourceTree = "<group>"; };
-		C1B95A55183708E8000C8417 /* Test_Startup.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_Startup.txt; sourceTree = "<group>"; };
-		C1B95A56183708E8000C8417 /* Test_StartupBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_StartupBad.txt; sourceTree = "<group>"; };
-		C1B95A57183708E8000C8417 /* Test_VirtualAlbumGetMy.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_VirtualAlbumGetMy.txt; sourceTree = "<group>"; };
-		C1B95A58183708E8000C8417 /* Test_VirtualAlbumGetMyBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_VirtualAlbumGetMyBad.txt; sourceTree = "<group>"; };
-		C1B95A59183708E8000C8417 /* Test_VirtualAlbumGetMyJsonDataBad.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Test_VirtualAlbumGetMyJsonDataBad.txt; sourceTree = "<group>"; };
 		C1B95A8818370962000C8417 /* LocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTests.h; sourceTree = "<group>"; };
 		C1B95A8918370962000C8417 /* LocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTests.m; sourceTree = "<group>"; };
 		C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAGProperty.h; sourceTree = "<group>"; };
@@ -485,52 +393,6 @@
 		C1B95A2B183708E8000C8417 /* Test Data */ = {
 			isa = PBXGroup;
 			children = (
-				C1B95A2C183708E8000C8417 /* Test_AppSearchMetadata.txt */,
-				C1B95A2D183708E8000C8417 /* Test_AppSearchMetadataBad.txt */,
-				C1B95A2E183708E8000C8417 /* Test_CheckInLocations.txt */,
-				C1B95A2F183708E8000C8417 /* Test_CommerceStore.txt */,
-				C1B95A30183708E8000C8417 /* Test_CommerceStoreBad.txt */,
-				C1B95A31183708E8000C8417 /* Test_EmptyData.txt */,
-				C1B95A32183708E8000C8417 /* Test_FilterList.txt */,
-				C1B95A33183708E8000C8417 /* Test_FindUsers.txt */,
-				C1B95A34183708E8000C8417 /* Test_FriendRequest.txt */,
-				C1B95A35183708E8000C8417 /* Test_FriendRequestBad.txt */,
-				C1B95A36183708E8000C8417 /* Test_FriendsGetList.txt */,
-				C1B95A37183708E8000C8417 /* Test_FriendsGetListBad.txt */,
-				C1B95A38183708E8000C8417 /* Test_FriendsRequest.txt */,
-				C1B95A39183708E8000C8417 /* Test_GameScoreSearch.txt */,
-				C1B95A3A183708E8000C8417 /* Test_GameScoreSearchBad.txt */,
-				C1B95A3B183708E8000C8417 /* Test_GameScoreSearchJson.txt */,
-				C1B95A3C183708E8000C8417 /* Test_GamesScores.txt */,
-				C1B95A3D183708E8000C8417 /* Test_GamesScores2.txt */,
-				C1B95A3E183708E8000C8417 /* Test_GeoLocationCategoryGetList.txt */,
-				C1B95A3F183708E8000C8417 /* Test_GeoLocationCategoryList.txt */,
-				C1B95A40183708E8000C8417 /* Test_GeoLocationLocationSearch.txt */,
-				C1B95A41183708E8000C8417 /* Test_GeoLocationSearch.txt */,
-				C1B95A42183708E8000C8417 /* Test_GetBlobs.txt */,
-				C1B95A43183708E8000C8417 /* Test_GetLocationSearch.txt */,
-				C1B95A44183708E8000C8417 /* Test_GroupMessage.txt */,
-				C1B95A45183708E8000C8417 /* Test_GroupMessagesMembershipGetAllGroups.txt */,
-				C1B95A46183708E8000C8417 /* Test_Identity.txt */,
-				C1B95A47183708E8000C8417 /* Test_IdentityBad.txt */,
-				C1B95A48183708E8000C8417 /* Test_IdentityMyList.txt */,
-				C1B95A49183708E8000C8417 /* Test_LocationSearch.txt */,
-				C1B95A4A183708E8000C8417 /* Test_MessageListGet.txt */,
-				C1B95A4B183708E8000C8417 /* Test_MessageListGetBad.txt */,
-				C1B95A4C183708E8000C8417 /* Test_MetadataSum.txt */,
-				C1B95A4D183708E8000C8417 /* Test_NoData.txt */,
-				C1B95A4E183708E8000C8417 /* Test_PicturesPhotoAlbumGet.txt */,
-				C1B95A4F183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPictures.txt */,
-				C1B95A50183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPicturesBad.txt */,
-				C1B95A51183708E8000C8417 /* Test_PicturesSearchPhotosNearby.txt */,
-				C1B95A52183708E8000C8417 /* Test_PlayerDataBad.txt */,
-				C1B95A53183708E8000C8417 /* Test_PlayerDataGood.txt */,
-				C1B95A54183708E8000C8417 /* Test_PublicPicture.txt */,
-				C1B95A55183708E8000C8417 /* Test_Startup.txt */,
-				C1B95A56183708E8000C8417 /* Test_StartupBad.txt */,
-				C1B95A57183708E8000C8417 /* Test_VirtualAlbumGetMy.txt */,
-				C1B95A58183708E8000C8417 /* Test_VirtualAlbumGetMyBad.txt */,
-				C1B95A59183708E8000C8417 /* Test_VirtualAlbumGetMyJsonDataBad.txt */,
 			);
 			name = "Test Data";
 			path = "../../Lib/BuddySDK Unit Tests/Test Data";
@@ -737,53 +599,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C1B95A61183708E8000C8417 /* Test_FindUsers.txt in Resources */,
-				C1B95A79183708E8000C8417 /* Test_MessageListGetBad.txt in Resources */,
-				C1B95A67183708E8000C8417 /* Test_GameScoreSearch.txt in Resources */,
-				C1B95A7C183708E8000C8417 /* Test_PicturesPhotoAlbumGet.txt in Resources */,
-				C1B95A65183708E8000C8417 /* Test_FriendsGetListBad.txt in Resources */,
-				C1B95A73183708E8000C8417 /* Test_GroupMessagesMembershipGetAllGroups.txt in Resources */,
-				C1B95A7E183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPicturesBad.txt in Resources */,
-				C1B95A84183708E8000C8417 /* Test_StartupBad.txt in Resources */,
-				C1B95A68183708E8000C8417 /* Test_GameScoreSearchBad.txt in Resources */,
-				C1B95A72183708E8000C8417 /* Test_GroupMessage.txt in Resources */,
-				C1B95A5F183708E8000C8417 /* Test_EmptyData.txt in Resources */,
-				C1B95A87183708E8000C8417 /* Test_VirtualAlbumGetMyJsonDataBad.txt in Resources */,
-				C1B95A64183708E8000C8417 /* Test_FriendsGetList.txt in Resources */,
-				C1B95A7D183708E8000C8417 /* Test_PicturesPhotoAlbumGetAllPictures.txt in Resources */,
-				C1B95A83183708E8000C8417 /* Test_Startup.txt in Resources */,
-				C1B95A5E183708E8000C8417 /* Test_CommerceStoreBad.txt in Resources */,
-				C1B95A6C183708E8000C8417 /* Test_GeoLocationCategoryGetList.txt in Resources */,
-				C1B95A85183708E8000C8417 /* Test_VirtualAlbumGetMy.txt in Resources */,
-				C1B95A6F183708E8000C8417 /* Test_GeoLocationSearch.txt in Resources */,
-				C1B95A6B183708E8000C8417 /* Test_GamesScores2.txt in Resources */,
-				C1B95A5B183708E8000C8417 /* Test_AppSearchMetadataBad.txt in Resources */,
-				C1B95A69183708E8000C8417 /* Test_GameScoreSearchJson.txt in Resources */,
-				C1B95A6D183708E8000C8417 /* Test_GeoLocationCategoryList.txt in Resources */,
-				C1B95A78183708E8000C8417 /* Test_MessageListGet.txt in Resources */,
-				C1B95A62183708E8000C8417 /* Test_FriendRequest.txt in Resources */,
-				C1B95A81183708E8000C8417 /* Test_PlayerDataGood.txt in Resources */,
-				C1B95A63183708E8000C8417 /* Test_FriendRequestBad.txt in Resources */,
-				C1B95A71183708E8000C8417 /* Test_GetLocationSearch.txt in Resources */,
-				C1B95A77183708E8000C8417 /* Test_LocationSearch.txt in Resources */,
 				C1E0D1EB1831C2E8001A7A01 /* InfoPlist.strings in Resources */,
-				C1B95A5A183708E8000C8417 /* Test_AppSearchMetadata.txt in Resources */,
-				C1B95A7A183708E8000C8417 /* Test_MetadataSum.txt in Resources */,
-				C1B95A6A183708E8000C8417 /* Test_GamesScores.txt in Resources */,
-				C1B95A75183708E8000C8417 /* Test_IdentityBad.txt in Resources */,
-				C1B95A5C183708E8000C8417 /* Test_CheckInLocations.txt in Resources */,
-				C1B95A80183708E8000C8417 /* Test_PlayerDataBad.txt in Resources */,
-				C1B95A76183708E8000C8417 /* Test_IdentityMyList.txt in Resources */,
-				C1B95A82183708E8000C8417 /* Test_PublicPicture.txt in Resources */,
-				C1B95A6E183708E8000C8417 /* Test_GeoLocationLocationSearch.txt in Resources */,
-				C1B95A70183708E8000C8417 /* Test_GetBlobs.txt in Resources */,
-				C1B95A7B183708E8000C8417 /* Test_NoData.txt in Resources */,
-				C1B95A7F183708E8000C8417 /* Test_PicturesSearchPhotosNearby.txt in Resources */,
-				C1B95A60183708E8000C8417 /* Test_FilterList.txt in Resources */,
-				C1B95A66183708E8000C8417 /* Test_FriendsRequest.txt in Resources */,
-				C1B95A74183708E8000C8417 /* Test_Identity.txt in Resources */,
-				C1B95A86183708E8000C8417 /* Test_VirtualAlbumGetMyBad.txt in Resources */,
-				C1B95A5D183708E8000C8417 /* Test_CommerceStore.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
