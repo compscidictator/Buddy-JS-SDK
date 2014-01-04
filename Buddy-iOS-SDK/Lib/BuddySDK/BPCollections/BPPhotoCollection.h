@@ -10,4 +10,7 @@
 
 @interface BPPhotoCollection : BuddyCollection
 
+- (void)addPhoto:(UIImage *)photo
+     withComment:(NSString *)comment;
+
 @end

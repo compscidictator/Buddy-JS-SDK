@@ -78,8 +78,4 @@
     }];
 }
 
--(void)addCheckin:(BPCheckin *)checkin
-{
-    
-}
 @end

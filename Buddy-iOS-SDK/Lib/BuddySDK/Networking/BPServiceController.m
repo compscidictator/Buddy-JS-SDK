@@ -17,7 +17,7 @@
 
 @implementation BPServiceController
 
--(instancetype)initWithBuddyUrl:(NSString *)url
+- (instancetype)initWithBuddyUrl:(NSString *)url
 {
     self = [super init];
     if(self)
@@ -28,7 +28,7 @@
     return self;
 }
 
--(void)setupManagerWithBaseUrl:(NSString *)baseUrl withToken:(NSString *)token
+- (void)setupManagerWithBaseUrl:(NSString *)baseUrl withToken:(NSString *)token
 {
     assert([baseUrl length] > 0);
     self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
@@ -51,7 +51,7 @@
     self.manager.requestSerializer = requestSerializer;
 }
 
--(void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(void (^)())complete
+- (void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(void (^)())complete
 {
     NSDictionary *getTokenParams = @{
                                      @"appId": appID,
@@ -77,7 +77,7 @@
     }];
 }
 
--(void)updateConnectionWithResponse:(id)result
+- (void)updateConnectionWithResponse:(id)result
 {
     if(!result || ![result isKindOfClass:[NSDictionary class]])return;
     // Grab the access token
@@ -91,7 +91,7 @@
 }
 
 #pragma mark AFNetworking by composisition. Not sure if I want to keep these.
--(void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         id result = responseObject[@"result"];
@@ -101,7 +101,7 @@
     }];
 }
 
--(void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         id result = responseObject[@"result"];
@@ -112,7 +112,21 @@
     }];
 }
 
--(void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(AFNetworkingCallback)callback
+{
+    [self.manager POST:servicePath parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        for(NSString *name in [data allKeys]){
+            [formData appendPartWithFormData:data[name] name:name];
+        }
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        id result = responseObject[@"result"];
+        callback(result);
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        callback(nil);
+    }];
+}
+
+- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager PATCH:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         id result = responseObject[@"result"];
@@ -123,7 +137,7 @@
     }];
 }
 
--(void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
 {
     [self.manager DELETE:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
         id result = responseObject[@"result"];

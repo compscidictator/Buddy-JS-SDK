@@ -7,11 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "BuddyObject+Private.h"
+#import "BPBlob.h"
 
-@interface BPPhoto : BuddyObject
+@interface BPPhoto : BPBlob
 
 @property (nonatomic, copy) NSString *caption;
+@property (nonatomic, strong) UIImage *photo;
 
-@property (nonatomic, strong) NSDate *data;
++ (void)createWithImage:(UIImage *)image andComment:(NSString *)comment callback:(BuddyObjectCallback)callback;
 
 @end

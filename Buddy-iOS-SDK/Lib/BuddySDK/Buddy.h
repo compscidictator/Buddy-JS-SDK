@@ -20,6 +20,7 @@
 #import "BPClient.h"
 #import "BPPhotoCollection.h"
 #import "BPCoordinate.h"
+#import "BPBlob.h"
 
 @interface Buddy : NSObject
 

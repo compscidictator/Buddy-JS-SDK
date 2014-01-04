@@ -22,14 +22,15 @@ describe(@"BPPhotoIntegrationSpec", ^{
                 fin = YES;
             }];
             
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+            [[expectFutureValue(theValue(fin)) shouldEventuallyBeforeTimingOutAfter(4.0)] beTrue];
         });
         
         afterAll(^{
             
         });
         
-        it(@"", ^{
+        it(@"Should allow users to post photos", ^{
+            //[Buddy photos]
         });
     });
 });

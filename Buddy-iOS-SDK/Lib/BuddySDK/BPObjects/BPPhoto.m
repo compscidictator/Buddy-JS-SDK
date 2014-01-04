@@ -24,4 +24,15 @@ static NSString *photos = @"photos";
     return photos;
 }
 
++ (void)createWithImage:(UIImage *)image andComment:(NSString *)comment callback:(BuddyObjectCallback)callback;
+{
+    NSData *data = UIImagePNGRepresentation(image);
+
+    id parameters = @{@"comment": comment};
+    
+    [self createWithData:data parameters:parameters callback:^(id newBuddyObject, NSError *error) {
+        
+    }];
+}
+
 @end
