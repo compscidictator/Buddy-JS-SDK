@@ -372,13 +372,20 @@ namespace BuddySDK
 
         private object ChangeType<T>(object value)
         {
-            if (typeof(T).IsEnum)
-            {
+			var enumType = GetEnumType<T> ();
+
+			if (enumType != null)
+            {                  
                 if (value is string)
                 {
-                    try // needed because Enum.IsDefined is case-sensitive, and passing in a non-enum string causes Enum.Parse to throw
+					// Enum.Parse doesn't handle null values
+					if (value == null) {
+						return default(T);
+					}
+
+					try // needed because Enum.IsDefined is case-sensitive, and passing in a non-enum string causes Enum.Parse to throw
                     {
-                        return Enum.Parse(typeof(T), (string)value, true);
+						return Enum.Parse(enumType, (string)value, true);
                     }
                     catch
                     {
@@ -391,17 +398,40 @@ namespace BuddySDK
                         value = Convert.ToInt32(value);
                     }
 
-                    if (Enum.IsDefined(typeof(T), value))
+					if (Enum.IsDefined(enumType, value))
                     {
-                        return Enum.ToObject(typeof(T), value);
+						return Enum.ToObject(enumType, value);
                     }
                 }
             }
 
-            return Convert.ChangeType(value, typeof(T));
+			// Convert.ChangeType doesn't handle null values
+			if (GetIsNullable<T>() && value == null) {
+				return default(T);
+			}
+
+			// Convert.ChangeType doesn't handle nullable types
+			return Convert.ChangeType(value, GetNonNullableType<T> ());
         }
 
-        protected virtual void SetValueCore<T>(string key, T value)
+		private Type GetEnumType<T>()
+		{
+			Type type = GetNonNullableType<T>();
+
+			return type.IsEnum ? type : null;
+		}
+		
+		private Type GetNonNullableType<T>()
+		{
+			return GetIsNullable<T>() ? Nullable.GetUnderlyingType(typeof(T)) : typeof(T);
+		}
+
+		private bool GetIsNullable<T>()
+		{
+			return typeof(T).IsGenericType && typeof(T).GetGenericTypeDefinition () == typeof(Nullable<>);
+		}
+
+		protected virtual void SetValueCore<T>(string key, T value)
         {
             if (key == "Location" && !(value is BuddyGeoLocation))
             {

@@ -51,6 +51,7 @@ namespace AndroidTests
 			Assert.AreEqual (testValue, result);
 		}
 
+		[Test]
 		[Category("PlatformAccess")]
 		public void GetConfigSettings ()
 		{
@@ -71,6 +72,13 @@ namespace AndroidTests
 		public void ConnectionType()
 		{
 			Assert.AreEqual (PlatformAccess.NetworkConnectionType.Carrier, PlatformAccess.Current.ConnectionType);
+		}
+
+		[Test]
+		[Category("PlatformAccess")]
+		public void AppVersion()
+		{
+			Assert.AreEqual ("1.0", PlatformAccess.Current.AppVersion);
 		}
 	}
 }
