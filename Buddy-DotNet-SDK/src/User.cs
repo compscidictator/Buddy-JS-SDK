@@ -1,9 +1,8 @@
-using BuddyServiceClient;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Globalization;
+using System.IO;
+using System.Threading.Tasks;
 
 namespace BuddySDK
 {
@@ -89,11 +88,11 @@ namespace BuddySDK
             
         }
 
-       
         /// <summary>
         /// Gets the gender of the user.
         /// </summary>
-        public UserGender? Gender {
+        public UserGender? Gender
+        {
             get
             {
                 return GetValueOrDefault<UserGender?>("Gender");
@@ -105,7 +104,8 @@ namespace BuddySDK
         }
       
 
-        public DateTime? DateOfBirth {
+        public DateTime? DateOfBirth
+        {
             get
             {
                 return GetValueOrDefault<DateTime?>("DateOfBirth");
@@ -119,20 +119,23 @@ namespace BuddySDK
         /// <summary>
         /// Gets the age of this user.
         /// </summary>
-        public int? Age { 
-            get { 
-            
+        public int? Age
+        {
+            get
+            {
                 var dob = this.DateOfBirth;
 
-                if (dob != null) {
+                if (dob != null)
+                {
                     return (int)(DateTime.Now.Subtract (dob.Value).TotalDays / 365.25);
                 }
+
                 return null;
-            
             }
         }
 
        
+        [JsonProperty("profilePictureID")]
         public string ProfilePictureID
         {
             get
@@ -141,14 +144,90 @@ namespace BuddySDK
             }
             set
             {
-                SetValue<string>("ProfilePictureID", value, checkIsProp: false);
+				ProfilePicture = new Photo(value);
             }
         }
 
+        [JsonProperty("profilePictureUrl")]
+        public string ProfilePictureUrl
+        {
+            get
+            {
+                return profilePicture == null ? null : profilePicture.SignedUrl;
+            }
+        }
+
+        private Photo profilePicture;
+        public Photo ProfilePicture
+        {
+            get
+            {
+                return profilePicture;
+            }
+            set
+            {
+                profilePicture = value;
+
+                SetValue<string>("ProfilePictureID", value.ID, checkIsProp: false);
+            }
+        }
+
+        internal User(BuddyClient client, int id)
+            : base(client, id.ToString())
+        {
+        }
 		
         internal User(BuddyClient client, string id)
             : base(client, id)
         {
+        }
+
+        public Task<Photo> AddProfilePictureAsync(string caption, Stream photoData, string contentType, BuddyGeoLocation location = null, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
+        {
+            var task = new Task<Photo>(() =>
+            {
+                var r = PhotoCollection.AddAsync(this.Client, caption, photoData, contentType, location, read, write);
+                r.Wait();
+
+                profilePicture = r.Result;
+
+                return r.Result;
+            });
+
+            task.Start();
+
+            return task;
+    }
+
+        public override Task FetchAsync(Action updateComplete = null)
+        {
+            var task = new Task(() =>
+            {
+                var r = base.FetchAsync(updateComplete);
+
+                r.Wait();
+
+                if (!string.IsNullOrEmpty(ProfilePictureID))
+                {
+                    profilePicture = new Photo(ProfilePictureID);
+
+                    var r2 = profilePicture.FetchAsync();
+
+                    r2.Wait();
+}
+            });
+
+            task.Start();
+
+            return task;
+        }
+
+        public override Task SaveAsync()
+        {
+            ProfilePictureID = profilePicture.ID;
+            Username = Username; // TODO: user name is required on PATCH, so do this to ensure it gets added to the PATCH dictionary.  Remove when user name is optional
+            
+            return Task.WhenAll(new Task[] { base.SaveAsync(), profilePicture.SaveAsync() });
         }
     }
 }

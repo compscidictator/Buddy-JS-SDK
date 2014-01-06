@@ -40,26 +40,37 @@ namespace BuddySDK
             }
         }
 
+        [Newtonsoft.Json.JsonProperty("signedUrl")]
+        public string SignedUrl
+        {
+            get
+            {
+                return GetValueOrDefault<string>("signedUrl");
+            }
+        }
+
         public Photo()
         {
-
         }
 
         public Photo(string id = null, BuddyClient client = null)
             : base(id, client)
         {
-
         }
 
         public Task<Stream> GetFileAsync(int? size = null)
         {
             var t = new Task<Stream>(() =>
             {
-                 try {
+                if (string.IsNullOrEmpty(SignedUrl))
+                {
+                    FetchAsync().Wait();
+                }
+
                     var r = Client.Service.CallMethodAsync<HttpWebResponse>(
-                                      "GET", GetObjectPath() + "/file", new
+                                  "GET", SignedUrl.ToString(), new
                                       {
-                                          Size =size
+                                      Size = size
                                       });
 
                     r.Wait();
@@ -69,18 +80,14 @@ namespace BuddySDK
                         return null;
                     }
                     return response.GetResponseStream();
-                  }
+                  /* Introduced by 889c2c76f3940fedc68d5d27851ea913982bdc21 }
                     catch (Exception ex) {
                         System.Diagnostics.Debug.WriteLine("Failed to get photo: {0}: ", ex.ToString());
                         return null;
-                    }
+                    }*/
             });
             t.Start();
             return t;
-
         }
-
-       
     }
-
 }
