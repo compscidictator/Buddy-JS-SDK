@@ -41,7 +41,7 @@
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\..\..\..\..\..\..\Projects\Buddy.iOS.Sample\Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
+      <HintPath>Components\json.net-4.5.11\lib\ios\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="monotouch" />
   </ItemGroup>
@@ -71,6 +71,8 @@
     <Compile Include="Photo.cs" />
     <Compile Include="Photos.cs" />
     <Compile Include="PlatformAccess.cs" />
+    <Compile Include="Album.cs" />
+    <Compile Include="AlbumItem.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

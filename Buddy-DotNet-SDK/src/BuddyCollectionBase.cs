@@ -63,8 +63,8 @@ namespace BuddySDK
                     Path,
                     new
                     {
-                        userId = ownerId,
-                        startDate=startDate,
+						ownerId = ownerId,
+						startDate = startDate,
                         endDate = endDate
                     });
 

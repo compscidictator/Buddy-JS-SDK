@@ -4,11 +4,11 @@ using Android.App;
 
 // Information about this assembly is defined by the following attributes.
 // Change them to the values specific to your project.
-[assembly: AssemblyTitle ("AndroidTests")]
+[assembly: AssemblyTitle ("CreateLoginUserSample")]
 [assembly: AssemblyDescription ("")]
 [assembly: AssemblyConfiguration ("")]
 [assembly: AssemblyCompany ("")]
-[assembly: AssemblyProduct ("Android Tests")]
+[assembly: AssemblyProduct ("Create-Login User Sample")]
 [assembly: AssemblyCopyright ("Copyright © Buddy Platform, Inc. 2014")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]

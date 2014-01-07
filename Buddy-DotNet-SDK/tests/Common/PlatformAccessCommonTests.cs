@@ -5,9 +5,9 @@ using BuddySDK;
 namespace AndroidTests
 {
 	[TestFixture]
-	public class TestsSample
+	public class PlatformAccessCommonTests
 	{
-		[Category("PlatformAccess User Settings")]
+		[Category("User Settings")]
 		[TestCase("testkey", "testvalue")]
 		[TestCase("", "testvalue")]
 		public void GetSet (string testKey, string testValue)
@@ -21,14 +21,14 @@ namespace AndroidTests
 			Assert.AreEqual (testValue, result);
 		}
 
-		[Category("PlatformAccess User Settings")]
+		[Category("User Settings")]
 		[TestCase((string)null, typeof(ArgumentNullException))]
 		public void GetSetNull (string testKey, Type exceptionType)
 		{
 			Assert.Throws (exceptionType, () => PlatformAccess.Current.SetUserSetting (testKey, null));
 		}
 
-		[Category("PlatformAccess User Settings")]
+		[Category("User Settings")]
 		[TestCase("testkey", "testvalue")]
 		public void ExpiredFails(string testKey, string testValue)
 		{
@@ -39,8 +39,7 @@ namespace AndroidTests
 			Assert.IsNull (result);
 		}
 
-		[Test]
-		[Category("PlatformAccess User Settings")]
+		[Category("User Settings")]
 		[TestCase("testkey", "testvalue")]
 		public void ExpiredSucceeds(string testKey, string testValue)
 		{
@@ -52,33 +51,17 @@ namespace AndroidTests
 		}
 
 		[Test]
-		[Category("PlatformAccess")]
 		public void GetConfigSettings ()
 		{
-			var result = PlatformAccess.Current.GetConfigSetting ("test application meta-data name");
+			var result = PlatformAccess.Current.GetConfigSetting ("test config setting name");
 
-			Assert.AreEqual ("test application meta-data value", result);
+			Assert.AreEqual ("test config setting value", result);
 		}
 
 		[Test]
-		[Category("PlatformAccess")]
 		public void IsEmulator()
 		{
 			Assert.IsTrue (PlatformAccess.Current.IsEmulator);
-		}
-
-		[Test]
-		[Category("PlatformAccess")]
-		public void ConnectionType()
-		{
-			Assert.AreEqual (PlatformAccess.NetworkConnectionType.Carrier, PlatformAccess.Current.ConnectionType);
-		}
-
-		[Test]
-		[Category("PlatformAccess")]
-		public void AppVersion()
-		{
-			Assert.AreEqual ("1.0", PlatformAccess.Current.AppVersion);
 		}
 	}
 }

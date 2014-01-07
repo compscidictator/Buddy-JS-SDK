@@ -11,13 +11,14 @@ using System.Text;
 using System.Linq;
 
 
-#if ANDROID
+#if __ANDROID__
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.Net;
 using Android.OS;
 using Android.Provider;
-#elif IOS
+#elif __IOS__
 using MonoTouch.CoreLocation;
 using MonoTouch.CoreFoundation;
 using MonoTouch.UIKit;
@@ -124,9 +125,9 @@ namespace BuddySDK
         public static PlatformAccess Current {
             get {
                 if (_current == null) {
-					#if ANDROID
+					#if __ANDROID__
 					_current = new AndroidPlatformAccess();
-					#elif IOS
+					#elif __IOS__
                     _current = new IosPlatformAccess();
                     #else
                     _current = new DotNetPlatformAccess();
@@ -142,7 +143,7 @@ namespace BuddySDK
 
     }
 
-	#if ANDROID
+	#if __ANDROID__
 	internal class AndroidPlatformAccess : PlatformAccess
     {
         public override string Platform {
@@ -184,8 +185,7 @@ namespace BuddySDK
 			get {
 				var context = Application.Context;
 				 
-				var packageInfo = context.PackageManager.GetPackageInfo (context.PackageName, 
-					                  Android.Content.PM.PackageInfoFlags.Configurations);
+				var packageInfo = context.PackageManager.GetPackageInfo (context.PackageName, 0);
 					
 				return packageInfo.VersionName;
 			}
@@ -209,10 +209,10 @@ namespace BuddySDK
         {
 			var context = Application.Context;
 
-			var packageInfo = context.PackageManager.GetPackageInfo (context.PackageName, 
-				Android.Content.PM.PackageInfoFlags.Configurations);
+			var appInfo = context.PackageManager.GetApplicationInfo (context.PackageName, 
+				Android.Content.PM.PackageInfoFlags.MetaData);
 
-			var metaData = packageInfo.ApplicationInfo.MetaData;
+			var metaData = appInfo.MetaData;
 
 			var value = metaData != null && metaData.ContainsKey(key) ? metaData.GetString (key) : null;
 
@@ -287,7 +287,7 @@ namespace BuddySDK
         }
     }
 
-	#elif IOS
+	#elif __IOS__
 
     internal class IosPlatformAccess : PlatformAccess {
         #region implemented abstract members of PlatformAccess
@@ -301,12 +301,13 @@ namespace BuddySDK
             if (val != null) {
                 return val.ToString();
             }
+
             return null;
         }
 
         public override void SetUserSetting (string key, string value, DateTime? expires = default(DateTime?))
         {
-			string encodedValue = base.EncodeUserSetting (expires);
+			string encodedValue = base.EncodeUserSetting (value, expires);
 
 			NSUserDefaults.StandardUserDefaults.SetValueForKey (new NSString(encodedValue), new NSString(key));
         }
@@ -327,13 +328,13 @@ namespace BuddySDK
                 return null;
             }
 
-			var decoded = base.DecodeUserSetting (ref value);
+			var decodedValue = base.DecodeUserSetting (value.ToString());
 
-			if (!decoded) {
+			if (decodedValue == null) {
 				ClearUserSetting (key);
 			}
 		
-			return value;
+			return decodedValue;
         }
 
         public override string Platform {
