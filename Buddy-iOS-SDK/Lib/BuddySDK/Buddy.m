@@ -53,8 +53,9 @@ static BPUser *_user;
     return [[BPClient defaultClient] checkins];
 }
 
+static BPPhotoCollection *_photos;
 + (BPPhotoCollection *) photos{
-    return nil;
+    return _photos;
 }
 
 + (BOOL) locationEnabled{
@@ -138,6 +139,7 @@ static BPUser *_user;
 #pragma messsage("TODO - Error")
 #pragma messsage("TODO - hack. Where to initialize session objects?")
             _user = user;
+            _photos = [BPPhotoCollection new];
             callback(user, nil);
         }];
     }];

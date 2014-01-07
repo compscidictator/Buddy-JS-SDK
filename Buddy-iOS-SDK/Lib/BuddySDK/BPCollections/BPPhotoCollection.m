@@ -13,11 +13,21 @@
 
 @implementation BPPhotoCollection
 
+-(instancetype)init{
+    self = [super init];
+    if(self){
+        self.type = [BPPhoto class];
+    }
+    return self;
+}
+
 - (void)addPhoto:(UIImage *)photo
      withComment:(NSString *)comment
+        callback:(BuddyCollectionCallback)callback
 {
-    
-    //[[self type] createWithData:nil callback:nil];
+    [[self type] createWithImage:photo andComment:comment callback:^(id newBuddyObject, NSError *error) {
+        callback(newBuddyObject);
+    }];
 }
 
 - (BPPhoto *)getPhoto:(NSInteger)photoId error:(NSError *)error

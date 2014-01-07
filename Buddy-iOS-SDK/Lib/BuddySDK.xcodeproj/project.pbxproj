@@ -24,6 +24,11 @@
 /* Begin PBXBuildFile section */
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
+		C1010D31187A4CC3009EB04E /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2C187A4CC3009EB04E /* 0.jpg */; };
+		C1010D32187A4CC3009EB04E /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2D187A4CC3009EB04E /* 1.jpg */; };
+		C1010D33187A4CC3009EB04E /* 2.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2E187A4CC3009EB04E /* 2.jpg */; };
+		C1010D34187A4CC3009EB04E /* 3.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2F187A4CC3009EB04E /* 3.jpg */; };
+		C1010D35187A4CC3009EB04E /* 4.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D30187A4CC3009EB04E /* 4.jpg */; };
 		C10E2B94186950D8007A0136 /* BPAppMetadata.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B82186950D8007A0136 /* BPAppMetadata.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2B95186950D8007A0136 /* BPAppMetadata.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B83186950D8007A0136 /* BPAppMetadata.m */; };
 		C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B84186950D8007A0136 /* BPAuthenticatedUser.h */; };
@@ -138,6 +143,11 @@
 		A6291F7F165C01800051F83C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddySDK-Prefix.pch"; sourceTree = "<group>"; };
 		BC44442B63AA4BEA943DB005 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = ../Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		C1010D2C187A4CC3009EB04E /* 0.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 0.jpg; sourceTree = "<group>"; };
+		C1010D2D187A4CC3009EB04E /* 1.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 1.jpg; sourceTree = "<group>"; };
+		C1010D2E187A4CC3009EB04E /* 2.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 2.jpg; sourceTree = "<group>"; };
+		C1010D2F187A4CC3009EB04E /* 3.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 3.jpg; sourceTree = "<group>"; };
+		C1010D30187A4CC3009EB04E /* 4.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = 4.jpg; sourceTree = "<group>"; };
 		C10E2B82186950D8007A0136 /* BPAppMetadata.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAppMetadata.h; sourceTree = "<group>"; };
 		C10E2B83186950D8007A0136 /* BPAppMetadata.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAppMetadata.m; sourceTree = "<group>"; };
 		C10E2B84186950D8007A0136 /* BPAuthenticatedUser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAuthenticatedUser.h; sourceTree = "<group>"; };
@@ -399,9 +409,13 @@
 		C1B95A2B183708E8000C8417 /* Test Data */ = {
 			isa = PBXGroup;
 			children = (
+				C1010D2C187A4CC3009EB04E /* 0.jpg */,
+				C1010D2D187A4CC3009EB04E /* 1.jpg */,
+				C1010D2E187A4CC3009EB04E /* 2.jpg */,
+				C1010D2F187A4CC3009EB04E /* 3.jpg */,
+				C1010D30187A4CC3009EB04E /* 4.jpg */,
 			);
-			name = "Test Data";
-			path = "../../Lib/BuddySDK Unit Tests/Test Data";
+			path = "Test Data";
 			sourceTree = "<group>";
 		};
 		C1B95A9D18370FFD000C8417 /* Networking */ = {
@@ -606,6 +620,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1010D35187A4CC3009EB04E /* 4.jpg in Resources */,
+				C1010D34187A4CC3009EB04E /* 3.jpg in Resources */,
+				C1010D32187A4CC3009EB04E /* 1.jpg in Resources */,
+				C1010D31187A4CC3009EB04E /* 0.jpg in Resources */,
+				C1010D33187A4CC3009EB04E /* 2.jpg in Resources */,
 				C1E0D1EB1831C2E8001A7A01 /* InfoPlist.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
