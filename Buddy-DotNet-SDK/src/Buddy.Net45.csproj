@@ -256,6 +256,7 @@
     <None Include="V1\StoreItem.cs">
       <SubType>Code</SubType>
     </None>
+    <Compile Include="SearchResult.cs" />
     <Compile Include="User.cs">
       <SubType>Code</SubType>
     </Compile>

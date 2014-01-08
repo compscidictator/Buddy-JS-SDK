@@ -66,6 +66,18 @@ namespace BuddySDK
         }
 
         // 
+        // Metrics
+        //
+
+        public static Task<string> RecordMetricAsync(string key, IDictionary<string, object> value = null, TimeSpan? timeout = null) {
+            return Instance.RecordMetricAsync (key, value, timeout);
+        }
+
+        public static Task<TimeSpan?> RecordTimedMetricEndAsync(string timedMetricId) {
+            return Instance.RecordTimedMetricEndAsync (timedMetricId);
+        }
+
+        // 
         // Collections.
         //
 
@@ -125,5 +137,7 @@ namespace BuddySDK
                 return _albums;
             }
         }
+
+
     }
 }
