@@ -77,6 +77,10 @@
     <Compile Include="Photo.cs" />
     <Compile Include="Photos.cs" />
     <Compile Include="PlatformAccess.cs" />
+    <Compile Include="BuddyGeoLocation.cs" />
+    <Compile Include="SearchResult.cs" />
+    <Compile Include="LocationCollection.cs" />
+    <Compile Include="Location.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
