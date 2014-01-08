@@ -58,6 +58,11 @@ static BPPhotoCollection *_photos;
     return _photos;
 }
 
+static BPBlobCollection *_blobs;
++ (BPBlobCollection *) blobs{
+    return _blobs;
+}
+
 + (BOOL) locationEnabled{
     @synchronized(self){
         return [[BPClient defaultClient] locationEnabled];
@@ -140,6 +145,7 @@ static BPPhotoCollection *_photos;
 #pragma messsage("TODO - hack. Where to initialize session objects?")
             _user = user;
             _photos = [BPPhotoCollection new];
+            _blobs = [BPBlobCollection new];
             callback(user, nil);
         }];
     }];

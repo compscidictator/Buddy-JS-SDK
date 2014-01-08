@@ -19,7 +19,7 @@
     return self;
 }
 
-static NSString *photos = @"photos";
+static NSString *photos = @"pictures";
 +(NSString *) requestPath{
     return photos;
 }

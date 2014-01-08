@@ -116,7 +116,8 @@
 {
     [self.manager POST:servicePath parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         for(NSString *name in [data allKeys]){
-            [formData appendPartWithFormData:data[name] name:name];
+#pragma messsage("TODO - somehow pass in mime type for blob/image POSTs")
+            [formData appendPartWithFileData:data[name] name:name fileName:name mimeType:@"image/png"];
         }
     } success:^(AFHTTPRequestOperation *operation, id responseObject) {
         id result = responseObject[@"result"];

@@ -13,7 +13,7 @@
 
 - (void)addPhoto:(UIImage *)photo
      withComment:(NSString *)comment
-        callback:(BuddyCollectionCallback)callback;
+        callback:(BuddyObjectCallback)callback;
 
 - (BPPhoto *)getPhoto:(NSInteger)photoId error:(NSError *)error;
 

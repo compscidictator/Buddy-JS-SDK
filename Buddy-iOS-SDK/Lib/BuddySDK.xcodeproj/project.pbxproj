@@ -84,6 +84,10 @@
 		C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B959F81837061F000C8417 /* BuddyObject.m */; };
 		C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */; };
 		C1B95A8A18370962000C8417 /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B95A8918370962000C8417 /* LocationTests.m */; };
+		C1BFD889187D14B500A1FADF /* BPBlobIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFD888187D14B500A1FADF /* BPBlobIntegrationTests.m */; };
+		C1BFD88B187D15D000A1FADF /* blob.json in Resources */ = {isa = PBXBuildFile; fileRef = C1BFD88A187D15D000A1FADF /* blob.json */; };
+		C1BFD88E187D169500A1FADF /* BPBlobCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1BFD88C187D169500A1FADF /* BPBlobCollection.h */; };
+		C1BFD88F187D169500A1FADF /* BPBlobCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFD88D187D169500A1FADF /* BPBlobCollection.m */; };
 		C1C2394E1877C906000D0089 /* BPRestProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B7F1870C35A00D5364C /* BPRestProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1C2395318789594000D0089 /* BPBlob.h in Headers */ = {isa = PBXBuildFile; fileRef = C1C2395118789594000D0089 /* BPBlob.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1C2395418789594000D0089 /* BPBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C2395218789594000D0089 /* BPBlob.m */; };
@@ -204,6 +208,10 @@
 		C1B959F81837061F000C8417 /* BuddyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyObject.m; sourceTree = "<group>"; };
 		C1B95A8818370962000C8417 /* LocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTests.h; sourceTree = "<group>"; };
 		C1B95A8918370962000C8417 /* LocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTests.m; sourceTree = "<group>"; };
+		C1BFD888187D14B500A1FADF /* BPBlobIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBlobIntegrationTests.m; sourceTree = "<group>"; };
+		C1BFD88A187D15D000A1FADF /* blob.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = blob.json; sourceTree = "<group>"; };
+		C1BFD88C187D169500A1FADF /* BPBlobCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPBlobCollection.h; path = BPCollections/BPBlobCollection.h; sourceTree = "<group>"; };
+		C1BFD88D187D169500A1FADF /* BPBlobCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPBlobCollection.m; path = BPCollections/BPBlobCollection.m; sourceTree = "<group>"; };
 		C1C2395118789594000D0089 /* BPBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBlob.h; sourceTree = "<group>"; };
 		C1C2395218789594000D0089 /* BPBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBlob.m; sourceTree = "<group>"; };
 		C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAGProperty.h; sourceTree = "<group>"; };
@@ -342,6 +350,8 @@
 				C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */,
 				C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */,
 				C11E6C90184C57040034E1EB /* BPPhotoCollection.m */,
+				C1BFD88C187D169500A1FADF /* BPBlobCollection.h */,
+				C1BFD88D187D169500A1FADF /* BPBlobCollection.m */,
 			);
 			name = BPCollections;
 			sourceTree = "<group>";
@@ -409,6 +419,7 @@
 		C1B95A2B183708E8000C8417 /* Test Data */ = {
 			isa = PBXGroup;
 			children = (
+				C1BFD88A187D15D000A1FADF /* blob.json */,
 				C1010D2C187A4CC3009EB04E /* 0.jpg */,
 				C1010D2D187A4CC3009EB04E /* 1.jpg */,
 				C1010D2E187A4CC3009EB04E /* 2.jpg */,
@@ -467,6 +478,7 @@
 				C1B2375C18654884005C841E /* BuddyTestData.h */,
 				C10F1B76187095EA00D5364C /* BuddyIntegrationHelper.h */,
 				C10F1B77187095EA00D5364C /* BuddyIntegrationHelper.m */,
+				C1BFD888187D14B500A1FADF /* BPBlobIntegrationTests.m */,
 			);
 			path = "BuddySDK Unit Tests";
 			sourceTree = "<group>";
@@ -524,6 +536,7 @@
 				C10E2B94186950D8007A0136 /* BPAppMetadata.h in Headers */,
 				C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */,
 				C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */,
+				C1BFD88E187D169500A1FADF /* BPBlobCollection.h in Headers */,
 				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
 				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
 				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
@@ -626,6 +639,7 @@
 				C1010D31187A4CC3009EB04E /* 0.jpg in Resources */,
 				C1010D33187A4CC3009EB04E /* 2.jpg in Resources */,
 				C1E0D1EB1831C2E8001A7A01 /* InfoPlist.strings in Resources */,
+				C1BFD88B187D15D000A1FADF /* blob.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -752,6 +766,7 @@
 				C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */,
 				C10E2BA4186950D8007A0136 /* BPGameBoards.m in Sources */,
 				C10E2BB7186951FA007A0136 /* Buddy.m in Sources */,
+				C1BFD88F187D169500A1FADF /* BPBlobCollection.m in Sources */,
 				C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -765,6 +780,7 @@
 				C1B95A8A18370962000C8417 /* LocationTests.m in Sources */,
 				C1ADD127184D96B800246313 /* CheckinIntegrationTests.m in Sources */,
 				C1ADD12A184E2BF300246313 /* BPPhotoIntegrationTests.m in Sources */,
+				C1BFD889187D14B500A1FADF /* BPBlobIntegrationTests.m in Sources */,
 				C1B8076F18441BD30086B843 /* BuddyIntegrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

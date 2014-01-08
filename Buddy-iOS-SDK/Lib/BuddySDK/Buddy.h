@@ -19,6 +19,7 @@
 #import "BPAppMetadata.h"
 #import "BPClient.h"
 #import "BPPhotoCollection.h"
+#import "BPBlobCollection.h"
 #import "BPCoordinate.h"
 #import "BPBlob.h"
 
@@ -37,6 +38,9 @@
 + (BPCheckinCollection *) checkins;
 
 + (BPPhotoCollection *) photos;
+
++ (BPBlobCollection *) blobs;
+
 
 + (BOOL) locationEnabled;
 

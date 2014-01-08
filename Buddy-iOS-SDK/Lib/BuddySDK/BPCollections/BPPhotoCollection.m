@@ -23,11 +23,9 @@
 
 - (void)addPhoto:(UIImage *)photo
      withComment:(NSString *)comment
-        callback:(BuddyCollectionCallback)callback
+        callback:(BuddyObjectCallback)callback
 {
-    [[self type] createWithImage:photo andComment:comment callback:^(id newBuddyObject, NSError *error) {
-        callback(newBuddyObject);
-    }];
+    [[self type] createWithImage:photo andComment:comment callback:callback];
 }
 
 - (BPPhoto *)getPhoto:(NSInteger)photoId error:(NSError *)error

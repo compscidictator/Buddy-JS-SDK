@@ -12,6 +12,11 @@
 
 @implementation BPBlob
 
+static NSString *blobs = @"blobs";
++(NSString *) requestPath{
+    return blobs;
+}
+
 + (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback
 {
     NSDictionary *multipartParameters = @{@"data": data};
@@ -38,7 +43,6 @@
             callback(newObject, nil);
         }];
         
-        callback(newObject, nil);
     }];
 }
 

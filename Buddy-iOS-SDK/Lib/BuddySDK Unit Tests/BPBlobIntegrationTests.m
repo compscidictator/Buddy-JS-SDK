@@ -15,9 +15,9 @@
 #endif
 #define kKW_DEFAULT_PROBE_TIMEOUT 4.0
 
-SPEC_BEGIN(BuddyPhotoSpec)
+SPEC_BEGIN(BuddyBlobSpec)
 
-describe(@"BPPhotoIntegrationSpec", ^{
+describe(@"BPBlobIntegrationSpec", ^{
     context(@"When a user is logged in", ^{
         
         beforeAll(^{
@@ -34,22 +34,22 @@ describe(@"BPPhotoIntegrationSpec", ^{
             
         });
         
-        it(@"Should allow users to post photos", ^{
+        it(@"Should allow users to upload blobs", ^{
             NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-            NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
-            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+            NSString *blobPath = [bundle pathForResource:@"blob" ofType:@"json"];
+            NSData *blobData = [NSData dataWithContentsOfFile:blobPath];
             
-            __block BPPhoto *newPhoto;
-            [[Buddy photos] addPhoto:image withComment:@"Hello, comment!" callback:^(id buddyObject, NSError *error) {
-                newPhoto = buddyObject;
+            __block BPBlob *newBlob;
+            [[Buddy blobs] addBlob:blobData callback:^(id newBuddyObject, NSError *error) {
+                newBlob = newBuddyObject;
             }];
             
-            [[expectFutureValue(newPhoto) shouldEventually] beNonNil];
-            [[expectFutureValue(theValue(newPhoto.contentLength)) shouldEventually] beGreaterThan:theValue(1)];
-            [[expectFutureValue(newPhoto.contentType) shouldEventually] equal:@"image/png"];
-            [[expectFutureValue(newPhoto.signedUrl) shouldEventually] haveLengthOfAtLeast:1];
-//            [[expectFutureValue(newPhoto.description) shouldEventually] equal:@"Hello, comment!"];
-
+            [[expectFutureValue(newBlob) shouldEventually] beNonNil];
+            [[expectFutureValue(theValue(newBlob.contentLength)) shouldEventually] beGreaterThan:theValue(1)];
+#pragma message("TODO - validate mime type.")
+            //[[expectFutureValue(newBlob.contentType) shouldEventually] equal:@"image/png"];
+            [[expectFutureValue(newBlob.signedUrl) shouldEventually] haveLengthOfAtLeast:1];
+            
         });
         
         pending_(@"Should allow retrieving photos", ^{
