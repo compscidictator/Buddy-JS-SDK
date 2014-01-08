@@ -34,5 +34,13 @@ namespace BuddySDK
             ct.Start();
             return ct;
         }
+
+        public Task<SearchResult<Checkin>> FindAsync(string comment = null, BuddyGeoLocationRange location = null, string userId = null, int maxResults = 100) {
+
+            return base.FindAsync (userId, null, null, location, maxResults, null, (p) => {
+                p["comment"] = comment;
+            });
+
+        } 
     }
 }

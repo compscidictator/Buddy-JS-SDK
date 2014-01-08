@@ -9,9 +9,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using BuddyServiceClient;
 using System.Reflection;
-#if __IOS__
-using MonoTouch.Foundation;
-#endif
+
 
 #if WINDOWS_PHONE
 using System.Net;
@@ -68,7 +66,7 @@ namespace BuddySDK
 
         public static string WebServiceUrl {
             get {
-                return _WebServiceUrl ?? "http://craig.buddyservers.net:8080/api";
+                return _WebServiceUrl ?? "http://10.211.55.3:50800";
             }
             set {
                 _WebServiceUrl = value;
@@ -92,8 +90,15 @@ namespace BuddySDK
         }
 
 
-        private string _deviceToken = null;
-        private string _userToken = null;
+        private string DeviceToken { get; set; }
+
+        private string _ut = null;
+        private string UserToken { 
+            get { return _ut; } 
+            set { 
+                _ut = value; 
+            }
+        }
 
         private bool _gettingToken = false;
         
@@ -106,17 +111,17 @@ namespace BuddySDK
                     try
                     {
                         _gettingToken = true;
-                        if (_userToken != null)
+                        if (UserToken != null)
                         {
-                            return _userToken;
+                            return UserToken;
                         }
-                        else if (_deviceToken != null)
+                        else if (DeviceToken != null)
                         {
-                            return _deviceToken;
+                            return DeviceToken;
                         }
-                        _deviceToken = GetDeviceToken();
-                        OnAccessTokenChanged(_deviceToken, AccessTokenType.Device);
-                        return _deviceToken;
+                        DeviceToken = GetDeviceToken();
+                        OnAccessTokenChanged(DeviceToken, AccessTokenType.Device);
+                        return DeviceToken;
                     }
                     finally
                     {
@@ -125,7 +130,7 @@ namespace BuddySDK
                 }
                 else
                 {
-                    return _userToken ?? _deviceToken;
+                    return UserToken ?? DeviceToken;
                 }
                 
             }
@@ -155,15 +160,15 @@ namespace BuddySDK
                 _user = value;
                 if (_user != null)
                 {
-                    _userToken = _user.AccessToken;
+                    UserToken = _user.AccessToken;
                     PlatformAccess.Current.SetUserSetting ("UserID", _user.ID);
                 }
                 else
                 {
                     PlatformAccess.Current.ClearUserSetting("UserID");
-                    _userToken = null;
+                    UserToken = null;
                 }
-                OnAccessTokenChanged (_userToken, AccessTokenType.User);
+                OnAccessTokenChanged (UserToken, AccessTokenType.User);
             }
         }
 
@@ -208,13 +213,21 @@ namespace BuddySDK
             return userSetting ?? setting ?? WebServiceUrl;
         }
 
-        private void ClearCredentials() {
-            PlatformAccess.Current.ClearUserSetting ("ServiceRoot");
-            PlatformAccess.Current.ClearUserSetting ("UserID");
-            PlatformAccess.Current.ClearUserSetting (this.AppId + "-DeviceAccessToken");
-            PlatformAccess.Current.ClearUserSetting (this.AppId + "-UserAccessToken");
-            _userToken = _deviceToken = null;
-            Service.ServiceRoot = GetRootUrl ();
+        private void ClearCredentials(bool clearUser = true, bool clearDevice = true) {
+
+            if (clearDevice) {
+                PlatformAccess.Current.ClearUserSetting ("ServiceRoot");
+                PlatformAccess.Current.ClearUserSetting (this.AppId + "-DeviceAccessToken");
+                DeviceToken = null;
+                Service.ServiceRoot = GetRootUrl ();
+            }
+
+            if (clearUser) {
+                PlatformAccess.Current.ClearUserSetting ("UserID");
+                PlatformAccess.Current.ClearUserSetting (this.AppId + "-UserAccessToken");
+                UserToken = null;
+            }
+
             UpdateAccessLevel ();
         }
 
@@ -245,7 +258,7 @@ namespace BuddySDK
             this._service.ServiceException += (object sender, ExceptionEventArgs e) => {
 
                 if (e.Exception is BuddyUnauthorizedException) {
-                    ClearCredentials();
+                    ClearCredentials(true, true);
                 }
 
             };
@@ -267,11 +280,11 @@ namespace BuddySDK
             string key = null;
             switch (tokenType) {
             case AccessTokenType.Device:
-                _deviceToken = token;
+                DeviceToken = token;
                 key = this.AppId + "-DeviceAccessToken";
                 break;
             case AccessTokenType.User:
-                _userToken = token;
+                UserToken = token;
                 key = this.AppId + "-UserAccessToken";
                 break;
             }
@@ -316,14 +329,24 @@ namespace BuddySDK
 
             var old = AuthLevel;
             AuthenticationLevel authLevel = AuthenticationLevel.None;
-            if (_deviceToken != null) authLevel = AuthenticationLevel.Device;
-            if (_userToken != null) authLevel = AuthenticationLevel.User;
+            if (DeviceToken != null) authLevel = AuthenticationLevel.Device;
+            if (UserToken != null) authLevel = AuthenticationLevel.User;
             AuthLevel = authLevel;
 
             if (old != authLevel) {
                 OnAuthLevelChanged ();
             }
 
+        }
+
+        private static TEX UnwrapException<TEX>(Exception ex) where TEX: Exception {
+            if (ex != null && ex.InnerException != null) {
+                return UnwrapException<TEX> (ex);
+            }
+            else if (typeof(TEX).IsInstanceOfType (ex)) {
+                return (TEX)ex;
+            } 
+            return null;
         }
 
         // service
@@ -409,7 +432,8 @@ namespace BuddySDK
 
                     }
                     catch(AggregateException aex) {
-                        throw aex.InnerException;
+                        ClearCredentials(true, false);
+                        throw UnwrapException<Exception>(aex);
                     }
 
             });
@@ -420,13 +444,71 @@ namespace BuddySDK
         public Task LogoutUserAsync() {
             var t = new Task (() => {
 
-                if (_userToken != null) {
-                    _userToken = null;
+                if (UserToken != null) {
+                    UserToken = null;
                     PlatformAccess.Current.ClearUserSetting(this.AppId + "-UserAccessToken");
                 }
             });
             t.Start ();
             return t;
+        }
+
+        //
+        // Metrics
+        //
+
+        private class MetricsResult
+        {
+            public string id { get; set; }
+            public bool success { get; set; }
+        }
+
+        public Task<string> RecordMetricAsync(string key, IDictionary<string, object> value = null, TimeSpan? timeout = null)
+        {
+
+            int? timeoutInSeconds = null;
+
+            if (timeout != null)
+            {
+                timeoutInSeconds = (int)timeout.Value.TotalSeconds;
+            }
+
+            return Task.Run<string>(() =>
+            {
+
+                var r = Service.CallMethodAsync<MetricsResult>("POST", String.Format("/metrics/events/{0}", Uri.EscapeDataString(key)), new
+                {
+                    value = value,
+                    timeoutInSeconds = timeoutInSeconds
+                });
+
+                r.Wait();
+                return r.Result.id;
+            });
+        }
+
+        private class CompleteMetricResult
+        {
+            public long? elaspedTimeInMs { get; set; }
+        }
+
+        public Task<TimeSpan?> RecordTimedMetricEndAsync(string timedMetricId)
+        {
+            return Task<TimeSpan?>.Run(() =>
+            {
+
+                var r = Service.CallMethodAsync<CompleteMetricResult>("DELETE", String.Format("/metrics/events/{0}", Uri.EscapeDataString(timedMetricId)));
+
+                r.Wait();
+
+                TimeSpan? elapsedTime = null;
+
+                if (r.Result != null && r.Result.elaspedTimeInMs != null) {
+                    elapsedTime = TimeSpan.FromMilliseconds(r.Result.elaspedTimeInMs.Value);
+                }
+
+                return elapsedTime;
+            });
         }
 
     }

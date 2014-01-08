@@ -111,6 +111,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="BuddyCollectionBase.cs" />
+    <Compile Include="BuddyGeoLocation.cs" />
     <Compile Include="BuddyServiceClient\BuddyServiceClientBase.cs" />
     <Compile Include="BuddyServiceClient\BuddyServiceClientHttp.cs" />
     <Compile Include="BuddyServiceException.cs" />
@@ -221,6 +222,8 @@
       <SubType>Code</SubType>
     </None>
     <Compile Include="CheckinCollection.cs" />
+    <Compile Include="Location.cs" />
+    <Compile Include="LocationCollection.cs" />
     <Compile Include="Photo.cs" />
     <Compile Include="Photos.cs" />
     <Compile Include="PlatformAccess.cs" />
@@ -253,6 +256,7 @@
     <None Include="V1\StoreItem.cs">
       <SubType>Code</SubType>
     </None>
+    <Compile Include="SearchResult.cs" />
     <Compile Include="User.cs">
       <SubType>Code</SubType>
     </Compile>

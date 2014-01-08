@@ -53,30 +53,52 @@ namespace BuddySDK
             task.Start();
             return task;
         }
-      
-        public Task<IEnumerable<T>> FindAsync(string ownerId = null, DateTime? startDate = null, DateTime? endDate = null)
+
+        protected Task<SearchResult<T>> FindAsync(
+            string userId = null,
+            DateTime? startDate = null, 
+            DateTime? endDate = null, 
+            BuddyGeoLocationRange location = null, int maxItems = 100, string pagingToken = null, Action<IDictionary<string, object>> parameterCallback = null)
         {
 
-            Task<IEnumerable<T>> t = new Task<IEnumerable<T>>(() =>
+            Task<SearchResult<T>> t = new Task<SearchResult<T>>(() =>
             {
-                var r = Client.Service.CallMethodAsync < IEnumerable<IDictionary<string, object>>>("GET",
-                    Path,
-                    new
-                    {
-						ownerId = ownerId,
-						startDate = startDate,
-                        endDate = endDate
-                    });
+                    IDictionary<string,object> obj = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase){
+                        {"userID", userId},
+                        {"startDate", startDate},
+                        {"endDate", endDate},
+                        {"location", location},
+                        {"limit", maxItems}
+                    };
 
-                r.Wait();
-                var items = new ObservableCollection<T>();
-                foreach (var d in r.Result)
-                {
-                    T item = new T();
-                    item.Update(d);
-                    items.Add(item);
-                }
-                return items;
+                    if (pagingToken != null) {
+                        obj.Clear();
+                        obj["token"] = pagingToken;
+                    }
+
+                    if (parameterCallback != null) {
+                        parameterCallback(obj);
+                    }
+
+                    var r = Client.Service.CallMethodAsync<SearchResult<IDictionary<string, object>>>("GET",
+                            Path, obj
+                        );
+
+                    r.Wait();
+                    var sr = new SearchResult<T>();
+                    sr.NextToken = r.Result.NextToken;
+                    sr.PreviousToken = r.Result.PreviousToken;
+                    sr.CurrentToken = r.Result.CurrentToken;
+
+                    var items = new ObservableCollection<T>();
+                    foreach (var d in r.Result.PageResults)
+                    {
+                        T item = new T();
+                        item.Update(d);
+                        items.Add(item);
+                    }
+                    sr.PageResults = items;
+                    return sr;
             });
             t.Start();
             return t;

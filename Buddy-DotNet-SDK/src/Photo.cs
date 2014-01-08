@@ -55,19 +55,25 @@ namespace BuddySDK
         {
             var t = new Task<Stream>(() =>
             {
-                var r = Client.Service.CallMethodAsync<HttpWebResponse>(
-                                  "GET", GetObjectPath() + "/file", new
-                                  {
-                                      Size =size
-                                  });
+                 try {
+                    var r = Client.Service.CallMethodAsync<HttpWebResponse>(
+                                      "GET", GetObjectPath() + "/file", new
+                                      {
+                                          Size =size
+                                      });
 
-                r.Wait();
-                var response = r.Result;
+                    r.Wait();
+                    var response = r.Result;
 
-                if (response == null) {
-                    return null;
-                }
-                return response.GetResponseStream();
+                    if (response == null) {
+                        return null;
+                    }
+                    return response.GetResponseStream();
+                  }
+                    catch (Exception ex) {
+                        System.Diagnostics.Debug.WriteLine("Failed to get photo: {0}: ", ex.ToString());
+                        return null;
+                    }
             });
             t.Start();
             return t;

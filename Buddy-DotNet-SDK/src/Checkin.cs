@@ -3,12 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace BuddySDK
 {
     [BuddyObjectPath("/checkins")]
     public class Checkin : BuddyBase
     {
+
+        public class BuddyCheckinLocation : BuddyGeoLocation {
+            [JsonProperty("name")]
+            public string Name { get; set; }
+        }
 
        
         [Newtonsoft.Json.JsonProperty("comment")]
@@ -47,6 +53,16 @@ namespace BuddySDK
             : base(id, client)
         {
 
+        }
+
+        protected override void SetValueCore<T> (string key, T value)
+        {
+//            if (key == "Location" && !(value is BuddyGeoLocation)) {
+//
+//                value = (T)(object) JsonConvert.DeserializeObject<BuddyCheckinLocation>(value.ToString());
+//            }
+
+            base.SetValueCore (key, value);
         }
 
         public override Task SaveAsync()

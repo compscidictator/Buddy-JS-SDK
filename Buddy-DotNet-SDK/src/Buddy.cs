@@ -66,6 +66,18 @@ namespace BuddySDK
         }
 
         // 
+        // Metrics
+        //
+
+        public static Task<string> RecordMetricAsync(string key, IDictionary<string, object> value = null, TimeSpan? timeout = null) {
+            return Instance.RecordMetricAsync (key, value, timeout);
+        }
+
+        public static Task<TimeSpan?> RecordTimedMetricEndAsync(string timedMetricId) {
+            return Instance.RecordTimedMetricEndAsync (timedMetricId);
+        }
+
+        // 
         // Collections.
         //
 
@@ -79,6 +91,21 @@ namespace BuddySDK
                     _checkins = new CheckinCollection(Instance);
                 }
                 return _checkins;
+            }
+        }
+
+
+        private static LocationCollection _locations;
+
+        public static LocationCollection Locations
+        {
+            get
+            {
+                if (_locations == null)
+                {
+                    _locations = new LocationCollection(Instance);
+                }
+                return _locations;
             }
         }
 
@@ -110,5 +137,7 @@ namespace BuddySDK
                 return _albums;
             }
         }
+
+
     }
 }
