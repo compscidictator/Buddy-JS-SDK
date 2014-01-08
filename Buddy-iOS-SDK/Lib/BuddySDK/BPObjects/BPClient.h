@@ -96,7 +96,6 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 typedef void (^BPBuddyObjectCallback)(id json);
 
-- (void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete;
 - (void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback;
 - (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 - (void)ping:(BPPingCallback)callback;

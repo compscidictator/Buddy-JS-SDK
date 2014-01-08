@@ -153,7 +153,7 @@
 
 -(void)refresh:(BuddyCompletionCallback)complete
 {
-    assert(self.id);
+    //assert(self.id);
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           self.id];

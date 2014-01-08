@@ -69,12 +69,7 @@
 
 #pragma mark BuddyObject
 
--(void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete
-{
-    [self.service GET:resource parameters:nil callback:^(id json) {
-        complete(json);
-    }];
-}
+
 
 -(void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback
 {

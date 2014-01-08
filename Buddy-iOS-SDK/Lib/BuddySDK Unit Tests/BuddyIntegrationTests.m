@@ -9,6 +9,11 @@
 #import "Buddy.h"
 #import <Kiwi/Kiwi.h>
 
+#ifdef kKW_DEFAULT_PROBE_TIMEOUT
+#undef kKW_DEFAULT_PROBE_TIMEOUT
+#endif
+#define kKW_DEFAULT_PROBE_TIMEOUT 4.0
+
 SPEC_BEGIN(BuddyIntegrationSpec)
 
 describe(@"BPUser", ^{
@@ -43,7 +48,7 @@ describe(@"BPUser", ^{
                 newUser = newBuddyObject;
             }];
             
-            [[expectFutureValue(newUser.userName) shouldEventuallyBeforeTimingOutAfter(4.0)] equal:testCreateDeleteName];
+            [[expectFutureValue(newUser.userName) shouldEventually] equal:testCreateDeleteName];
         });
         
         it(@"Should allow you to login.", ^{
@@ -53,7 +58,7 @@ describe(@"BPUser", ^{
                 newUser = loggedInsUser;
             }];
             
-            [[expectFutureValue(newUser.userName) shouldEventuallyBeforeTimingOutAfter(4.0)] equal:testCreateDeleteName];
+            [[expectFutureValue(newUser.userName) shouldEventually] equal:testCreateDeleteName];
             //[[expectFutureValue(theValue(newUser.relationshipStatus)) shouldEventually] equal:theValue(BPUserRelationshipStatusOnTheProwl)];
 
         });
@@ -72,7 +77,7 @@ describe(@"BPUser", ^{
                 }];
             }];
             
-            [[expectFutureValue(theValue(deleted)) shouldEventuallyBeforeTimingOutAfter(4.0)] beYes];
+            [[expectFutureValue(theValue(deleted)) shouldEventually] beYes];
             
         });
     });

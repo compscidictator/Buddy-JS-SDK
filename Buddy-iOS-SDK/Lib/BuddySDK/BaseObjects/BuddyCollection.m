@@ -7,7 +7,15 @@
 //
 
 #import "BuddyCollection.h"
+#import "BPClient.h"
 
 @implementation BuddyCollection
+
+-(void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete
+{
+    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json) {
+        complete(json[@"pageResults"]);
+    }];
+}
 
 @end

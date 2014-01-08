@@ -10,6 +10,11 @@
 #import "BuddyIntegrationHelper.h"
 #import <Kiwi/Kiwi.h>
 
+#ifdef kKW_DEFAULT_PROBE_TIMEOUT
+#undef kKW_DEFAULT_PROBE_TIMEOUT
+#endif
+#define kKW_DEFAULT_PROBE_TIMEOUT 4.0
+
 SPEC_BEGIN(BuddyCheckinSpec)
 
 describe(@"BPCheckinIntegrationSpec", ^{
@@ -25,7 +30,7 @@ describe(@"BPCheckinIntegrationSpec", ^{
                 fin = YES;
             }];
             
-            [[expectFutureValue(theValue(fin)) shouldEventuallyBeforeTimingOutAfter(4.0)] beTrue];
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
         
         afterAll(^{
@@ -57,10 +62,9 @@ describe(@"BPCheckinIntegrationSpec", ^{
             [[Buddy checkins] getCheckins:^(NSArray *buddyObjects) {
                 checkins = buddyObjects;
                 [[theValue([checkins count]) should] beGreaterThan:theValue(0)];
-                //int a = [checkins count];
             }];
             
-            [[expectFutureValue(theValue([checkins count])) shouldEventuallyBeforeTimingOutAfter(3.0)] beGreaterThan:theValue(0)];
+            [[expectFutureValue(theValue([checkins count])) shouldEventually] beGreaterThan:theValue(0)];
         });
         
         it(@"Should allow you to retrieve a specific checkin.", ^{

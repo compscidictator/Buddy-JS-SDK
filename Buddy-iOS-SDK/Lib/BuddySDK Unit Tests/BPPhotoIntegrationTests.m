@@ -10,6 +10,11 @@
 #import "BuddyIntegrationHelper.h"
 #import <Kiwi/Kiwi.h>
 
+#ifdef kKW_DEFAULT_PROBE_TIMEOUT
+#undef kKW_DEFAULT_PROBE_TIMEOUT
+#endif
+#define kKW_DEFAULT_PROBE_TIMEOUT 4.0
+
 SPEC_BEGIN(BuddyPhotoSpec)
 
 describe(@"BPPhotoIntegrationSpec", ^{
@@ -22,7 +27,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
                 fin = YES;
             }];
             
-            [[expectFutureValue(theValue(fin)) shouldEventuallyBeforeTimingOutAfter(4.0)] beTrue];
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
         
         afterAll(^{
