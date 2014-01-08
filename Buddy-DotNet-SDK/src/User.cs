@@ -134,17 +134,23 @@ namespace BuddySDK
             }
         }
 
-       
         [JsonProperty("profilePictureID")]
         public string ProfilePictureID
         {
             get
             {
-                return GetValueOrDefault<string>("ProfilePictureID");
+                var profilePictureID = GetValueOrDefault<string>("ProfilePictureID");
+
+                if (string.IsNullOrEmpty(profilePictureID) && profilePicture != null) // this catches the case where a picture has been created manually
+                {
+                    profilePictureID = profilePicture.ID;
+                }
+
+                return profilePictureID;
             }
             set
             {
-				ProfilePicture = new Photo(value);
+                ProfilePicture = value == null ? null : new Photo(value);
             }
         }
 
@@ -168,7 +174,7 @@ namespace BuddySDK
             {
                 profilePicture = value;
 
-                SetValue<string>("ProfilePictureID", value.ID, checkIsProp: false);
+                SetValue<string>("ProfilePictureID", value == null ? null : value.ID, checkIsProp: false);
             }
         }
 
