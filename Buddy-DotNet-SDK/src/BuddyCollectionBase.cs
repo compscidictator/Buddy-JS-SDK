@@ -54,18 +54,16 @@ namespace BuddySDK
             return task;
         }
 
-
-       
-        protected Task<IEnumerable<T>> FindAsync(
+        protected Task<SearchResult<T>> FindAsync(
             string userId = null,
             DateTime? startDate = null, 
             DateTime? endDate = null, 
-            BuddyGeoLocationRange location = null, int maxItems = 100, Action<IDictionary<string, object>> parameterCallback = null)
+            BuddyGeoLocationRange location = null, int maxItems = 100, string pagingToken = null, Action<IDictionary<string, object>> parameterCallback = null)
         {
 
-            Task<IEnumerable<T>> t = new Task<IEnumerable<T>>(() =>
+            Task<SearchResult<T>> t = new Task<SearchResult<T>>(() =>
             {
-                    var obj = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase){
+                    IDictionary<string,object> obj = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase){
                         {"userID", userId},
                         {"startDate", startDate},
                         {"endDate", endDate},
@@ -73,25 +71,34 @@ namespace BuddySDK
                         {"limit", maxItems}
                     };
 
+                    if (pagingToken != null) {
+                        obj.Clear();
+                        obj["token"] = pagingToken;
+                    }
+
                     if (parameterCallback != null) {
                         parameterCallback(obj);
                     }
 
-                    var r = Client.Service.CallMethodAsync<IEnumerable<IDictionary<string, object>>>("GET",
+                    var r = Client.Service.CallMethodAsync<SearchResult<IDictionary<string, object>>>("GET",
                             Path, obj
                         );
-						ownerId = ownerId,
-						startDate = startDate,
 
                     r.Wait();
+                    var sr = new SearchResult<T>();
+                    sr.NextToken = r.Result.NextToken;
+                    sr.PreviousToken = r.Result.PreviousToken;
+                    sr.CurrentToken = r.Result.CurrentToken;
+
                     var items = new ObservableCollection<T>();
-                    foreach (var d in r.Result)
+                    foreach (var d in r.Result.PageResults)
                     {
                         T item = new T();
                         item.Update(d);
                         items.Add(item);
                     }
-                    return items;
+                    sr.PageResults = items;
+                    return sr;
             });
             t.Start();
             return t;

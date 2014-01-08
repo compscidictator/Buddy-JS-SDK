@@ -27,8 +27,8 @@ namespace BuddySDK
             string website,
             string categoryId,
             string defaultMetadata = null, 
-            BuddyPermissions read = BuddyPermissions.Owner, 
-            BuddyPermissions write = BuddyPermissions.Owner)
+            BuddyPermissions read = BuddyPermissions.User, 
+            BuddyPermissions write = BuddyPermissions.User)
         {
             Task<Location> ct = new Task<Location>(() =>
                 {
@@ -54,11 +54,13 @@ namespace BuddySDK
             return ct;
         }
 
-        public Task<IEnumerable<Location>> FindAsync(string name, BuddyGeoLocationRange location, int maxResults = 100) {
+        public Task<SearchResult<Location>> FindAsync(string name, BuddyGeoLocationRange location, int maxResults = 100) {
 
-            return base.FindAsync (null, null, null, location, maxResults, (p) => {
+            return base.FindAsync (null, null, null, location, maxResults,null, (p) => {
 
                 p["name"] = name;
+
+
 
             });
 

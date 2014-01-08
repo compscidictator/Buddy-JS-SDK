@@ -35,9 +35,9 @@ namespace BuddySDK
             return ct;
         }
 
-        public Task<IEnumerable<Checkin>> FindAsync(string comment = null, BuddyGeoLocationRange location = null, string userId = null, int maxResults = 100) {
+        public Task<SearchResult<Checkin>> FindAsync(string comment = null, BuddyGeoLocationRange location = null, string userId = null, int maxResults = 100) {
 
-            return base.FindAsync (userId, null, null, location, maxResults, (p) => {
+            return base.FindAsync (userId, null, null, location, maxResults, null, (p) => {
                 p["comment"] = comment;
             });
 
