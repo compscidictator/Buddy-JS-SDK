@@ -83,7 +83,6 @@
 		C1B959F91837061F000C8417 /* BuddyObject.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B959F71837061F000C8417 /* BuddyObject.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B959F81837061F000C8417 /* BuddyObject.m */; };
 		C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */; };
-		C1B95A8A18370962000C8417 /* LocationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B95A8918370962000C8417 /* LocationTests.m */; };
 		C1BFD889187D14B500A1FADF /* BPBlobIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFD888187D14B500A1FADF /* BPBlobIntegrationTests.m */; };
 		C1BFD88B187D15D000A1FADF /* blob.json in Resources */ = {isa = PBXBuildFile; fileRef = C1BFD88A187D15D000A1FADF /* blob.json */; };
 		C1BFD88E187D169500A1FADF /* BPBlobCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1BFD88C187D169500A1FADF /* BPBlobCollection.h */; };
@@ -105,6 +104,13 @@
 		C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FBCED417E6718E00275F6A /* BuddyLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
+		C1FEEB4B187E481900B45505 /* BPAlbumsIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB4A187E481800B45505 /* BPAlbumsIntegrationTests.m */; };
+		C1FEEB4E187E483100B45505 /* BPAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FEEB4C187E483100B45505 /* BPAlbum.h */; };
+		C1FEEB4F187E483100B45505 /* BPAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB4D187E483100B45505 /* BPAlbum.m */; };
+		C1FEEB51187E493400B45505 /* BPLocationsIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB50187E493400B45505 /* BPLocationsIntegrationTests.m */; };
+		C1FEEB53187E4B0300B45505 /* BPMessagesIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB52187E4B0300B45505 /* BPMessagesIntegrationTests.m */; };
+		C1FEEB55187E4B2800B45505 /* BPRegionsIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB54187E4B2800B45505 /* BPRegionsIntegrationTests.m */; };
+		C1FEEB57187E4B4500B45505 /* BPVideosIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB56187E4B4500B45505 /* BPVideosIntegrationTests.m */; };
 		D6CB2CD0F9434224BC280EEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81137A46380B4BCCA3A2E417 /* libPods.a */; };
 		E70B93A88942431C9F1C6F28 /* libPods-BuddySDK Unit Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A07FFFC093E94E77A9A92AF0 /* libPods-BuddySDK Unit Tests.a */; };
 /* End PBXBuildFile section */
@@ -206,8 +212,6 @@
 		C1B959D1183703E8000C8417 /* BuddyCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyCollection.h; sourceTree = "<group>"; };
 		C1B959F71837061F000C8417 /* BuddyObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyObject.h; sourceTree = "<group>"; };
 		C1B959F81837061F000C8417 /* BuddyObject.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyObject.m; sourceTree = "<group>"; };
-		C1B95A8818370962000C8417 /* LocationTests.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LocationTests.h; sourceTree = "<group>"; };
-		C1B95A8918370962000C8417 /* LocationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LocationTests.m; sourceTree = "<group>"; };
 		C1BFD888187D14B500A1FADF /* BPBlobIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBlobIntegrationTests.m; sourceTree = "<group>"; };
 		C1BFD88A187D15D000A1FADF /* blob.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = blob.json; sourceTree = "<group>"; };
 		C1BFD88C187D169500A1FADF /* BPBlobCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPBlobCollection.h; path = BPCollections/BPBlobCollection.h; sourceTree = "<group>"; };
@@ -233,6 +237,13 @@
 		C1FBCED417E6718E00275F6A /* BuddyLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyLocation.h; sourceTree = "<group>"; };
 		C1FBCED517E6718E00275F6A /* BuddyLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyLocation.m; sourceTree = "<group>"; };
 		C1FBCED817E671A900275F6A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		C1FEEB4A187E481800B45505 /* BPAlbumsIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAlbumsIntegrationTests.m; sourceTree = "<group>"; };
+		C1FEEB4C187E483100B45505 /* BPAlbum.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAlbum.h; sourceTree = "<group>"; };
+		C1FEEB4D187E483100B45505 /* BPAlbum.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAlbum.m; sourceTree = "<group>"; };
+		C1FEEB50187E493400B45505 /* BPLocationsIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLocationsIntegrationTests.m; sourceTree = "<group>"; };
+		C1FEEB52187E4B0300B45505 /* BPMessagesIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPMessagesIntegrationTests.m; sourceTree = "<group>"; };
+		C1FEEB54187E4B2800B45505 /* BPRegionsIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPRegionsIntegrationTests.m; sourceTree = "<group>"; };
+		C1FEEB56187E4B4500B45505 /* BPVideosIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPVideosIntegrationTests.m; sourceTree = "<group>"; };
 		C45C2FF5422A4DFABC595DCB /* Pods-BuddySDK Unit Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BuddySDK Unit Tests.xcconfig"; path = "../Pods/Pods-BuddySDK Unit Tests.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -411,6 +422,8 @@
 				C10E2B93186950D8007A0136 /* BPUser.m */,
 				C1C2395118789594000D0089 /* BPBlob.h */,
 				C1C2395218789594000D0089 /* BPBlob.m */,
+				C1FEEB4C187E483100B45505 /* BPAlbum.h */,
+				C1FEEB4D187E483100B45505 /* BPAlbum.m */,
 			);
 			name = BPObjects;
 			path = ../../Lib/BuddySDK/BPObjects;
@@ -467,8 +480,6 @@
 		C1E0D1E61831C2E8001A7A01 /* BuddySDK Unit Tests */ = {
 			isa = PBXGroup;
 			children = (
-				C1B95A8818370962000C8417 /* LocationTests.h */,
-				C1B95A8918370962000C8417 /* LocationTests.m */,
 				C1B95A2B183708E8000C8417 /* Test Data */,
 				C1E0D1E71831C2E8001A7A01 /* Supporting Files */,
 				C1AA90E318373BF80074B7E8 /* BPUserTests.m */,
@@ -479,6 +490,11 @@
 				C10F1B76187095EA00D5364C /* BuddyIntegrationHelper.h */,
 				C10F1B77187095EA00D5364C /* BuddyIntegrationHelper.m */,
 				C1BFD888187D14B500A1FADF /* BPBlobIntegrationTests.m */,
+				C1FEEB4A187E481800B45505 /* BPAlbumsIntegrationTests.m */,
+				C1FEEB52187E4B0300B45505 /* BPMessagesIntegrationTests.m */,
+				C1FEEB50187E493400B45505 /* BPLocationsIntegrationTests.m */,
+				C1FEEB54187E4B2800B45505 /* BPRegionsIntegrationTests.m */,
+				C1FEEB56187E4B4500B45505 /* BPVideosIntegrationTests.m */,
 			);
 			path = "BuddySDK Unit Tests";
 			sourceTree = "<group>";
@@ -538,6 +554,7 @@
 				C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */,
 				C1BFD88E187D169500A1FADF /* BPBlobCollection.h in Headers */,
 				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
+				C1FEEB4E187E483100B45505 /* BPAlbum.h in Headers */,
 				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
 				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
 				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
@@ -767,6 +784,7 @@
 				C10E2BA4186950D8007A0136 /* BPGameBoards.m in Sources */,
 				C10E2BB7186951FA007A0136 /* Buddy.m in Sources */,
 				C1BFD88F187D169500A1FADF /* BPBlobCollection.m in Sources */,
+				C1FEEB4F187E483100B45505 /* BPAlbum.m in Sources */,
 				C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -777,10 +795,14 @@
 			files = (
 				C10F1B80187103E500D5364C /* BPUserTests.m in Sources */,
 				C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */,
-				C1B95A8A18370962000C8417 /* LocationTests.m in Sources */,
+				C1FEEB55187E4B2800B45505 /* BPRegionsIntegrationTests.m in Sources */,
+				C1FEEB57187E4B4500B45505 /* BPVideosIntegrationTests.m in Sources */,
+				C1FEEB4B187E481900B45505 /* BPAlbumsIntegrationTests.m in Sources */,
 				C1ADD127184D96B800246313 /* CheckinIntegrationTests.m in Sources */,
 				C1ADD12A184E2BF300246313 /* BPPhotoIntegrationTests.m in Sources */,
+				C1FEEB51187E493400B45505 /* BPLocationsIntegrationTests.m in Sources */,
 				C1BFD889187D14B500A1FADF /* BPBlobIntegrationTests.m in Sources */,
+				C1FEEB53187E4B0300B45505 /* BPMessagesIntegrationTests.m in Sources */,
 				C1B8076F18441BD30086B843 /* BuddyIntegrationTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

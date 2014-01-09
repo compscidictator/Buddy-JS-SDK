@@ -22,6 +22,7 @@
 #import "BPBlobCollection.h"
 #import "BPCoordinate.h"
 #import "BPBlob.h"
+#import "BPAlbum.h"
 
 @interface Buddy : NSObject
 

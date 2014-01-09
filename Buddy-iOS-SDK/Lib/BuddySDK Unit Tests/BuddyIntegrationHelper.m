@@ -24,15 +24,15 @@
                                   };
         
         [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
-            if(loggedInsUser)
-                complete();
-            else {
+            //if(loggedInsUser)
+            //    complete();
+            //else {
                 [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject, NSError *error) {
                     [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
                         complete();
                     }];
                 }];
-            }
+            //}
         }];
         
 
