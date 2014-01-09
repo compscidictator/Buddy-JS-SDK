@@ -77,7 +77,7 @@ static NSString *users = @"users";
     }];
 }
 
-- (void)resetPassword:(NSString *)resetCode newPassword:(NSString *)newPassword callback:(BuddyCollectionCallback)callback
+- (void)resetPassword:(NSString *)resetCode newPassword:(NSString *)newPassword callback:(BuddyCompletionCallback)callback
 {
     NSString *resource = @"users/password";
     NSDictionary *parameters = @{@"UserName": self.userName,
@@ -105,7 +105,7 @@ static NSString *users = @"users";
     NSDictionary *parameters = @{@"Identity": identityValue};
     
     [[[BPClient defaultClient] restService] DELETE:resource parameters:parameters callback:^(id json) {
-        
+        callback(json);
     }];
 }
 

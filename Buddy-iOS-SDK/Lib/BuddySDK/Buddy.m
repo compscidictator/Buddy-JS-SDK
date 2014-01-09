@@ -129,10 +129,7 @@ static BPBlobCollection *_blobs;
     parameters = [NSDictionary dictionaryByMerging:parameters with:options];
     
     // On BPUser for now for consistency. Probably will move.
-    [BPUser createFromServerWithParameters:parameters complete:^(id newBuddyObject, NSError *error) {
-#pragma messsage("TODO - Error")
-        callback(newBuddyObject, nil);
-    }];
+    [BPUser createFromServerWithParameters:parameters complete:callback];
 }
 
 + (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback
