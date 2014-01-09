@@ -74,7 +74,7 @@ describe(@"BPUser", ^{
         });
         
         pending_(@"Should then a method to reset the password with a reset code.", ^{
-            [[Buddy user] resetPassword:resetCode newPassword:@"TODO" callback:^(NSArray *buddyObjects) {
+            [[Buddy user] resetPassword:resetCode newPassword:@"TODO" callback:^(id buddyObject) {
                 
             }];
         });
