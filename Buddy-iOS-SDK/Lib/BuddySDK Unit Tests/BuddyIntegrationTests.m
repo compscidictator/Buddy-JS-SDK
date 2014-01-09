@@ -64,8 +64,8 @@ describe(@"BPUser", ^{
         });
         
         it(@"Should allow you to perform a social login.", ^{
-            //pending(@"Social login", ^{
-            //});
+            // Social tokens cannot be retrieved programatically
+            // See Sample Facebook app.
         });
         
         it(@"Should allow you to delete a user.", ^{

@@ -15,9 +15,9 @@
 #endif
 #define kKW_DEFAULT_PROBE_TIMEOUT 4.0
 
-SPEC_BEGIN(BuddyAlbumSpec)
+SPEC_BEGIN(BuddyLocationsSpec)
 
-describe(@"BPAlbumIntegrationSpec", ^{
+describe(@"BPLocationIntegrationSpec", ^{
     context(@"When a user is logged in", ^{
         
         __block BPAlbum *tempAlbum;
