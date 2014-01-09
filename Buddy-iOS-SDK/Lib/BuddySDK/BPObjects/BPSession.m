@@ -11,14 +11,16 @@
 #import "BPServiceController.h"
 #import "AFNetworking.h"
 #import "BPCheckinCollection.h"
+#import "BPGameBoards.h"
+#import "BPSounds.h"
+#import "BPPhotoCollection.h"
+#import "BPBlobCollection.h"
 #import "BPRestProvider.h"
 #import <CoreFoundation/CoreFoundation.h>
 
 @interface BPSession()
 @property (nonatomic, strong) BPServiceController *service;
 @end
-
-
 
 @implementation BPSession
 
@@ -29,10 +31,18 @@
     self = [super self];
     if(self)
     {
-        _checkins = [BPCheckinCollection new];
-        // Mostly empty init. Use setupWithApp to help facilitate singleton BPClient.
+        // Nothing for now.
     }
     return self;
+}
+
+- (void)initializeCollectionsWithUser:(BPUser *)user
+{
+    _user = user;
+    _checkins = [BPCheckinCollection new];
+    _photos = [BPPhotoCollection new];
+    _blobs = [BPBlobCollection new];
+
 }
 
 -(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options complete:(void (^)())complete
@@ -57,7 +67,7 @@
 
 # pragma mark -
 # pragma mark Singleton
-+(instancetype)defaultClient
++(instancetype)currentSession
 {
     static BPSession *sharedClient = nil;
     static dispatch_once_t onceToken;

@@ -21,7 +21,7 @@ static NSString *blobs = @"blobs";
 {
     NSDictionary *multipartParameters = @{@"data": data};
     
-    [[[BPSession defaultClient] restService] MULTIPART_POST:[[self class] requestPath]
+    [[[BPSession currentSession] restService] MULTIPART_POST:[[self class] requestPath]
                                                 parameters:parameters data:multipartParameters
                                                   callback:^(id json, NSError *error) {
 

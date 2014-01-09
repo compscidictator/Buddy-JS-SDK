@@ -23,56 +23,36 @@
 
 @implementation Buddy
 
-static BPUser *_user;
 + (BPUser *)user{
-    return _user;
-#pragma mark TODO - Ugh, figure out my BPClient identity crisis.
-//    return [[BPClient defaultClient] user];
+    return [[BPSession currentSession] user];
 }
 
 + (BuddyDevice *)device{
-    return [[BPSession defaultClient] device];
-    
-}
-
-+ (BPGameBoards *)gameBoards{
-    return [[BPSession defaultClient] gameBoards];
-    
-}
-
-+ (BPAppMetadata *)metadata{
-    return [[BPSession defaultClient] metadata];
-    
-}
-
-+ (BPSounds *)sounds{
-    return [[BPSession defaultClient] sounds];
+    return [[BPSession currentSession] device];
 }
 
 + (BPCheckinCollection *) checkins{
-    return [[BPSession defaultClient] checkins];
+    return [[BPSession currentSession] checkins];
 }
 
-static BPPhotoCollection *_photos;
 + (BPPhotoCollection *) photos{
-    return _photos;
+    return [[BPSession currentSession] photos];
 }
 
-static BPBlobCollection *_blobs;
 + (BPBlobCollection *) blobs{
-    return _blobs;
+    return [[BPSession currentSession] blobs];
 }
 
 + (BOOL) locationEnabled{
     @synchronized(self){
-        return [[BPSession defaultClient] locationEnabled];
+        return [[BPSession currentSession] locationEnabled];
     }
 }
 
 + (void) setLocationEnabled:(BOOL)val
 {
     @synchronized(self){
-        [[BPSession defaultClient] setLocationEnabled:val];
+        [[BPSession currentSession] setLocationEnabled:val];
     }
 }
 
@@ -93,7 +73,7 @@ static BPBlobCollection *_blobs;
         withOptions:(NSDictionary *)options
            complete:(void (^)())complete
 {
-    [[BPSession defaultClient] setupWithApp:appID
+    [[BPSession currentSession] setupWithApp:appID
                                      appKey:appKey
                                       options:options
                                   complete:complete];
@@ -113,7 +93,7 @@ static BPBlobCollection *_blobs;
     NSMutableDictionary *combined = [NSMutableDictionary dictionaryWithDictionary:defaultOptions];
     // TODO - merge options
     
-    [[BPSession defaultClient] setupWithApp:appID
+    [[BPSession currentSession] setupWithApp:appID
                                     appKey:appKey
                                    options:combined
                                   complete:complete];
@@ -134,15 +114,12 @@ static BPBlobCollection *_blobs;
 
 + (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback
 {
-    [[BPSession defaultClient] login:username password:password success:^(id json) {
+    [[BPSession currentSession] login:username password:password success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddy];
         user.id = json[@"id"];
         [user refresh:^(NSError *error){
 #pragma messsage("TODO - Error")
-#pragma messsage("TODO - hack. Where to initialize session objects?")
-            _user = user;
-            _photos = [BPPhotoCollection new];
-            _blobs = [BPBlobCollection new];
+            [[BPSession currentSession] initializeCollectionsWithUser:user];
             callback(user, nil);
         }];
     }];
@@ -150,7 +127,7 @@ static BPBlobCollection *_blobs;
 
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 {
-    [[BPSession defaultClient] socialLogin:provider providerId:providerId token:token success:^(id json) {
+    [[BPSession currentSession] socialLogin:provider providerId:providerId token:token success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddy];
         user.id = json[@"id"];
         [user refresh:^(NSError *error){

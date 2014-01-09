@@ -19,6 +19,8 @@
 @class BPSounds;
 @class BPUser;
 @class BPCheckinCollection;
+@class BPPhotoCollection;
+@class BPBlobCollection;
 
 typedef enum {
     BPAuthenticationLevelNone,
@@ -59,6 +61,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// </summary>
 @property (readonly, nonatomic, strong) BPGameBoards *gameBoards;
 
+
 /// <summary>
 /// Gets an object that can be used to manipulate application-level metadata. Metadata is used to store custom values on the platform.
 /// </summary>
@@ -77,6 +80,16 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// <summary>
 /// TODO
 /// </summary>
+@property (readonly, nonatomic, strong) BPPhotoCollection *photos;
+
+/// <summary>
+/// TODO
+/// </summary>
+@property (readonly, nonatomic, strong) BPBlobCollection *blobs;
+
+/// <summary>
+/// TODO
+/// </summary>
 @property (nonatomic, assign) BOOL locationEnabled;
 
 /// <summary>
@@ -87,7 +100,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// <summary>
 /// Singleton instance of the client.
 /// </summary>
-+ (instancetype)defaultClient;
++ (instancetype)currentSession;
 
 
 @property (nonatomic, readonly, strong) id <BPRestProvider> restService;
@@ -100,6 +113,8 @@ typedef void (^BPBuddyObjectCallback)(id json);
 - (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 - (void)ping:(BPPingCallback)callback;
 
+#pragma message("TODO - Remove this from .h once user creation responsibility is off Buddy.m")
+- (void)initializeCollectionsWithUser:(BPUser *)user;
 
 @end
 

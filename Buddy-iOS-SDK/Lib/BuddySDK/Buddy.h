@@ -27,19 +27,9 @@
 @interface Buddy : NSObject
 
 + (BPUser *)user;
-
 + (BuddyDevice *)device;
-
-+ (BPGameBoards *)gameBoards;
-
-+ (BPAppMetadata *)metadata;
-
-+ (BPSounds *)sounds;
-
 + (BPCheckinCollection *) checkins;
-
 + (BPPhotoCollection *) photos;
-
 + (BPBlobCollection *) blobs;
 
 

@@ -61,7 +61,7 @@ static NSString *users = @"users";
 {
     NSString *resource = @"users/logout";
     
-    [[[BPSession defaultClient] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
+    [[[BPSession currentSession] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
         callback(nil);
     }];
 }
@@ -72,7 +72,7 @@ static NSString *users = @"users";
     NSDictionary *parameters = @{@"UserName": self.userName};
                                  
 
-    [[[BPSession defaultClient] restService] POST:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[BPSession currentSession] restService] POST:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json, nil);
     }];
 }
@@ -84,7 +84,7 @@ static NSString *users = @"users";
                                  @"ResetCode": resetCode,
                                  @"NewPassword": newPassword};
     
-    [[[BPSession defaultClient] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[BPSession currentSession] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(nil);
     }];
 }
@@ -94,7 +94,7 @@ static NSString *users = @"users";
     NSString *resource = @"users/identity";
     NSDictionary *parameters = @{@"Identity": identityValue};
     
-    [[[BPSession defaultClient] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[BPSession currentSession] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json);
     }];
 }
@@ -104,7 +104,7 @@ static NSString *users = @"users";
     NSString *resource = [@"users/identity/" stringByAppendingString:identityValue];
     NSDictionary *parameters = @{@"Identity": identityValue};
     
-    [[[BPSession defaultClient] restService] DELETE:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[BPSession currentSession] restService] DELETE:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json);
     }];
 }
