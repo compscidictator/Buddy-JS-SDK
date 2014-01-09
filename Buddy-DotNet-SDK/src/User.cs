@@ -87,7 +87,6 @@ namespace BuddySDK
             }
             
         }
-
         /// <summary>
         /// Gets the gender of the user.
         /// </summary>
@@ -227,7 +226,6 @@ namespace BuddySDK
 
             return task;
         }
-
         public override Task SaveAsync()
         {
             ProfilePictureID = profilePicture.ID;

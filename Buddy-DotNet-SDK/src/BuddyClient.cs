@@ -413,31 +413,48 @@ namespace BuddySDK
         /// <returns>A Task&lt;AuthenticatedUser&gt;that can be used to monitor progress on this call.</returns>
         public System.Threading.Tasks.Task<AuthenticatedUser> LoginUserAsync(string username, string password)
         {
-            var task = new Task<AuthenticatedUser>(() =>
+            return LoginUserCoreAsync<AuthenticatedUser>("/users/login", new
             {
-                    try {
-                        var r = Service.CallMethodAsync<IDictionary<string, object>>("POST", "/users/login", new
-                        {
-                            Username = username,
-                            password = password
-                        });
+                Username = username,
+                Password = password
+            }, (result) => new AuthenticatedUser(this, (string)result["ID"], (string)result["accessToken"]));
+        }
 
-                        r.Wait();
+        public System.Threading.Tasks.Task<SocialAuthenticatedUser> SocialLoginUserAsync(string identityProviderName, string identityID, string identityAccessToken)
+        {
+            return LoginUserCoreAsync<SocialAuthenticatedUser>("/users/login/social", new
+                    {
+                        IdentityProviderName = identityProviderName,
+                        IdentityID = identityID,
+                        IdentityAccessToken = identityAccessToken
+                    }, (result) => new SocialAuthenticatedUser(this, (string)result["ID"], (string)result["accessToken"], (bool)result["isNew"]));
+        }
 
-                        var user = new AuthenticatedUser(this, (string)r.Result["ID"], (string)r.Result["accessToken"]);
+        private System.Threading.Tasks.Task<T> LoginUserCoreAsync<T>(string path, object parameters, Func<IDictionary<string, object>, T> createUser) where T : AuthenticatedUser
+        {
+            var task = new Task<T>(() =>
+            {
+                try
+                {
+                    var r = Service.CallMethodAsync<IDictionary<string, object>>("POST", path, parameters);
 
-                        this.User = user;
+                    r.Wait();
 
-                        return user;
+                    var user = createUser(r.Result);
 
-                    }
-                    catch(AggregateException aex) {
-                        ClearCredentials(true, false);
-                        throw UnwrapException<Exception>(aex);
-                    }
+                    this.User = user;
 
+                    return user;
+                }
+                catch (AggregateException aex)
+                {
+                    ClearCredentials(true, false);
+                    throw UnwrapException<Exception>(aex);
+                }
             });
+
             task.Start();
+
             return task;
         }
 
@@ -519,23 +536,3 @@ namespace BuddySDK
         User
     }
 }
-    
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-       
-
-
-
-

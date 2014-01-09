@@ -222,6 +222,8 @@
       <SubType>Code</SubType>
     </None>
     <Compile Include="CheckinCollection.cs" />
+    <Compile Include="Identity.cs" />
+    <Compile Include="IdentityCollection.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="LocationCollection.cs" />
     <Compile Include="Photo.cs" />
@@ -256,6 +258,7 @@
     <None Include="V1\StoreItem.cs">
       <SubType>Code</SubType>
     </None>
+    <Compile Include="SocialAuthenticatedUser.cs" />
     <Compile Include="SearchResult.cs" />
     <Compile Include="User.cs">
       <SubType>Code</SubType>
