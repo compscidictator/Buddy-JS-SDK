@@ -6,7 +6,7 @@
 //
 //
 
-#import "BPClient.h"
+#import "BPSession.h"
 #import "AFNetworking.h"
 #import "BPServiceController.h"
 #import "AFNetworking.h"
@@ -14,13 +14,13 @@
 #import "BPRestProvider.h"
 #import <CoreFoundation/CoreFoundation.h>
 
-@interface BPClient()
+@interface BPSession()
 @property (nonatomic, strong) BPServiceController *service;
 @end
 
 
 
-@implementation BPClient
+@implementation BPSession
 
 #pragma mark Initializer
 
@@ -59,7 +59,7 @@
 # pragma mark Singleton
 +(instancetype)defaultClient
 {
-    static BPClient *sharedClient = nil;
+    static BPSession *sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedClient = [[self alloc] init];
@@ -76,6 +76,9 @@
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password};
     [self.service POST:@"users/login" parameters:parameters callback:^(id json, NSError *error) {
+        if (!error) {
+
+        }
         callback(json);
     }];
 }

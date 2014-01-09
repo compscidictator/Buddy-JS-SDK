@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "BuddyDevice.h"
-#import "BPClient.h"
+#import "BPSession.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"
 #import "BPPhoto.h"
@@ -17,7 +17,7 @@
 #import "BPGameBoards.h"
 #import "BPSounds.h"
 #import "BPAppMetadata.h"
-#import "BPClient.h"
+#import "BPSession.h"
 #import "BPPhotoCollection.h"
 #import "BPBlobCollection.h"
 #import "BPCoordinate.h"

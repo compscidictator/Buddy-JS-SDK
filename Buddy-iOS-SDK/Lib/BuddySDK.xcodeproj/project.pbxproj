@@ -35,8 +35,8 @@
 		C10E2B98186950D8007A0136 /* BPAuthenticatedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */; };
 		C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B86186950D8007A0136 /* BPCheckin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2B9B186950D8007A0136 /* BPCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B87186950D8007A0136 /* BPCheckin.m */; };
-		C10E2B9D186950D8007A0136 /* BPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B88186950D8007A0136 /* BPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C10E2B9E186950D8007A0136 /* BPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B89186950D8007A0136 /* BPClient.m */; };
+		C10E2B9D186950D8007A0136 /* BPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B88186950D8007A0136 /* BPSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C10E2B9E186950D8007A0136 /* BPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B89186950D8007A0136 /* BPSession.m */; };
 		C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8A186950D8007A0136 /* BPCoordinate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BA1186950D8007A0136 /* BPCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B8B186950D8007A0136 /* BPCoordinate.m */; };
 		C10E2BA3186950D8007A0136 /* BPGameBoards.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8C186950D8007A0136 /* BPGameBoards.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -164,8 +164,8 @@
 		C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAuthenticatedUser.m; sourceTree = "<group>"; };
 		C10E2B86186950D8007A0136 /* BPCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCheckin.h; sourceTree = "<group>"; };
 		C10E2B87186950D8007A0136 /* BPCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCheckin.m; sourceTree = "<group>"; };
-		C10E2B88186950D8007A0136 /* BPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPClient.h; sourceTree = "<group>"; };
-		C10E2B89186950D8007A0136 /* BPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPClient.m; sourceTree = "<group>"; };
+		C10E2B88186950D8007A0136 /* BPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPSession.h; sourceTree = "<group>"; };
+		C10E2B89186950D8007A0136 /* BPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPSession.m; sourceTree = "<group>"; };
 		C10E2B8A186950D8007A0136 /* BPCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCoordinate.h; sourceTree = "<group>"; };
 		C10E2B8B186950D8007A0136 /* BPCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCoordinate.m; sourceTree = "<group>"; };
 		C10E2B8C186950D8007A0136 /* BPGameBoards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPGameBoards.h; sourceTree = "<group>"; };
@@ -408,8 +408,8 @@
 				C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */,
 				C10E2B86186950D8007A0136 /* BPCheckin.h */,
 				C10E2B87186950D8007A0136 /* BPCheckin.m */,
-				C10E2B88186950D8007A0136 /* BPClient.h */,
-				C10E2B89186950D8007A0136 /* BPClient.m */,
+				C10E2B88186950D8007A0136 /* BPSession.h */,
+				C10E2B89186950D8007A0136 /* BPSession.m */,
 				C10E2B8A186950D8007A0136 /* BPCoordinate.h */,
 				C10E2B8B186950D8007A0136 /* BPCoordinate.m */,
 				C10E2B8C186950D8007A0136 /* BPGameBoards.h */,
@@ -536,7 +536,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C10E2BB6186951FA007A0136 /* Buddy.h in Headers */,
-				C10E2B9D186950D8007A0136 /* BPClient.h in Headers */,
+				C10E2B9D186950D8007A0136 /* BPSession.h in Headers */,
 				C10E2BAC186950D8007A0136 /* BPUser.h in Headers */,
 				C10E2BA9186950D8007A0136 /* BPSounds.h in Headers */,
 				C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */,
@@ -769,7 +769,7 @@
 				C1E0D1D91831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */,
 				C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */,
 				C10E2BAA186950D8007A0136 /* BPSounds.m in Sources */,
-				C10E2B9E186950D8007A0136 /* BPClient.m in Sources */,
+				C10E2B9E186950D8007A0136 /* BPSession.m in Sources */,
 				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */,
 				C10E2BAD186950D8007A0136 /* BPUser.m in Sources */,

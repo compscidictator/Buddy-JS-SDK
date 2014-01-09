@@ -8,7 +8,7 @@
 
 #import "BPPhotoCollection.h"
 #import "BPPhoto.h"
-#import "BPClient.h"
+#import "BPSession.h"
 #import "BuddyObject+Private.h"
 
 @implementation BPPhotoCollection

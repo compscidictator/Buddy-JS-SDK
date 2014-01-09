@@ -26,7 +26,7 @@ typedef enum {
     BPAuthenticationLevelUser
 }BPAuthenticationLevel;
 
-@interface BPClient : NSObject
+@interface BPSession : NSObject
 
 
 /** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.

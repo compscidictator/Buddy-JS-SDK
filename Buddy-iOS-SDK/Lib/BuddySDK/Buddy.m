@@ -31,26 +31,26 @@ static BPUser *_user;
 }
 
 + (BuddyDevice *)device{
-    return [[BPClient defaultClient] device];
+    return [[BPSession defaultClient] device];
     
 }
 
 + (BPGameBoards *)gameBoards{
-    return [[BPClient defaultClient] gameBoards];
+    return [[BPSession defaultClient] gameBoards];
     
 }
 
 + (BPAppMetadata *)metadata{
-    return [[BPClient defaultClient] metadata];
+    return [[BPSession defaultClient] metadata];
     
 }
 
 + (BPSounds *)sounds{
-    return [[BPClient defaultClient] sounds];
+    return [[BPSession defaultClient] sounds];
 }
 
 + (BPCheckinCollection *) checkins{
-    return [[BPClient defaultClient] checkins];
+    return [[BPSession defaultClient] checkins];
 }
 
 static BPPhotoCollection *_photos;
@@ -65,14 +65,14 @@ static BPBlobCollection *_blobs;
 
 + (BOOL) locationEnabled{
     @synchronized(self){
-        return [[BPClient defaultClient] locationEnabled];
+        return [[BPSession defaultClient] locationEnabled];
     }
 }
 
 + (void) setLocationEnabled:(BOOL)val
 {
     @synchronized(self){
-        [[BPClient defaultClient] setLocationEnabled:val];
+        [[BPSession defaultClient] setLocationEnabled:val];
     }
 }
 
@@ -93,7 +93,7 @@ static BPBlobCollection *_blobs;
         withOptions:(NSDictionary *)options
            complete:(void (^)())complete
 {
-    [[BPClient defaultClient] setupWithApp:appID
+    [[BPSession defaultClient] setupWithApp:appID
                                      appKey:appKey
                                       options:options
                                   complete:complete];
@@ -113,7 +113,7 @@ static BPBlobCollection *_blobs;
     NSMutableDictionary *combined = [NSMutableDictionary dictionaryWithDictionary:defaultOptions];
     // TODO - merge options
     
-    [[BPClient defaultClient] setupWithApp:appID
+    [[BPSession defaultClient] setupWithApp:appID
                                     appKey:appKey
                                    options:combined
                                   complete:complete];
@@ -134,7 +134,7 @@ static BPBlobCollection *_blobs;
 
 + (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback
 {
-    [[BPClient defaultClient] login:username password:password success:^(id json) {
+    [[BPSession defaultClient] login:username password:password success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddy];
         user.id = json[@"id"];
         [user refresh:^(NSError *error){
@@ -150,7 +150,7 @@ static BPBlobCollection *_blobs;
 
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 {
-    [[BPClient defaultClient] socialLogin:provider providerId:providerId token:token success:^(id json) {
+    [[BPSession defaultClient] socialLogin:provider providerId:providerId token:token success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddy];
         user.id = json[@"id"];
         [user refresh:^(NSError *error){

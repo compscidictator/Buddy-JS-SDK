@@ -8,7 +8,7 @@
 
 #import "BPCheckinCollection.h"
 #import "BPCheckin.h"
-#import "BPClient.h"
+#import "BPSession.h"
 #import "JAGPropertyConverter.h"
 
 @implementation BPCheckinCollection
