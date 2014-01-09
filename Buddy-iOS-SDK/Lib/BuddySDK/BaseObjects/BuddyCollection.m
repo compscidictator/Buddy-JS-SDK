@@ -13,7 +13,7 @@
 
 -(void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete
 {
-    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json) {
+    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
         complete(json[@"pageResults"]);
     }];
 }

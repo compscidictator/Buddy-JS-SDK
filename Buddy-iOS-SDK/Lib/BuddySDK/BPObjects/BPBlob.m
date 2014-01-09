@@ -21,7 +21,9 @@ static NSString *blobs = @"blobs";
 {
     NSDictionary *multipartParameters = @{@"data": data};
     
-    [[[BPClient defaultClient] restService] MULTIPART_POST:[[self class] requestPath] parameters:parameters data:multipartParameters callback:^(id json) {
+    [[[BPClient defaultClient] restService] MULTIPART_POST:[[self class] requestPath]
+                                                parameters:parameters data:multipartParameters
+                                                  callback:^(id json, NSError *error) {
 
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
 

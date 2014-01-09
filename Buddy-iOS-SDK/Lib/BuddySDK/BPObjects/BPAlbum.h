@@ -6,7 +6,7 @@
 //
 //
 
-#import <BuddySDK/BuddySDK.h>
+#import "Buddy.h"
 
 @interface BPAlbum : BuddyObject
 

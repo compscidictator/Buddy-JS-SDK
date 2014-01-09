@@ -88,7 +88,7 @@
 
 +(void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback
 {
-    [[[BPClient defaultClient] restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json) {
+    [[[BPClient defaultClient] restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
         
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
 
@@ -118,7 +118,7 @@
                           [[self class] requestPath],
                           identifier];
     
-    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json) {
+    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
 
         BuddyObject *newObject = [[[self class] alloc] initBuddy];
         newObject.id = json[@"id"];
@@ -140,7 +140,7 @@
                           [[self class] requestPath],
                           self.id];
     
-    [[[BPClient defaultClient] restService] DELETE:resource parameters:nil callback:^(id json) {
+    [[[BPClient defaultClient] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
         if(complete)
             complete();
     }];
@@ -158,7 +158,7 @@
                           [[self class] requestPath],
                           self.id];
     
-    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json) {
+    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         if(complete)
 #pragma messsage("TODO - NSError")
@@ -170,7 +170,7 @@
 {
     NSString *resource = @"TODO - no update API's available yet";
 
-    [[[BPClient defaultClient] restService] POST:resource parameters:nil callback:^(id json) {
+    [[[BPClient defaultClient] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
     }];
 }

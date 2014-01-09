@@ -9,6 +9,10 @@
 #import "BPServiceController.h"
 #import "AFNetworking.h"
 #import "BuddyDevice.h"
+#import "NSError+BuddyError.h"
+
+typedef void (^AFFailureCallback)(AFHTTPRequestOperation *operation, NSError *error);
+typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id responseObject);
 
 @interface BPServiceController()
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
@@ -28,6 +32,7 @@
     return self;
 }
 
+#pragma mark - Token Management
 - (void)setupManagerWithBaseUrl:(NSString *)baseUrl withToken:(NSString *)token
 {
     assert([baseUrl length] > 0);
@@ -51,31 +56,6 @@
     self.manager.requestSerializer = requestSerializer;
 }
 
-- (void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(void (^)())complete
-{
-    NSDictionary *getTokenParams = @{
-                                     @"appId": appID,
-                                     @"appKey": appKey,
-                                     @"Platform": @"iOS",
-                                     @"UniqueId": [BuddyDevice identifier],
-                                     @"Model": [BuddyDevice deviceModel],
-                                     @"OSVersion": [BuddyDevice osVersion]
-                                     };
-    
-    [self.manager POST:@"devices" parameters:getTokenParams success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        
-        id result = responseObject[@"result"];
-        
-        if(operation.response.statusCode == 200){
-            
-            [self updateConnectionWithResponse:result];
-            
-            complete();
-        }
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        complete();// TODO NSError?
-    }];
-}
 
 - (void)updateConnectionWithResponse:(id)result
 {
@@ -90,63 +70,97 @@
     }
 }
 
-#pragma mark AFNetworking by composisition. Not sure if I want to keep these.
-- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+- (void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(RESTCallback)complete
 {
-    [self.manager GET:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        id result = responseObject[@"result"];
-        callback(result);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        callback(nil);
-    }];
+    NSDictionary *getTokenParams = @{
+                                     @"appId": appID,
+                                     @"appKey": appKey,
+                                     @"Platform": @"iOS",
+                                     @"UniqueId": [BuddyDevice identifier],
+                                     @"Model": [BuddyDevice deviceModel],
+                                     @"OSVersion": [BuddyDevice osVersion]
+                                     };
+    
+    [self.manager POST:@"devices"
+            parameters:getTokenParams
+               success:[self handleSuccess:complete]
+               failure:[self handleFailure:complete]];
 }
 
-- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+
+#pragma mark - BPRestProvider
+
+- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.manager POST:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        id result = responseObject[@"result"];
-        [self updateConnectionWithResponse:result];
-        callback(result);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        callback(nil);
-    }];
+    [self.manager GET:servicePath
+           parameters:parameters
+              success:[self handleSuccess:callback]
+              failure:[self handleFailure:callback]];
 }
 
-- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(AFNetworkingCallback)callback
+- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.manager POST:servicePath parameters:parameters constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+    [self.manager POST:servicePath
+            parameters:parameters
+               success:[self handleSuccess:callback]
+               failure:[self handleFailure:callback]];
+}
+
+- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(RESTCallback)callback
+{
+    void (^constructBody)(id <AFMultipartFormData> formData) =^(id<AFMultipartFormData> formData){
         for(NSString *name in [data allKeys]){
 #pragma messsage("TODO - somehow pass in mime type for blob/image POSTs")
             [formData appendPartWithFileData:data[name] name:name fileName:name mimeType:@"image/png"];
         }
-    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        id result = responseObject[@"result"];
-        callback(result);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        callback(nil);
-    }];
+    };
+    
+    [self.manager       POST:servicePath
+                  parameters:parameters
+   constructingBodyWithBlock:constructBody
+                     success:[self handleSuccess:callback]
+                     failure:[self handleFailure:callback]];
 }
 
-- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.manager PATCH:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
-        id result = responseObject[@"result"];
-        [self updateConnectionWithResponse:result];
-        callback(result);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        callback(nil);
-    }];
+    [self.manager PATCH:servicePath
+             parameters:parameters
+                success:[self handleSuccess:callback]
+                failure:[self handleFailure:callback]];
 }
 
-- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback
+- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.manager DELETE:servicePath parameters:parameters success:^(AFHTTPRequestOperation *operation, id responseObject) {
+    [self.manager DELETE:servicePath
+              parameters:parameters
+                 success:[self handleSuccess:callback]
+                 failure:[self handleFailure:callback]];
+}
+
+#pragma mark Response Handlers
+
+- (AFSuccessCallback) handleSuccess:(RESTCallback)callback
+{
+    return ^(AFHTTPRequestOperation *operation, id responseObject){
         id result = responseObject[@"result"];
         [self updateConnectionWithResponse:result];
-        callback(result);
-    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-        callback(nil);
-    }];
+        callback(result, nil);
+    };
 }
+
+- (AFFailureCallback) handleFailure:(RESTCallback)callback
+{
+    return ^(AFHTTPRequestOperation *operation, NSError *error){
+        //        + (NSError *)noInternetError:(NSInteger)code;
+        //        + (NSError *)noAuthenticationError:(NSInteger)code;
+        //        + (NSError *)tokenExpiredError:(NSInteger)code;
+        //        + (NSError *)badDataError:(NSInteger)code;
+        
+        [NSError noInternetError:2];
+        callback(nil, [NSError noInternetError:error.code]);
+    };
+}
+
 
 @end
