@@ -9,7 +9,7 @@
 #import "BPCheckinCollection.h"
 #import "BPCheckin.h"
 #import "BPSession.h"
-#import "JAGPropertyConverter.h"
+#import "BuddyObject+Private.h"
 
 @implementation BPCheckinCollection
 
@@ -42,33 +42,13 @@
     [NSException raise:@"NotImplementedException" format:@"Not Implemented."];
 }
 
-// TODO - don't put this here
-+(JAGPropertyConverter *)converter
-{
-    static JAGPropertyConverter *c;
-    if(!c)
-    {
-        c = [JAGPropertyConverter new];
-        
-        c.identifyDict = ^Class(NSDictionary *dict) {
-            if ([dict valueForKey:@"latitude"]) {
-                return [BPCoordinate class];
-            }
-            return nil;
-        };
-        
-    }
-    return c;
-}
-
 
 // TODO - probaly move the code up to base class, then make name specific methods that the user can call.
 -(void)getCheckins:(BuddyCollectionCallback)complete
 {
     [self getAll:[[BPCheckin class] requestPath] complete:^(NSArray *buddyObjects) {
         NSArray *f = [buddyObjects map:^id(id object) {
-            id newO = [[self.type alloc] init];
-            [[[self class] converter] setPropertiesOf:newO fromDictionary:object];
+            id newO = [[self.type alloc] initBuddyWithResponse:object];
             return newO;
         }];
         complete(f);

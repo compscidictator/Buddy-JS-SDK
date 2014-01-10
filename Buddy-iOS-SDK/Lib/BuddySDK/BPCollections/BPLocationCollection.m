@@ -8,7 +8,6 @@
 
 #import "BPLocationCollection.h"
 #import "BPSession.h"
-#import "JAGPropertyConverter.h"
 #import "BPLocation.h"
 
 @implementation BPLocationCollection
@@ -39,25 +38,6 @@
     NSDictionary *parameters = @{};
     
     [[[self type] class] createFromServerWithParameters:parameters complete:complete];
-}
-
-// TODO - don't put this here
-+(JAGPropertyConverter *)converter
-{
-    static JAGPropertyConverter *c;
-    if(!c)
-    {
-        c = [JAGPropertyConverter new];
-        
-        c.identifyDict = ^Class(NSDictionary *dict) {
-            if ([dict valueForKey:@"latitude"]) {
-                return [BPCoordinate class];
-            }
-            return nil;
-        };
-        
-    }
-    return c;
 }
 
 

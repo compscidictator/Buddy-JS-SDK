@@ -20,39 +20,37 @@
 
 @implementation BuddyObject
 
-+(JAGPropertyConverter *)converter
-{
-    static JAGPropertyConverter *c;
-    if(!c)
-    {
-        c = [JAGPropertyConverter new];
-        
-        // TODO - necessary?
-        __weak typeof(self) weakSelf = self;
-        c.identifyDict = ^Class(NSDictionary *dict) {
-            if ([dict valueForKey:@"userID"]) {
-                return [weakSelf class];
-            }
-            return [weakSelf class];
-        };
-        
-    }
-    return c;
-}
+#pragma mark - Initializers
 
 -(instancetype)initBuddy
 {
     self = [super init];
     if(self)
     {
-        self.keyPaths = [NSMutableArray array];
-        [self registerProperty:@selector(created)];
-        [self registerProperty:@selector(lastModified)];
-        [self registerProperty:@selector(defaultMetadata)];
-        [self registerProperty:@selector(userId)];
-        [self registerProperty:@selector(identifier)];
+        [self registerProperties];
     }
     return self;
+}
+
+- (instancetype)initBuddyWithResponse:(id)response
+{
+    self = [super init];
+    if(self)
+    {
+        [self registerProperties];
+        [[[self class] converter] setPropertiesOf:self fromDictionary:response];
+    }
+    return self;
+}
+
+- (void)registerProperties
+{
+    self.keyPaths = [NSMutableArray array];
+    [self registerProperty:@selector(created)];
+    [self registerProperty:@selector(lastModified)];
+    [self registerProperty:@selector(defaultMetadata)];
+    [self registerProperty:@selector(userId)];
+    [self registerProperty:@selector(identifier)];
 }
 
 +(NSString *)requestPath
@@ -187,4 +185,27 @@
 {
     // Abstract
 }
+
+#pragma mark - JSON handling
+
++(JAGPropertyConverter *)converter
+{
+    static JAGPropertyConverter *c;
+    if(!c)
+    {
+        c = [JAGPropertyConverter new];
+        
+        // TODO - necessary?
+        __weak typeof(self) weakSelf = self;
+        c.identifyDict = ^Class(NSDictionary *dict) {
+            if ([dict valueForKey:@"userID"]) {
+                return [weakSelf class];
+            }
+            return [weakSelf class];
+        };
+        
+    }
+    return c;
+}
+
 @end
