@@ -157,8 +157,27 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         //        + (NSError *)tokenExpiredError:(NSInteger)code;
         //        + (NSError *)badDataError:(NSInteger)code;
         
-        [NSError noInternetError:2];
-        callback(nil, [NSError noInternetError:error.code]);
+        NSInteger responseCode = operation.response.statusCode;
+        
+        NSError *buddyError;
+        switch (responseCode) {
+            case 400:
+                buddyError = [NSError badDataError:error.code message:operation.responseString];
+                break;
+            case 403:
+                if (YES) {
+                    buddyError = [NSError noAuthenticationError:error.code message:operation.responseString];
+                } else {
+                    // TODO - figure out how to determing token expired.
+                    buddyError = [NSError tokenExpiredError:error.code message:operation.responseString];
+                }
+                break;
+            default:
+                buddyError = [NSError noInternetError:error.code message:operation.responseString];
+                break;
+        }
+        
+        callback(nil, buddyError);
     };
 }
 

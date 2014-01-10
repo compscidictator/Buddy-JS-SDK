@@ -10,9 +10,9 @@
 
 @interface NSError (BuddyError)
 
-+ (NSError *)noInternetError:(NSInteger)code;
-+ (NSError *)noAuthenticationError:(NSInteger)code;
-+ (NSError *)tokenExpiredError:(NSInteger)code;
-+ (NSError *)badDataError:(NSInteger)code;
++ (NSError *)noInternetError:(NSInteger)code message:(NSString *)message;
++ (NSError *)noAuthenticationError:(NSInteger)code message:(NSString *)message;
++ (NSError *)tokenExpiredError:(NSInteger)code message:(NSString *)message;
++ (NSError *)badDataError:(NSInteger)code message:(NSString *)message;
 
 @end

@@ -10,32 +10,36 @@
 
 @implementation NSError (BuddyError)
 
-static NSString *BuddyErrorDomain = @"BuddyError";
+static NSString *BuddyAuthenticationError = @"BuddyAuthenticationError";
+static NSString *NoInternetError = @"NoInternetError";
+static NSString *BadDataError = @"BadDataError";
+static NSString *BuddyTokenExpired = @"BuddyTokenExpired";
 
-+ (NSError *)noAuthenticationError:(NSInteger)code
+
++ (NSError *)noAuthenticationError:(NSInteger)code message:(NSString *)message
 {
-    return [NSError errorWithDomain:BuddyErrorDomain
+    return [NSError errorWithDomain:BuddyAuthenticationError
                                code:code
-                           userInfo:@{@"message": @"Call requires app to be authenticated."}];
+                           userInfo:@{@"message": message}];
 }
 
-+ (NSError *)noInternetError:(NSInteger)code
++ (NSError *)noInternetError:(NSInteger)code message:(NSString *)message
 {
-    return [NSError errorWithDomain:BuddyErrorDomain
+    return [NSError errorWithDomain:NoInternetError
                                code:code
-                           userInfo:@{@"message": @"There is no internet connection."}];
+                           userInfo:@{@"message": message}];
 }
 
-+ (NSError *)badDataError:(NSInteger)code
++ (NSError *)badDataError:(NSInteger)code message:(NSString *)message
 {
-    return [NSError errorWithDomain:BuddyErrorDomain
+    return [NSError errorWithDomain:BadDataError
                                code:code
-                           userInfo:@{@"message": @"Missing data."}];
+                           userInfo:@{@"message": message}];
 }
 
-+ (NSError *)tokenExpiredError:(NSInteger)code
++ (NSError *)tokenExpiredError:(NSInteger)code message:(NSString *)message
 {
-    return [NSError errorWithDomain:BuddyErrorDomain
+    return [NSError errorWithDomain:BuddyTokenExpired
                                code:code
                            userInfo:@{@"message": @"The user token has expired."}];
 }
