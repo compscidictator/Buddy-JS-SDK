@@ -470,6 +470,20 @@ namespace BuddySDK
             return t;
         }
 
+        private UserCollection _users;
+
+        public UserCollection Users
+        {
+            get
+            {
+                if (_users == null)
+                {
+                    _users = new UserCollection(this);
+                }
+                return _users;
+            }
+        }
+
         //
         // Metrics
         //

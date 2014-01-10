@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserCollection.cs" />
     <None Include="V1\AppMetadata.cs">
       <SubType>Code</SubType>
     </None>
@@ -222,8 +223,6 @@
       <SubType>Code</SubType>
     </None>
     <Compile Include="CheckinCollection.cs" />
-    <Compile Include="Identity.cs" />
-    <Compile Include="IdentityCollection.cs" />
     <Compile Include="Location.cs" />
     <Compile Include="LocationCollection.cs" />
     <Compile Include="Photo.cs" />

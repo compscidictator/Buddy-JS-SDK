@@ -144,20 +144,5 @@ namespace BuddySDK
                 return _albums;
             }
         }
-
-        private static IdentityCollection _identities;
-
-        public static IdentityCollection Identities
-        {
-            get
-            {
-                if (_identities == null)
-                {
-                    _identities = new IdentityCollection(Instance);
-                }
-
-                return _identities;
-            }
-        }
     }
 }
