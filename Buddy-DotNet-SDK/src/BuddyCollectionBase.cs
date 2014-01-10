@@ -60,7 +60,6 @@ namespace BuddySDK
             DateTime? endDate = null, 
             BuddyGeoLocationRange location = null, int maxItems = 100, string pagingToken = null, Action<IDictionary<string, object>> parameterCallback = null)
         {
-
             Task<SearchResult<T>> t = new Task<SearchResult<T>>(() =>
             {
                     IDictionary<string,object> obj = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase){

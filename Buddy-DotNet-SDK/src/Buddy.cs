@@ -65,6 +65,13 @@ namespace BuddySDK
             return t;
         }
 
+        public static Task<SocialAuthenticatedUser> SocialLoginUserAsync(string identityProviderName, string identityID, string identityAccessToken)
+        {
+            var t = Instance.SocialLoginUserAsync(identityProviderName, identityID, identityAccessToken);
+
+            return t;
+        }
+
         // 
         // Metrics
         //
@@ -137,7 +144,5 @@ namespace BuddySDK
                 return _albums;
             }
         }
-
-
     }
 }
