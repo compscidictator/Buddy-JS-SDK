@@ -61,6 +61,8 @@
 		C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C90184C57040034E1EB /* BPPhotoCollection.m */; };
 		C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C98184D58670034E1EB /* BuddyObject+Private.h */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
+		C154CEED187F750C00EACE4B /* BPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEB187F750C00EACE4B /* BPLocation.h */; };
+		C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEEC187F750C00EACE4B /* BPLocation.m */; };
 		C15B5F08186FB465004F2717 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */; };
 		C161A89B17FD2A33001F5361 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89917FD2A2C001F5361 /* CoreGraphics.framework */; };
 		C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
@@ -191,6 +193,8 @@
 		C11E6C90184C57040034E1EB /* BPPhotoCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPPhotoCollection.m; path = ../../Lib/BuddySDK/BPCollections/BPPhotoCollection.m; sourceTree = "<group>"; };
 		C11E6C98184D58670034E1EB /* BuddyObject+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BuddyObject+Private.h"; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
+		C154CEEB187F750C00EACE4B /* BPLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLocation.h; sourceTree = "<group>"; };
+		C154CEEC187F750C00EACE4B /* BPLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLocation.m; sourceTree = "<group>"; };
 		C161A89617FD2A00001F5361 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C161A89917FD2A2C001F5361 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C161A89C17FD2A3B001F5361 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -424,6 +428,8 @@
 				C1C2395218789594000D0089 /* BPBlob.m */,
 				C1FEEB4C187E483100B45505 /* BPAlbum.h */,
 				C1FEEB4D187E483100B45505 /* BPAlbum.m */,
+				C154CEEB187F750C00EACE4B /* BPLocation.h */,
+				C154CEEC187F750C00EACE4B /* BPLocation.m */,
 			);
 			name = BPObjects;
 			path = ../../Lib/BuddySDK/BPObjects;
@@ -548,6 +554,7 @@
 				C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */,
 				C10E2BB1186951C3007A0136 /* BuddyDevice.h in Headers */,
 				C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */,
+				C154CEED187F750C00EACE4B /* BPLocation.h in Headers */,
 				C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */,
 				C10E2B94186950D8007A0136 /* BPAppMetadata.h in Headers */,
 				C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */,
@@ -777,6 +784,7 @@
 				C10E2B9B186950D8007A0136 /* BPCheckin.m in Sources */,
 				C11E6C92184C57040034E1EB /* BPCheckinCollection.m in Sources */,
 				C10E2B95186950D8007A0136 /* BPAppMetadata.m in Sources */,
+				C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */,
 				C10E2BB2186951C3007A0136 /* BuddyDevice.m in Sources */,
 				C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */,
 				C10E2BA7186950D8007A0136 /* BPPhoto.m in Sources */,
