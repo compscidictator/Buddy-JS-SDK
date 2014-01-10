@@ -55,8 +55,8 @@ describe(@"BPUser", ^{
             NSDate *randomDate = [currentCalendar dateFromComponents:comps];
             
             [Buddy user].dateOfBirth = randomDate;
-            
-            [[Buddy user] update];
+
+            fail(@"TODO - Update");
         });
 
         pending_(@"Should provide a method to request a password reset.", ^{

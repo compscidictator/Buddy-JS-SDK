@@ -10,6 +10,7 @@
 #import "BuddyObject+Private.h"
 #import "JAGPropertyConverter.h"
 #import "BPSession.h"
+#import "BPCoordinate.h"
 
 @interface BuddyObject()
 
@@ -159,17 +160,22 @@
     [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         if(complete)
-#pragma messsage("TODO - NSError")
-            complete(nil);
+            complete(error);
     }];
 }
 
--(void)update
+- (void)save:(BuddyCompletionCallback)callback
 {
-    NSString *resource = @"TODO - no update API's available yet";
+    // /<resourcePath>/<id>
+    NSString *resource = [[[self class] requestPath] stringByAppendingFormat:@"%@", self.id];
+    
+    // Dictionary of property names/values
+    NSDictionary *parameters = [self buildUpdateDictionary];
 
-    [[[BPSession currentSession] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
+    [[[BPSession currentSession] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
+        if(callback)
+            callback(error);
     }];
 }
 
@@ -179,11 +185,6 @@
 {
     // Abstract
     return nil;
-}
-
--(void)updateObjectWithJSON:(NSString *)json
-{
-    // Abstract
 }
 
 #pragma mark - JSON handling
@@ -198,8 +199,8 @@
         // TODO - necessary?
         __weak typeof(self) weakSelf = self;
         c.identifyDict = ^Class(NSDictionary *dict) {
-            if ([dict valueForKey:@"userID"]) {
-                return [weakSelf class];
+            if ([dict valueForKey:@"latitude"]) {
+                return [BPCoordinate class];
             }
             return [weakSelf class];
         };

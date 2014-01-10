@@ -27,24 +27,21 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 @property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, copy) NSString *id;
 
--(instancetype) init __attribute__((unavailable("init not available")));
-+(instancetype) new __attribute__((unavailable("new not available")));
+- (instancetype) init __attribute__((unavailable("init not available")));
++ (instancetype) new __attribute__((unavailable("new not available")));
 
 
-+(NSString *)requestPath;
++ (NSString *)requestPath;
 
-+(void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback;
-+(void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback;
--(void)deleteMe:(void(^)())complete;
--(void)deleteMe;
--(void)refresh;
--(void)refresh:(BuddyCompletionCallback)complete;
--(void)update;
++ (void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback;
++ (void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback;
+- (void)deleteMe:(void(^)())complete;
+- (void)deleteMe;
+- (void)refresh;
+- (void)refresh:(BuddyCompletionCallback)complete;
+- (void)save:(BuddyCompletionCallback)callback;
 
-// "Abstracts" meant to be overidden.
--(NSDictionary *)buildUpdateDictionary;
-
--(void)registerProperty:(SEL)property;
+- (void)registerProperty:(SEL)property;
 
 
 @end

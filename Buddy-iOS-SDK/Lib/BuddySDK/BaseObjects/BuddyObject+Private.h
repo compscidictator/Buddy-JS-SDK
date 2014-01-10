@@ -10,7 +10,9 @@
 
 @interface BuddyObject (Private)
 
--(instancetype)initBuddy;
--(instancetype)initBuddyWithResponse:(id)response;
+- (instancetype)initBuddy;
+- (instancetype)initBuddyWithResponse:(id)response;
+
+- (NSDictionary *)buildUpdateDictionary;
 
 @end
