@@ -42,17 +42,9 @@
     [NSException raise:@"NotImplementedException" format:@"Not Implemented."];
 }
 
-
-// TODO - probaly move the code up to base class, then make name specific methods that the user can call.
 -(void)getCheckins:(BuddyCollectionCallback)complete
 {
-    [self getAll:[[BPCheckin class] requestPath] complete:^(NSArray *buddyObjects) {
-        NSArray *f = [buddyObjects map:^id(id object) {
-            id newO = [[self.type alloc] initBuddyWithResponse:object];
-            return newO;
-        }];
-        complete(f);
-    }];
+    [self getAll:complete];
 }
 
 @end

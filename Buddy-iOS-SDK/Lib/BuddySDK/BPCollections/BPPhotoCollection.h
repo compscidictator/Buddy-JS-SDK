@@ -17,4 +17,6 @@
 
 - (BPPhoto *)getPhoto:(NSInteger)photoId error:(NSError *)error;
 
+- (void)getPhotos:(BuddyCollectionCallback)complete;
+
 @end

@@ -15,7 +15,7 @@
 -(instancetype)init{
     self = [super init];
     if(self){
-        self.type = [BPCheckin class];
+        self.type = [BPLocation class];
     }
     return self;
 }
@@ -46,6 +46,11 @@
                  complete:(BuddyObjectCallback)complete
 {
     complete(nil, nil);
+}
+
+-(void)getLocations:(BuddyCollectionCallback)complete
+{
+    [self getAll:complete];
 }
 
 @end

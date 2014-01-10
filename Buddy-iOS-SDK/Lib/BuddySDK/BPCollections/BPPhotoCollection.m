@@ -33,4 +33,9 @@
     return nil;
 }
 
+-(void)getPhotos:(BuddyCollectionCallback)complete
+{
+    [self getAll:complete];
+}
+
 @end

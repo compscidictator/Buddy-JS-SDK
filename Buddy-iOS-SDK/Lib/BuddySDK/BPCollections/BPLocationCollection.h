@@ -30,5 +30,7 @@
                  location:(BPLocation *)location
                  complete:(BuddyObjectCallback)complete;
 //               maxResults?
-;
+
+- (void)getLocations:(BuddyCollectionCallback)complete;
+
 @end

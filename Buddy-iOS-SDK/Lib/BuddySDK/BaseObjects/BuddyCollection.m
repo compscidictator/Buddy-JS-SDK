@@ -8,13 +8,18 @@
 
 #import "BuddyCollection.h"
 #import "BPSession.h"
+#import "BuddyObject+Private.h"
 
 @implementation BuddyCollection
 
--(void)getAll:(NSString *)resource complete:(BuddyCollectionCallback)complete
+-(void)getAll:(BuddyCollectionCallback)complete
 {
-    [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
-        complete(json[@"pageResults"]);
+    [[[BPSession currentSession] restService] GET:[[self type] requestPath] parameters:nil callback:^(id json, NSError *error) {
+
+        NSArray *f = [json[@"pageResults"] map:^id(id object) {
+            return [[self.type alloc] initBuddyWithResponse:object];
+        }];
+        complete(f);
     }];
 }
 

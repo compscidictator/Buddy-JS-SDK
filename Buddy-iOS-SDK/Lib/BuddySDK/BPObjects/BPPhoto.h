@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "BuddyObject+Private.h"
 #import "BPBlob.h"
 
 @interface BPPhoto : BPBlob
