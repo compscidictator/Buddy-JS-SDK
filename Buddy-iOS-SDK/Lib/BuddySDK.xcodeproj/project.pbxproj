@@ -63,6 +63,8 @@
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
 		C154CEED187F750C00EACE4B /* BPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEB187F750C00EACE4B /* BPLocation.h */; };
 		C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEEC187F750C00EACE4B /* BPLocation.m */; };
+		C154CEF1187F78E800EACE4B /* BPLocationCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEF187F78E800EACE4B /* BPLocationCollection.h */; };
+		C154CEF2187F78E800EACE4B /* BPLocationCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEF0187F78E800EACE4B /* BPLocationCollection.m */; };
 		C15B5F08186FB465004F2717 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */; };
 		C161A89B17FD2A33001F5361 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89917FD2A2C001F5361 /* CoreGraphics.framework */; };
 		C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
@@ -195,6 +197,8 @@
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
 		C154CEEB187F750C00EACE4B /* BPLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLocation.h; sourceTree = "<group>"; };
 		C154CEEC187F750C00EACE4B /* BPLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLocation.m; sourceTree = "<group>"; };
+		C154CEEF187F78E800EACE4B /* BPLocationCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPLocationCollection.h; path = BPCollections/BPLocationCollection.h; sourceTree = "<group>"; };
+		C154CEF0187F78E800EACE4B /* BPLocationCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPLocationCollection.m; path = BPCollections/BPLocationCollection.m; sourceTree = "<group>"; };
 		C161A89617FD2A00001F5361 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C161A89917FD2A2C001F5361 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C161A89C17FD2A3B001F5361 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -361,6 +365,8 @@
 		C11E6C8C184C56AD0034E1EB /* BPCollections */ = {
 			isa = PBXGroup;
 			children = (
+				C154CEEF187F78E800EACE4B /* BPLocationCollection.h */,
+				C154CEF0187F78E800EACE4B /* BPLocationCollection.m */,
 				C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */,
 				C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */,
 				C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */,
@@ -563,6 +569,7 @@
 				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
 				C1FEEB4E187E483100B45505 /* BPAlbum.h in Headers */,
 				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
+				C154CEF1187F78E800EACE4B /* BPLocationCollection.h in Headers */,
 				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
 				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
 				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
@@ -770,6 +777,7 @@
 				C1AA90DE1837376E0074B7E8 /* NSDictionary+Merge.m in Sources */,
 				C1B237601865569F005C841E /* NSString+JSON.m in Sources */,
 				C10E2BA1186950D8007A0136 /* BPCoordinate.m in Sources */,
+				C154CEF2187F78E800EACE4B /* BPLocationCollection.m in Sources */,
 				C10E2B98186950D8007A0136 /* BPAuthenticatedUser.m in Sources */,
 				C10F1B7C1870A6F500D5364C /* NSError+BuddyError.m in Sources */,
 				C1C2395418789594000D0089 /* BPBlob.m in Sources */,
