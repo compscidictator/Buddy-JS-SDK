@@ -61,10 +61,12 @@
 		C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C90184C57040034E1EB /* BPPhotoCollection.m */; };
 		C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C98184D58670034E1EB /* BuddyObject+Private.h */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
-		C154CEED187F750C00EACE4B /* BPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEB187F750C00EACE4B /* BPLocation.h */; };
+		C154CEED187F750C00EACE4B /* BPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEB187F750C00EACE4B /* BPLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEEC187F750C00EACE4B /* BPLocation.m */; };
-		C154CEF1187F78E800EACE4B /* BPLocationCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEF187F78E800EACE4B /* BPLocationCollection.h */; };
+		C154CEF1187F78E800EACE4B /* BPLocationCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEF187F78E800EACE4B /* BPLocationCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C154CEF2187F78E800EACE4B /* BPLocationCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEF0187F78E800EACE4B /* BPLocationCollection.m */; };
+		C154CEF6187F90A700EACE4B /* UIImageView+BuddyImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEF4187F90A700EACE4B /* UIImageView+BuddyImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C154CEF7187F90A700EACE4B /* UIImageView+BuddyImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEF5187F90A700EACE4B /* UIImageView+BuddyImage.m */; };
 		C15B5F08186FB465004F2717 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */; };
 		C161A89B17FD2A33001F5361 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89917FD2A2C001F5361 /* CoreGraphics.framework */; };
 		C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
@@ -89,7 +91,7 @@
 		C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = A6291F83165C01800051F83C /* BuddySDK-Prefix.pch */; };
 		C1BFD889187D14B500A1FADF /* BPBlobIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFD888187D14B500A1FADF /* BPBlobIntegrationTests.m */; };
 		C1BFD88B187D15D000A1FADF /* blob.json in Resources */ = {isa = PBXBuildFile; fileRef = C1BFD88A187D15D000A1FADF /* blob.json */; };
-		C1BFD88E187D169500A1FADF /* BPBlobCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1BFD88C187D169500A1FADF /* BPBlobCollection.h */; };
+		C1BFD88E187D169500A1FADF /* BPBlobCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1BFD88C187D169500A1FADF /* BPBlobCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1BFD88F187D169500A1FADF /* BPBlobCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1BFD88D187D169500A1FADF /* BPBlobCollection.m */; };
 		C1C2394E1877C906000D0089 /* BPRestProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B7F1870C35A00D5364C /* BPRestProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1C2395318789594000D0089 /* BPBlob.h in Headers */ = {isa = PBXBuildFile; fileRef = C1C2395118789594000D0089 /* BPBlob.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -109,7 +111,7 @@
 		C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
 		C1FEEB4B187E481900B45505 /* BPAlbumsIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB4A187E481800B45505 /* BPAlbumsIntegrationTests.m */; };
-		C1FEEB4E187E483100B45505 /* BPAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FEEB4C187E483100B45505 /* BPAlbum.h */; };
+		C1FEEB4E187E483100B45505 /* BPAlbum.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FEEB4C187E483100B45505 /* BPAlbum.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1FEEB4F187E483100B45505 /* BPAlbum.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB4D187E483100B45505 /* BPAlbum.m */; };
 		C1FEEB51187E493400B45505 /* BPLocationsIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB50187E493400B45505 /* BPLocationsIntegrationTests.m */; };
 		C1FEEB53187E4B0300B45505 /* BPMessagesIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB52187E4B0300B45505 /* BPMessagesIntegrationTests.m */; };
@@ -199,6 +201,8 @@
 		C154CEEC187F750C00EACE4B /* BPLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLocation.m; sourceTree = "<group>"; };
 		C154CEEF187F78E800EACE4B /* BPLocationCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPLocationCollection.h; path = BPCollections/BPLocationCollection.h; sourceTree = "<group>"; };
 		C154CEF0187F78E800EACE4B /* BPLocationCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPLocationCollection.m; path = BPCollections/BPLocationCollection.m; sourceTree = "<group>"; };
+		C154CEF4187F90A700EACE4B /* UIImageView+BuddyImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+BuddyImage.h"; path = "UIKitCategories/UIImageView+BuddyImage.h"; sourceTree = "<group>"; };
+		C154CEF5187F90A700EACE4B /* UIImageView+BuddyImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+BuddyImage.m"; path = "UIKitCategories/UIImageView+BuddyImage.m"; sourceTree = "<group>"; };
 		C161A89617FD2A00001F5361 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C161A89917FD2A2C001F5361 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C161A89C17FD2A3B001F5361 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -339,6 +343,7 @@
 				C10E2BAF186951C3007A0136 /* BuddyDevice.h */,
 				C10E2BB0186951C3007A0136 /* BuddyDevice.m */,
 				C14E966A185150AA00BE8C7C /* Categories */,
+				C154CEF3187F907900EACE4B /* UIKitCategories */,
 				C11E6C95184D4E320034E1EB /* BPStructs */,
 				C11E6C8C184C56AD0034E1EB /* BPCollections */,
 				C1B807691840609F0086B843 /* BPObjects */,
@@ -394,6 +399,15 @@
 			);
 			name = Categories;
 			path = ../../Lib/BuddySDK/Categories;
+			sourceTree = "<group>";
+		};
+		C154CEF3187F907900EACE4B /* UIKitCategories */ = {
+			isa = PBXGroup;
+			children = (
+				C154CEF4187F90A700EACE4B /* UIImageView+BuddyImage.h */,
+				C154CEF5187F90A700EACE4B /* UIImageView+BuddyImage.m */,
+			);
+			name = UIKitCategories;
 			sourceTree = "<group>";
 		};
 		C17E2B4818038EFE00F64FB6 /* BaseObjects */ = {
@@ -560,16 +574,17 @@
 				C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */,
 				C10E2BB1186951C3007A0136 /* BuddyDevice.h in Headers */,
 				C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */,
-				C154CEED187F750C00EACE4B /* BPLocation.h in Headers */,
 				C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */,
 				C10E2B94186950D8007A0136 /* BPAppMetadata.h in Headers */,
-				C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */,
-				C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */,
 				C1BFD88E187D169500A1FADF /* BPBlobCollection.h in Headers */,
-				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
-				C1FEEB4E187E483100B45505 /* BPAlbum.h in Headers */,
-				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
+				C154CEED187F750C00EACE4B /* BPLocation.h in Headers */,
+				C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */,
+				C154CEF6187F90A700EACE4B /* UIImageView+BuddyImage.h in Headers */,
 				C154CEF1187F78E800EACE4B /* BPLocationCollection.h in Headers */,
+				C1FEEB4E187E483100B45505 /* BPAlbum.h in Headers */,
+				C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */,
+				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
+				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
 				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
 				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
 				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
@@ -798,6 +813,7 @@
 				C10E2BA7186950D8007A0136 /* BPPhoto.m in Sources */,
 				C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */,
 				C10E2BA4186950D8007A0136 /* BPGameBoards.m in Sources */,
+				C154CEF7187F90A700EACE4B /* UIImageView+BuddyImage.m in Sources */,
 				C10E2BB7186951FA007A0136 /* Buddy.m in Sources */,
 				C1BFD88F187D169500A1FADF /* BPBlobCollection.m in Sources */,
 				C1FEEB4F187E483100B45505 /* BPAlbum.m in Sources */,
@@ -974,6 +990,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
+				GENERATE_MASTER_OBJECT_FILE = YES;
 				"INSTALL_PATH[sdk=*]" = /usr/local/lib;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib\"";
@@ -1017,6 +1034,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNUSED_LABEL = YES;
 				GCC_WARN_UNUSED_PARAMETER = NO;
+				GENERATE_MASTER_OBJECT_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				LIBRARY_SEARCH_PATHS = "\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Platforms/iPhoneOS.platform/Developer/usr/lib\"";
 				ONLY_ACTIVE_ARCH = NO;
