@@ -7,11 +7,13 @@
 //
 
 #import "BPPhoto.h"
+#import "BuddyObject+Private.h"
 
 @implementation BPPhoto
 
--(id)init{
-    self = [super init];
+- (id)initBuddy
+{
+    self = [super initBuddy];
     if(self)
     {
         [self registerProperty:@selector(caption)];

@@ -12,4 +12,8 @@
 
 + (void) bootstrapLogin:(void(^)())complete;
 
++ (NSDate *)randomDate;
+
++ (NSString *)randomString:(int)len;
+
 @end

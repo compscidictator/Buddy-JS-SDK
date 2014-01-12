@@ -11,6 +11,7 @@
 #import "JAGPropertyConverter.h"
 #import "BPSession.h"
 #import "BPCoordinate.h"
+#import "NSDate+JSON.h"
 
 @interface BuddyObject()
 
@@ -23,7 +24,15 @@
 
 #pragma mark - Initializers
 
--(instancetype)initBuddy
+- (void)dealloc
+{
+    for(NSString *keypath in self.keyPaths)
+    {
+        [self removeObserver:self forKeyPath:keypath];
+    }
+}
+
+- (instancetype)initBuddy
 {
     self = [super init];
     if(self)
@@ -50,8 +59,7 @@
     [self registerProperty:@selector(created)];
     [self registerProperty:@selector(lastModified)];
     [self registerProperty:@selector(defaultMetadata)];
-    [self registerProperty:@selector(userId)];
-    [self registerProperty:@selector(identifier)];
+    [self registerProperty:@selector(id)];
 }
 
 +(NSString *)requestPath
@@ -69,12 +77,22 @@
     [self addObserver:self forKeyPath:propertyName options:NSKeyValueObservingOptionNew context:NULL];
 }
 
--(void)dealloc
+-(NSDictionary *)buildUpdateDictionary
 {
-    for(NSString *keypath in self.keyPaths)
+    NSMutableDictionary *buddyPropertyDictionary = [NSMutableDictionary dictionary];
+    for (NSString *key in self.keyPaths)
     {
-        [self removeObserver:self forKeyPath:keypath];
+        id c = [self valueForKeyPath:key];
+        if (!c) continue;
+        
+        if([[c class] isSubclassOfClass:[NSDate class]]){
+            c = [c serializeDateToJson];
+        }
+        
+        [buddyPropertyDictionary setObject:c forKey:key];
     }
+    
+    return buddyPropertyDictionary;
 }
 
 -(void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
@@ -167,7 +185,9 @@
 - (void)save:(BuddyCompletionCallback)callback
 {
     // /<resourcePath>/<id>
-    NSString *resource = [[[self class] requestPath] stringByAppendingFormat:@"%@", self.id];
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",
+                          [[self class] requestPath],
+                          self.id];
     
     // Dictionary of property names/values
     NSDictionary *parameters = [self buildUpdateDictionary];
@@ -177,14 +197,6 @@
         if(callback)
             callback(error);
     }];
-}
-
-#pragma mark Abstract implementors
-// "Abstract" methods.
--(NSDictionary *)buildUpdateDictionary
-{
-    // Abstract
-    return nil;
 }
 
 #pragma mark - JSON handling

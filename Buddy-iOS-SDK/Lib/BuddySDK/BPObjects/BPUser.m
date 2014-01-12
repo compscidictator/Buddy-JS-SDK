@@ -12,12 +12,13 @@
 
 @implementation BPUser
 
--(instancetype)init
+- (instancetype)initBuddyWithResponse:(id)response
 {
-    self = [super init];
+    self = [super initBuddyWithResponse:response];
     if(self)
     {
-        [self registerProperty:@selector(name)];
+        [self registerProperty:@selector(firstName)];
+        [self registerProperty:@selector(lastName)];
         [self registerProperty:@selector(userName)];
         [self registerProperty:@selector(gender)];
         [self registerProperty:@selector(dateOfBirth)];
@@ -27,22 +28,20 @@
         [self registerProperty:@selector(created)];
         [self registerProperty:@selector(profilePicture)];
         [self registerProperty:@selector(profilePictureId)];
-        [self registerProperty:@selector(age)];
         [self registerProperty:@selector(relationshipStatus)];
-        [self registerProperty:@selector(friendRequestPending)];
-        
-        // TODO - if we make distance objects properties, add them.
-        
     }
     return self;
 }
-
-
 
 static NSString *users = @"users";
 +(NSString *)requestPath
 {
     return users;
+}
+
+- (NSString *)id
+{
+    return [self isMe] ? @"me" : [super id];
 }
 
 -(NSInteger)age

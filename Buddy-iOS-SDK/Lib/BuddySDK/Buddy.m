@@ -115,8 +115,8 @@
 + (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback
 {
     [[BPSession currentSession] login:username password:password success:^(id json) {
-        BPUser *user = [[BPUser alloc] initBuddy];
-        user.id = json[@"id"];
+        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json];
+        user.isMe = YES;
         [user refresh:^(NSError *error){
 #pragma messsage("TODO - Error")
             [[BPSession currentSession] initializeCollectionsWithUser:user];
@@ -128,8 +128,7 @@
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 {
     [[BPSession currentSession] socialLogin:provider providerId:providerId token:token success:^(id json) {
-        BPUser *user = [[BPUser alloc] initBuddy];
-        user.id = json[@"id"];
+        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json];
         [user refresh:^(NSError *error){
             callback(user);
         }];

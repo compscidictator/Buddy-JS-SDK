@@ -12,6 +12,16 @@
 
 @implementation BPBlob
 
+- (id)initBuddy
+{
+    self = [super initBuddy];
+    if(self)
+    {
+
+    }
+    return self;
+}
+
 static NSString *blobs = @"blobs";
 +(NSString *) requestPath{
     return blobs;

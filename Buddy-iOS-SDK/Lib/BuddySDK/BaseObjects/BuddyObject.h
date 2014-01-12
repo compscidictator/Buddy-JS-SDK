@@ -24,12 +24,10 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 @property (nonatomic, strong) NSDate *created;
 @property (nonatomic, strong) NSDate *lastModified;
 @property (nonatomic, copy) NSString *defaultMetadata;
-@property (nonatomic, strong) NSNumber *userId;
 @property (nonatomic, copy) NSString *id;
 
 - (instancetype) init __attribute__((unavailable("init not available")));
 + (instancetype) new __attribute__((unavailable("new not available")));
-
 
 + (NSString *)requestPath;
 

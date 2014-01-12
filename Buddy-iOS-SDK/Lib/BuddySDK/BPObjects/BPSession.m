@@ -26,7 +26,7 @@
 
 #pragma mark Initializer
 
--(instancetype) init
+- (instancetype)init
 {
     self = [super self];
     if(self)
@@ -87,7 +87,7 @@
                                  @"password": password};
     [self.service POST:@"users/login" parameters:parameters callback:^(id json, NSError *error) {
         if (!error) {
-
+            
         }
         callback(json);
     }];

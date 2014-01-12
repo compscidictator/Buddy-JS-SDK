@@ -10,6 +10,11 @@
 #import "BuddyIntegrationHelper.h"
 #import <Kiwi/Kiwi.h>
 
+#ifdef kKW_DEFAULT_PROBE_TIMEOUT
+#undef kKW_DEFAULT_PROBE_TIMEOUT
+#endif
+#define kKW_DEFAULT_PROBE_TIMEOUT 4.0
+
 SPEC_BEGIN(BPUserSpec)
 
 describe(@"BPUser", ^{
@@ -26,37 +31,34 @@ describe(@"BPUser", ^{
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
         
-        pending_(@"Should be updatable", ^{
-            
-            NSDate *today = [[NSDate alloc] init];
-            NSLog(@"%@", today);
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-            NSDateComponents *offsetComponents = [[NSDateComponents alloc] init];
-            [offsetComponents setYear:-100]; // note that I'm setting it to -1
-            NSDate *endOfWorldWar3 = [gregorian dateByAddingComponents:offsetComponents toDate:today options:0];
-            NSLog(@"%@", endOfWorldWar3);
-            
-            
-            NSCalendar *currentCalendar = [NSCalendar currentCalendar];
-            NSDateComponents *comps = [currentCalendar components:NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit fromDate:endOfWorldWar3];
-            
-            [comps setMonth:arc4random_uniform(12)];
-            
-            NSRange range = [[NSCalendar currentCalendar] rangeOfUnit:NSDayCalendarUnit inUnit:NSMonthCalendarUnit forDate:[currentCalendar dateFromComponents:comps]];
-            
-            [comps setDay:arc4random_uniform(range.length)];
-            
-            // Normalise the time portion
-            [comps setHour:0];
-            [comps setMinute:0];
-            [comps setSecond:0];
-            [comps setTimeZone:[NSTimeZone timeZoneWithName:@"GMT"]];
-            
-            NSDate *randomDate = [currentCalendar dateFromComponents:comps];
-            
-            [Buddy user].dateOfBirth = randomDate;
+        it(@"Should be allow modifying and saving", ^{
+        
+            NSDate *randomDate = [BuddyIntegrationHelper randomDate];
+            NSString *randomName = [BuddyIntegrationHelper randomString:10];
 
-            fail(@"TODO - Update");
+            NSLog(@"1111%@", [Buddy user].dateOfBirth);
+
+            [Buddy user].dateOfBirth = randomDate;
+            [Buddy user].firstName = @"Test";
+            NSLog(@"2222%@", randomDate);
+
+            [[Buddy user] save:^(NSError *error) {
+                if (error) {
+                    fail(@"Save was unsuccessful");
+                }
+                [[Buddy user] refresh:^(NSError *error) {
+                    NSDate *f = [Buddy user].dateOfBirth;
+                    NSLog(@"3333%@", f);
+                }];
+            }];
+            
+            // Hack to set it up to something that will change.
+            [Buddy user].dateOfBirth = [NSDate date];
+            //[Buddy user].name = @"Don'tBeThisString";
+
+            [[expectFutureValue([Buddy user].firstName) shouldEventually] equal:randomName];
+            [[expectFutureValue([Buddy user].dateOfBirth) shouldEventually] equal:randomDate];
+            
         });
 
         pending_(@"Should provide a method to request a password reset.", ^{

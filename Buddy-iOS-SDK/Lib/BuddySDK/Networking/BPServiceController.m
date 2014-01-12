@@ -81,10 +81,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                                      @"OSVersion": [BuddyDevice osVersion]
                                      };
     
-    [self.manager POST:@"devices"
-            parameters:getTokenParams
-               success:[self handleSuccess:complete]
-               failure:[self handleFailure:complete]];
+    [self POST:@"devices" parameters:getTokenParams callback:complete];
 }
 
 
@@ -171,6 +168,8 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                     // TODO - figure out how to determing token expired.
                     buddyError = [NSError tokenExpiredError:error.code message:operation.responseString];
                 }
+                break;
+            case 500:
                 break;
             default:
                 buddyError = [NSError noInternetError:error.code message:operation.responseString];

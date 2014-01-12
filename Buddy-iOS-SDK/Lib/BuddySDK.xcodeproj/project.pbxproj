@@ -67,6 +67,8 @@
 		C154CEF2187F78E800EACE4B /* BPLocationCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEF0187F78E800EACE4B /* BPLocationCollection.m */; };
 		C154CEF6187F90A700EACE4B /* UIImageView+BuddyImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEF4187F90A700EACE4B /* UIImageView+BuddyImage.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C154CEF7187F90A700EACE4B /* UIImageView+BuddyImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEF5187F90A700EACE4B /* UIImageView+BuddyImage.m */; };
+		C154CEFA187FAE8600EACE4B /* NSDate+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEF8187FAE8600EACE4B /* NSDate+JSON.h */; };
+		C154CEFB187FAE8600EACE4B /* NSDate+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEF9187FAE8600EACE4B /* NSDate+JSON.m */; };
 		C15B5F08186FB465004F2717 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */; };
 		C161A89B17FD2A33001F5361 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89917FD2A2C001F5361 /* CoreGraphics.framework */; };
 		C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
@@ -96,6 +98,8 @@
 		C1C2394E1877C906000D0089 /* BPRestProvider.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B7F1870C35A00D5364C /* BPRestProvider.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1C2395318789594000D0089 /* BPBlob.h in Headers */ = {isa = PBXBuildFile; fileRef = C1C2395118789594000D0089 /* BPBlob.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1C2395418789594000D0089 /* BPBlob.m in Sources */ = {isa = PBXBuildFile; fileRef = C1C2395218789594000D0089 /* BPBlob.m */; };
+		C1D7094818832983003D112C /* BPDescriptors.h in Headers */ = {isa = PBXBuildFile; fileRef = C1D7094618832983003D112C /* BPDescriptors.h */; };
+		C1D7094918832983003D112C /* BPDescriptors.m in Sources */ = {isa = PBXBuildFile; fileRef = C1D7094718832983003D112C /* BPDescriptors.m */; };
 		C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */; };
 		C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */; };
 		C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = C1E0D1CC1831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch */; };
@@ -203,6 +207,8 @@
 		C154CEF0187F78E800EACE4B /* BPLocationCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPLocationCollection.m; path = BPCollections/BPLocationCollection.m; sourceTree = "<group>"; };
 		C154CEF4187F90A700EACE4B /* UIImageView+BuddyImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIImageView+BuddyImage.h"; path = "UIKitCategories/UIImageView+BuddyImage.h"; sourceTree = "<group>"; };
 		C154CEF5187F90A700EACE4B /* UIImageView+BuddyImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIImageView+BuddyImage.m"; path = "UIKitCategories/UIImageView+BuddyImage.m"; sourceTree = "<group>"; };
+		C154CEF8187FAE8600EACE4B /* NSDate+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+JSON.h"; sourceTree = "<group>"; };
+		C154CEF9187FAE8600EACE4B /* NSDate+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+JSON.m"; sourceTree = "<group>"; };
 		C161A89617FD2A00001F5361 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C161A89917FD2A2C001F5361 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C161A89C17FD2A3B001F5361 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -230,6 +236,8 @@
 		C1BFD88D187D169500A1FADF /* BPBlobCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPBlobCollection.m; path = BPCollections/BPBlobCollection.m; sourceTree = "<group>"; };
 		C1C2395118789594000D0089 /* BPBlob.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPBlob.h; sourceTree = "<group>"; };
 		C1C2395218789594000D0089 /* BPBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBlob.m; sourceTree = "<group>"; };
+		C1D7094618832983003D112C /* BPDescriptors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPDescriptors.h; sourceTree = "<group>"; };
+		C1D7094718832983003D112C /* BPDescriptors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPDescriptors.m; sourceTree = "<group>"; };
 		C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAGProperty.h; sourceTree = "<group>"; };
 		C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAGProperty.m; sourceTree = "<group>"; };
 		C1E0D1CC1831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JAGPropertyConverter-Prefix.pch"; sourceTree = "<group>"; };
@@ -355,6 +363,8 @@
 				C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */,
 				C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */,
 				C1B8076A184061070086B843 /* BPClientDelegate.h */,
+				C1D7094618832983003D112C /* BPDescriptors.h */,
+				C1D7094718832983003D112C /* BPDescriptors.m */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -396,6 +406,8 @@
 				C1B2375E1865569E005C841E /* NSString+JSON.m */,
 				C10F1B791870A6F500D5364C /* NSError+BuddyError.h */,
 				C10F1B7A1870A6F500D5364C /* NSError+BuddyError.m */,
+				C154CEF8187FAE8600EACE4B /* NSDate+JSON.h */,
+				C154CEF9187FAE8600EACE4B /* NSDate+JSON.m */,
 			);
 			name = Categories;
 			path = ../../Lib/BuddySDK/Categories;
@@ -570,6 +582,7 @@
 				C10E2BA3186950D8007A0136 /* BPGameBoards.h in Headers */,
 				C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */,
 				C1B959F91837061F000C8417 /* BuddyObject.h in Headers */,
+				C154CEFA187FAE8600EACE4B /* NSDate+JSON.h in Headers */,
 				C10E2BA6186950D8007A0136 /* BPPhoto.h in Headers */,
 				C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */,
 				C10E2BB1186951C3007A0136 /* BuddyDevice.h in Headers */,
@@ -589,6 +602,7 @@
 				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
 				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
 				C1AA90D818371FF70074B7E8 /* BPServiceController.h in Headers */,
+				C1D7094818832983003D112C /* BPDescriptors.h in Headers */,
 				C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */,
 				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
 				C1C2395318789594000D0089 /* BPBlob.h in Headers */,
@@ -802,6 +816,8 @@
 				C10E2B9E186950D8007A0136 /* BPSession.m in Sources */,
 				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */,
+				C1D7094918832983003D112C /* BPDescriptors.m in Sources */,
+				C154CEFB187FAE8600EACE4B /* NSDate+JSON.m in Sources */,
 				C10E2BAD186950D8007A0136 /* BPUser.m in Sources */,
 				C1E0D1D61831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */,
 				C10E2B9B186950D8007A0136 /* BPCheckin.m in Sources */,

@@ -7,7 +7,17 @@
 //
 
 #import "BPSounds.h"
+#import "BuddyObject+Private.h"
 
 @implementation BPSounds
+
+- (id)initBuddy
+{
+    self = [super initBuddy];
+    if(self)
+    {
+    }
+    return self;
+}
 
 @end
