@@ -14,6 +14,8 @@ typedef void (^BuddyCollectionCallback)(NSArray *buddyObjects);
 
 @property (nonatomic) Class type;
 
--(void)getAll:(BuddyCollectionCallback)complete;
+- (void)getAll:(BuddyCollectionCallback)callback;
+
+- (void)getItem:(NSString *)identifier callback:(BuddyObjectCallback)callback;
 
 @end

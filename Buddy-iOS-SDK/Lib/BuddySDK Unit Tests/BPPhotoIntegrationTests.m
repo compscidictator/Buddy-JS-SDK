@@ -13,12 +13,13 @@
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
 #undef kKW_DEFAULT_PROBE_TIMEOUT
 #endif
-#define kKW_DEFAULT_PROBE_TIMEOUT 4.0
+#define kKW_DEFAULT_PROBE_TIMEOUT 3.0
 
 SPEC_BEGIN(BuddyPhotoSpec)
 
 describe(@"BPPhotoIntegrationSpec", ^{
     context(@"When a user is logged in", ^{
+        __block BPPhoto *newPhoto;
         
         beforeAll(^{
             __block BOOL fin = NO;
@@ -39,7 +40,6 @@ describe(@"BPPhotoIntegrationSpec", ^{
             NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
-            __block BPPhoto *newPhoto;
             [[Buddy photos] addPhoto:image withComment:@"Hello, comment!" callback:^(id buddyObject, NSError *error) {
                 newPhoto = buddyObject;
             }];
@@ -48,12 +48,21 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[expectFutureValue(theValue(newPhoto.contentLength)) shouldEventually] beGreaterThan:theValue(1)];
             [[expectFutureValue(newPhoto.contentType) shouldEventually] equal:@"image/png"];
             [[expectFutureValue(newPhoto.signedUrl) shouldEventually] haveLengthOfAtLeast:1];
-//            [[expectFutureValue(newPhoto.description) shouldEventually] equal:@"Hello, comment!"];
+            [[expectFutureValue(newPhoto.caption) shouldEventually] equal:@"Hello, comment!"];
 
         });
         
-        pending_(@"Should allow retrieving photos", ^{
+        it(@"Should allow retrieving photos", ^{
+            __block BPPhoto *secondPhoto;
+            [[Buddy photos] getPhoto:newPhoto.id callback:^(id newBuddyObject, NSError *error) {
+                secondPhoto = newBuddyObject;
+            }];
             
+            [[expectFutureValue(secondPhoto) shouldEventually] beNonNil];
+            [[expectFutureValue(theValue(secondPhoto.contentLength)) shouldEventually] equal:theValue(newPhoto.contentLength)];
+            [[expectFutureValue(secondPhoto.contentType) shouldEventually] equal:@"image/png"];
+            [[expectFutureValue(secondPhoto.signedUrl) shouldEventually] equal:newPhoto.signedUrl];
+            [[expectFutureValue(secondPhoto.caption) shouldEventually] equal:newPhoto.caption];
         });
         
         pending_(@"Should allow searching for images", ^{
@@ -61,7 +70,13 @@ describe(@"BPPhotoIntegrationSpec", ^{
         });
         
         it (@"Should allow the user to delete photos", ^{
+            [newPhoto deleteMe:^{
+                [[Buddy photos] getPhoto:newPhoto.id callback:^(id newBuddyObject, NSError *error) {
+                    newPhoto = newBuddyObject;
+                }];
+            }];
             
+            [[expectFutureValue(newPhoto) shouldEventually] beNil];
         });
         
         

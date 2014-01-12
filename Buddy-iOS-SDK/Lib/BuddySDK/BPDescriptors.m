@@ -51,3 +51,12 @@
 }
 
 @end
+
+@implementation BPPhoto (Description)
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@; Comment: %@", [super description], self.caption];
+}
+
+@end

@@ -44,6 +44,8 @@
 
 - (instancetype)initBuddyWithResponse:(id)response
 {
+    if (!response) return nil;
+    
     self = [super init];
     if(self)
     {

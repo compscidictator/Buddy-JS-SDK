@@ -28,14 +28,15 @@
     [[self type] createWithImage:photo andComment:comment callback:callback];
 }
 
-- (BPPhoto *)getPhoto:(NSInteger)photoId error:(NSError *)error
-{
-    return nil;
-}
 
 -(void)getPhotos:(BuddyCollectionCallback)complete
 {
     [self getAll:complete];
+}
+
+- (void)getPhoto:(NSString *)photoId callback:(BuddyObjectCallback)callback
+{
+    [self getItem:photoId callback:callback];
 }
 
 @end

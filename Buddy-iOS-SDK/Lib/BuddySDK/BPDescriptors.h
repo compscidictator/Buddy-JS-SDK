@@ -9,11 +9,16 @@
 #import <Foundation/Foundation.h>
 #import "BPCheckin.h"
 #import "BPUser.h"
+#import "BPPhoto.h"
 
 @interface BPUser (Description)
 
 @end
 
 @interface BPCheckin (Description)
+
+@end
+
+@interface BPPhoto (Description)
 
 @end

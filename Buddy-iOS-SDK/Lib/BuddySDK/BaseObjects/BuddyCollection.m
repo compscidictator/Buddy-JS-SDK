@@ -12,14 +12,26 @@
 
 @implementation BuddyCollection
 
--(void)getAll:(BuddyCollectionCallback)complete
+-(void)getAll:(BuddyCollectionCallback)callback
 {
     [[[BPSession currentSession] restService] GET:[[self type] requestPath] parameters:nil callback:^(id json, NSError *error) {
 
         NSArray *f = [json[@"pageResults"] map:^id(id object) {
             return [[self.type alloc] initBuddyWithResponse:object];
         }];
-        complete(f);
+        callback(f);
+    }];
+}
+
+- (void)getItem:(NSString *)identifier callback:(BuddyObjectCallback)callback
+{
+    NSString *resource = [NSString stringWithFormat:@"%@/%@",
+                          [[self type] requestPath],
+                          identifier];
+    
+    [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+        id buddyObject = [[self.type alloc] initBuddyWithResponse:json];
+        callback(buddyObject, error);
     }];
 }
 

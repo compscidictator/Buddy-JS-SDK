@@ -47,4 +47,9 @@
     [self getAll:complete];
 }
 
+-(void)getCheckin:(BuddyObjectCallback)callback
+{
+    callback(nil, nil);
+}
+
 @end

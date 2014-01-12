@@ -15,8 +15,8 @@
      withComment:(NSString *)comment
         callback:(BuddyObjectCallback)callback;
 
-- (BPPhoto *)getPhoto:(NSInteger)photoId error:(NSError *)error;
-
 - (void)getPhotos:(BuddyCollectionCallback)complete;
+
+- (void)getPhoto:(NSString *)photoId callback:(BuddyObjectCallback)callback;
 
 @end
