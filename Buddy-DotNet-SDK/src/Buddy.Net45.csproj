@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="UserCollection.cs" />
     <None Include="V1\AppMetadata.cs">
       <SubType>Code</SubType>
     </None>
@@ -256,6 +257,7 @@
     <None Include="V1\StoreItem.cs">
       <SubType>Code</SubType>
     </None>
+    <Compile Include="SocialAuthenticatedUser.cs" />
     <Compile Include="SearchResult.cs" />
     <Compile Include="User.cs">
       <SubType>Code</SubType>

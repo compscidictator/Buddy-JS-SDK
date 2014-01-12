@@ -48,6 +48,10 @@ namespace BuddySDK
     [BuddyObjectPath("/users")]
     public class User : BuddyBase
     {
+        public User()
+        {
+        }
+
 		[JsonProperty("firstName")]
 		public string FirstName
         {
@@ -87,7 +91,6 @@ namespace BuddySDK
             }
             
         }
-
         /// <summary>
         /// Gets the gender of the user.
         /// </summary>
@@ -220,7 +223,7 @@ namespace BuddySDK
                     var r2 = profilePicture.FetchAsync();
 
                     r2.Wait();
-}
+                }
             });
 
             task.Start();
@@ -232,8 +235,48 @@ namespace BuddySDK
         {
             ProfilePictureID = profilePicture.ID;
             Username = Username; // TODO: user name is required on PATCH, so do this to ensure it gets added to the PATCH dictionary.  Remove when user name is optional
-            
+
             return Task.WhenAll(new Task[] { base.SaveAsync(), profilePicture.SaveAsync() });
+        }
+
+        public Task AddIdentityAsync(string identityProviderName, string identityID)
+        {
+            return AddRemoveIdentityCoreAsync("POST", GetObjectPath() + "/identities", new
+                    {
+                        IdentityProviderName = identityProviderName,
+                        IdentityID = identityID
+                    });
+        }
+
+        public Task RemoveIdentityAsync(string identityProviderName, string identityID)
+        {
+            return AddRemoveIdentityCoreAsync("DELETE", GetObjectPath() + "/identities/" + identityProviderName, new { IdentityID = identityID });
+        }
+
+        private Task AddRemoveIdentityCoreAsync(string verb, string path, object parameters)
+        {
+            var task = new Task(() =>
+            {
+                var r = Client.Service.CallMethodAsync<object>(verb, path, parameters);
+
+                r.Wait();
+            });
+            task.Start();
+            return task;
+        }
+
+        public Task<IEnumerable<string>> GetIdentitiesAsync(string identityProviderName)
+        {
+            var task = new Task<IEnumerable<string>>(() =>
+            {
+                var r = Client.Service.CallMethodAsync<IEnumerable<string>>("GET", GetObjectPath() + "/identities/" + identityProviderName);
+
+                r.Wait();
+
+                return r.Result;
+            });
+            task.Start();
+            return task;
         }
     }
 }
