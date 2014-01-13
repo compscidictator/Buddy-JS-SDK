@@ -19,12 +19,12 @@
       defaultMetadata:(NSString *)defaultMetadata
       readPermissions:(BuddyPermissions)readPermissions
      writePermissions:(BuddyPermissions)writePermissions
-                 complete:(BuddyObjectCallback)complete;
+                 callback:(BuddyObjectCallback)callback;
 
 - (void)checkinWithComment:(NSString *)comment
               description:(NSString *)description
-                 complete:(BuddyObjectCallback)complete;
+                 callback:(BuddyObjectCallback)callback;
 
-- (void)getCheckins:(BuddyCollectionCallback)complete;
+- (void)getCheckins:(BuddyCollectionCallback)callback;
 
 @end

@@ -111,7 +111,7 @@
 
 #pragma mark CRUD
 
-+(void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback
++(void)createFromServerWithParameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback
 {
     [[[BPSession currentSession] restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
         
@@ -157,7 +157,7 @@
     [self deleteMe:nil];
 }
 
--(void)deleteMe:(BuddyCompletionCallback)complete
+-(void)deleteMe:(BuddyCompletionCallback)callback
 {
 #pragma message("Figure out clean way to know when to use /me and /id")
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
@@ -165,8 +165,8 @@
                           _id];
     
     [[[BPSession currentSession] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
-        if(complete)
-            complete(error);
+        if(callback)
+            callback(error);
     }];
 }
 
@@ -175,7 +175,7 @@
     [self refresh:nil];
 }
 
--(void)refresh:(BuddyCompletionCallback)complete
+-(void)refresh:(BuddyCompletionCallback)callback
 {
     assert(self.id);
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
@@ -184,8 +184,8 @@
     
     [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
-        if(complete)
-            complete(error);
+        if(callback)
+            callback(error);
     }];
 }
 

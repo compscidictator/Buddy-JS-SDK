@@ -58,25 +58,25 @@
 
 + (void)initClient:(NSString *)appID
        appKey:(NSString *)appKey
-          complete:(void (^)())complete
+          callback:(void (^)())callback
 {
 	[Buddy initClient:appID
           appKey:appKey
  autoRecordDeviceInfo:NO
    autoRecordLocation:NO
           withOptions:nil
-             complete:complete];
+             callback:callback];
 }
 
 + (void) initClient:(NSString *)appID
              appKey:(NSString *)appKey
         withOptions:(NSDictionary *)options
-           complete:(void (^)())complete
+           callback:(void (^)())callback
 {
     [[BPSession currentSession] setupWithApp:appID
                                      appKey:appKey
                                       options:options
-                                  complete:complete];
+                                  callback:callback];
 }
 
 + (void)   initClient:(NSString *)appID
@@ -84,7 +84,7 @@
  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
    autoRecordLocation:(BOOL)autoRecordLocation
           withOptions:(NSDictionary *)options
-             complete:(void (^)())complete
+             callback:(void (^)())callback
 {
     
     NSDictionary *defaultOptions = @{@"autoRecordLocation": @(autoRecordLocation),
@@ -96,12 +96,12 @@
     [[BPSession currentSession] setupWithApp:appID
                                     appKey:appKey
                                    options:combined
-                                  complete:complete];
+                                  callback:callback];
 }
 
 #pragma mark User
 
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options completed:(BuddyObjectCallback)callback
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callbackd:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password };
@@ -109,10 +109,10 @@
     parameters = [NSDictionary dictionaryByMerging:parameters with:options];
     
     // On BPUser for now for consistency. Probably will move.
-    [BPUser createFromServerWithParameters:parameters complete:callback];
+    [BPUser createFromServerWithParameters:parameters callback:callback];
 }
 
-+ (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback
++ (void)login:(NSString *)username password:(NSString *)password callbackd:(BuddyObjectCallback)callback
 {
     [[BPSession currentSession] login:username password:password success:^(id json) {
         BPUser *user = [[BPUser alloc] initBuddyWithResponse:json];

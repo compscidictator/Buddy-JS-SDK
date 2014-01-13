@@ -45,7 +45,7 @@
 
 }
 
--(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options complete:(void (^)())complete
+-(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(void (^)())callback
 
 {
     self.service = [[BPServiceController alloc] initWithBuddyUrl:BUDDY_SERVER];
@@ -55,8 +55,8 @@
     _appID = appID;
     
     
-    [self.service setAppID:appID withKey:appKey complete:^(id json, NSError *error) {
-        complete();
+    [self.service setAppID:appID withKey:appKey callback:^(id json, NSError *error) {
+        callback();
     }];
 }
 

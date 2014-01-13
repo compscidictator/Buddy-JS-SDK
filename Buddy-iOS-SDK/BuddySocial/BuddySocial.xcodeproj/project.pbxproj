@@ -31,7 +31,7 @@
 		C1ACBF5A1877936E0069025B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C1ACBF5C1877936E0069025B /* BuddySocial-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BuddySocial-Prefix.pch"; sourceTree = "<group>"; };
 		C1ACBF5D1877936E0069025B /* BPAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPAppDelegate.h; sourceTree = "<group>"; };
-		C1ACBF5E1877936E0069025B /* BPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BPAppDelegate.m; sourceTree = "<group>"; };
+		C1ACBF5E1877936E0069025B /* BPAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BPAppDelegate.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C1ACBF611877936E0069025B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		C1ACBF631877936E0069025B /* BPViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPViewController.h; sourceTree = "<group>"; };
 		C1ACBF641877936E0069025B /* BPViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BPViewController.m; sourceTree = "<group>"; };

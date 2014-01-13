@@ -105,7 +105,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 @property (nonatomic, readonly, strong) id <BPRestProvider> restService;
 /// TODO
--(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options complete:(void (^)())complete;
+-(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(void (^)())callback;
 
 typedef void (^BPBuddyObjectCallback)(id json);
 

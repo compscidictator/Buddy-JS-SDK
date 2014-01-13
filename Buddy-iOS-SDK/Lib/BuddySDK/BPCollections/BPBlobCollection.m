@@ -25,9 +25,9 @@
     [BPBlob createWithData:data parameters:nil callback:callback];
 }
 
--(void)getBlobs:(BuddyCollectionCallback)complete
+-(void)getBlobs:(BuddyCollectionCallback)callback
 {
-    [self getAll:complete];
+    [self getAll:callback];
 }
 
 - (BPBlob *)getBlob:(NSInteger)blobId error:(NSError *)error

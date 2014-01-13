@@ -17,7 +17,7 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
-    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
+    [Buddy initClient:APP_NAME appKey:APP_KEY callback:^{
     }];
     // Ensure FB libraries are loaded before ViewControllers get there (from docs).
     [FBLoginView class];

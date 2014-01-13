@@ -31,12 +31,12 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 
 + (NSString *)requestPath;
 
-+ (void)createFromServerWithParameters:(NSDictionary *)parameters complete:(BuddyObjectCallback)callback;
++ (void)createFromServerWithParameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback;
 + (void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback;
-- (void)deleteMe:(BuddyCompletionCallback)complete;
+- (void)deleteMe:(BuddyCompletionCallback)callback;
 - (void)deleteMe;
 - (void)refresh;
-- (void)refresh:(BuddyCompletionCallback)complete;
+- (void)refresh:(BuddyCompletionCallback)callback;
 - (void)save:(BuddyCompletionCallback)callback;
 
 - (void)registerProperty:(SEL)property;

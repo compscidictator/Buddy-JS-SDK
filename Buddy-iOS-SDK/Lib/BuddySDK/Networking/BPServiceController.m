@@ -70,7 +70,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
     }
 }
 
-- (void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(RESTCallback)complete
+- (void)setAppID:(NSString *)appID withKey:(NSString *)appKey callback:(RESTCallback)callback
 {
     NSDictionary *getTokenParams = @{
                                      @"appId": appID,
@@ -81,7 +81,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                                      @"OSVersion": [BuddyDevice osVersion]
                                      };
     
-    [self POST:@"devices" parameters:getTokenParams callback:complete];
+    [self POST:@"devices" parameters:getTokenParams callback:callback];
 }
 
 

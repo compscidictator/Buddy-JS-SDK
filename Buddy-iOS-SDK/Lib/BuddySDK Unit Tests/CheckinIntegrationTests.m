@@ -44,7 +44,7 @@ describe(@"BPCheckinIntegrationSpec", ^{
             
             [[Buddy checkins] checkinWithComment:@"Checking in!"
                                      description:@"Description"
-                                        complete:^(BPCheckin *checkin, NSError *error) {
+                                        callback:^(BPCheckin *checkin, NSError *error) {
                                             tempCheckinId = checkin.id;
                                             tempCheckin = checkin;
                                         }];

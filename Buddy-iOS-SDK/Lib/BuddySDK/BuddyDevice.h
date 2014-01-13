@@ -41,7 +41,7 @@ typedef void (^BuddyDeviceCallback)(id response);
 /// <param name="latitude">Optional latitude where this report was submitted.</param>
 /// <param name="longitude">Optional longitude where this report was submitted.</param>
 /// <param name="metadata">An optional application specific metadata string to include with the report, can be nil.</param>
-/// <param name="callback">The callback to call when this method completes. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise.</param>
+/// <param name="callback">The callback to call when this method callbacks. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise.</param>
 
 - (void)recordInformation:(NSString *)osVersion
                deviceType:(NSString *)deviceType
@@ -59,7 +59,7 @@ typedef void (^BuddyDeviceCallback)(id response);
 /// <param name="osVersion">The OS version of the device running this code.</param>
 /// <param name="deviceType">The type of device running this app.</param>
 /// <param name="authUser">The user that's registering this device information.</param>
-/// <param name="callback">The callback to call when this method completes. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise.</param>
+/// <param name="callback">The callback to call when this method callbacks. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise.</param>
 
 - (void)recordInformation:(NSString *)osVersion
                deviceType:(NSString *)deviceType
@@ -78,7 +78,7 @@ typedef void (^BuddyDeviceCallback)(id response);
 /// <param name="latitude">Optional latitude where this report was submitted.</param>
 /// <param name="longitude">Optional longitude where this report was submitted.</param>
 /// <param name="metadata">An optional application specific metadata string to include with the report, can be nil.</param>
-/// <param name="callback">The callback to call when this method completes. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise.</param>
+/// <param name="callback">The callback to call when this method callbacks. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise.</param>
 
 - (void)recordCrash:(NSString *)methodName
           osVersion:(NSString *)osVersion
@@ -99,7 +99,7 @@ typedef void (^BuddyDeviceCallback)(id response);
 /// <param name="osVersion">The OS version of the device running this code.</param>
 /// <param name="deviceType">The type of device running this app.</param>
 /// <param name="authUser">The authenticated user that's registering this device information.</param>
-/// <param name="callback">The callback to call when this method completes. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise.</param>
+/// <param name="callback">The callback to call when this method callbacks. BuddyBoolResponse.result field will be TRUE on success, FALSE otherwise.</param>
 
 - (void)recordCrash:(NSString *)methodName
           osVersion:(NSString *)osVersion

@@ -30,9 +30,9 @@
 }
 
 
--(void)getPhotos:(BuddyCollectionCallback)complete
+-(void)getPhotos:(BuddyCollectionCallback)callback
 {
-    [self getAll:complete];
+    [self getAll:callback];
 }
 
 -(void)searchPhotos:(BuddyCollectionCallback)callback

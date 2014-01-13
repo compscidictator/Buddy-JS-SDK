@@ -19,6 +19,6 @@
 @property (nonatomic, readonly, retain) NSString *appID;
 @property (nonatomic, readonly, retain) NSString *appKey;
 
--(void)setAppID:(NSString *)appID withKey:(NSString *)appKey complete:(RESTCallback)complete;
+-(void)setAppID:(NSString *)appID withKey:(NSString *)appKey callback:(RESTCallback)callback;
 
 @end

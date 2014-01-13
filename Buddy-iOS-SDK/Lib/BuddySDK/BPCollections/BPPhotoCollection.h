@@ -15,7 +15,7 @@
      withComment:(NSString *)comment
         callback:(BuddyObjectCallback)callback;
 
-- (void)getPhotos:(BuddyCollectionCallback)complete;
+- (void)getPhotos:(BuddyCollectionCallback)callback;
 
 - (void)searchPhotos:(BuddyCollectionCallback)callback;
 

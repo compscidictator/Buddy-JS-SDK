@@ -22,7 +22,7 @@ describe(@"BPUser", ^{
         beforeAll(^{
             __block BOOL fin = NO;
 
-            [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
+            [Buddy initClient:APP_NAME appKey:APP_KEY callback:^{
                 fin = YES;
             }];
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
@@ -44,7 +44,7 @@ describe(@"BPUser", ^{
                                       @"fuzzLocation": @(NO)
                                       };
             
-            [Buddy createUser:testCreateDeleteName password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject, NSError *error) {
+            [Buddy createUser:testCreateDeleteName password:TEST_PASSWORD options:options callbackd:^(BPUser *newBuddyObject, NSError *error) {
                 newUser = newBuddyObject;
             }];
             
@@ -54,7 +54,7 @@ describe(@"BPUser", ^{
         it(@"Should allow you to login.", ^{
             __block BPUser *newUser;
             
-            [Buddy login:testCreateDeleteName password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
+            [Buddy login:testCreateDeleteName password:TEST_PASSWORD callbackd:^(BPUser *loggedInsUser, NSError *error) {
                 newUser = loggedInsUser;
             }];
             
@@ -71,7 +71,7 @@ describe(@"BPUser", ^{
         it(@"Should allow you to delete a user.", ^{
             __block BOOL deleted = NO;
             
-            [Buddy login:testCreateDeleteName password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
+            [Buddy login:testCreateDeleteName password:TEST_PASSWORD callbackd:^(BPUser *loggedInsUser, NSError *error) {
                 [loggedInsUser deleteMe:^(NSError *error){
                     deleted = YES;
                 }];

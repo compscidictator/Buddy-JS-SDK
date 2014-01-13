@@ -33,24 +33,24 @@
          defaultMetadata:(NSString *)defaultMetadata
          readPermissions:(BuddyPermissions)readPermissions
         writePermissions:(BuddyPermissions)writePermissions
-                complete:(BuddyObjectCallback)complete
+                callback:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{};
     
-    [[[self type] class] createFromServerWithParameters:parameters complete:complete];
+    [[[self type] class] createFromServerWithParameters:parameters callback:callback];
 }
 
 
 - (void)findLocationNamed:(NSString *)name
                  location:(BPLocation *)location
-                 complete:(BuddyObjectCallback)complete
+                 callback:(BuddyObjectCallback)callback
 {
-    complete(nil, nil);
+    callback(nil, nil);
 }
 
--(void)getLocations:(BuddyCollectionCallback)complete
+-(void)getLocations:(BuddyCollectionCallback)callback
 {
-    [self getAll:complete];
+    [self getAll:callback];
 }
 
 @end

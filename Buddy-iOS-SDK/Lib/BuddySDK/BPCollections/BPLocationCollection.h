@@ -24,13 +24,13 @@
          defaultMetadata:(NSString *)defaultMetadata
          readPermissions:(BuddyPermissions)readPermissions
         writePermissions:(BuddyPermissions)writePermissions
-                complete:(BuddyObjectCallback)complete;
+                callback:(BuddyObjectCallback)callback;
 
 - (void)findLocationNamed:(NSString *)name
                  location:(BPLocation *)location
-                 complete:(BuddyObjectCallback)complete;
+                 callback:(BuddyObjectCallback)callback;
 //               maxResults?
 
-- (void)getLocations:(BuddyCollectionCallback)complete;
+- (void)getLocations:(BuddyCollectionCallback)callback;
 
 @end

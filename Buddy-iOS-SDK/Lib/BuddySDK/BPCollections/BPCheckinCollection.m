@@ -23,13 +23,13 @@
 
 -(void)checkinWithComment:(NSString *)comment
               description:(NSString *)description
-                 complete:(BuddyObjectCallback)complete
+                 callback:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"comment": comment,
                                  @"description": description,
                                  @"location": @"1.2, 3.4"};
     
-    [BPCheckin createFromServerWithParameters:parameters complete:complete];
+    [BPCheckin createFromServerWithParameters:parameters callback:callback];
 }
 
 -(void)checkinWithComment:(NSString *)comment
@@ -37,14 +37,14 @@
       defaultMetadata:(NSString *)defaultMetadata
       readPermissions:(BuddyPermissions)readPermissions
      writePermissions:(BuddyPermissions)writePermissions
-             complete:(BuddyObjectCallback)complete
+             callback:(BuddyObjectCallback)callback
 {
     [NSException raise:@"NotImplementedException" format:@"Not Implemented."];
 }
 
--(void)getCheckins:(BuddyCollectionCallback)complete
+-(void)getCheckins:(BuddyCollectionCallback)callback
 {
-    [self getAll:complete];
+    [self getAll:callback];
 }
 
 -(void)getCheckin:(BuddyObjectCallback)callback

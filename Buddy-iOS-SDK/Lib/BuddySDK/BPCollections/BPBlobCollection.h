@@ -13,6 +13,6 @@
 - (void)addBlob:(NSData *)data
        callback:(BuddyObjectCallback)callback;
 
-- (void)getBlobs:(BuddyCollectionCallback)complete;
+- (void)getBlobs:(BuddyCollectionCallback)callback;
 
 @end

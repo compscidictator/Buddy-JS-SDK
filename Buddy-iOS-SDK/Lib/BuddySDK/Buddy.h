@@ -39,25 +39,25 @@
 
 + (void)initClient:(NSString *)appID
             appKey:(NSString *)appKey
-          complete:(void (^)())complete;
+          callback:(void (^)())callback;
 
 + (void) initClient:(NSString *)appID
              appKey:(NSString *)appKey
         withOptions:(NSDictionary *)options
-           complete:(void (^)())complete;
+           callback:(void (^)())callback;
 
 + (void)   initClient:(NSString *)appID
                appKey:(NSString *)appKey
  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
    autoRecordLocation:(BOOL)autoRecordLocation
           withOptions:(NSDictionary *)options
-             complete:(void (^)())complete;
+             callback:(void (^)())callback;
 
 
 // TODO - document options
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options completed:(BuddyObjectCallback)callback;
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callbackd:(BuddyObjectCallback)callback;
 
-+ (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback;
++ (void)login:(NSString *)username password:(NSString *)password callbackd:(BuddyObjectCallback)callback;
 
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
 

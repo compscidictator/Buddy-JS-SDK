@@ -11,9 +11,9 @@
 
 @implementation BuddyIntegrationHelper
 
-+ (void) bootstrapLogin:(void(^)())complete
++ (void) bootstrapLogin:(void(^)())callback
 {
-    [Buddy initClient:APP_NAME appKey:APP_KEY complete:^{
+    [Buddy initClient:APP_NAME appKey:APP_KEY callback:^{
         NSDictionary *options = @{@"name": @"Erik Kerber",
                                   @"gender": @(BPUserGender_Male),
                                   @"email": @"erik.kerber@gmail.com",
@@ -23,13 +23,13 @@
                                   @"fuzzLocation": @(NO)
                                   };
         
-        [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
+        [Buddy login:TEST_USERNAME password:TEST_PASSWORD callbackd:^(BPUser *loggedInsUser, NSError *error) {
             //if(loggedInsUser)
-            //    complete();
+            //    callback();
             //else {
-                [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options completed:^(BPUser *newBuddyObject, NSError *error) {
-                    [Buddy login:TEST_USERNAME password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
-                        complete();
+                [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options callbackd:^(BPUser *newBuddyObject, NSError *error) {
+                    [Buddy login:TEST_USERNAME password:TEST_PASSWORD callbackd:^(BPUser *loggedInsUser, NSError *error) {
+                        callback();
                     }];
                 }];
             //}
