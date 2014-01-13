@@ -10,6 +10,7 @@
 #import "BPPhoto.h"
 #import "BPSession.h"
 #import "BuddyObject+Private.h"
+#import "Buddy.h"
 
 @implementation BPPhotoCollection
 
@@ -32,6 +33,15 @@
 -(void)getPhotos:(BuddyCollectionCallback)complete
 {
     [self getAll:complete];
+}
+
+-(void)searchPhotos:(BuddyCollectionCallback)callback
+{
+    NSDictionary *parameters = @{
+                                 @"ownerID": [Buddy user].id
+                                 };
+    
+    [self search:parameters callback:callback];
 }
 
 - (void)getPhoto:(NSString *)photoId callback:(BuddyObjectCallback)callback

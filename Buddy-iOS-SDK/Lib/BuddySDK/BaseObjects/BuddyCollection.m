@@ -14,12 +14,16 @@
 
 -(void)getAll:(BuddyCollectionCallback)callback
 {
-    [[[BPSession currentSession] restService] GET:[[self type] requestPath] parameters:nil callback:^(id json, NSError *error) {
+    [self search:nil callback:callback];
+}
 
-        NSArray *f = [json[@"pageResults"] map:^id(id object) {
+-(void)search:(NSDictionary *)searchParmeters callback:(BuddyCollectionCallback)callback
+{
+    [[[BPSession currentSession] restService] GET:[[self type] requestPath] parameters:searchParmeters callback:^(id json, NSError *error) {
+        NSArray *results = [json[@"pageResults"] map:^id(id object) {
             return [[self.type alloc] initBuddyWithResponse:object];
         }];
-        callback(f);
+        callback(results, error);
     }];
 }
 

@@ -17,6 +17,8 @@
 
 - (void)getPhotos:(BuddyCollectionCallback)complete;
 
+- (void)searchPhotos:(BuddyCollectionCallback)callback;
+
 - (void)getPhoto:(NSString *)photoId callback:(BuddyObjectCallback)callback;
 
 @end

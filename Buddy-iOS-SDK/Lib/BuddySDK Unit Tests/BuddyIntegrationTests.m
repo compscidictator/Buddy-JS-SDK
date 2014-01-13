@@ -72,13 +72,13 @@ describe(@"BPUser", ^{
             __block BOOL deleted = NO;
             
             [Buddy login:testCreateDeleteName password:TEST_PASSWORD completed:^(BPUser *loggedInsUser, NSError *error) {
-                [loggedInsUser deleteMe:^{
+                [loggedInsUser deleteMe:^(NSError *error){
                     deleted = YES;
                 }];
             }];
             
             [[expectFutureValue(theValue(deleted)) shouldEventually] beYes];
-            
+
         });
     });
 });

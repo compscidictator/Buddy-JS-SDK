@@ -100,7 +100,7 @@ describe(@"BPUser", ^{
         
         pending_(@"Should allow the user to logout", ^{
             [[Buddy user] removeIdentityValue:@"SomeValue" callback:^(NSError *error) {
-                [[Buddy user] deleteMe:^{
+                [[Buddy user] deleteMe:^(NSError *error){
 #pragma messsage("TODO - Check error when I implement them. Ensure error exists for logged out user.")
                 }];
             }];

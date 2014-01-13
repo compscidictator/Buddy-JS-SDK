@@ -43,14 +43,14 @@
 
 @end
 
-@implementation BPCheckin (Description)
-
-- (NSString *)description
-{
-    return [NSString stringWithFormat:@"%@\r%@\r%@\r%@\r%@\r%@\r%@\r%@\r", nil, nil, nil, nil, nil, nil, nil, nil, nil];
-}
-
-@end
+//@implementation BPCheckin (Description)
+//
+//- (NSString *)description
+//{
+//    return [NSString stringWithFormat:@"%@\r%@\r%@\r%@\r%@\r%@\r%@\r%@\r", nil, nil, nil, nil, nil, nil, nil, nil, nil];
+//}
+//
+//@end
 
 @implementation BPPhoto (Description)
 

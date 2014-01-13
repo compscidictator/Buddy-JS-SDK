@@ -15,9 +15,9 @@
 
 @end
 
-@interface BPCheckin (Description)
-
-@end
+//@interface BPCheckin (Description)
+//
+//@end
 
 @interface BPPhoto (Description)
 

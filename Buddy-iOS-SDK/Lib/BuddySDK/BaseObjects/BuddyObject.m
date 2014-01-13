@@ -109,24 +109,22 @@
 {
     [[[BPSession currentSession] restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
         
-        BuddyObject *newObject = [[[self class] alloc] initBuddy];
-
-#pragma messsage("TODO - Short term hack until response is always an object.")
-        if([json isKindOfClass:[NSDictionary class]]){
-            newObject.id = json[@"id"];
-        }else{
-            newObject.id = json;
-        }
-        
-        if(!newObject.id){
-#pragma messsage("TODO - Error")
-            callback(newObject, nil);
+        if (error) {
+            callback(nil, error);
             return;
         }
         
+        BuddyObject *newObject = [[[self class] alloc] initBuddy];
+
+#pragma messsage("TODO - Short term hack until response is always an object.")
+        if ([json isKindOfClass:[NSDictionary class]]) {
+            newObject.id = json[@"id"];
+        } else {
+            newObject.id = json;
+        }
+        
         [newObject refresh:^(NSError *error){
-#pragma messsage("TODO - Error")
-            callback(newObject, nil);
+            callback(newObject, error);
         }];
     }];
 }
@@ -153,15 +151,16 @@
     [self deleteMe:nil];
 }
 
--(void)deleteMe:(void(^)())complete
+-(void)deleteMe:(BuddyCompletionCallback)complete
 {
+#pragma message("Figure out clean way to know when to use /me and /id")
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
-                          self.id];
+                          _id];
     
     [[[BPSession currentSession] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
         if(complete)
-            complete();
+            complete(error);
     }];
 }
 

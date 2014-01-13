@@ -65,12 +65,17 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[expectFutureValue(secondPhoto.caption) shouldEventually] equal:newPhoto.caption];
         });
         
-        pending_(@"Should allow searching for images", ^{
+        it(@"Should allow searching for images", ^{
+            __block NSArray *retrievedPhotos;
+            [[Buddy photos] searchPhotos:^(NSArray *buddyObjects, NSError *error) {
+                retrievedPhotos = buddyObjects;
+            }];
             
+            [[expectFutureValue(theValue([retrievedPhotos count])) shouldEventually] beGreaterThan:theValue(0)];
         });
         
-        it (@"Should allow the user to delete photos", ^{
-            [newPhoto deleteMe:^{
+        it(@"Should allow the user to delete photos", ^{
+            [newPhoto deleteMe:^(NSError *error){
                 [[Buddy photos] getPhoto:newPhoto.id callback:^(id newBuddyObject, NSError *error) {
                     newPhoto = newBuddyObject;
                 }];

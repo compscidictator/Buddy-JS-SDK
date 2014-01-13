@@ -38,8 +38,6 @@ describe(@"BPCheckinIntegrationSpec", ^{
         });
         
         it(@"Should allow you to checkin.", ^{
-            
-            __block BPCheckin *newCheckin;
             BPCoordinate *coordinate = [BPCoordinate new];
             coordinate.latitude = 2.3;
             coordinate.longitude = 4.4;
@@ -47,19 +45,18 @@ describe(@"BPCheckinIntegrationSpec", ^{
             [[Buddy checkins] checkinWithComment:@"Checking in!"
                                      description:@"Description"
                                         complete:^(BPCheckin *checkin, NSError *error) {
-                                            newCheckin = checkin;
                                             tempCheckinId = checkin.id;
                                             tempCheckin = checkin;
                                         }];
 
             
-            [[expectFutureValue(newCheckin.comment) shouldEventually] equal:@"Checking in!"];
-            [[expectFutureValue(newCheckin.description) shouldEventually] equal:@"Description"];
+            [[expectFutureValue(tempCheckin.comment) shouldEventually] equal:@"Checking in!"];
+            [[expectFutureValue(tempCheckin.description) shouldEventually] equal:@"Description"];
         });
         
         it(@"Should allow you to retrieve a list of checkins.", ^{
             __block NSArray *checkins;
-            [[Buddy checkins] getCheckins:^(NSArray *buddyObjects) {
+            [[Buddy checkins] getCheckins:^(NSArray *buddyObjects, NSError *error) {
                 checkins = buddyObjects;
                 [[theValue([checkins count]) should] beGreaterThan:theValue(0)];
             }];

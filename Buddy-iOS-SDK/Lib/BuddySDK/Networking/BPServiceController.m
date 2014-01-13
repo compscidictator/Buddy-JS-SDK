@@ -170,6 +170,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                 }
                 break;
             case 500:
+                buddyError = [NSError badDataError:error.code message:operation.responseString];
                 break;
             default:
                 buddyError = [NSError noInternetError:error.code message:operation.responseString];
