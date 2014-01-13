@@ -26,6 +26,7 @@
 
 #import <Foundation/Foundation.h>
 
+
 /**
  * The type of output the objects will be converted to.
  * @see outputType for more detailed description.

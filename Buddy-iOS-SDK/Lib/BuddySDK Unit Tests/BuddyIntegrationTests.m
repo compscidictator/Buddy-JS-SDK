@@ -63,7 +63,7 @@ describe(@"BPUser", ^{
 
         });
         
-        it(@"Should allow you to perform a social login.", ^{
+        pending_(@"Should allow you to perform a social login.", ^{
             // Social tokens cannot be retrieved programatically
             // See Sample Facebook app.
         });

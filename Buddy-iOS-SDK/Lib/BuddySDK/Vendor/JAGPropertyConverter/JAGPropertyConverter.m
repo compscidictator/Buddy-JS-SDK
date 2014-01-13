@@ -28,6 +28,7 @@
 #import "JAGPropertyFinder.h"
 #import "JAGProperty.h"
 #import "NSString+JSON.h"
+#import "BPEnumMapping.h"
 
 @interface JAGPropertyConverter () 
 
@@ -349,9 +350,16 @@
             Class propertyClass = [property propertyClass];
             value = [self composeModelFromObject: value withTargetClass:propertyClass];
         }
+        else if([[object class] conformsToProtocol:@protocol(BPEnumMapping)]
+                && [[object class] mapForProperty:key]) {
+            id map = [[object class] mapForProperty:key];
+            value = [[map allKeysForObject:value] firstObject];
+        }
         if ([property canAcceptValue:value]) {
             [object setValue:value forKey:key];
-        } else {
+        }
+
+        else {
             NSLog(@"Unable to set value of class %@ into property %@ of typeEncoding %@", 
                   [value class], [property name], [property typeEncoding]);
         }

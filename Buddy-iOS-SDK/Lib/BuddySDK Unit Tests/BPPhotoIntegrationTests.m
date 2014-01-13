@@ -71,6 +71,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
                 retrievedPhotos = buddyObjects;
             }];
             
+#pragma message("Known 500 error. Issue #51 on github.")
             [[expectFutureValue(theValue([retrievedPhotos count])) shouldEventually] beGreaterThan:theValue(0)];
         });
         

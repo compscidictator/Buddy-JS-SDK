@@ -238,6 +238,7 @@
 		C1C2395218789594000D0089 /* BPBlob.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBlob.m; sourceTree = "<group>"; };
 		C1D7094618832983003D112C /* BPDescriptors.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPDescriptors.h; sourceTree = "<group>"; };
 		C1D7094718832983003D112C /* BPDescriptors.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPDescriptors.m; sourceTree = "<group>"; };
+		C1D7094A1883942D003D112C /* BPEnumMapping.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPEnumMapping.h; sourceTree = "<group>"; };
 		C1E0D1CA1831BAD3001A7A01 /* JAGProperty.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JAGProperty.h; sourceTree = "<group>"; };
 		C1E0D1CB1831BAD3001A7A01 /* JAGProperty.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JAGProperty.m; sourceTree = "<group>"; };
 		C1E0D1CC1831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "JAGPropertyConverter-Prefix.pch"; sourceTree = "<group>"; };
@@ -462,6 +463,7 @@
 				C1FEEB4D187E483100B45505 /* BPAlbum.m */,
 				C154CEEB187F750C00EACE4B /* BPLocation.h */,
 				C154CEEC187F750C00EACE4B /* BPLocation.m */,
+				C1D7094A1883942D003D112C /* BPEnumMapping.h */,
 			);
 			name = BPObjects;
 			path = ../../Lib/BuddySDK/BPObjects;

@@ -70,6 +70,12 @@
     return nil;
 }
 
++ (NSDictionary *)enumMap
+{
+    // Return any enum->string mappings used in responses subclass.
+    return nil;
+}
+
 -(void)registerProperty:(SEL)property
 {
     NSString *propertyName = NSStringFromSelector(property);
@@ -171,7 +177,7 @@
 
 -(void)refresh:(BuddyCompletionCallback)complete
 {
-    //assert(self.id);
+    assert(self.id);
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           self.id];

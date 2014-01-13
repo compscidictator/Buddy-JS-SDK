@@ -9,6 +9,11 @@
 #import "BPUser.h"
 #import "BuddyObject+Private.h"
 #import "BPSession.h"
+#import "BPEnumMapping.h"
+
+@interface BPUser()<BPEnumMapping>
+
+@end
 
 @implementation BPUser
 
@@ -31,6 +36,30 @@
         [self registerProperty:@selector(relationshipStatus)];
     }
     return self;
+}
+
++ (NSDictionary *)mapForProperty:(NSString *)key
+{
+    return [self enumMap][key];
+}
+
++ (NSDictionary *)enumMap
+{
+    return @{
+             NSStringFromSelector(@selector(relationshipStatus)) : @{
+                     @(BPUserRelationshipStatusSingle) : @"Single",
+                     @(BPUserRelationshipStatusDating) : @"Dating",
+                     @(BPUserRelationshipStatusEngaged) : @"Engaged",
+                     @(BPUserRelationshipStatusMarried) : @"Married",
+                     @(BPUserRelationshipStatusDivorced) : @"Divorced",
+                     @(BPUserRelationshipStatusWidowed) : @"Widowed",
+                     @(BPUserRelationshipStatusOnTheProwl) : @"OnTheProwl",
+                    },
+             NSStringFromSelector(@selector(gender)) : @{
+                     @(BPUserGender_Male) : @"Male",
+                     @(BPUserGender_Female) : @"Female",
+                     },
+             };
 }
 
 static NSString *users = @"users";
