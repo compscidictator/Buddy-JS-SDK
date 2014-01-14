@@ -9,7 +9,7 @@
 #import <Foundation/Foundation.h>
 
 #import "BuddyDevice.h"
-#import "BPClient.h"
+#import "BPSession.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"
 #import "BPPhoto.h"
@@ -17,25 +17,21 @@
 #import "BPGameBoards.h"
 #import "BPSounds.h"
 #import "BPAppMetadata.h"
-#import "BPClient.h"
+#import "BPSession.h"
 #import "BPPhotoCollection.h"
+#import "BPBlobCollection.h"
 #import "BPCoordinate.h"
+#import "BPBlob.h"
+#import "BPAlbum.h"
 
 @interface Buddy : NSObject
 
 + (BPUser *)user;
-
 + (BuddyDevice *)device;
-
-+ (BPGameBoards *)gameBoards;
-
-+ (BPAppMetadata *)metadata;
-
-+ (BPSounds *)sounds;
-
 + (BPCheckinCollection *) checkins;
-
 + (BPPhotoCollection *) photos;
++ (BPBlobCollection *) blobs;
+
 
 + (BOOL) locationEnabled;
 
@@ -43,26 +39,26 @@
 
 + (void)initClient:(NSString *)appID
             appKey:(NSString *)appKey
-          complete:(void (^)())complete;
+          callback:(void (^)())callback;
 
 + (void) initClient:(NSString *)appID
              appKey:(NSString *)appKey
         withOptions:(NSDictionary *)options
-           complete:(void (^)())complete;
+           callback:(void (^)())callback;
 
 + (void)   initClient:(NSString *)appID
                appKey:(NSString *)appKey
  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
    autoRecordLocation:(BOOL)autoRecordLocation
           withOptions:(NSDictionary *)options
-             complete:(void (^)())complete;
+             callback:(void (^)())callback;
 
 
 // TODO - document options
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options completed:(BuddyObjectCallback)callback;
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callbackd:(BuddyObjectCallback)callback;
 
-+ (void)login:(NSString *)username password:(NSString *)password completed:(BuddyObjectCallback)callback;
++ (void)login:(NSString *)username password:(NSString *)password callbackd:(BuddyObjectCallback)callback;
 
-+ (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
++ (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 
 @end

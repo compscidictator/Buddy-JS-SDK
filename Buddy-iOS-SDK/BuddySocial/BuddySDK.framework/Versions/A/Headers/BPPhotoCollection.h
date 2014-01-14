@@ -7,7 +7,18 @@
 //
 
 #import "BuddyCollection.h"
+@class BPPhoto;
 
 @interface BPPhotoCollection : BuddyCollection
+
+- (void)addPhoto:(UIImage *)photo
+     withComment:(NSString *)comment
+        callback:(BuddyObjectCallback)callback;
+
+- (void)getPhotos:(BuddyCollectionCallback)callback;
+
+- (void)searchPhotos:(BuddyCollectionCallback)callback;
+
+- (void)getPhoto:(NSString *)photoId callback:(BuddyObjectCallback)callback;
 
 @end

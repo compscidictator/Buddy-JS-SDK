@@ -32,7 +32,7 @@
     NSLog(@"%@", user);
     NSString *fbAccessToken = [[[FBSession activeSession] accessTokenData] accessToken];
 
-    [Buddy socialLogin:@"Facebook" providerId:user.id token:fbAccessToken success:^(id json) {
+    [Buddy socialLogin:@"Facebook" providerId:user.id token:fbAccessToken success:^(id newBuddyObject, NSError *error) {
         NSLog(@"Hello");
     }];
 }

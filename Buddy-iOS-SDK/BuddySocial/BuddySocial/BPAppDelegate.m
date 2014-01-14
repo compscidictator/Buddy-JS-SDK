@@ -10,8 +10,8 @@
 #import <FacebookSDK/FacebookSDK.h>
 #import <BuddySDK/Buddy.h>
 
-#define APP_NAME @"aaaac.baaanpvOJh"
-#define APP_KEY @"AF735ABD-35F3-4376-9775-2242AAEDF7BE"
+#define APP_NAME @"aaaac.baaaZvtvBi"
+#define APP_KEY @"A13A3AD3-4A2D-4DAE-8971-8DBCAB014311"
 
 @implementation BPAppDelegate
 

@@ -13,23 +13,18 @@
 @interface BPCheckinCollection : BuddyCollection
 
 // Hmm, I don't like these parameter-heavy methods.
--(void)checkinWithComment:(NSString *)comment
+- (void)checkinWithComment:(NSString *)comment
           description:(NSString *)description
              //location:(struct BPCoordinate)coordinate
       defaultMetadata:(NSString *)defaultMetadata
       readPermissions:(BuddyPermissions)readPermissions
      writePermissions:(BuddyPermissions)writePermissions
-                 complete:(BuddyObjectCallback)complete;
+                 callback:(BuddyObjectCallback)callback;
 
--(void)checkinWithComment:(NSString *)comment
+- (void)checkinWithComment:(NSString *)comment
               description:(NSString *)description
-                 complete:(BuddyObjectCallback)complete;
+                 callback:(BuddyObjectCallback)callback;
 
--(void)getCheckins:(BuddyCollectionCallback)complete;
-
-// I think I like this? Create/populate object->dispatch away
--(void)addCheckin:(BPCheckin *)checkin;
-
-
+- (void)getCheckins:(BuddyCollectionCallback)callback;
 
 @end

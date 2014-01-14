@@ -8,14 +8,15 @@
 
 #import <Foundation/Foundation.h>
 
-typedef void (^AFNetworkingCallback)(id json);
+typedef void (^RESTCallback)(id json, NSError *error);
 
 @protocol BPRestProvider <NSObject>
 
 @required
-- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
-- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
-- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
-- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(AFNetworkingCallback)callback;
+- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback;
+- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback;
+- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(RESTCallback)callback;
+- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback;
+- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback;
 
 @end

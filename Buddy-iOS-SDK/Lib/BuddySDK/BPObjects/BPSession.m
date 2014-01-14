@@ -100,10 +100,9 @@
 
 -(void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback
 {
-
-    NSDictionary *parameters = @{@"providerName": provider,
-                                 @"providerUniqueId": providerId,
-                                 @"providerAccessToken": token};
+    NSDictionary *parameters = @{@"identityProviderName": provider,
+                                 @"identityId": providerId,
+                                 @"identityAccessToken": token};
     
     [self.service POST:@"users/login/social" parameters:parameters callback:^(id json, NSError *error) {
         callback(json, error);
