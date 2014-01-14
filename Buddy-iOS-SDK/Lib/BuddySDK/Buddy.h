@@ -24,6 +24,11 @@
 #import "BPBlob.h"
 #import "BPAlbum.h"
 
+/**
+ * TODO
+ *
+ * @since v2.0
+ */
 @interface Buddy : NSObject
 
 + (BPUser *)user;

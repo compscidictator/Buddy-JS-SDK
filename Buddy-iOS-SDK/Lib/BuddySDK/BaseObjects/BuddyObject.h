@@ -8,11 +8,11 @@
 
 #import <Foundation/Foundation.h>
 
-typedef enum{
+typedef NS_ENUM(NSInteger, BuddyPermissions){
     BuddyPermissionsOwner,
     BuddyPermissionsApp,
     BuddyPermissionsDefult = BuddyPermissionsOwner
-}BuddyPermissions;
+};
 
 typedef void (^BuddyObjectCallback)(id newBuddyObject, NSError *error);
 typedef void (^BuddyCompletionCallback)(NSError *error);
