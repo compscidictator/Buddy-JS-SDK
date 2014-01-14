@@ -10,9 +10,6 @@
 #import "BPRestProvider.h"
 #import "BuddyCollection.h" // TODO - remove dependency
 
-//#define BUDDY_SERVER @"http://craig.buddyservers.net:8080/api"
-#define BUDDY_SERVER @"http://10.211.55.3/BuddyWebService.V2/"
-
 @class BuddyDevice;
 @class BPGameBoards;
 @class BPAppMetadata;
@@ -105,7 +102,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 @property (nonatomic, readonly, strong) id <BPRestProvider> restService;
 /// TODO
--(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(void (^)())callback;
+-(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(BuddyCompletionCallback)callback;
 
 - (void)login:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
 - (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;

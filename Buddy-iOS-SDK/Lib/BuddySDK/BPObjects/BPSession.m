@@ -18,6 +18,8 @@
 #import "BPRestProvider.h"
 #import <CoreFoundation/CoreFoundation.h>
 
+#define BuddyServiceURL @"BuddyServiceURL"
+
 @interface BPSession()
 @property (nonatomic, strong) BPServiceController *service;
 @end
@@ -45,10 +47,16 @@
 
 }
 
--(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(void (^)())callback
-
+-(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(BuddyCompletionCallback)callback
 {
-    self.service = [[BPServiceController alloc] initWithBuddyUrl:BUDDY_SERVER];
+    
+#if DEBUG
+    NSString *serviceUrl = [[NSBundle bundleForClass:[self class]] infoDictionary][BuddyServiceURL];
+#else
+    NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
+#endif
+
+    self.service = [[BPServiceController alloc] initWithBuddyUrl:serviceUrl];
     
     // TODO - Does the client need a copy? Do users need to read back key/id?
     _appKey = appKey;
@@ -56,7 +64,7 @@
     
     
     [self.service setAppID:appID withKey:appKey callback:^(id json, NSError *error) {
-        callback();
+        callback(error);
     }];
 }
 
