@@ -19,11 +19,17 @@
 @class BPPhotoCollection;
 @class BPBlobCollection;
 
-typedef enum {
+/**
+ Enum specifying the current authentication level.
+ */
+typedef NS_ENUM(NSInteger, BPAuthenticationLevel) {
+    /** No authentication */
     BPAuthenticationLevelNone,
+    /** App/Device level authentication */
     BPAuthenticationLevelDevice,
+    /** User level authentication */
     BPAuthenticationLevelUser
-}BPAuthenticationLevel;
+};
 
 @interface BPSession : NSObject
 

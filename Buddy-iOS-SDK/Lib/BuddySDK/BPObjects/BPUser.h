@@ -9,23 +9,35 @@
 #import <UIKit/UIKit.h>
 #import "BuddyObject.h"
 
+/**
+ Enum for specifying gender.
+ */
 typedef NS_ENUM(NSInteger, BPUserGender)
 {
+    /** Male */
 	BPUserGender_Male = 1,
+    /** Female */
 	BPUserGender_Female = 2,
 } ;
 
-/// <summary>
-/// Represents the status of the user.
-/// </summary>
+/**
+ Enum for specifying relationship status.
+ */
 typedef NS_ENUM(NSInteger, BPUserRelationshipStatus)
 {
+    /** Single */
     BPUserRelationshipStatusSingle = 1,
+    /** Dating */
     BPUserRelationshipStatusDating = 2,
+    /** Engaged */
     BPUserRelationshipStatusEngaged = 3,
+    /** Married */
     BPUserRelationshipStatusMarried = 4,
+    /** Divorced */
     BPUserRelationshipStatusDivorced = 5,
+    /** Widowed */
     BPUserRelationshipStatusWidowed = 6,
+    /** On the Prowl */
     BPUserRelationshipStatusOnTheProwl = 7,
 };
 

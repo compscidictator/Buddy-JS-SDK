@@ -8,10 +8,16 @@
 
 #import <Foundation/Foundation.h>
 
+/**
+ Permissions scope for Buddy objects.
+ */
 typedef NS_ENUM(NSInteger, BuddyPermissions){
+    /** Accessible by owner. */
     BuddyPermissionsOwner,
+    /** Accessible by App. */
     BuddyPermissionsApp,
-    BuddyPermissionsDefult = BuddyPermissionsOwner
+    /** Default (Accessible by Owner). */
+    BuddyPermissionsDefault = BuddyPermissionsOwner
 };
 
 typedef void (^BuddyObjectCallback)(id newBuddyObject, NSError *error);
