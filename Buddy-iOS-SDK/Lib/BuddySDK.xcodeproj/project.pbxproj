@@ -54,7 +54,7 @@
 		C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F1B77187095EA00D5364C /* BuddyIntegrationHelper.m */; };
 		C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */ = {isa = PBXBuildFile; fileRef = C10F1B791870A6F500D5364C /* NSError+BuddyError.h */; };
 		C10F1B7C1870A6F500D5364C /* NSError+BuddyError.m in Sources */ = {isa = PBXBuildFile; fileRef = C10F1B7A1870A6F500D5364C /* NSError+BuddyError.m */; };
-		C10F1B80187103E500D5364C /* BPUserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90E318373BF80074B7E8 /* BPUserTests.m */; };
+		C10F1B80187103E500D5364C /* BPUserIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1AA90E318373BF80074B7E8 /* BPUserIntegrationTests.m */; };
 		C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8D184C57040034E1EB /* BPCheckinCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C11E6C92184C57040034E1EB /* BPCheckinCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C8E184C57040034E1EB /* BPCheckinCollection.m */; };
 		C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -219,7 +219,7 @@
 		C1AA90D718371FF70074B7E8 /* BPServiceController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BPServiceController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C1AA90DB1837376E0074B7E8 /* NSDictionary+Merge.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSDictionary+Merge.h"; path = "../../Lib/BuddySDK/NSDictionary+Merge.h"; sourceTree = "<group>"; };
 		C1AA90DC1837376E0074B7E8 /* NSDictionary+Merge.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSDictionary+Merge.m"; path = "../../Lib/BuddySDK/NSDictionary+Merge.m"; sourceTree = "<group>"; };
-		C1AA90E318373BF80074B7E8 /* BPUserTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPUserTests.m; path = "../../Lib/BuddySDK Unit Tests/BPUserTests.m"; sourceTree = "<group>"; };
+		C1AA90E318373BF80074B7E8 /* BPUserIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPUserIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/BPUserIntegrationTests.m"; sourceTree = "<group>"; };
 		C1ADD126184D96B800246313 /* CheckinIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = CheckinIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/CheckinIntegrationTests.m"; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C1ADD129184E2BF300246313 /* BPPhotoIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPPhotoIntegrationTests.m; path = "../../Lib/BuddySDK Unit Tests/BPPhotoIntegrationTests.m"; sourceTree = "<group>"; };
 		C1B2375C18654884005C841E /* BuddyTestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyTestData.h; path = "../../Lib/BuddySDK Unit Tests/BuddyTestData.h"; sourceTree = "<group>"; };
@@ -522,7 +522,7 @@
 			children = (
 				C1B95A2B183708E8000C8417 /* Test Data */,
 				C1E0D1E71831C2E8001A7A01 /* Supporting Files */,
-				C1AA90E318373BF80074B7E8 /* BPUserTests.m */,
+				C1AA90E318373BF80074B7E8 /* BPUserIntegrationTests.m */,
 				C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */,
 				C1ADD126184D96B800246313 /* CheckinIntegrationTests.m */,
 				C1ADD129184E2BF300246313 /* BPPhotoIntegrationTests.m */,
@@ -858,7 +858,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C10F1B80187103E500D5364C /* BPUserTests.m in Sources */,
+				C10F1B80187103E500D5364C /* BPUserIntegrationTests.m in Sources */,
 				C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */,
 				C1FEEB55187E4B2800B45505 /* BPRegionsIntegrationTests.m in Sources */,
 				C1FEEB57187E4B4500B45505 /* BPVideosIntegrationTests.m in Sources */,

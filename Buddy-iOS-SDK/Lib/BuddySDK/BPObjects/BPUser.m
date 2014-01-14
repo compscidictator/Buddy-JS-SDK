@@ -84,6 +84,7 @@ static NSString *users = @"users";
     return components.year;
 }
 
+#pragma mark - Login/Logout
 
 - (void)logout:(BuddyCompletionCallback)callback
 {
@@ -93,6 +94,8 @@ static NSString *users = @"users";
         callback(nil);
     }];
 }
+
+#pragma mark - Password
 
 - (void)requestPasswordReset:(BuddyObjectCallback)callback
 {
@@ -117,6 +120,8 @@ static NSString *users = @"users";
     }];
 }
 
+#pragma mark - Identity Value
+
 - (void)addIdentityValue:(NSString *)identityValue callback:(BuddyCompletionCallback)callback;
 {
     NSString *resource = @"users/identity";
@@ -134,6 +139,30 @@ static NSString *users = @"users";
     
     [[[BPSession currentSession] restService] DELETE:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json);
+    }];
+}
+
+#pragma mark - Profile Picture
+
+- (void)setUserProfilePicture:(UIImage *)picture comment:(NSString *)comment callback:(BuddyCompletionCallback)callback
+{
+    NSString *resource = [NSString stringWithFormat:@"user/%@/profilepicture", self.id];
+    NSDictionary *parameters = @{@"comment": comment};
+
+    NSDictionary *data = @{@"data": UIImagePNGRepresentation(picture)};
+    
+    [[[BPSession currentSession] restService] MULTIPART_POST:resource parameters:parameters data:data callback:^(id json, NSError *error) {
+#pragma message ("Return the actual image?")
+        callback(error);
+    }];
+}
+
+- (void)deleteUserProfilePicture:(BuddyCompletionCallback)callback
+{
+    NSString *resource = [NSString stringWithFormat:@"user/%@/profilepicture", self.id];
+    
+    [[[BPSession currentSession] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
+        callback(error);
     }];
 }
 

@@ -15,7 +15,7 @@
 #endif
 #define kKW_DEFAULT_PROBE_TIMEOUT 4.0
 
-SPEC_BEGIN(BPUserSpec)
+SPEC_BEGIN(BPUserIntegrationSpec)
 
 describe(@"BPUser", ^{
     context(@"When a user is logged in", ^{
@@ -81,6 +81,13 @@ describe(@"BPUser", ^{
             }];
         });
         
+        pending_(@"Should allow the user to set a profile picture", ^{
+            
+        });
+        
+        pending_(@"Should allow the user to delete the profile picture", ^{
+            
+        });
     
         pending_(@"Should allow adding identity values.", ^{
             __block BOOL done = NO;
