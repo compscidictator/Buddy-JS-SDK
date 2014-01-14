@@ -127,7 +127,7 @@
         [user refresh:^(NSError *error){
 #pragma messsage("TODO - Error")
             [[BPSession currentSession] initializeCollectionsWithUser:user];
-            callback(user, nil);
+            callback ? callback(user, nil) : nil;
         }];
     }];
 }
@@ -137,7 +137,8 @@
     [[BPSession currentSession] socialLogin:provider providerId:providerId token:token success:^(id json, NSError *error) {
 
         if (error) {
-            callback(nil, error);
+            if (callback)
+                callback(nil, error);
             return;
         }
         
@@ -145,7 +146,7 @@
         user.isMe = YES;
 
         [user refresh:^(NSError *error){
-            callback(user, error);
+            callback ? callback(user, error) : nil;
         }];
     }];
 }

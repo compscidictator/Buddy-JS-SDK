@@ -64,7 +64,7 @@
     
     
     [self.service setAppID:appID withKey:appKey callback:^(id json, NSError *error) {
-        callback(error);
+        callback ? callback(error) : nil;
     }];
 }
 
@@ -94,7 +94,7 @@
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password};
     [self.service POST:@"users/login" parameters:parameters callback:^(id json, NSError *error) {
-        callback(json, error);
+        callback ? callback(json, error) : nil;
     }];
 }
 
@@ -105,7 +105,7 @@
                                  @"identityAccessToken": token};
     
     [self.service POST:@"users/login/social" parameters:parameters callback:^(id json, NSError *error) {
-        callback(json, error);
+        callback ? callback(json, error) : nil;
     }];
 }
 
@@ -114,7 +114,7 @@
 -(void)ping:(BPPingCallback)callback
 {
     [self.service GET:@"ping" parameters:nil callback:^(id json, NSError *error) {
-        callback([NSDecimalNumber decimalNumberWithString:@"2.0"]);
+        callback ? callback([NSDecimalNumber decimalNumberWithString:@"2.0"]) : nil;
     }];
 }
 
