@@ -101,7 +101,7 @@
 
 #pragma mark User
 
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callbackd:(BuddyObjectCallback)callback
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password };
@@ -112,7 +112,7 @@
     [BPUser createFromServerWithParameters:parameters callback:callback];
 }
 
-+ (void)login:(NSString *)username password:(NSString *)password callbackd:(BuddyObjectCallback)callback
++ (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback
 {
     [[BPSession currentSession] login:username password:password success:^(id json, NSError *error) {
         

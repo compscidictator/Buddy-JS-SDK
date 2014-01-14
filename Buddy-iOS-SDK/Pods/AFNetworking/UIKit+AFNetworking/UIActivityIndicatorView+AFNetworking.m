@@ -41,7 +41,7 @@
     [notificationCenter removeObserver:self name:AFNetworkingTaskDidFinishNotification object:nil];
 
     if (task) {
-        if (task.state != NSURLSessionTaskStatecallbackd) {
+        if (task.state != NSURLSessionTaskStateCompleted) {
             if (task.state == NSURLSessionTaskStateRunning) {
                 [self startAnimating];
             } else {

@@ -60,9 +60,9 @@
 
 
 // TODO - document options
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callbackd:(BuddyObjectCallback)callback;
++ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback;
 
-+ (void)login:(NSString *)username password:(NSString *)password callbackd:(BuddyObjectCallback)callback;
++ (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
 
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 

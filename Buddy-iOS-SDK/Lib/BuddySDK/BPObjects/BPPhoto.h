@@ -11,7 +11,8 @@
 
 @interface BPPhoto : BPBlob
 
-@property (nonatomic, copy) NSString *caption;
+@property (nonatomic, copy) NSString *comment;
+//@property (nonatomic, assign) CGSize size;
 
 + (void)createWithImage:(UIImage *)image andComment:(NSString *)comment callback:(BuddyObjectCallback)callback;
 

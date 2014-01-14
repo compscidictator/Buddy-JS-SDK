@@ -48,7 +48,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[expectFutureValue(theValue(newPhoto.contentLength)) shouldEventually] beGreaterThan:theValue(1)];
             [[expectFutureValue(newPhoto.contentType) shouldEventually] equal:@"image/png"];
             [[expectFutureValue(newPhoto.signedUrl) shouldEventually] haveLengthOfAtLeast:1];
-            [[expectFutureValue(newPhoto.caption) shouldEventually] equal:@"Hello, comment!"];
+            [[expectFutureValue(newPhoto.comment) shouldEventually] equal:@"Hello, comment!"];
 
         });
         
@@ -62,7 +62,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[expectFutureValue(theValue(secondPhoto.contentLength)) shouldEventually] equal:theValue(newPhoto.contentLength)];
             [[expectFutureValue(secondPhoto.contentType) shouldEventually] equal:@"image/png"];
             [[expectFutureValue(secondPhoto.signedUrl) shouldEventually] equal:newPhoto.signedUrl];
-            [[expectFutureValue(secondPhoto.caption) shouldEventually] equal:newPhoto.caption];
+            [[expectFutureValue(secondPhoto.comment) shouldEventually] equal:newPhoto.comment];
         });
         
         it(@"Should allow searching for images", ^{
