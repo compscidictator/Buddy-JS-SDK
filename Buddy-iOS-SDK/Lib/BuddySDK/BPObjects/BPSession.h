@@ -107,10 +107,8 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// TODO
 -(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(void (^)())callback;
 
-typedef void (^BPBuddyObjectCallback)(id json);
-
-- (void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback;
-- (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
+- (void)login:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
+- (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 - (void)ping:(BPPingCallback)callback;
 
 #pragma message("TODO - Remove this from .h once user creation responsibility is off Buddy.m")

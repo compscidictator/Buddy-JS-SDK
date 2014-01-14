@@ -81,37 +81,24 @@
 
 
 
--(void)login:(NSString *)username password:(NSString *)password success:(BPBuddyObjectCallback) callback
+-(void)login:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password};
     [self.service POST:@"users/login" parameters:parameters callback:^(id json, NSError *error) {
-        if (!error) {
-            
-        }
-        callback(json);
+        callback(json, error);
     }];
 }
 
--(void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback
+-(void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback
 {
-    // providerName
-    // providerUniqueId
-    // providerAccessToken
-    // pageSize
-    // pageNumber
-    
-    // SocialProviderTokenMismatch
-    // NoSuchSocialProvider
-    // AccessTokenInvalid
-    // NoNameOrEmail
 
     NSDictionary *parameters = @{@"providerName": provider,
                                  @"providerUniqueId": providerId,
                                  @"providerAccessToken": token};
     
     [self.service POST:@"users/login/social" parameters:parameters callback:^(id json, NSError *error) {
-        callback(json);
+        callback(json, error);
     }];
 }
 

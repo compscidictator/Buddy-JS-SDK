@@ -59,6 +59,6 @@
 
 + (void)login:(NSString *)username password:(NSString *)password callbackd:(BuddyObjectCallback)callback;
 
-+ (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BPBuddyObjectCallback) callback;
++ (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 
 @end

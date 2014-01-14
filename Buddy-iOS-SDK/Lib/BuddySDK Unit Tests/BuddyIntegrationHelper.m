@@ -24,15 +24,15 @@
                                   };
         
         [Buddy login:TEST_USERNAME password:TEST_PASSWORD callbackd:^(BPUser *loggedInsUser, NSError *error) {
-            //if(loggedInsUser)
-            //    callback();
-            //else {
+            if(loggedInsUser)
+                callback();
+            else {
                 [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options callbackd:^(BPUser *newBuddyObject, NSError *error) {
                     [Buddy login:TEST_USERNAME password:TEST_PASSWORD callbackd:^(BPUser *loggedInsUser, NSError *error) {
                         callback();
                     }];
                 }];
-            //}
+            }
         }];
         
 
