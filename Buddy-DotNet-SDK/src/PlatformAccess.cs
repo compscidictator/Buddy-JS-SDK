@@ -402,11 +402,8 @@ namespace BuddySDK
                 a ();
             };
 
-            // do this async so we don't deadlock
-            ThreadPool.QueueUserWorkItem ((state) => {
-                invoker.InvokeOnMainThread (nsa);
-            }, null);
-           
+            invoker.BeginInvokeOnMainThread (nsa);
+            
         }
 
        

@@ -15,9 +15,9 @@ namespace BuddySDK
         {
         }
 
-        internal static Task<Photo> AddAsync(BuddyClient client, string caption, Stream photoData, string contentType, BuddyGeoLocation location = null, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
+        internal static Task<BuddyResult<Photo>> AddAsync(BuddyClient client, string caption, Stream photoData, string contentType, BuddyGeoLocation location = null, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
         {
-            Task<Photo> ct = new Task<Photo>(() =>
+            return Task.Run<BuddyResult<Photo>>(() =>
             {
                 var c = new Photo(null, client)
                 {
@@ -34,14 +34,14 @@ namespace BuddySDK
                 };
 
                 var t = c.SaveAsync();
-                t.Wait();
-                return c;
+                
+
+                return t.Result.Convert(r => c);
             });
-            ct.Start();
-            return ct;
+           
         }
 
-        public Task<Photo> AddAsync(string caption, Stream photoData, string contentType, BuddyGeoLocation location, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
+        public Task<BuddyResult<Photo>> AddAsync(string caption, Stream photoData, string contentType, BuddyGeoLocation location, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
         {
             return PhotoCollection.AddAsync(this.Client, caption, photoData, contentType, location, read, write);
         }

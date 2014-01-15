@@ -36,6 +36,7 @@ namespace BuddySDK
     public class BuddyClient
     {
 
+        public event EventHandler<ServiceExceptionEventArgs> ServiceException;
 
         /// <summary>
         /// Gets the BuddyServiceClient interface
@@ -61,7 +62,7 @@ namespace BuddySDK
 
 
 
-        private BuddyClientFlags _flags;
+        //private BuddyClientFlags _flags;
         private static string _WebServiceUrl;
 
         public static string WebServiceUrl {
@@ -83,7 +84,7 @@ namespace BuddySDK
 
             this.AppId = appid;
             this.AppKey = appkey;
-            this._flags = flags;
+            //this._flags = flags;
 
             LoadState ();
             UpdateAccessLevel();
@@ -106,37 +107,11 @@ namespace BuddySDK
         {
             get
             {
-                if (!_gettingToken)
-                {
-                    try
-                    {
-                        _gettingToken = true;
-                        if (UserToken != null)
-                        {
-                            return UserToken;
-                        }
-                        else if (DeviceToken != null)
-                        {
-                            return DeviceToken;
-                        }
-                        DeviceToken = GetDeviceToken();
-                        OnAccessTokenChanged(DeviceToken, AccessTokenType.Device);
-                        return DeviceToken;
-                    }
-                    finally
-                    {
-                        _gettingToken = false;
-                    }
-                }
-                else
-                {
-                    return UserToken ?? DeviceToken;
-                }
+                return GetAccessToken ().Result;
                 
             }
         }
 
-       
 
         public AuthenticationLevel AuthLevel {
             get;
@@ -149,11 +124,8 @@ namespace BuddySDK
         public AuthenticatedUser User
         {
             get
-            {
-                if (_user == null && AuthLevel != AuthenticationLevel.User) {
-                    this.OnAuthorizationFailure();
-                }
-                return _user;
+            { 
+                return GetUser();
             }
             private set
             {
@@ -182,10 +154,43 @@ namespace BuddySDK
         }
 
 
+        internal async Task<string> GetAccessToken() {
 
-        private string GetDeviceToken()
+            if (!_gettingToken)
+            {
+                try
+                {
+                    _gettingToken = true;
+                    if (UserToken != null)
+                    {
+                        return UserToken;
+                    }
+                    else if (DeviceToken != null)
+                    {
+                        return DeviceToken;
+                    }
+                    DeviceToken = await GetDeviceToken();
+                    OnAccessTokenChanged(DeviceToken, AccessTokenType.Device);
+                    return DeviceToken;
+                }
+                finally
+                {
+                    _gettingToken = false;
+                }
+            }
+            else
+            {
+                return UserToken ?? DeviceToken;
+            }
+        }
+
+
+        private async Task<string> GetDeviceToken()
         {
-            var result = Service.CallMethodAsync<DeviceRegistration>("POST", "/devices",
+
+            var dr = await CallServiceMethodHelper<DeviceRegistration, DeviceRegistration> (
+                "POST",
+                "/devices",
                 new
                 {
                     AppId = AppId,
@@ -195,23 +200,139 @@ namespace BuddySDK
                     UniqueID = PlatformAccess.Current.DeviceUniqueId,
                     Model = PlatformAccess.Current.Model,
                     OSVersion = PlatformAccess.Current.OSVersion
-                }
-            );
-            result.Wait();
-            if (result.Result.ServiceRoot != null)
-            {
-                Service.ServiceRoot = result.Result.ServiceRoot;
-                PlatformAccess.Current.SetUserSetting ("ServiceRoot", result.Result.ServiceRoot);
+                },
+                completed: (r1, r2) => { 
+                    if (r2.IsSuccess && r2.Value.ServiceRoot != null)
+                    {
+                        Service.ServiceRoot = r2.Value.ServiceRoot;
+                        PlatformAccess.Current.SetUserSetting ("ServiceRoot", r2.Value.ServiceRoot);
+                    }
+                    else {
+                        ClearCredentials();
+                    }
+                });
+
+           
+            if (!dr.IsSuccess) {
+                return null;
             }
-            return result.Result.AccessToken;
+            return dr.Value.AccessToken;
         }
 
+        private AuthenticatedUser GetUser() {
+
+
+            if (_user == null && AuthLevel != AuthenticationLevel.User) {
+                this.OnAuthorizationFailure (null);
+            } else if (_user != null && !_user.IsPopulated) {
+                // make sure the user exists.
+                //
+                _user.FetchAsync ().ContinueWith ((r) => {
+                });
+
+               
+            }
+            return _user;
+        }
 
         private string GetRootUrl() {
             string setting = PlatformAccess.Current.GetConfigSetting("RootUrl");
             var userSetting = PlatformAccess.Current.GetUserSetting ("ServiceRoot");
             return userSetting ?? setting ?? WebServiceUrl;
         }
+
+
+        internal Task<BuddyResult<T>> CallServiceMethod<T>(string verb, string path, object parameters = null) {
+
+
+            return Task.Run<BuddyResult<T>> (() => {
+
+                var bcrTask = Service.CallMethodAsync<T> (verb, path, parameters);
+
+                var bcr = bcrTask.Result;
+
+                var result = new BuddyResult<T> ();
+                result.RequestID = bcr.RequestID;
+
+                if (bcr.Error != null) {
+                    BuddyServiceException buddyException = null;
+
+                    switch (bcr.StatusCode) {
+                        case 0: 
+                            buddyException = new BuddyNoInternetException (bcr.Error);
+                            break;
+                        case 403:
+                            buddyException = new BuddyUnauthorizedException (bcr.Error, bcr.Message);
+                            break;
+                        default:
+                            buddyException = new BuddySDK.BuddyServiceException (bcr.Error, bcr.Message);
+                            break;
+                    }
+
+                    var tsc = new TaskCompletionSource<bool>();
+
+                   
+                    PlatformAccess.Current.InvokeOnUiThread(() => {
+
+                        var r = false;
+                        if (OnServiceException(this, buddyException)) {
+                            r = true;
+                        }
+                        tsc.TrySetResult(r);
+                    });
+
+                    if (tsc.Task.Result) {
+                        throw buddyException;
+                    }
+
+                    buddyException.StatusCode = bcr.StatusCode;
+                    result.Error = buddyException;
+
+                } else {
+                    result.Value = bcr.Result;
+                }
+                return result;
+            });
+
+        }
+
+
+        internal async Task<BuddyResult<T2>> CallServiceMethodHelper<T1, T2>(
+            string verb, 
+            string path, 
+            object parameters = null, 
+            Func<T1, T2> map = null, 
+            Action<BuddyResult<T1>, BuddyResult<T2>> completed = null) {
+
+            BuddyResult<T1> r1 = null;
+            BuddyResult<T2> r2 = null;
+
+            if (typeof(T1) == typeof(T2)) {
+                r2 = await CallServiceMethod<T2> (verb, path, parameters);
+            } else {
+                r1 = await CallServiceMethod<T1> (verb, path, parameters);
+
+                if (r1.IsSuccess) {
+
+                    if (map == null) {
+                        map = (t1) => {
+                            return (T2)(object)r1.Value;
+                        };
+                    }
+
+                    r2 = r1.Convert<T2> (map);
+                }
+            }
+
+            if (completed != null) {
+                PlatformAccess.Current.InvokeOnUiThread (() => completed (r1, r2));
+            }
+            return r2;
+        }
+
+      
+
+     
 
         private void ClearCredentials(bool clearUser = true, bool clearDevice = true) {
 
@@ -245,7 +366,7 @@ namespace BuddySDK
             }
         }
 
-        private void OnEnsureService()
+        private async void OnEnsureService()
         {
             if (this._service != null) return;
 
@@ -263,7 +384,8 @@ namespace BuddySDK
 
             };
 
-            if (AccessToken == null)
+            var token = await GetAccessToken ();
+            if (token == null)
             {
                 throw new UnauthorizedAccessException("Failed to register device, check AppID/AppKey");
             }
@@ -303,8 +425,52 @@ namespace BuddySDK
             UpdateAccessLevel();
         }
 
-        protected virtual void OnAuthorizationFailure() {
+      
+      
+        protected bool OnServiceException(BuddyClient client, BuddyServiceException buddyException) {
 
+
+            // first see if it's an auth failure.
+            //
+            if (buddyException is BuddyUnauthorizedException) {
+                client.OnAuthorizationFailure ((BuddyUnauthorizedException)buddyException);
+                return false;
+            } else if (buddyException is BuddyNoInternetException) {
+                Buddy.OnConnectivityChanged (this, ConnectivityLevel.None);
+                return false;
+            }
+
+
+            bool result = false;
+
+          
+            Action checkException = () => {
+
+                if (ServiceException != null) {
+                    var args = new ServiceExceptionEventArgs (buddyException);
+                    ServiceException (this, args);
+                    result = args.ShouldThrow;
+                } 
+                else {
+                    result = Buddy.OnServiceException(this, buddyException);
+                }
+               
+            };
+
+
+            checkException ();
+
+            return result;
+           
+        }
+
+        internal virtual void OnAuthorizationFailure(BuddyUnauthorizedException exception) {
+
+
+            if (exception != null && (exception.Error == "AuthAccessTokenInvalid" || exception.Error == "AuthAppCredentialsInvalid")) {
+                ClearCredentials ();
+            }
+           
             PlatformAccess.Current.InvokeOnUiThread (() => {
 
                 if (this.AuthorizationFailure != null) {
@@ -339,25 +505,16 @@ namespace BuddySDK
 
         }
 
-        private static TEX UnwrapException<TEX>(Exception ex) where TEX: Exception {
-            if (ex != null && ex.InnerException != null) {
-                return UnwrapException<TEX> (ex);
-            }
-            else if (typeof(TEX).IsInstanceOfType (ex)) {
-                return (TEX)ex;
-            } 
-            return null;
-        }
 
         // service
         //
-        public Task<string> PingAsync()
+        public Task<BuddyResult<string>> PingAsync()
         {
-            return Service.CallMethodAsync<string>("GET", "/service/ping", new { });
+            return CallServiceMethod<string>("GET", "/service/ping");
         }
 
         // User auth.
-      public System.Threading.Tasks.Task<AuthenticatedUser> CreateUserAsync(
+        public System.Threading.Tasks.Task<BuddyResult<AuthenticatedUser>> CreateUserAsync(
             string username, 
             string password, 
             string name = null, 
@@ -377,10 +534,10 @@ namespace BuddySDK
 
             name = name ?? username;
 
-            var task = new Task<AuthenticatedUser>(() =>
+            var task = new Task<BuddyResult<AuthenticatedUser>>(() =>
             {
 
-                var r = this.Service.CallMethodAsync<IDictionary<string, object>>("POST", "/users", new
+                var rt = CallServiceMethod<IDictionary<string, object>>("POST", "/users", new
                 {
                     name = name,
                     username = username,
@@ -392,12 +549,14 @@ namespace BuddySDK
                     relationshipStatus = status
                 });
 
-                r.Wait();
+                var r = rt.Result;
 
-                var user = new AuthenticatedUser(this, (string)r.Result["ID"], (string)r.Result["accessToken"]);
+                return r.Convert(d => {
 
-                this.User = user;
-                return user;
+                    var user = new AuthenticatedUser(this, (string)r.Value["ID"], (string)r.Value["accessToken"]);
+                    this.User = user;
+                    return user;
+                });
             });
             task.Start ();
             return task;
@@ -411,7 +570,7 @@ namespace BuddySDK
         /// <param name="username">The username of the user. Can't be null or empty.</param>
         /// <param name="password">The password of the user. Can't be null.</param>
         /// <returns>A Task&lt;AuthenticatedUser&gt;that can be used to monitor progress on this call.</returns>
-        public System.Threading.Tasks.Task<AuthenticatedUser> LoginUserAsync(string username, string password)
+        public System.Threading.Tasks.Task<BuddyResult<AuthenticatedUser>> LoginUserAsync(string username, string password)
         {
             return LoginUserCoreAsync<AuthenticatedUser>("/users/login", new
             {
@@ -420,7 +579,7 @@ namespace BuddySDK
             }, (result) => new AuthenticatedUser(this, (string)result["ID"], (string)result["accessToken"]));
         }
 
-        public System.Threading.Tasks.Task<SocialAuthenticatedUser> SocialLoginUserAsync(string identityProviderName, string identityID, string identityAccessToken)
+        public System.Threading.Tasks.Task<BuddyResult<SocialAuthenticatedUser>> SocialLoginUserAsync(string identityProviderName, string identityID, string identityAccessToken)
         {
             return LoginUserCoreAsync<SocialAuthenticatedUser>("/users/login/social", new
                     {
@@ -430,44 +589,38 @@ namespace BuddySDK
                     }, (result) => new SocialAuthenticatedUser(this, (string)result["ID"], (string)result["accessToken"], (bool)result["isNew"]));
         }
 
-        private System.Threading.Tasks.Task<T> LoginUserCoreAsync<T>(string path, object parameters, Func<IDictionary<string, object>, T> createUser) where T : AuthenticatedUser
+        private async System.Threading.Tasks.Task<BuddyResult<T>> LoginUserCoreAsync<T>(string path, object parameters, Func<IDictionary<string, object>, T> createUser) where T : AuthenticatedUser
         {
-            var task = new Task<T>(() =>
-            {
-                try
-                {
-                    var r = Service.CallMethodAsync<IDictionary<string, object>>("POST", path, parameters);
 
-                    r.Wait();
+            return await CallServiceMethodHelper<IDictionary<string, object>, T> (
+                "POST", 
+                path, 
+                parameters,
+                map: d => createUser (d),
+                completed: (r1, r2) => {
 
-                    var user = createUser(r.Result);
+                    User = r2.Value;
 
-                    this.User = user;
 
-                    return user;
-                }
-                catch (AggregateException aex)
-                {
-                    ClearCredentials(true, false);
-                    throw UnwrapException<Exception>(aex);
-                }
-            });
 
-            task.Start();
-
-            return task;
+                });
+           
         }
 
-        public Task LogoutUserAsync() {
-            var t = new Task (() => {
+        public Task<BuddyResult<bool>> LogoutUserAsync() {
+            return Task.Run<BuddyResult<bool>>(() => {
 
                 if (UserToken != null) {
                     UserToken = null;
                     PlatformAccess.Current.ClearUserSetting(this.AppId + "-UserAccessToken");
                 }
+
+                // TODO: call logout
+                return new BuddyResult<bool> {
+                    Value = true
+                };
             });
-            t.Start ();
-            return t;
+           
         }
 
         private UserCollection _users;
@@ -494,7 +647,8 @@ namespace BuddySDK
             public bool success { get; set; }
         }
 
-        public Task<string> RecordMetricAsync(string key, IDictionary<string, object> value = null, TimeSpan? timeout = null)
+
+        public Task<BuddyResult<string>> RecordMetricAsync(string key, IDictionary<string, object> value = null, TimeSpan? timeout = null)
         {
 
             int? timeoutInSeconds = null;
@@ -504,17 +658,19 @@ namespace BuddySDK
                 timeoutInSeconds = (int)timeout.Value.TotalSeconds;
             }
 
-            return Task.Run<string>(() =>
+            return Task.Run<BuddyResult<string>>(() =>
             {
 
-                var r = Service.CallMethodAsync<MetricsResult>("POST", String.Format("/metrics/events/{0}", Uri.EscapeDataString(key)), new
+                var r = CallServiceMethod<MetricsResult>("POST", String.Format("/metrics/events/{0}", Uri.EscapeDataString(key)), new
                 {
                     value = value,
                     timeoutInSeconds = timeoutInSeconds
                 });
+               
+                
+                return r.Result.Convert((mr) => mr.id);
 
-                r.Wait();
-                return r.Result.id;
+              
             });
         }
 
@@ -523,22 +679,52 @@ namespace BuddySDK
             public long? elaspedTimeInMs { get; set; }
         }
 
-        public Task<TimeSpan?> RecordTimedMetricEndAsync(string timedMetricId)
+        public Task<BuddyResult<TimeSpan?>> RecordTimedMetricEndAsync(string timedMetricId)
         {
             return Task<TimeSpan?>.Run(() =>
             {
 
-                var r = Service.CallMethodAsync<CompleteMetricResult>("DELETE", String.Format("/metrics/events/{0}", Uri.EscapeDataString(timedMetricId)));
+                 var r = CallServiceMethod<CompleteMetricResult>("DELETE", String.Format("/metrics/events/{0}", Uri.EscapeDataString(timedMetricId)));
 
-                r.Wait();
 
-                TimeSpan? elapsedTime = null;
+                    return r.Result.Convert(cmr =>  {
+                        TimeSpan? elapsedTime = null;
 
-                if (r.Result != null && r.Result.elaspedTimeInMs != null) {
-                    elapsedTime = TimeSpan.FromMilliseconds(r.Result.elaspedTimeInMs.Value);
+                        if (cmr.elaspedTimeInMs != null) {
+                            elapsedTime = TimeSpan.FromMilliseconds(cmr.elaspedTimeInMs.Value);
+                        }
+
+                        return elapsedTime;
+
+                    });
+                
+            });
+        }
+
+        public Task<BuddyResult<bool>> AddCrashReportAsync (Exception ex, string message = null)
+        {
+
+            return Task.Run<BuddyResult<bool>> (() => {
+                if (ex == null) return new BuddyResult<bool>();
+
+
+
+                try {
+                    var r = CallServiceMethod<string>(
+                        "POST", 
+                        "/devices/current/crashreport", 
+                            new {
+                                stackTrace = ex.ToString(),
+                                message = message
+                            });
+                    return r.Result.Convert(s => true);
                 }
+                catch {
 
-                return elapsedTime;
+                }
+                return new BuddyResult<bool> {
+                    Value = false
+                };
             });
         }
 

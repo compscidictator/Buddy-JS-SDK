@@ -171,7 +171,7 @@ namespace BuddyServiceClient
                 }
                
                 bcr.Error = err;
-                LogResponse(verb + " + " + path, bcr.Message,DateTime.Now.Subtract(start), response);
+                LogResponse(verb + " " + path, bcr.Message,DateTime.Now.Subtract(start), response);
                   
                 callback(bcr);
             };
@@ -251,6 +251,7 @@ namespace BuddyServiceClient
                                 }
                                 bcr.Result = envelope.result;
                             }
+                            bcr.RequestID = envelope.request_id;
 
                         }
                         catch
@@ -326,7 +327,7 @@ namespace BuddyServiceClient
         {
             return verb + " " + path;
         }
-        private void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
+        private async void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
         {
             if (!path.StartsWith("/"))
             {
@@ -393,10 +394,11 @@ namespace BuddyServiceClient
             }
 
             wr.Headers["BuddyPlatformSDK"] = SdkVersion;
+            var token = await Client.GetAccessToken ();
 
-            if (Client.AccessToken != null)
+            if (token != null)
             {
-                wr.Headers["Authorization"] = String.Format("Buddy {0}", Client.AccessToken);
+                wr.Headers["Authorization"] = String.Format("Buddy {0}", token);
             }
             wr.Method = verb;
            
