@@ -44,19 +44,19 @@
 
 + (void)initClient:(NSString *)appID
             appKey:(NSString *)appKey
-          callback:(void (^)())callback;
+          callback:(BuddyCompletionCallback)callback;
 
 + (void) initClient:(NSString *)appID
              appKey:(NSString *)appKey
         withOptions:(NSDictionary *)options
-           callback:(void (^)())callback;
+           callback:(BuddyCompletionCallback)callback;
 
 + (void)   initClient:(NSString *)appID
                appKey:(NSString *)appKey
  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
    autoRecordLocation:(BOOL)autoRecordLocation
           withOptions:(NSDictionary *)options
-             callback:(void (^)())callback;
+             callback:(BuddyCompletionCallback)callback;
 
 
 // TODO - document options

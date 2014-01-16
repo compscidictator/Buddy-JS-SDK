@@ -58,7 +58,7 @@
 
 + (void)initClient:(NSString *)appID
        appKey:(NSString *)appKey
-          callback:(void (^)())callback
+          callback:(BuddyCompletionCallback)callback
 {
 	[Buddy initClient:appID
           appKey:appKey
@@ -71,7 +71,7 @@
 + (void) initClient:(NSString *)appID
              appKey:(NSString *)appKey
         withOptions:(NSDictionary *)options
-           callback:(void (^)())callback
+           callback:(BuddyCompletionCallback)callback
 {
     [[BPSession currentSession] setupWithApp:appID
                                      appKey:appKey
@@ -84,7 +84,7 @@
  autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
    autoRecordLocation:(BOOL)autoRecordLocation
           withOptions:(NSDictionary *)options
-             callback:(void (^)())callback
+             callback:(BuddyCompletionCallback)callback
 {
     
     NSDictionary *defaultOptions = @{@"autoRecordLocation": @(autoRecordLocation),

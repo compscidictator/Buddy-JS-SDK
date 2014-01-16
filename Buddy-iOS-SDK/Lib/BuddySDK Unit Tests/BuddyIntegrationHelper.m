@@ -13,7 +13,7 @@
 
 + (void) bootstrapLogin:(void(^)())callback
 {
-    [Buddy initClient:APP_NAME appKey:APP_KEY callback:^{
+    [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {
         NSDictionary *options = @{@"name": @"Erik Kerber",
                                   @"gender": @(BPUserGender_Male),
                                   @"email": @"erik.kerber@gmail.com",

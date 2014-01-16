@@ -19,7 +19,7 @@ SPEC_BEGIN(BPUserIntegrationSpec)
 
 describe(@"BPUser", ^{
     context(@"When a user is logged in", ^{
-        __block NSString *resetCode;
+        __block NSString *resetCode;    
 
         beforeAll(^{
             __block BOOL fin = NO;
