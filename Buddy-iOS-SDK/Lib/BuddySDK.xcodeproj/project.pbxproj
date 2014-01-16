@@ -121,7 +121,6 @@
 		C1FEEB53187E4B0300B45505 /* BPMessagesIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB52187E4B0300B45505 /* BPMessagesIntegrationTests.m */; };
 		C1FEEB55187E4B2800B45505 /* BPRegionsIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB54187E4B2800B45505 /* BPRegionsIntegrationTests.m */; };
 		C1FEEB57187E4B4500B45505 /* BPVideosIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB56187E4B4500B45505 /* BPVideosIntegrationTests.m */; };
-		D6CB2CD0F9434224BC280EEE /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81137A46380B4BCCA3A2E417 /* libPods.a */; };
 		E70B93A88942431C9F1C6F28 /* libPods-BuddySDK Unit Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A07FFFC093E94E77A9A92AF0 /* libPods-BuddySDK Unit Tests.a */; };
 /* End PBXBuildFile section */
 
@@ -280,7 +279,6 @@
 				C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */,
 				29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */,
 				A6291F80165C01800051F83C /* Foundation.framework in Frameworks */,
-				D6CB2CD0F9434224BC280EEE /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
