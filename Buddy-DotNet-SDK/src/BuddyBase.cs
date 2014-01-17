@@ -347,7 +347,7 @@ namespace BuddySDK
             {
                 // kick off a fetch, which will come back and update the value
                 // and fire an IPNC event.
-                FetchAsync();
+                FetchAsync().ContinueWith((r) => {});
 
             }
             return defaultValue;

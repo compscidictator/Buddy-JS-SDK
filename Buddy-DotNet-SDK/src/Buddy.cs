@@ -1,4 +1,4 @@
-﻿﻿using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -10,9 +10,9 @@ namespace BuddySDK
     [Flags]
     public enum BuddyClientFlags
     {
-        AutoTrackLocation =  0x0000001,
-        AutoRegisterDevice = 0x00000002,
-        Default = AutoTrackLocation | AutoRegisterDevice
+        AutoTrackLocation =  0x00000001,
+        AutoCrashReport =    0x00000002,
+        Default = AutoCrashReport | AutoTrackLocation
     }
 
     public static class Buddy

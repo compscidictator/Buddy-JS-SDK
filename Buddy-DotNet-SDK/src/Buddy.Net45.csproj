@@ -95,6 +95,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BuddyResult.cs" />
     <Compile Include="UserCollection.cs" />
     <None Include="V1\AppMetadata.cs">
       <SubType>Code</SubType>

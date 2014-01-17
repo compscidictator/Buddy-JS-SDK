@@ -81,6 +81,9 @@
     <Compile Include="SearchResult.cs" />
     <Compile Include="LocationCollection.cs" />
     <Compile Include="Location.cs" />
+    <Compile Include="BuddyResult.cs" />
+    <Compile Include="SocialAuthenticatedUser.cs" />
+    <Compile Include="UserCollection.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

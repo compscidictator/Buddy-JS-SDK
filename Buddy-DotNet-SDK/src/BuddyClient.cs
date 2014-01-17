@@ -74,6 +74,8 @@ namespace BuddySDK
             }
 
         }
+
+        private static bool _crashReportingSet = false;
         
         public BuddyClient(string appid, string appkey, BuddyClientFlags flags = BuddyClientFlags.Default)
         {
@@ -88,6 +90,11 @@ namespace BuddySDK
 
             LoadState ();
             UpdateAccessLevel();
+
+            if (flags.HasFlag (BuddyClientFlags.AutoCrashReport)) {
+                InitCrashReporting ();
+            }
+
         }
 
 
@@ -241,8 +248,26 @@ namespace BuddySDK
             return userSetting ?? setting ?? WebServiceUrl;
         }
 
+        private void InitCrashReporting() {
 
-        internal Task<BuddyResult<T>> CallServiceMethod<T>(string verb, string path, object parameters = null) {
+            if (!_crashReportingSet) {
+
+                _crashReportingSet = true;
+                AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
+                    var ex = e.ExceptionObject as Exception;
+
+                    // need to do this synchrously or the OS won't wait for us.
+                    var t = Buddy.Instance.AddCrashReportAsync (ex);
+                   
+                    // wait up to a second to let it go out
+                    t.Wait(TimeSpan.FromSeconds(2));
+
+                };
+            }
+
+        }
+
+        internal Task<BuddyResult<T>> CallServiceMethod<T>(string verb, string path, object parameters = null, bool allowThrow = true) {
 
 
             return Task.Run<BuddyResult<T>> (() => {
@@ -281,7 +306,7 @@ namespace BuddySDK
                         tsc.TrySetResult(r);
                     });
 
-                    if (tsc.Task.Result) {
+                    if (tsc.Task.Result && allowThrow) {
                         throw buddyException;
                     }
 
@@ -312,16 +337,15 @@ namespace BuddySDK
             } else {
                 r1 = await CallServiceMethod<T1> (verb, path, parameters);
 
-                if (r1.IsSuccess) {
-
-                    if (map == null) {
-                        map = (t1) => {
-                            return (T2)(object)r1.Value;
-                        };
-                    }
-
-                    r2 = r1.Convert<T2> (map);
+               
+                if (map == null) {
+                    map = (t1) => {
+                        return (T2)(object)r1.Value;
+                    };
                 }
+
+                r2 = r1.Convert<T2> (map);
+
             }
 
             if (completed != null) {
@@ -712,11 +736,11 @@ namespace BuddySDK
                 try {
                     var r = CallServiceMethod<string>(
                         "POST", 
-                        "/devices/current/crashreport", 
+                        "/devices/current/crashreports", 
                             new {
                                 stackTrace = ex.ToString(),
                                 message = message
-                            });
+                        }, allowThrow:false);
                     return r.Result.Convert(s => true);
                 }
                 catch {

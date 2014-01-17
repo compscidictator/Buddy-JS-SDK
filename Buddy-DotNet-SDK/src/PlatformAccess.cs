@@ -30,6 +30,8 @@ namespace BuddySDK
 {
     public abstract class PlatformAccess
     {
+        private int? _uiThreadId;
+
 
         public enum NetworkConnectionType {
             None,
@@ -58,6 +60,13 @@ namespace BuddySDK
             set {
                 SetActivityInternal (value);
             }
+        }
+
+        protected PlatformAccess() {
+
+            InvokeOnUiThread (() => {
+                _uiThreadId = Thread.CurrentThread.ManagedThreadId;
+            });
         }
 
         protected virtual void OnShowActivity(bool show) {
@@ -117,7 +126,28 @@ namespace BuddySDK
 
         // platform
         //
-        public abstract void InvokeOnUiThread(Action a);
+
+        public bool IsUiThread {
+            get {
+
+
+                return 
+                    !Thread.CurrentThread.IsThreadPoolThread && 
+                    !Thread.CurrentThread.IsBackground &&
+                    Thread.CurrentThread.ManagedThreadId == _uiThreadId.GetValueOrDefault ();
+            }
+        }
+
+        protected abstract void InvokeOnUiThreadCore (Action a);
+
+        public void InvokeOnUiThread(Action a) {
+
+            if (IsUiThread) {
+                a ();
+            } else {
+                InvokeOnUiThreadCore (a);
+            }
+        }
 
 
 
@@ -273,7 +303,7 @@ namespace BuddySDK
 			editor.Commit ();
         }
 
-        public override void InvokeOnUiThread(Action a)
+        protected override void InvokeOnUiThreadCore(Action a)
 		{
 			// SynchronizationContext can't be cached
 			if (SynchronizationContext.Current != null)
@@ -395,7 +425,7 @@ namespace BuddySDK
         }
 
 
-        public override void InvokeOnUiThread (Action a)
+        protected override void InvokeOnUiThreadCore(Action a)
         {
            
             NSAction nsa = () => {
@@ -843,7 +873,7 @@ namespace BuddySDK
 
         private SynchronizationContext _context;
 
-        public override void InvokeOnUiThread(Action a)
+        protected override void InvokeOnUiThreadCore(Action a)
         {
             if (_context != null)
             {
