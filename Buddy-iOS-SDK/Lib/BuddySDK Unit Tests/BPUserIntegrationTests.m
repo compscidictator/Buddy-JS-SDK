@@ -105,12 +105,15 @@ describe(@"BPUser", ^{
             }];
         });
         
-        pending_(@"Should allow the user to logout", ^{
-            [[Buddy user] removeIdentityValue:@"SomeValue" callback:^(NSError *error) {
-                [[Buddy user] deleteMe:^(NSError *error){
-#pragma messsage("TODO - Check error when I implement them. Ensure error exists for logged out user.")
-                }];
+        it(@"Should allow the user to logout", ^{
+            __block BOOL done = NO;
+            [[Buddy user] logout:^(NSError *error) {
+                [[error should] beNil];
+                done = YES;
             }];
+            
+            [[expectFutureValue(theValue(done)) shouldEventually] beYes];
+
         });
         
 

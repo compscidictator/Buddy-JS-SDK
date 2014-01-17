@@ -88,10 +88,10 @@ static NSString *users = @"users";
 
 - (void)logout:(BuddyCompletionCallback)callback
 {
-    NSString *resource = @"users/logout";
+    NSString *resource = @"users/me/logout";
     
     [[[BPSession currentSession] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
-        callback(nil);
+        callback(error);
     }];
 }
 

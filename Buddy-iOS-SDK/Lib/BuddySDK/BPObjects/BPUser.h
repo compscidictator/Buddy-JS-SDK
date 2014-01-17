@@ -73,5 +73,6 @@ typedef NS_ENUM(NSInteger, BPUserRelationshipStatus)
 - (void)removeIdentityValue:(NSString *)identityValue callback:(BuddyCompletionCallback)callback;
 - (void)setUserProfilePicture:(BuddyCompletionCallback)callback;
 - (void)deleteUserProfilePicture:(BuddyCompletionCallback)callback;
+- (void)logout:(BuddyCompletionCallback)callback;
 
 @end
