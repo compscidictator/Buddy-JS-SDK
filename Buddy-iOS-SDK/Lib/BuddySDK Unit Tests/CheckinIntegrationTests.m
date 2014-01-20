@@ -66,7 +66,7 @@ describe(@"BPCheckinIntegrationSpec", ^{
         
         it(@"Should allow you to retrieve a specific checkin.", ^{
             __block BPCheckin *retrievedCheckin;
-            [BPCheckin queryFromServerWithId:tempCheckinId callback:^(BPCheckin *newBuddyObject, NSError *error) {
+            [BPCheckin queryFromServerWithId:tempCheckinId session:nil callback:^(BPCheckin *newBuddyObject, NSError *error) {
                 retrievedCheckin = newBuddyObject;
             }];
 

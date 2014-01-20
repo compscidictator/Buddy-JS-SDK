@@ -8,6 +8,8 @@
 
 #import "BuddyObject.h"
 #import "BuddyObject+Private.h"
+#import "BPSession.h"
+
 #import "JAGPropertyConverter.h"
 #import "BPSession.h"
 #import "BPCoordinate.h"
@@ -20,7 +22,11 @@
 
 @end
 
+
 @implementation BuddyObject
+
+@synthesize session=_session;
+
 
 #pragma mark - Initializers
 
@@ -32,27 +38,41 @@
     }
 }
 
-- (instancetype)initBuddy
+
+- (instancetype)initBuddyWithSession:(BPSession*)session
 {
     self = [super init];
     if(self)
     {
+        _session=session;
         [self registerProperties];
     }
     return self;
 }
 
-- (instancetype)initBuddyWithResponse:(id)response
+- (instancetype)initBuddyWithResponse:(id)response andSession:(BPSession*)session
 {
     if (!response) return nil;
     
     self = [super init];
     if(self)
     {
+        _session = session;
         [self registerProperties];
         [[[self class] converter] setPropertiesOf:self fromDictionary:response];
     }
     return self;
+}
+
+-(BPSession*)session
+{
+    if(_session!=nil)
+    {
+        return _session;
+    }
+    
+    return [BPSession currentSession];
+    
 }
 
 - (void)registerProperties
@@ -111,16 +131,16 @@
 
 #pragma mark CRUD
 
-+(void)createFromServerWithParameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback
++(void)createFromServerWithParameters:(NSDictionary *)parameters session:(BPSession*)session callback:(BuddyObjectCallback)callback
 {
-    [[[BPSession currentSession] restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
+    [[session restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
         
         if (error) {
             callback(nil, error);
             return;
         }
         
-        BuddyObject *newObject = [[[self class] alloc] initBuddy];
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithSession:session];
 
 #pragma messsage("TODO - Short term hack until response is always an object.")
         if ([json isKindOfClass:[NSDictionary class]]) {
@@ -135,15 +155,15 @@
     }];
 }
 
-+(void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback
++(void)queryFromServerWithId:(NSString *)identifier session:(BPSession*)session callback:(BuddyObjectCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           identifier];
     
-    [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [[session restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
 
-        BuddyObject *newObject = [[[self class] alloc] initBuddy];
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithSession:session];
         newObject.id = json[@"id"];
         
         [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];

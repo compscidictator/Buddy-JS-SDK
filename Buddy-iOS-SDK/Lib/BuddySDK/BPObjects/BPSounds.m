@@ -11,9 +11,9 @@
 
 @implementation BPSounds
 
-- (id)initBuddy
+- (id)initBuddyWithSession:(BPSession *)session
 {
-    self = [super initBuddy];
+    self = [super initBuddyWithSession:session];
     if(self)
     {
     }

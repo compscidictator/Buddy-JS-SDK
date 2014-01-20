@@ -13,8 +13,8 @@
 
 @implementation BPCheckinCollection
 
--(instancetype)init{
-    self = [super init];
+-(instancetype)initWithSession:(BPSession*)session{
+    self = [super initWithSession:session];
     if(self){
         self.type = [BPCheckin class];
     }
@@ -29,7 +29,7 @@
                                  @"description": description,
                                  @"location": @"1.2, 3.4"};
     
-    [BPCheckin createFromServerWithParameters:parameters callback:callback];
+    [BPCheckin createFromServerWithParameters:parameters session:self.session callback:callback];
 }
 
 -(void)checkinWithComment:(NSString *)comment

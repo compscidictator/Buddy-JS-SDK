@@ -14,6 +14,6 @@
 @property (nonatomic, copy) NSString *signedUrl;
 //@property (nonatomic, copy) NSString *size;
 
-+ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback;
++ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters session:(BPSession*)session callback:(BuddyObjectCallback)callback;
 
 @end

@@ -11,8 +11,8 @@
 
 @implementation BPLocation
 
-- (instancetype)initBuddy{
-    self = [super initBuddy];
+- (instancetype)initBuddyWithSession:(BPSession *)session{
+    self = [super initBuddyWithSession:session];
     if(self)
     {
         [self registerProperty:@selector(name)];

@@ -15,6 +15,7 @@
  */
 
 #import "Buddy.h"
+#import "BPClientDelegate.h"
 #import "BuddyObject+Private.h"
 
 /// <summary>
@@ -57,34 +58,37 @@
 }
 
 + (void)initClient:(NSString *)appID
-       appKey:(NSString *)appKey
-          callback:(BuddyCompletionCallback)callback
+            appKey:(NSString *)appKey
+            callback:(BuddyCompletionCallback)callback
 {
+    
 	[Buddy initClient:appID
-          appKey:appKey
- autoRecordDeviceInfo:NO
-   autoRecordLocation:NO
-          withOptions:nil
-             callback:callback];
+            appKey:appKey
+            autoRecordDeviceInfo:NO
+            autoRecordLocation:NO
+            withOptions:nil
+            callback:callback];
 }
 
 + (void) initClient:(NSString *)appID
-             appKey:(NSString *)appKey
-        withOptions:(NSDictionary *)options
-           callback:(BuddyCompletionCallback)callback
+            appKey:(NSString *)appKey
+            withOptions:(NSDictionary *)options
+            callback:(BuddyCompletionCallback)callback
+
 {
     [[BPSession currentSession] setupWithApp:appID
-                                     appKey:appKey
-                                      options:options
-                                  callback:callback];
+            appKey:appKey
+            options:options
+            delegate:nil
+            callback:callback];
 }
 
-+ (void)   initClient:(NSString *)appID
-          appKey:(NSString *)appKey
- autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
-   autoRecordLocation:(BOOL)autoRecordLocation
-          withOptions:(NSDictionary *)options
-             callback:(BuddyCompletionCallback)callback
++ (void) initClient:(NSString *)appID
+            appKey:(NSString *)appKey
+            autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
+            autoRecordLocation:(BOOL)autoRecordLocation
+            withOptions:(NSDictionary *)options
+            callback:(BuddyCompletionCallback)callback
 {
     
     NSDictionary *defaultOptions = @{@"autoRecordLocation": @(autoRecordLocation),
@@ -94,14 +98,18 @@
     // TODO - merge options
     
     [[BPSession currentSession] setupWithApp:appID
-                                    appKey:appKey
-                                   options:combined
-                                  callback:callback];
+            appKey:appKey
+            options:combined
+            delegate:nil
+            callback:callback];
 }
 
 #pragma mark User
 
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback
++ (void)createUser:(NSString *)username
+                    password:(NSString *)password
+                    options:(NSDictionary *)options
+                    callback:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password };
@@ -109,46 +117,17 @@
     parameters = [NSDictionary dictionaryByMerging:parameters with:options];
     
     // On BPUser for now for consistency. Probably will move.
-    [BPUser createFromServerWithParameters:parameters callback:callback];
+    [BPUser createFromServerWithParameters:parameters session:[BPSession currentSession] callback:callback];
 }
 
 + (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback
 {
-    [[BPSession currentSession] login:username password:password success:^(id json, NSError *error) {
-        
-        if(error) {
-            callback(nil, error);
-            return;
-        }
-        
-        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json];
-        user.isMe = YES;
-        
-        [user refresh:^(NSError *error){
-#pragma messsage("TODO - Error")
-            [[BPSession currentSession] initializeCollectionsWithUser:user];
-            callback ? callback(user, nil) : nil;
-        }];
-    }];
+    [[BPSession currentSession] login:username password:password callback:callback  ];
+     
 }
 
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 {
-    [[BPSession currentSession] socialLogin:provider providerId:providerId token:token success:^(id json, NSError *error) {
-
-        if (error) {
-            if (callback)
-                callback(nil, error);
-            return;
-        }
-        
-        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json];
-        user.isMe = YES;
-
-        [user refresh:^(NSError *error){
-            callback ? callback(user, error) : nil;
-        }];
-    }];
+    [[BPSession currentSession] socialLogin:provider providerId:providerId token:token success:callback];
 }
-
 @end

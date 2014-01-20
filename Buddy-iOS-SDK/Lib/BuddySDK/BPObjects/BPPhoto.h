@@ -14,6 +14,9 @@
 @property (nonatomic, copy) NSString *comment;
 //@property (nonatomic, assign) CGSize size;
 
-+ (void)createWithImage:(UIImage *)image andComment:(NSString *)comment callback:(BuddyObjectCallback)callback;
++ (void)createWithImage:(UIImage *)image
+                andComment:(NSString *)comment
+                session:(BPSession*)session
+                callback:(BuddyObjectCallback)callback;
 
 @end

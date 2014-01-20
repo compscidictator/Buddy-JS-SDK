@@ -8,6 +8,8 @@
 
 #import <Foundation/Foundation.h>
 
+@class BPSession;
+
 /**
  Permissions scope for Buddy objects.
  */
@@ -23,8 +25,11 @@ typedef NS_ENUM(NSInteger, BuddyPermissions){
 typedef void (^BuddyObjectCallback)(id newBuddyObject, NSError *error);
 typedef void (^BuddyCompletionCallback)(NSError *error);
 
+@class BPSession;
 
 @interface BuddyObject : NSObject
+
+@property (nonatomic, readonly, strong) BPSession* session;
 
 @property (nonatomic, readonly, assign) BOOL isDirty;
 @property (nonatomic, strong) NSDate *created;
@@ -37,8 +42,8 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 
 + (NSString *)requestPath;
 
-+ (void)createFromServerWithParameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback;
-+ (void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback;
++ (void)createFromServerWithParameters:(NSDictionary *)parameters session:(BPSession*)session callback:(BuddyObjectCallback)callback;
++ (void)queryFromServerWithId:(NSString *)identifier session:(BPSession*)session callback:(BuddyObjectCallback)callback;
 - (void)deleteMe:(BuddyCompletionCallback)callback;
 - (void)deleteMe;
 - (void)refresh;

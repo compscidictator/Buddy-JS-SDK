@@ -11,7 +11,7 @@
 
 @interface BPCheckin : BuddyObject
 
-+(instancetype)checkin;
+//+(instancetype)checkin;
 
 @property (nonatomic, copy) NSString *comment;
 @property (nonatomic, copy) NSString *description;

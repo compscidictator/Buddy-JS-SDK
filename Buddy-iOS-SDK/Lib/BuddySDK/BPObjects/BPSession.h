@@ -7,7 +7,10 @@
 //
 
 #import <Foundation/Foundation.h>
+
+
 #import "BPRestProvider.h"
+#import "BPClientDelegate.h"
 #import "BuddyCollection.h" // TODO - remove dependency
 
 @class BuddyDevice;
@@ -100,6 +103,9 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// </summary>
 @property (nonatomic, readonly, strong) BPUser *user;
 
+// Move to anon category?
+@property (nonatomic,weak) id<BPClientDelegate> delegate;
+
 /// <summary>
 /// Singleton instance of the client.
 /// </summary>
@@ -108,14 +114,21 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 @property (nonatomic, readonly, strong) id <BPRestProvider> restService;
 /// TODO
--(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(BuddyCompletionCallback)callback;
+-(void)setupWithApp:(NSString *)appID
+                appKey:(NSString *)appKey
+                options:(NSDictionary *)options
+                delegate:(id<BPClientDelegate>) delegate
+                callback:(BuddyCompletionCallback)callback;
 
-- (void)login:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
+// TODO: Make this private ?
+- (void) raiseAuthError;
+
+- (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
+
 - (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
+
 - (void)ping:(BPPingCallback)callback;
 
-#pragma message("TODO - Remove this from .h once user creation responsibility is off Buddy.m")
-- (void)initializeCollectionsWithUser:(BPUser *)user;
 
 @end
 

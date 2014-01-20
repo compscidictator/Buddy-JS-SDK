@@ -11,8 +11,8 @@
 
 @implementation BPCheckin
 
--(instancetype)initBuddy{
-    self = [super initBuddy];
+-(instancetype)initBuddyWithSession:(BPSession *)session{
+    self = [super initBuddyWithSession:session];
     if(self)
     {
         [self registerProperty:@selector(comment)];
@@ -21,10 +21,13 @@
     return self;
 }
 
+/*
 +(instancetype)checkin
 {
-    return [[[self class] alloc] initBuddy];
+    return nil;
+    // TODO return [[[self class] alloc] initBuddyWithSession: self.session];
 }
+*/
 
 static NSString *checkins = @"checkins";
 +(NSString *) requestPath{

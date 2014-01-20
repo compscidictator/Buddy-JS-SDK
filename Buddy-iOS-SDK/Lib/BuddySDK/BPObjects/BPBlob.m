@@ -12,9 +12,9 @@
 
 @implementation BPBlob
 
-- (id)initBuddy
+- (id)initBuddyWithSession:(BPSession*)session;
 {
-    self = [super initBuddy];
+    self = [super initBuddyWithSession:session];
     if(self)
     {
 
@@ -27,15 +27,16 @@ static NSString *blobs = @"blobs";
     return blobs;
 }
 
-+ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback
++ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters session:(BPSession*)session callback:(BuddyObjectCallback)callback
+
 {
     NSDictionary *multipartParameters = @{@"data": data};
     
-    [[[BPSession currentSession] restService] MULTIPART_POST:[[self class] requestPath]
+    [[session restService] MULTIPART_POST:[[self class] requestPath]
                                                 parameters:parameters data:multipartParameters
                                                   callback:^(id json, NSError *error) {
 
-        BuddyObject *newObject = [[[self class] alloc] initBuddy];
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithSession:session];
 
 #pragma messsage("TODO - Short term hack until response is always an object.")
         if([json isKindOfClass:[NSDictionary class]]){

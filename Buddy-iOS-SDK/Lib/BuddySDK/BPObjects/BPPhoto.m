@@ -11,9 +11,9 @@
 
 @implementation BPPhoto
 
-- (id)initBuddy
+- (id)initBuddyWithSession:(BPSession *)session
 {
-    self = [super initBuddy];
+    self = [super initBuddyWithSession:session];
     if(self)
     {
         [self registerProperty:@selector(caption)];
@@ -26,13 +26,16 @@ static NSString *photos = @"pictures";
     return photos;
 }
 
-+ (void)createWithImage:(UIImage *)image andComment:(NSString *)comment callback:(BuddyObjectCallback)callback;
++ (void)createWithImage:(UIImage *)image
+                    andComment:(NSString *)comment
+                    session:(BPSession*)session
+                    callback:(BuddyObjectCallback)callback;
 {
     NSData *data = UIImagePNGRepresentation(image);
 
     id parameters = @{@"comment": comment};
     
-    [self createWithData:data parameters:parameters callback:^(id newBuddyObject, NSError *error) {
+    [self createWithData:data parameters:parameters session:session callback:^(id newBuddyObject, NSError *error) {
 #pragma message("TODO - Error")
         callback(newBuddyObject, nil);
     }];

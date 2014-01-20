@@ -17,9 +17,9 @@
 
 @implementation BPUser
 
-- (instancetype)initBuddyWithResponse:(id)response
+- (instancetype)initBuddyWithResponse:(id)response andSession:(BPSession*)session;
 {
-    self = [super initBuddyWithResponse:response];
+    self = [super initBuddyWithResponse:response andSession:session];
     if(self)
     {
         [self registerProperty:@selector(firstName)];
@@ -90,7 +90,7 @@ static NSString *users = @"users";
 {
     NSString *resource = @"users/me/logout";
     
-    [[[BPSession currentSession] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
+    [[[self session] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
         callback(error);
     }];
 }
@@ -103,7 +103,7 @@ static NSString *users = @"users";
     NSDictionary *parameters = @{@"UserName": self.userName};
                                  
 
-    [[[BPSession currentSession] restService] POST:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[self session] restService] POST:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json, nil);
     }];
 }
@@ -115,7 +115,7 @@ static NSString *users = @"users";
                                  @"ResetCode": resetCode,
                                  @"NewPassword": newPassword};
     
-    [[[BPSession currentSession] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[self session] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(nil);
     }];
 }
@@ -127,7 +127,7 @@ static NSString *users = @"users";
     NSString *resource = @"users/identity";
     NSDictionary *parameters = @{@"Identity": identityValue};
     
-    [[[BPSession currentSession] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[self session] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json);
     }];
 }
@@ -137,7 +137,7 @@ static NSString *users = @"users";
     NSString *resource = [@"users/identity/" stringByAppendingString:identityValue];
     NSDictionary *parameters = @{@"Identity": identityValue};
     
-    [[[BPSession currentSession] restService] DELETE:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[self session] restService] DELETE:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json);
     }];
 }
@@ -151,7 +151,7 @@ static NSString *users = @"users";
 
     NSDictionary *data = @{@"data": UIImagePNGRepresentation(picture)};
     
-    [[[BPSession currentSession] restService] MULTIPART_POST:resource parameters:parameters data:data callback:^(id json, NSError *error) {
+    [[[self session] restService] MULTIPART_POST:resource parameters:parameters data:data callback:^(id json, NSError *error) {
 #pragma message ("Return the actual image?")
         callback(error);
     }];
@@ -161,7 +161,7 @@ static NSString *users = @"users";
 {
     NSString *resource = [NSString stringWithFormat:@"user/%@/profilepicture", self.id];
     
-    [[[BPSession currentSession] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
+    [[[self session] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
         callback(error);
     }];
 }

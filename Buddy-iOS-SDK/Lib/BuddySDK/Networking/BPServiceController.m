@@ -10,22 +10,33 @@
 #import "AFNetworking.h"
 #import "BuddyDevice.h"
 #import "NSError+BuddyError.h"
+#import "BPSession.h"
 
 typedef void (^AFFailureCallback)(AFHTTPRequestOperation *operation, NSError *error);
 typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id responseObject);
 
+
 @interface BPServiceController()
+
+- (AFFailureCallback) handleFailure:(RESTCallback)callback;
+- (AFSuccessCallback) handleSuccess:(RESTCallback)callback;
+
+
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @property (nonatomic, strong) NSString *token;
+@property (nonatomic, strong) BPSession *session;
+
 @end
 
 @implementation BPServiceController
 
 - (instancetype)initWithBuddyUrl:(NSString *)url
+                    session:(BPSession*)session
 {
     self = [super init];
     if(self)
     {
+        _session = session;
         [self setupManagerWithBaseUrl:url withToken:nil];
 
     }
@@ -70,8 +81,11 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
     }
 }
 
-- (void)setAppID:(NSString *)appID withKey:(NSString *)appKey callback:(RESTCallback)callback
+- (void)setAppID:(NSString *)appID
+                withKey:(NSString *)appKey
+                callback:(RESTCallback)callback
 {
+    
     NSDictionary *getTokenParams = @{
                                      @"appId": appID,
                                      @"appKey": appKey,
@@ -135,8 +149,6 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                  failure:[self handleFailure:callback]];
 }
 
-#pragma mark Response Handlers
-
 - (AFSuccessCallback) handleSuccess:(RESTCallback)callback
 {
     return ^(AFHTTPRequestOperation *operation, id responseObject){
@@ -154,32 +166,46 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         //        + (NSError *)tokenExpiredError:(NSInteger)code;
         //        + (NSError *)badDataError:(NSInteger)code;
         
+        BOOL authError=FALSE;
+        
+        NSLog (@"Framework: handleFailure");
+        
         NSInteger responseCode = operation.response.statusCode;
         
         NSError *buddyError;
+        
+        NSString *responseString=@"Unknown";
+        if ((operation.responseString!=nil) && ([operation.responseString length]> 0))
+        {
+            responseString =operation.responseString;
+        }
         switch (responseCode) {
             case 400:
-                buddyError = [NSError badDataError:error.code message:operation.responseString];
+                buddyError = [NSError badDataError:error.code message:responseString];
                 break;
             case 403:
+                authError=TRUE;
                 if (YES) {
-                    buddyError = [NSError noAuthenticationError:error.code message:operation.responseString];
+                    buddyError = [NSError noAuthenticationError:error.code message:responseString];
                 } else {
                     // TODO - figure out how to determing token expired.
-                    buddyError = [NSError tokenExpiredError:error.code message:operation.responseString];
+                    buddyError = [NSError tokenExpiredError:error.code message:responseString];
                 }
                 break;
             case 500:
-                buddyError = [NSError badDataError:error.code message:operation.responseString];
+                buddyError = [NSError badDataError:error.code message:responseString];
                 break;
             default:
-                buddyError = [NSError noInternetError:error.code message:operation.responseString];
+                buddyError = [NSError noInternetError:error.code message:responseString];
                 break;
         }
         
         callback(nil, buddyError);
+        if( authError)
+        {
+            [self.session raiseAuthError];
+        }
     };
 }
-
 
 @end

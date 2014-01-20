@@ -12,6 +12,28 @@
 
 @implementation BuddyCollection
 
+@synthesize session=_session;
+
+-(instancetype)initWithSession:(BPSession*)session
+{
+    self = [super init];
+    if(self)
+    {
+        _session = session;
+    }
+    return self;
+}
+
+-(BPSession*)session
+{
+    if(_session!=nil)
+    {
+        return _session;
+    }
+    
+    return [BPSession currentSession];
+}
+
 -(void)getAll:(BuddyCollectionCallback)callback
 {
     [self search:nil callback:callback];
@@ -21,7 +43,7 @@
 {
     [[[BPSession currentSession] restService] GET:[[self type] requestPath] parameters:searchParmeters callback:^(id json, NSError *error) {
         NSArray *results = [json[@"pageResults"] map:^id(id object) {
-            return [[self.type alloc] initBuddyWithResponse:object];
+            return [[self.type alloc] initBuddyWithResponse:object andSession:self.session];
         }];
         callback(results, error);
     }];
@@ -34,7 +56,7 @@
                           identifier];
     
     [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
-        id buddyObject = [[self.type alloc] initBuddyWithResponse:json];
+        id buddyObject = [[self.type alloc] initBuddyWithResponse:json andSession:self.session];
         callback(buddyObject, error);
     }];
 }

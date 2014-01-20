@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
+#import "BPClientDelegate.h"
 #import "BuddyDevice.h"
 #import "BPSession.h"
 #import "BPCheckin.h"
@@ -44,23 +45,28 @@
 
 + (void)initClient:(NSString *)appID
             appKey:(NSString *)appKey
-          callback:(BuddyCompletionCallback)callback;
+            callback:(BuddyCompletionCallback)callback;
 
 + (void) initClient:(NSString *)appID
-             appKey:(NSString *)appKey
-        withOptions:(NSDictionary *)options
-           callback:(BuddyCompletionCallback)callback;
+            appKey:(NSString *)appKey
+            withOptions:(NSDictionary *)options
+            callback:(BuddyCompletionCallback)callback;
+
 
 + (void)   initClient:(NSString *)appID
-               appKey:(NSString *)appKey
- autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
-   autoRecordLocation:(BOOL)autoRecordLocation
-          withOptions:(NSDictionary *)options
-             callback:(BuddyCompletionCallback)callback;
+            appKey:(NSString *)appKey
+            autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
+            autoRecordLocation:(BOOL)autoRecordLocation
+            withOptions:(NSDictionary *)options
+            callback:(BuddyCompletionCallback)callback;
+
 
 
 // TODO - document options
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback;
++ (void)createUser:(NSString *)username
+                    password:(NSString *)password
+                    options:(NSDictionary *)options
+                    callback:(BuddyObjectCallback)callback;
 
 + (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
 

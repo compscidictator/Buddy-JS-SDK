@@ -12,8 +12,8 @@
 
 @implementation BPLocationCollection
 
--(instancetype)init{
-    self = [super init];
+-(instancetype)initWithSession:(BPSession*)session{
+    self = [super initWithSession:session];
     if(self){
         self.type = [BPLocation class];
     }
@@ -37,7 +37,7 @@
 {
     NSDictionary *parameters = @{};
     
-    [[[self type] class] createFromServerWithParameters:parameters callback:callback];
+    [[[self type] class] createFromServerWithParameters:parameters session:self.session callback:callback];
 }
 
 

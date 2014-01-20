@@ -11,8 +11,8 @@
 
 @implementation BPBlobCollection
 
--(instancetype)init{
-    self = [super init];
+-(instancetype)initWithSession:(BPSession*)session{
+    self = [super initWithSession:session];
     if(self){
         self.type = [BPBlob class];
     }
@@ -22,7 +22,7 @@
 - (void)addBlob:(NSData *)data
         callback:(BuddyObjectCallback)callback
 {
-    [BPBlob createWithData:data parameters:nil callback:callback];
+    [BPBlob createWithData:data parameters:nil session:self.session callback:callback ];
 }
 
 -(void)getBlobs:(BuddyCollectionCallback)callback

@@ -16,15 +16,26 @@
 #import "BPPhotoCollection.h"
 #import "BPBlobCollection.h"
 #import "BPRestProvider.h"
+#import "BPUser.h"
+#import "BuddyObject+Private.h"
+
 #import <CoreFoundation/CoreFoundation.h>
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
+
+
 @interface BPSession()
 @property (nonatomic, strong) BPServiceController *service;
+
+- (void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
+- (void)socialLoginWorker:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
+- (void)initializeCollectionsWithUser:(BPUser *)user;
 @end
 
 @implementation BPSession
+
+@synthesize user=_user;
 
 #pragma mark Initializer
 
@@ -41,13 +52,22 @@
 - (void)initializeCollectionsWithUser:(BPUser *)user
 {
     _user = user;
+    /*
     _checkins = [BPCheckinCollection new];
     _photos = [BPPhotoCollection new];
     _blobs = [BPBlobCollection new];
-
+     */
+    _checkins = [[BPCheckinCollection alloc] initWithSession:self];
+    _photos = [[BPPhotoCollection alloc] initWithSession:self];
+    _blobs = [[BPBlobCollection alloc] initWithSession:self];
 }
 
--(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(BuddyCompletionCallback)callback
+-(void)setupWithApp:(NSString *)appID
+                appKey:(NSString *)appKey
+                options:(NSDictionary *)options
+                delegate:(id<BPClientDelegate>) delegate
+                callback:(BuddyCompletionCallback)callback
+
 {
     
 #if DEBUG
@@ -56,7 +76,7 @@
     NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
 #endif
 
-    self.service = [[BPServiceController alloc] initWithBuddyUrl:serviceUrl];
+    self.service = [[BPServiceController alloc] initWithBuddyUrl:serviceUrl session:self];
     
     // TODO - Does the client need a copy? Do users need to read back key/id?
     _appKey = appKey;
@@ -88,8 +108,23 @@
 #pragma mark BuddyObject
 
 
+-(void) setUser:(BPUser*) user
+{
+    _user=user;
+}
 
--(void)login:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback
+-(BPUser*) user
+{
+    if(_user==nil)
+    {
+        [self raiseAuthError];
+    }
+    return _user;
+}
+
+
+
+-(void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password};
@@ -98,7 +133,7 @@
     }];
 }
 
--(void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback
+-(void)socialLoginWorker:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback
 {
     NSDictionary *parameters = @{@"identityProviderName": provider,
                                  @"identityId": providerId,
@@ -109,6 +144,52 @@
     }];
 }
 
+- (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback
+{
+    [self loginWorker:username password:password success:^(id json, NSError *error) {
+        
+        if(error) {
+            callback(nil, error);
+            return;
+        }
+        
+        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andSession:self];
+        user.isMe = YES;
+        [self initializeCollectionsWithUser:user];
+        
+        // TEMP
+        callback(user, nil);
+        
+        /*
+         [user refresh:^(NSError *error){
+         #pragma messsage("TODO - Error")
+         [self initializeCollectionsWithUser:user];
+         callback ? callback(user, nil) : nil;
+         }];*/
+        
+    }];
+}
+
+- (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
+{
+    [self socialLogin:provider providerId:providerId token:token success:^(id json, NSError *error) {
+        
+        if (error) {
+            if (callback)
+                callback(nil, error);
+            return;
+        }
+        
+        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andSession:self];
+        user.isMe = YES;
+        
+        [user refresh:^(NSError *error){
+            callback ? callback(user, error) : nil;
+        }];
+    }];
+}
+
+
 #pragma mark Non-BuddyObject Requests
 
 -(void)ping:(BPPingCallback)callback
@@ -116,6 +197,29 @@
     [self.service GET:@"ping" parameters:nil callback:^(id json, NSError *error) {
         callback ? callback([NSDecimalNumber decimalNumberWithString:@"2.0"]) : nil;
     }];
+}
+
+#pragma mark Response Handlers
+
+
+-(void) raiseAuthError
+{
+    id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
+    
+    if (self.delegate==nil)
+    {
+        if ( (app!=nil) &&[ app respondsToSelector:@selector(authorizationFailed)])
+        {
+            [app performSelector:@selector(authorizationFailed)];
+        }
+    }
+    else
+    {
+        if ([self.delegate respondsToSelector:@selector(authorizationFailed)])
+        {
+            [self.delegate authorizationFailed];
+        }
+    }
 }
 
 

@@ -14,8 +14,8 @@
 
 @implementation BPPhotoCollection
 
--(instancetype)init{
-    self = [super init];
+-(instancetype)initWithSession:(BPSession*)session{
+    self = [super initWithSession:session];
     if(self){
         self.type = [BPPhoto class];
     }
@@ -26,7 +26,7 @@
      withComment:(NSString *)comment
         callback:(BuddyObjectCallback)callback
 {
-    [[self type] createWithImage:photo andComment:comment callback:callback];
+    [[self type] createWithImage:photo andComment:comment session:self.session callback:callback];
 }
 
 
