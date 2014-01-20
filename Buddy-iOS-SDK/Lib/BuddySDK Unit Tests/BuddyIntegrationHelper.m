@@ -28,9 +28,7 @@
                 callback();
             else {
                 [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {
-                    [Buddy login:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
-                        callback();
-                    }];
+                    callback();
                 }];
             }
         }];
