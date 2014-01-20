@@ -68,11 +68,6 @@ static NSString *users = @"users";
     return users;
 }
 
-- (NSString *)id
-{
-    return [self isMe] ? @"me" : [super id];
-}
-
 -(NSInteger)age
 {
     NSCalendar *calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
