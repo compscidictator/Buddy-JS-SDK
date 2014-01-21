@@ -34,10 +34,29 @@ describe(@"BPUser", ^{
         it(@"Should be allow modifying and saving", ^{
         
             NSDate *randomDate = [BuddyIntegrationHelper randomDate];
-            NSString *randomName = [BuddyIntegrationHelper randomString:10];
+            NSLog(@"Created New Random Date for DOB: %@",randomDate);
+            
+            NSString *randomNameFirst = [BuddyIntegrationHelper randomString:10];
+            NSLog(@"Created New Random First Name: %@",randomNameFirst);
+            
+            NSString *randomNameLast = [BuddyIntegrationHelper randomString:10];
+            NSLog(@"Created New Random Last Name: %@",randomNameLast);
 
+            if ([Buddy user]==nil)
+            {
+                NSLog(@"Buddy User is nil");
+            }
+            
+            NSLog(@"Initial DOB: %@", [Buddy user].dateOfBirth);
+            NSLog(@"Initial First Name: %@:",[Buddy user].firstName);
+            NSLog(@"Initial Last Name: %@:",[Buddy user].lastName);
+            
             [Buddy user].dateOfBirth = randomDate;
-            [Buddy user].firstName = @"Test";
+            [Buddy user].firstName = randomNameFirst;
+            [Buddy user].lastName = randomNameLast;
+            
+            NSLog(@"New DOB: %@", [Buddy user].dateOfBirth);
+        
             [Buddy user].relationshipStatus = BPUserRelationshipStatusOnTheProwl;
             
             [[Buddy user] save:^(NSError *error) {
@@ -50,12 +69,9 @@ describe(@"BPUser", ^{
                 }];
             }];
             
-            // Hack to set it up to something that will change.
-            [Buddy user].relationshipStatus = BPUserRelationshipStatusMarried;
-            [Buddy user].dateOfBirth = [NSDate date];
-            [Buddy user].firstName = @"Don'tBeThisString";
-
-            [[expectFutureValue([Buddy user].firstName) shouldEventually] equal:randomName];
+            [[expectFutureValue([Buddy user].firstName) shouldEventually] equal:randomNameFirst];
+            [[expectFutureValue([Buddy user].lastName) shouldEventually] equal:randomNameLast];
+            
             [[expectFutureValue([Buddy user].dateOfBirth) shouldEventually] equal:randomDate];
             
             
