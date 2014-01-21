@@ -30,9 +30,16 @@
     [self getAll:callback];
 }
 
-- (BPBlob *)getBlob:(NSInteger)blobId error:(NSError *)error
+- (void)getBlob:(NSString *)blobId callback:(BuddyObjectCallback)callback
 {
-    return nil;
+    [self getItem:blobId callback:callback];
 }
+
+- (void)searchBlobs:(NSDictionary *)parameters callback:(BuddyCollectionCallback)callback
+{
+    [self search:parameters callback:callback];
+}
+
+
 
 @end
