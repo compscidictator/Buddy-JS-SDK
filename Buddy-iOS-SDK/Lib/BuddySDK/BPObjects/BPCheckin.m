@@ -21,14 +21,6 @@
     return self;
 }
 
-/*
-+(instancetype)checkin
-{
-    return nil;
-    // TODO return [[[self class] alloc] initBuddyWithSession: self.session];
-}
-*/
-
 static NSString *checkins = @"checkins";
 +(NSString *) requestPath{
     return checkins;

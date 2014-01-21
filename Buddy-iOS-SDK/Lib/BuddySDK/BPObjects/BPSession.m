@@ -18,6 +18,7 @@
 #import "BPRestProvider.h"
 #import "BPUser.h"
 #import "BuddyObject+Private.h"
+#import "BuddyLocation.h"
 
 #import <CoreFoundation/CoreFoundation.h>
 
@@ -31,6 +32,9 @@
 - (void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
 - (void)socialLoginWorker:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 - (void)initializeCollectionsWithUser:(BPUser *)user;
+
+@property (nonatomic, strong) BuddyLocation *location;
+
 @end
 
 @implementation BPSession
@@ -52,14 +56,11 @@
 - (void)initializeCollectionsWithUser:(BPUser *)user
 {
     _user = user;
-    /*
-    _checkins = [BPCheckinCollection new];
-    _photos = [BPPhotoCollection new];
-    _blobs = [BPBlobCollection new];
-     */
+    
     _checkins = [[BPCheckinCollection alloc] initWithSession:self];
     _photos = [[BPPhotoCollection alloc] initWithSession:self];
     _blobs = [[BPBlobCollection alloc] initWithSession:self];
+    _location = [BuddyLocation new];
 }
 
 -(void)setupWithApp:(NSString *)appID
@@ -71,6 +72,7 @@
 {
     
 #if DEBUG
+    // Annoying nuance of running a unit test "bundle".
     NSString *serviceUrl = [[NSBundle bundleForClass:[self class]] infoDictionary][BuddyServiceURL];
 #else
     NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
@@ -124,6 +126,8 @@
 
 
 
+#pragma mark Login
+
 -(void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback
 {
     NSDictionary *parameters = @{@"username": username,
@@ -155,17 +159,12 @@
         
         BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andSession:self];
         user.isMe = YES;
-        [self initializeCollectionsWithUser:user];
         
-        // TEMP
-        callback(user, nil);
-        
-        /*
-         [user refresh:^(NSError *error){
+        [user refresh:^(NSError *error){
          #pragma messsage("TODO - Error")
          [self initializeCollectionsWithUser:user];
          callback ? callback(user, nil) : nil;
-         }];*/
+         }];
         
     }];
 }
@@ -222,5 +221,20 @@
     }
 }
 
+#pragma mark Location
+
+- (void)setLocationEnabled:(BOOL)locationEnabled
+{
+    _locationEnabled = locationEnabled;
+    [self.location beginTrackingLocation:^(NSError *error) {
+        // TODO - How do we want users to find out if something went wrong
+        // (such as a user slapping the location request)?
+    }];
+}
+
+- (void)didUpdateBuddyLocation:(BPCoordinate *)newLocation
+{
+    _lastLocation = newLocation;
+}
 
 @end

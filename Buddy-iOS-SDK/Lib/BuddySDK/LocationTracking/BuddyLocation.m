@@ -7,15 +7,16 @@
 //
 
 #import "BuddyLocation.h"
+#import "BPCoordinate.h"
 #import <CoreLocation/CoreLocation.h>
 
 @interface BuddyLocation()<CLLocationManagerDelegate>
 
 @property (strong, nonatomic) CLLocationManager *location;
 @property (assign, readwrite, nonatomic) BOOL isTracking;
-@property (copy, nonatomic) void (^success)();
-@property (copy, nonatomic) void (^fail)();
+@property (copy, nonatomic) BuddyCompletionCallback callback;
 
+@property (nonatomic, strong) BPCoordinate *currentCoordinate;
 @end
 
 
@@ -36,16 +37,14 @@
 
 #pragma mark Public interface
 
--(void) beginTrackingLocation:(void (^)())success andFailure:(void(^)())failure
+-(void) beginTrackingLocation:(BuddyCompletionCallback)callback;
 {
-    // Copy the callback.
-    self.success = success;
-    self.fail = failure;
+    self.callback = callback;
     
     if([CLLocationManager authorizationStatus] == kCLAuthorizationStatusDenied ||
        [CLLocationManager authorizationStatus] == kCLAuthorizationStatusRestricted)
     {
-        failure();
+        _callback([NSError errorWithDomain:@"BuddyLocation" code:0 userInfo:@{@"message": @"Location denied."}]);
     }
     else
     {
@@ -84,8 +83,11 @@
 - (void)locationManager:(CLLocationManager *)manager
        didFailWithError:(NSError *)error
 {
-    if(self.fail)
-        self.fail();
+    if(_callback) {
+        _callback([NSError errorWithDomain:@"BuddyLocation" code:0 userInfo:@{@"message": @"Location initialization failed"}]);
+    }
+    
+    _callback = nil;
 }
 
 - (void)locationManager:(CLLocationManager *)manager didChangeAuthorizationStatus:(CLAuthorizationStatus)status
@@ -102,12 +104,27 @@
 
 - (void)locationManagerDidResumeLocationUpdates:(CLLocationManager *)manager
 {
-    if(self.success){
-        self.success();
-        self.success = nil;
-        self.fail = nil;
+    if (_callback){
+        _callback(nil);
+    }
+    _callback = nil;
+}
+
+- (void)locationManager:(CLLocationManager *)manager didUpdateLocations:(NSArray *)locations
+{
+    if (!self.currentCoordinate) {
+        self.currentCoordinate = [BPCoordinate new];
     }
     
+    CLLocation *newLocation = [locations lastObject];
+    CLLocationCoordinate2D coord = newLocation.coordinate;
+    
+    self.currentCoordinate.latitude = coord.latitude;
+    self.currentCoordinate.longitude = coord.longitude;
+    
+    if (self.delegate) {
+        [self.delegate didUpdateBuddyLocation:self.currentCoordinate];
+    }
 }
 
 - (void)locationManager:(CLLocationManager *)manager

@@ -9,6 +9,14 @@
 #import <UIKit/UIKit.h>
 #import "BuddyObject.h"
 
+#define BPUserNameField @"name"
+#define BPUserGenderField @"gender"
+#define BPUserEmailField @"email"
+#define BPUserDateOfBirthField @"dateOfBirth"
+#define BPUserRelationshipStatusField @"relationshipStatus"
+#define BPUserCelebrityModeField @"celebrityMode"
+#define BPUserFuzzLocationField @"fuzzLocation"
+
 /**
  Enum for specifying gender.
  */
