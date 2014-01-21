@@ -355,6 +355,11 @@ namespace BuddySDK
 
         private object ChangeType<T>(object value)
         {
+
+            if (typeof(T).IsInstanceOfType(value)) {
+                return (T)value;
+            }
+
 			var enumType = GetEnumType<T> ();
 
 			if (enumType != null)
@@ -471,15 +476,12 @@ namespace BuddySDK
                     IDictionary<string, object> updateDict = null;
                     if (isNew)
                     {
-                          var r =  Client.CallServiceMethod<string>("POST", Path, d).Result;
+                           var r =  Client.CallServiceMethod<IDictionary<string, object>>("POST", Path, d).Result;
                         
-                          // TODO: Fix this after object-on-create return work
-                          if (r.IsSuccess) {
-
-                          updateDict = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) {
-                                    { "ID", r.Value }
-                          };
-                        }
+                            if (r.IsSuccess) {
+                                updateDict = r.Value;
+                            }
+                        
                         error = r.Error;
                         requestId = r.RequestID;
                     }
