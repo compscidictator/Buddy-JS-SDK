@@ -35,13 +35,13 @@ describe(@"BPUser", ^{
         it(@"Should allow you to create a user.", ^{
             
             __block BPUser *newUser;
-            NSDictionary *options = @{@"name": @"Erik Kerber",
-                                      @"gender": @(BPUserGender_Male),
-                                      @"email": @"erik.kerber@gmail.com",
-                                      @"dateOfBirth": [NSNull null],
-                                      @"relationshipStatus": @(BPUserRelationshipStatusOnTheProwl),
-                                      @"celebrityMode": @(YES),
-                                      @"fuzzLocation": @(NO)
+            NSDictionary *options = @{BPUserNameField: @"Erik Kerber",
+                                      BPUserGenderField: @(BPUserGender_Male),
+                                      BPUserEmailField: @"erik.kerber@gmail.com",
+                                      BPUserDateOfBirthField: [NSNull null],
+                                      BPUserRelationshipStatusField: @(BPUserRelationshipStatusOnTheProwl),
+                                      BPUserCelebrityModeField: @(YES),
+                                      BPUserFuzzLocationField: @(NO)
                                       };
             
             [Buddy createUser:testCreateDeleteName password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {

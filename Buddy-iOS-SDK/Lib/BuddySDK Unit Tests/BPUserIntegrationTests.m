@@ -36,14 +36,10 @@ describe(@"BPUser", ^{
             NSDate *randomDate = [BuddyIntegrationHelper randomDate];
             NSString *randomName = [BuddyIntegrationHelper randomString:10];
 
-            NSLog(@"1111%@", [Buddy user].dateOfBirth);
-
             [Buddy user].dateOfBirth = randomDate;
             [Buddy user].firstName = @"Test";
             [Buddy user].relationshipStatus = BPUserRelationshipStatusOnTheProwl;
             
-            NSLog(@"2222%@", randomDate);
-
             [[Buddy user] save:^(NSError *error) {
                 if (error) {
                     fail(@"Save was unsuccessful");
