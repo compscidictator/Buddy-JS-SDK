@@ -16,12 +16,13 @@
 #import "BPPhotoCollection.h"
 #import "BPBlobCollection.h"
 #import "BPRestProvider.h"
-#import <CoreFoundation/CoreFoundation.h>
+#import "BuddyLocation.h"
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
-@interface BPSession()
+@interface BPSession() <BuddyLocationDelegate>
 @property (nonatomic, strong) BPServiceController *service;
+@property (nonatomic, strong) BuddyLocation *location;
 @end
 
 @implementation BPSession
@@ -44,13 +45,14 @@
     _checkins = [BPCheckinCollection new];
     _photos = [BPPhotoCollection new];
     _blobs = [BPBlobCollection new];
-
+    _location = [BuddyLocation new];
 }
 
 -(void)setupWithApp:(NSString *)appID appKey:(NSString *)appKey options:(NSDictionary *)options callback:(BuddyCompletionCallback)callback
 {
     
 #if DEBUG
+    // Annoying nuance of running a unit test "bundle".
     NSString *serviceUrl = [[NSBundle bundleForClass:[self class]] infoDictionary][BuddyServiceURL];
 #else
     NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
@@ -85,9 +87,7 @@
     return sharedClient;
 }
 
-#pragma mark BuddyObject
-
-
+#pragma mark Login
 
 -(void)login:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback
 {
@@ -118,5 +118,20 @@
     }];
 }
 
+#pragma mark Location
+
+- (void)setLocationEnabled:(BOOL)locationEnabled
+{
+    _locationEnabled = locationEnabled;
+    [self.location beginTrackingLocation:^(NSError *error) {
+        // TODO - How do we want users to find out if something went wrong
+        // (such as a user slapping the location request)?
+    }];
+}
+
+- (void)didUpdateBuddyLocation:(BPCoordinate *)newLocation
+{
+    _lastLocation = newLocation;
+}
 
 @end

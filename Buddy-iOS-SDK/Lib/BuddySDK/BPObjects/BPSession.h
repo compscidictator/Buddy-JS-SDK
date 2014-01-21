@@ -18,6 +18,7 @@
 @class BPCheckinCollection;
 @class BPPhotoCollection;
 @class BPBlobCollection;
+@class BPCoordinate;
 
 /**
  Enum specifying the current authentication level.
@@ -94,6 +95,11 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// TODO
 /// </summary>
 @property (nonatomic, assign) BOOL locationEnabled;
+
+/**
+  * Most recent BPCoordinate.
+  */
+@property (nonatomic, readonly, strong) BPCoordinate *lastLocation;
 
 /// <summary>
 /// Current BuddyAuthenticatedUser as of the last login
