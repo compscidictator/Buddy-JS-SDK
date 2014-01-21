@@ -8,22 +8,45 @@
 
 #import "NSString+JSON.h"
 
+#define DATE_FORMAT_REGEX @"^\\/Date\\((-?\\d+)\\)\\/$"
+
 @implementation NSString (JSON)
 - (NSDate *)deserializeJsonDateString
 {
-    NSInteger offset = [[NSTimeZone defaultTimeZone] secondsFromGMT]; //get number of seconds to add or subtract according to the client default time zone
+    static NSRegularExpression *dateRegEx = nil;
+    static dispatch_once_t onceToken;
     
-    NSInteger startPosition = [self rangeOfString:@"("].location + 1; //start of the date value
+    // NOTE: If you change this code here, make sure to also change isDate below
+    dispatch_once(&onceToken, ^{
+        dateRegEx = [[NSRegularExpression alloc] initWithPattern:DATE_FORMAT_REGEX
+                        options:NSRegularExpressionCaseInsensitive error:nil];
+    });
     
-    NSTimeInterval unixTime = [[self substringWithRange:NSMakeRange(startPosition, 13)] doubleValue] / 1000; //WCF will send 13 digit-long value for the time interval since 1970 (millisecond precision) whereas iOS works with 10 digit-long values (second precision), hence the divide by 1000
+    NSTextCheckingResult *regexResult = [dateRegEx firstMatchInString:self options:0 range:NSMakeRange(0, [self length])];
     
-    NSDate *date = [[NSDate dateWithTimeIntervalSince1970:unixTime] dateByAddingTimeInterval:offset];
-    
-    return date;
+    // Server timestamp is in msec but iOS works with seconds and fractional msec, hence the divide by 1000
+
+    NSString *TimePortion =[self substringWithRange:[regexResult rangeAtIndex:1]];
+                            
+    NSTimeInterval seconds = [ TimePortion doubleValue] / 1000.0;
+    return [NSDate dateWithTimeIntervalSince1970:seconds];
 }
 
 - (BOOL) isDate
 {
-    return [self rangeOfString:@"/Date"].location != NSNotFound;
+    // NOTE: If you change this code here, make sure to also change deserializeJsonDateString above
+    static NSRegularExpression *dateRegEx = nil;
+    static dispatch_once_t onceToken;
+    
+    dispatch_once(&onceToken, ^{
+        dateRegEx = [[NSRegularExpression alloc] initWithPattern:DATE_FORMAT_REGEX
+                                                         options:NSRegularExpressionCaseInsensitive error:nil];
+    });
+    
+    NSTextCheckingResult *regexResult = [dateRegEx firstMatchInString:self options:0 range:NSMakeRange(0, [self length])];
+    
+
+    return (regexResult!=nil);
+    //return [self rangeOfString:@"/Date"].location != NSNotFound;
 }
 @end
