@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace BuddySDK
 {
@@ -11,29 +12,21 @@ namespace BuddySDK
         {
         }
 
-        public Task<IEnumerable<User>> FindByIdentitiesAsync(string identityProviderName, IEnumerable<string> identityIDs = null)
+        public Task<BuddyResult<IEnumerable<User>>> FindByIdentitiesAsync(string identityProviderName, IEnumerable<string> identityIDs = null)
         {
-            var t = new Task<IEnumerable<User>>(() =>
+            return Task.Run<BuddyResult<IEnumerable<User>>>(() =>
             {
-                var r = Client.Service.CallMethodAsync<IEnumerable<string>>("GET", Path + "/identities", new
+                var r = Client.CallServiceMethod<IEnumerable<string>>("GET", Path + "/identities", new
                         {
                             IdentityProviderName = identityProviderName,
                             IdentityIDs = identityIDs == null ? null : string.Join("\t", identityIDs)
                         });
 
-                r.Wait();
+                return r.Result.Convert(uids => uids.Select(uid => new User(Client, uid)));
 
-                var users = new ObservableCollection<User>();
-                foreach (var userID in r.Result)
-                {
-                    var user = new User(Client, userID);
-
-                    users.Add(user);
-                }
-                return users;
+                
             });
-            t.Start();
-            return t;
+
         }
     }
 }

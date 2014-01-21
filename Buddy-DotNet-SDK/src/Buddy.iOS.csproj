@@ -12,13 +12,14 @@
     <RootNamespace>BuddySDK</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Buddy</AssemblyName>
+    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\iOS\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET40;AWAIT_SUPPORTED;IOS</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET40;AWAIT_SUPPORTED;__IOS__</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\iOS\Buddy.XML</DocumentationFile>
@@ -77,6 +78,9 @@
     <Compile Include="Location.cs" />
     <Compile Include="BuddyGeoLocation.cs" />
     <Compile Include="SearchResult.cs" />
+    <Compile Include="UserCollection.cs" />
+    <Compile Include="SocialAuthenticatedUser.cs" />
+    <Compile Include="BuddyResult.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

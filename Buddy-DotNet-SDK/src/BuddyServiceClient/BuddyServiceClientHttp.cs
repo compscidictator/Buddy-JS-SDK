@@ -117,25 +117,7 @@ namespace BuddyServiceClient
 
         }
        
-
-
-        private IDictionary<string, object> ParametersToDictionary(object parameters)
-        {
-            if (parameters == null || parameters is IDictionary<string, object>)
-            {
-                return (IDictionary<string, object>)parameters;
-            }
-            else
-            {
-                var d = new Dictionary<string, object>();
-                var props = parameters.GetType().GetProperties();
-                foreach (var prop in props)
-                {
-                    d[prop.Name] = prop.GetValue(parameters, null);
-                }
-                return d;
-            }
-        }
+       
 
         public override void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback)
         {
@@ -171,13 +153,13 @@ namespace BuddyServiceClient
                 }
                
                 bcr.Error = err;
-                LogResponse(verb + " + " + path, bcr.Message,DateTime.Now.Subtract(start), response);
+                LogResponse(verb + " " + path, bcr.Message,DateTime.Now.Subtract(start), response);
                   
                 callback(bcr);
             };
 
-            parameters = parameters ?? new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
-            MakeRequest(verb, path, ParametersToDictionary(parameters), (ex, response) =>
+            var d = ParametersToDictionary (parameters);
+            MakeRequest(verb, path, d, (ex, response) =>
             {
                 var bcr = new BuddyCallResult<T>();
                 
@@ -245,12 +227,13 @@ namespace BuddyServiceClient
                                 // special case dictionary.
                                 if (typeof(IDictionary<string,object>).IsAssignableFrom(typeof(T))) {
                                     object obj = envelope.result;
-                                    IDictionary<string, object> d = (IDictionary<string, object>)obj;
-                                    obj = (obj == null) ? new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) : new Dictionary<string, object>(d, StringComparer.InvariantCultureIgnoreCase);
+                                    IDictionary<string, object> d2 = (IDictionary<string, object>)obj;
+                                    obj = (obj == null) ? new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) : new Dictionary<string, object>(d2, StringComparer.InvariantCultureIgnoreCase);
                                     envelope.result = (T)obj;
                                 }
                                 bcr.Result = envelope.result;
                             }
+                            bcr.RequestID = envelope.request_id;
 
                         }
                         catch
@@ -326,7 +309,7 @@ namespace BuddyServiceClient
         {
             return verb + " " + path;
         }
-        private void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
+        private async void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
         {
             if (!path.StartsWith("/"))
             {
@@ -393,10 +376,11 @@ namespace BuddyServiceClient
             }
 
             wr.Headers["BuddyPlatformSDK"] = SdkVersion;
+            var token = await Client.GetAccessToken ();
 
-            if (Client.AccessToken != null)
+            if (token != null)
             {
-                wr.Headers["Authorization"] = String.Format("Buddy {0}", Client.AccessToken);
+                wr.Headers["Authorization"] = String.Format("Buddy {0}", token);
             }
             wr.Method = verb;
            

@@ -42,16 +42,12 @@ namespace BuddySDK
         }
 
 
-        protected Task<T> AddAsyncCore(T item)
+        protected async Task<BuddyResult<T>> AddAsyncCore(T item)
         {
-            Task<T> task = new Task<T>( () =>
-            {
-                var innerTask = item.SaveAsync();
-                innerTask.Wait();
-                return item;
-            });
-            task.Start();
-            return task;
+            var r = await item.SaveAsync ();
+           
+
+            return r.Convert (b => item);
         }
 
         protected Task<SearchResult<T>> FindAsync(
@@ -79,24 +75,31 @@ namespace BuddySDK
                         parameterCallback(obj);
                     }
 
-                    var r = Client.Service.CallMethodAsync<SearchResult<IDictionary<string, object>>>("GET",
+                    var r = Client.CallServiceMethod<SearchResult<IDictionary<string, object>>>("GET",
                             Path, obj
-                        );
+                            ).Result;
 
-                    r.Wait();
+
                     var sr = new SearchResult<T>();
-                    sr.NextToken = r.Result.NextToken;
-                    sr.PreviousToken = r.Result.PreviousToken;
-                    sr.CurrentToken = r.Result.CurrentToken;
 
-                    var items = new ObservableCollection<T>();
-                    foreach (var d in r.Result.PageResults)
-                    {
-                        T item = new T();
-                        item.Update(d);
-                        items.Add(item);
+                    sr.Error = r.Error;
+                    sr.RequestID = r.RequestID;
+
+                    if (r.IsSuccess) {
+
+                        sr.NextToken = r.Value.NextToken;
+                        sr.PreviousToken = r.Value.PreviousToken;
+                        sr.CurrentToken = r.Value.CurrentToken;
+
+                        var items = new ObservableCollection<T>();
+                        foreach (var d in r.Value.PageResults)
+                        {
+                            T item = new T();
+                            item.Update(d);
+                            items.Add(item);
+                        }
+                        sr.PageResults = items;
                     }
-                    sr.PageResults = items;
                     return sr;
             });
             t.Start();

@@ -74,6 +74,22 @@ describe(@"BPCheckinIntegrationSpec", ^{
             [[expectFutureValue(retrievedCheckin.comment) shouldEventually] equal:tempCheckin.comment];
             [[expectFutureValue(retrievedCheckin.description) shouldEventually] equal:tempCheckin.description];
         });
+        
+        it(@"Should allow modifying the comment of a checkin.", ^{
+            
+            tempCheckin.comment = @"My new comment";
+            
+            [tempCheckin save:^(NSError *error) {
+                [tempCheckin refresh:^(NSError *error) {
+                    NSLog(@"Checkin saved");
+                }];
+            
+            }];
+            
+            tempCheckin.comment = @"";
+            
+            [[expectFutureValue(tempCheckin.comment) shouldEventually] equal:@"My new comment"];
+        });
     });
 });
 

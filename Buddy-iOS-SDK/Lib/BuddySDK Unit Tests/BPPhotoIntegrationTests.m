@@ -61,8 +61,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[expectFutureValue(secondPhoto) shouldEventually] beNonNil];
             [[expectFutureValue(theValue(secondPhoto.contentLength)) shouldEventually] equal:theValue(newPhoto.contentLength)];
             [[expectFutureValue(secondPhoto.contentType) shouldEventually] equal:@"image/png"];
-#pragma message("Strip meaningful part from signedURL so they can be compared")
-            //[[expectFutureValue(secondPhoto.signedUrl) shouldEventually] equal:newPhoto.signedUrl];
+            [[expectFutureValue([secondPhoto.signedUrl componentsSeparatedByString:@"?"][0]) shouldEventually] equal:[newPhoto.signedUrl componentsSeparatedByString:@"?"][0]];
             [[expectFutureValue(secondPhoto.comment) shouldEventually] equal:newPhoto.comment];
         });
         

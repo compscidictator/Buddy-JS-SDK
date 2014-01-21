@@ -40,6 +40,8 @@ describe(@"BPUser", ^{
 
             [Buddy user].dateOfBirth = randomDate;
             [Buddy user].firstName = @"Test";
+            [Buddy user].relationshipStatus = BPUserRelationshipStatusOnTheProwl;
+            
             NSLog(@"2222%@", randomDate);
 
             [[Buddy user] save:^(NSError *error) {
@@ -53,11 +55,16 @@ describe(@"BPUser", ^{
             }];
             
             // Hack to set it up to something that will change.
+            [Buddy user].relationshipStatus = BPUserRelationshipStatusMarried;
             [Buddy user].dateOfBirth = [NSDate date];
-            //[Buddy user].name = @"Don'tBeThisString";
+            [Buddy user].firstName = @"Don'tBeThisString";
 
             [[expectFutureValue([Buddy user].firstName) shouldEventually] equal:randomName];
             [[expectFutureValue([Buddy user].dateOfBirth) shouldEventually] equal:randomDate];
+            
+            
+            [[expectFutureValue(theValue([Buddy user].relationshipStatus)) shouldEventually] equal:theValue(BPUserRelationshipStatusOnTheProwl)];
+
             
         });
 

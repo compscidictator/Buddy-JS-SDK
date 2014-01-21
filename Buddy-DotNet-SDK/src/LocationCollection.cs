@@ -16,7 +16,7 @@ namespace BuddySDK
         }
 
 
-        public Task<Location> AddAsync(
+        public async Task<BuddyResult<Location>> AddAsync(
             string name, 
             string description, 
             BuddyGeoLocation location, 
@@ -30,28 +30,23 @@ namespace BuddySDK
             BuddyPermissions read = BuddyPermissions.User, 
             BuddyPermissions write = BuddyPermissions.User)
         {
-            Task<Location> ct = new Task<Location>(() =>
-                {
-                    var c = new Location(null, this.Client)
-                    {
-                        Name = name,
-                        Description = description,
-                        Location = location,
-                        Address =  address,
-                        City =  city,
-                        State = state,
-                        PostalCode = postalCode,
-                        CategoryID = categoryId,
-                        DefaultMetadata = defaultMetadata,
-                        Website = new Uri(website)
-                    };
 
-                    var t = c.SaveAsync();
-                    t.Wait();
-                    return c;
-                });
-            ct.Start();
-            return ct;
+            var c = new Location(null, this.Client)
+            {
+                Name = name,
+                Description = description,
+                Location = location,
+                Address =  address,
+                City =  city,
+                State = state,
+                PostalCode = postalCode,
+                CategoryID = categoryId,
+                DefaultMetadata = defaultMetadata,
+                Website = new Uri(website)
+            };
+
+            var r = await c.SaveAsync();
+            return r.Convert(b => c);
         }
 
         public Task<SearchResult<Location>> FindAsync(string name, BuddyGeoLocationRange location, int maxResults = 100) {

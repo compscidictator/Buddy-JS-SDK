@@ -13,6 +13,10 @@ namespace BuddySDK
         /// </summary>
         public string Error { get; protected set; }
 
+        public int StatusCode {
+            get;
+            internal set;
+        }
       
 
         internal BuddyServiceException(string error, string message): base(message)
