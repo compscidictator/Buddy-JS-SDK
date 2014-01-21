@@ -111,6 +111,27 @@ namespace BuddyServiceClient
         {
         }
 
+
+        internal static IDictionary<string, object> ParametersToDictionary(object parameters)
+        {
+            IDictionary<string, object> d = parameters as IDictionary<string,object>;
+            if (d != null)
+            {
+                return d;
+            }
+            else if (parameters != null)
+            {
+                d = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
+                var props = parameters.GetType().GetProperties();
+                foreach (var prop in props)
+                {
+                    d[prop.Name] = prop.GetValue(parameters, null);
+                }
+               
+            }
+            return d;
+        }
+
         internal void CallOnUiThread(Action callback)
         {
             PlatformAccess.Current.InvokeOnUiThread (callback);

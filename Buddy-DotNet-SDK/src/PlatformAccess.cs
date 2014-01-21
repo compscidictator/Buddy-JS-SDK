@@ -11,6 +11,7 @@ using System.Text;
 using System.Linq;
 
 
+
 #if __ANDROID__
 using Android.App;
 using Android.Content;
@@ -26,8 +27,11 @@ using MonoTouch.Foundation;
 using MonoTouch.SystemConfiguration;
 #endif
 
+
+
 namespace BuddySDK
 {
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public abstract class PlatformAccess
     {
         private int? _uiThreadId;
@@ -148,6 +152,66 @@ namespace BuddySDK
                 InvokeOnUiThreadCore (a);
             }
         }
+
+        // 
+        // Location
+        //
+        public event EventHandler<LocationUpdatedEventArgs> LocationUpdated;
+
+        public class LocationUpdatedEventArgs : EventArgs {
+            public BuddyGeoLocation Location {
+                get;
+                private set;
+            }
+
+            public BuddyGeoLocation LastLocation {
+                get;
+                private set;
+            }
+
+            public LocationUpdatedEventArgs(BuddyGeoLocation now, BuddyGeoLocation old) {
+                Location = now;
+                LastLocation = old;
+            }
+        }
+
+        Tuple<BuddyGeoLocation, DateTime> _lastLoc;
+        protected void SetLastLocation (BuddyGeoLocation location) {
+
+            InvokeOnUiThread (() => {
+                if (LocationUpdated != null) {
+                    BuddyGeoLocation last = null;
+                    if (_lastLoc != null) {
+                        last = _lastLoc.Item1;
+                    }
+                    LocationUpdated (this, new LocationUpdatedEventArgs (location, last));
+                }
+            });
+
+            _lastLoc = new Tuple<BuddyGeoLocation, DateTime> (location, DateTime.Now);
+        }
+
+       
+        public BuddyGeoLocation LastLocation {
+            get {
+                if (_lastLoc != null) {
+
+                    return _lastLoc.Item1;
+                }
+                return null;
+            }
+        }
+
+        protected abstract void TrackLocationCore (bool track);
+
+        public void TrackLocation(bool track) {
+
+            TrackLocationCore (track);
+            if (!track) {
+                _lastLoc = null;
+            }
+        }
+        
 
 
 
@@ -317,7 +381,7 @@ namespace BuddySDK
         }
     }
 
-	#elif __IOS__
+    #elif __IOS__
 
     internal class IosPlatformAccess : PlatformAccess {
         #region implemented abstract members of PlatformAccess
@@ -417,6 +481,50 @@ namespace BuddySDK
                 return null;
 
             }
+        }
+
+        CLLocationManager _locMgr;
+
+
+
+        CLLocationManager LocationManager {
+            get {
+                if (_locMgr == null) {
+                    _locMgr = new CLLocationManager();
+                    _locMgr.LocationsUpdated += (s, e) => {
+
+                        if (e.Locations == null) {
+                            return ;
+                        }
+
+                        var lastLoc = e.Locations.FirstOrDefault();
+
+                        if (lastLoc != null) {
+                            var loc = new BuddyGeoLocation(lastLoc.Coordinate.Latitude, lastLoc.Coordinate.Longitude);
+                            SetLastLocation(loc);
+                        }
+                    };
+                }
+                return _locMgr;
+            }
+        }
+
+
+        protected override void TrackLocationCore(bool track) {
+
+            if (!CLLocationManager.LocationServicesEnabled) {
+                return;
+            }
+
+            LocationManager.DesiredAccuracy = 1;
+            LocationManager.DistanceFilter = 50;
+
+            if (track) {
+                LocationManager.StartUpdatingLocation ();
+            } else {
+                LocationManager.StopUpdatingLocation ();
+            }
+
         }
 
         protected override void OnShowActivity (bool show)
@@ -776,6 +884,13 @@ namespace BuddySDK
             }
         }
 
+
+        protected override void TrackLocationCore(bool track)
+        {
+           // TBD
+        }
+
+   
         public override PlatformAccess.NetworkConnectionType ConnectionType
         {
             get { throw new NotImplementedException(); }

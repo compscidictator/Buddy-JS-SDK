@@ -32,7 +32,8 @@ namespace BuddySquare.iOS
        
         public override bool WillFinishLaunching (UIApplication application, NSDictionary launchOptions)
         {
-            Buddy.Init("aaaac.*xaapktlGi", "2620BA70-88EF-49DB-B9B2-BE35B01352BE");
+           
+            Buddy.Init("bbbbbc.CPkbvKkpqJtg", "06A06E4A-D816-48D5-B07C-9F2E07C9A9F7");
 
             bool showingError = false;
 

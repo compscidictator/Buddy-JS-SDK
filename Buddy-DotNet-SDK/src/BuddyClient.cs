@@ -61,6 +61,42 @@ namespace BuddySDK
         public string AppKey { get; protected set; }
 
 
+        /// <summary>
+        /// The last location value for this device.  Location tracking
+        /// must be enabled to use this property.
+        /// </summary>
+        /// <value>The last location.</value>
+        public BuddyGeoLocation LastLocation {
+            get {
+                if (!ShouldTrackLocation) {
+                    throw new InvalidOperationException ("Location tracking must be enabled.");
+                }
+                return PlatformAccess.Current.LastLocation;
+            }
+        }
+
+        public event EventHandler LastLocationChanged;
+
+        /// <summary>
+        /// Enables or disables tracking of device location.
+        /// </summary>
+        /// <value><c>true</c> if should track location; otherwise, <c>false</c>.</value>
+        public bool ShouldTrackLocation {
+            get {
+                return _flags.HasFlag(BuddyClientFlags.AutoTrackLocation);
+            }
+            set {
+                if (value != ShouldTrackLocation) {
+                    if (value) {
+                        _flags |= BuddyClientFlags.AutoTrackLocation;
+                    } else {
+                        _flags &= ~BuddyClientFlags.AutoTrackLocation;
+                    }
+                    PlatformAccess.Current.TrackLocation (value);
+                }
+            }
+        }
+
 
         //private BuddyClientFlags _flags;
         private static string _WebServiceUrl;
@@ -76,6 +112,7 @@ namespace BuddySDK
         }
 
         private static bool _crashReportingSet = false;
+            BuddyClientFlags _flags;
         
         public BuddyClient(string appid, string appkey, BuddyClientFlags flags = BuddyClientFlags.Default)
         {
@@ -94,7 +131,18 @@ namespace BuddySDK
             if (flags.HasFlag (BuddyClientFlags.AutoCrashReport)) {
                 InitCrashReporting ();
             }
+            _flags = flags;
+            if (ShouldTrackLocation) {
+                PlatformAccess.Current.TrackLocation (true);
+            }
 
+            PlatformAccess.Current.LocationUpdated += (sender, e) => {
+
+                if (LastLocationChanged != null) {
+                    LastLocationChanged(this,e);
+                }
+            };
+            
         }
 
 
@@ -272,7 +320,13 @@ namespace BuddySDK
 
             return Task.Run<BuddyResult<T>> (() => {
 
-                var bcrTask = Service.CallMethodAsync<T> (verb, path, parameters);
+                var dictionary = BuddyServiceClientBase.ParametersToDictionary(parameters);
+                var loc = PlatformAccess.Current.LastLocation;
+                if (!dictionary.ContainsKey("location") && loc != null) {
+                    dictionary["location"] = loc.ToString();
+                }
+
+                var bcrTask = Service.CallMethodAsync<T> (verb, path, dictionary);
 
                 var bcr = bcrTask.Result;
 
