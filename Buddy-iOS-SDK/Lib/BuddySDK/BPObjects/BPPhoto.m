@@ -16,7 +16,7 @@
     self = [super initBuddyWithClient:client];
     if(self)
     {
-        [self registerProperty:@selector(caption)];
+        [self registerProperty:@selector(comment)];
     }
     return self;
 }
