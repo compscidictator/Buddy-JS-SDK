@@ -11,7 +11,7 @@
 
 #import "BPRestProvider.h"
 
-@class BPSession;
+@class BPClient;
 
 
 @interface BPServiceController : NSObject <BPRestProvider>
@@ -20,7 +20,7 @@
 +(instancetype) new __attribute__((unavailable("Use with initWithUrl:")));
 
 -(instancetype)initWithBuddyUrl:(NSString *)url
-                session:(BPSession*)session;
+                client:(BPClient*)client;
 
 @property (nonatomic, readonly, retain) NSString *appID;
 @property (nonatomic, readonly, retain) NSString *appKey;

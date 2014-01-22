@@ -8,12 +8,12 @@
 
 #import "BuddyObject.h"
 
-@class BPSession;
+@class BPClient;
 
 @interface BuddyObject (Private)
 
-- (instancetype)initBuddyWithSession:(BPSession*)session;
-- (instancetype)initBuddyWithResponse:(id)response andSession:(BPSession*)session;
+- (instancetype)initBuddyWithClient:(BPClient*)client;
+- (instancetype)initBuddyWithResponse:(id)response andClient:(BPClient*)client;
 
 - (NSDictionary *)buildUpdateDictionary;
 

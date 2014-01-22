@@ -56,8 +56,6 @@ describe(@"BPUser", ^{
             [Buddy user].lastName = randomNameLast;
             
             NSLog(@"New DOB: %@", [Buddy user].dateOfBirth);
-        
-            [Buddy user].relationshipStatus = BPUserRelationshipStatusOnTheProwl;
             
             [[Buddy user] save:^(NSError *error) {
                 if (error) {
@@ -73,9 +71,6 @@ describe(@"BPUser", ^{
             [[expectFutureValue([Buddy user].lastName) shouldEventually] equal:randomNameLast];
             
             [[expectFutureValue([Buddy user].dateOfBirth) shouldEventually] equal:randomDate];
-            
-            
-            [[expectFutureValue(theValue([Buddy user].relationshipStatus)) shouldEventually] equal:theValue(BPUserRelationshipStatusOnTheProwl)];
 
             
         });

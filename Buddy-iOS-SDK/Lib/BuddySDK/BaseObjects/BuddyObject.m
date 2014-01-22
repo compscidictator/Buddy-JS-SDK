@@ -8,10 +8,10 @@
 
 #import "BuddyObject.h"
 #import "BuddyObject+Private.h"
-#import "BPSession.h"
+#import "BPClient.h"
 
 #import "JAGPropertyConverter.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BPCoordinate.h"
 #import "NSDate+JSON.h"
 
@@ -25,7 +25,7 @@
 
 @implementation BuddyObject
 
-@synthesize session=_session;
+@synthesize client=_client;
 
 
 #pragma mark - Initializers
@@ -39,39 +39,39 @@
 }
 
 
-- (instancetype)initBuddyWithSession:(BPSession*)session
+- (instancetype)initBuddyWithClient:(BPClient*)client
 {
     self = [super init];
     if(self)
     {
-        _session=session;
+        client=client;
         [self registerProperties];
     }
     return self;
 }
 
-- (instancetype)initBuddyWithResponse:(id)response andSession:(BPSession*)session
+- (instancetype)initBuddyWithResponse:(id)response andClient:(BPClient*)client
 {
     if (!response) return nil;
     
     self = [super init];
     if(self)
     {
-        _session = session;
+        _client = client;
         [self registerProperties];
         [[[self class] converter] setPropertiesOf:self fromDictionary:response];
     }
     return self;
 }
 
--(BPSession*)session
+-(BPClient*)client
 {
-    if(_session!=nil)
+    if(_client!=nil)
     {
-        return _session;
+        return _client;
     }
     
-    return [BPSession currentSession];
+    return [BPClient defaultClient];
     
 }
 
@@ -131,16 +131,16 @@
 
 #pragma mark CRUD
 
-+(void)createFromServerWithParameters:(NSDictionary *)parameters session:(BPSession*)session callback:(BuddyObjectCallback)callback
++(void)createFromServerWithParameters:(NSDictionary *)parameters client:(BPClient*)client callback:(BuddyObjectCallback)callback
 {
-    [[session restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
+    [[client restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
         
         if (error) {
             callback(nil, error);
             return;
         }
         
-        BuddyObject *newObject = [[[self class] alloc] initBuddyWithSession:session];
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
 
         newObject.id = json[@"id"];
         
@@ -150,15 +150,15 @@
     }];
 }
 
-+(void)queryFromServerWithId:(NSString *)identifier session:(BPSession*)session callback:(BuddyObjectCallback)callback
++(void)queryFromServerWithId:(NSString *)identifier client:(BPClient*)client callback:(BuddyObjectCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           identifier];
     
-    [[session restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [[client restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
 
-        BuddyObject *newObject = [[[self class] alloc] initBuddyWithSession:session];
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
         newObject.id = json[@"id"];
         
         [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
@@ -179,7 +179,7 @@
                           [[self class] requestPath],
                           _id];
     
-    [[[BPSession currentSession] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
+    [[self.client restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
         if(callback)
             callback(error);
     }];
@@ -197,7 +197,7 @@
                           [[self class] requestPath],
                           self.id];
     
-    [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [[self.client restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         if(callback)
             callback(error);
@@ -214,7 +214,7 @@
     // Dictionary of property names/values
     NSDictionary *parameters = [self buildUpdateDictionary];
 
-    [[[BPSession currentSession] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[self.client restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         if(callback)
             callback(error);

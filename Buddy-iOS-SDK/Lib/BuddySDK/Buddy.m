@@ -25,35 +25,35 @@
 @implementation Buddy
 
 + (BPUser *)user{
-    return [[BPSession currentSession] user];
+    return [[BPClient defaultClient] user];
 }
 
 + (BuddyDevice *)device{
-    return [[BPSession currentSession] device];
+    return [[BPClient defaultClient] device];
 }
 
 + (BPCheckinCollection *) checkins{
-    return [[BPSession currentSession] checkins];
+    return [[BPClient defaultClient] checkins];
 }
 
 + (BPPhotoCollection *) photos{
-    return [[BPSession currentSession] photos];
+    return [[BPClient defaultClient] photos];
 }
 
 + (BPBlobCollection *) blobs{
-    return [[BPSession currentSession] blobs];
+    return [[BPClient defaultClient] blobs];
 }
 
 + (BOOL) locationEnabled{
     @synchronized(self){
-        return [[BPSession currentSession] locationEnabled];
+        return [[BPClient defaultClient] locationEnabled];
     }
 }
 
 + (void) setLocationEnabled:(BOOL)val
 {
     @synchronized(self){
-        [[BPSession currentSession] setLocationEnabled:val];
+        [[BPClient defaultClient] setLocationEnabled:val];
     }
 }
 
@@ -76,7 +76,7 @@
             callback:(BuddyCompletionCallback)callback
 
 {
-    [[BPSession currentSession] setupWithApp:appID
+    [[BPClient defaultClient] setupWithApp:appID
             appKey:appKey
             options:options
             delegate:nil
@@ -97,7 +97,7 @@
     NSMutableDictionary *combined = [NSMutableDictionary dictionaryWithDictionary:defaultOptions];
     // TODO - merge options
     
-    [[BPSession currentSession] setupWithApp:appID
+    [[BPClient defaultClient] setupWithApp:appID
             appKey:appKey
             options:combined
             delegate:nil
@@ -117,17 +117,17 @@
     parameters = [NSDictionary dictionaryByMerging:parameters with:options];
     
     // On BPUser for now for consistency. Probably will move.
-    [BPUser createFromServerWithParameters:parameters session:[BPSession currentSession] callback:callback];
+    [BPUser createFromServerWithParameters:parameters client:[BPClient defaultClient] callback:callback];
 }
 
 + (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback
 {
-    [[BPSession currentSession] login:username password:password callback:callback  ];
+    [[BPClient defaultClient] login:username password:password callback:callback  ];
      
 }
 
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 {
-    [[BPSession currentSession] socialLogin:provider providerId:providerId token:token success:callback];
+    [[BPClient defaultClient] socialLogin:provider providerId:providerId token:token success:callback];
 }
 @end

@@ -10,7 +10,8 @@
 #import "AFNetworking.h"
 #import "BuddyDevice.h"
 #import "NSError+BuddyError.h"
-#import "BPSession.h"
+#import "BPClient.h"
+#import "BPClient+Private.h"
 
 typedef void (^AFFailureCallback)(AFHTTPRequestOperation *operation, NSError *error);
 typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id responseObject);
@@ -24,19 +25,19 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @property (nonatomic, strong) NSString *token;
-@property (nonatomic, strong) BPSession *session;
+@property (nonatomic, strong) BPClient *client;
 
 @end
 
 @implementation BPServiceController
 
 - (instancetype)initWithBuddyUrl:(NSString *)url
-                    session:(BPSession*)session
+                    client:(BPClient*)client
 {
     self = [super init];
     if(self)
     {
-        _session = session;
+        _client = client;
         [self setupManagerWithBaseUrl:url withToken:nil];
 
     }
@@ -203,7 +204,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         callback(nil, buddyError);
         if( authError)
         {
-            [self.session raiseAuthError];
+            [self.client raiseAuthError];
         }
     };
 }

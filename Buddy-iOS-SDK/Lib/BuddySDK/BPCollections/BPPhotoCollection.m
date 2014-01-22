@@ -8,14 +8,14 @@
 
 #import "BPPhotoCollection.h"
 #import "BPPhoto.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BuddyObject+Private.h"
 #import "Buddy.h"
 
 @implementation BPPhotoCollection
 
--(instancetype)initWithSession:(BPSession*)session{
-    self = [super initWithSession:session];
+-(instancetype)initWithClient:(BPClient*)client{
+    self = [super initWithClient:client];
     if(self){
         self.type = [BPPhoto class];
     }
@@ -26,7 +26,7 @@
      withComment:(NSString *)comment
         callback:(BuddyObjectCallback)callback
 {
-    [[self type] createWithImage:photo andComment:comment session:self.session callback:callback];
+    [[self type] createWithImage:photo andComment:comment client:self.client callback:callback];
 }
 
 

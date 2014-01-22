@@ -7,31 +7,31 @@
 //
 
 #import "BuddyCollection.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BuddyObject+Private.h"
 
 @implementation BuddyCollection
 
-@synthesize session=_session;
+@synthesize client=_client;
 
--(instancetype)initWithSession:(BPSession*)session
+-(instancetype)initWithClient:(BPClient*)client
 {
     self = [super init];
     if(self)
     {
-        _session = session;
+        _client = client;
     }
     return self;
 }
 
--(BPSession*)session
+-(BPClient*)client
 {
-    if(_session!=nil)
+    if(_client!=nil)
     {
-        return _session;
+        return _client;
     }
     
-    return [BPSession currentSession];
+    return [BPClient defaultClient];
 }
 
 -(void)getAll:(BuddyCollectionCallback)callback
@@ -41,9 +41,9 @@
 
 -(void)search:(NSDictionary *)searchParmeters callback:(BuddyCollectionCallback)callback
 {
-    [[[BPSession currentSession] restService] GET:[[self type] requestPath] parameters:searchParmeters callback:^(id json, NSError *error) {
+    [[[BPClient defaultClient] restService] GET:[[self type] requestPath] parameters:searchParmeters callback:^(id json, NSError *error) {
         NSArray *results = [json[@"pageResults"] map:^id(id object) {
-            return [[self.type alloc] initBuddyWithResponse:object andSession:self.session];
+            return [[self.type alloc] initBuddyWithResponse:object andClient:self.client];
         }];
         callback(results, error);
     }];
@@ -55,8 +55,8 @@
                           [[self type] requestPath],
                           identifier];
     
-    [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
-        id buddyObject = [[self.type alloc] initBuddyWithResponse:json andSession:self.session];
+    [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+        id buddyObject = [[self.type alloc] initBuddyWithResponse:json andClient:self.client];
         callback(buddyObject, error);
     }];
 }

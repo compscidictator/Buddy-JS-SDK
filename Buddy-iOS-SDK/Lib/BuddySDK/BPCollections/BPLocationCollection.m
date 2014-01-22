@@ -7,13 +7,13 @@
 //
 
 #import "BPLocationCollection.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BPLocation.h"
 
 @implementation BPLocationCollection
 
--(instancetype)initWithSession:(BPSession*)session{
-    self = [super initWithSession:session];
+-(instancetype)initWithClient:(BPClient*)client{
+    self = [super initWithClient:client];
     if(self){
         self.type = [BPLocation class];
     }
@@ -37,7 +37,7 @@
 {
     NSDictionary *parameters = @{};
     
-    [[[self type] class] createFromServerWithParameters:parameters session:self.session callback:callback];
+    [[[self type] class] createFromServerWithParameters:parameters client:self.client callback:callback];
 }
 
 

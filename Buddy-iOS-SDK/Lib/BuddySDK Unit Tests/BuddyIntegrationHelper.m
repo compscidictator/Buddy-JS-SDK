@@ -15,11 +15,11 @@
 {
     [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {
         
-        NSDictionary *options = @{BPUserNameField: @"Erik Kerber",
+        NSDictionary *options = @{BPUserFirstNameField: @"Erik",
+                                  BPUserLastNameField: @"Kerber",
                                   BPUserGenderField: @(BPUserGender_Male),
                                   BPUserEmailField: @"erik.kerber@gmail.com",
                                   BPUserDateOfBirthField: [NSNull null],
-                                  BPUserRelationshipStatusField: @(BPUserRelationshipStatusOnTheProwl),
                                   BPUserCelebrityModeField: @(YES),
                                   BPUserFuzzLocationField: @(NO)
                                   };

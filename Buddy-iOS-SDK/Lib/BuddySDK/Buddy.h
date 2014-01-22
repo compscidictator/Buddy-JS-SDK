@@ -10,7 +10,7 @@
 
 #import "BPClientDelegate.h"
 #import "BuddyDevice.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"
 #import "BPPhoto.h"
@@ -18,7 +18,6 @@
 #import "BPGameBoards.h"
 #import "BPSounds.h"
 #import "BPAppMetadata.h"
-#import "BPSession.h"
 #import "BPPhotoCollection.h"
 #import "BPBlobCollection.h"
 #import "BPCoordinate.h"

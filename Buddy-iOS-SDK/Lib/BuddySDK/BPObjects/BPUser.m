@@ -8,7 +8,7 @@
 
 #import "BPUser.h"
 #import "BuddyObject+Private.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BPEnumMapping.h"
 
 @interface BPUser()<BPEnumMapping>
@@ -17,9 +17,9 @@
 
 @implementation BPUser
 
-- (instancetype)initBuddyWithResponse:(id)response andSession:(BPSession*)session;
+- (instancetype)initBuddyWithResponse:(id)response andClient:(BPClient*)client;
 {
-    self = [super initBuddyWithResponse:response andSession:session];
+    self = [super initBuddyWithResponse:response andClient:client];
     if(self)
     {
         [self registerProperty:@selector(firstName)];
@@ -33,7 +33,6 @@
         [self registerProperty:@selector(created)];
         [self registerProperty:@selector(profilePicture)];
         [self registerProperty:@selector(profilePictureId)];
-        [self registerProperty:@selector(relationshipStatus)];
     }
     return self;
 }
@@ -46,15 +45,7 @@
 + (NSDictionary *)enumMap
 {
     return @{
-             NSStringFromSelector(@selector(relationshipStatus)) : @{
-                     @(BPUserRelationshipStatusSingle) : @"Single",
-                     @(BPUserRelationshipStatusDating) : @"Dating",
-                     @(BPUserRelationshipStatusEngaged) : @"Engaged",
-                     @(BPUserRelationshipStatusMarried) : @"Married",
-                     @(BPUserRelationshipStatusDivorced) : @"Divorced",
-                     @(BPUserRelationshipStatusWidowed) : @"Widowed",
-                     @(BPUserRelationshipStatusOnTheProwl) : @"OnTheProwl",
-                    },
+             
              NSStringFromSelector(@selector(gender)) : @{
                      @(BPUserGender_Male) : @"Male",
                      @(BPUserGender_Female) : @"Female",
@@ -85,7 +76,7 @@ static NSString *users = @"users";
 {
     NSString *resource = @"users/me/logout";
     
-    [[[self session] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
+    [[[self client] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
         callback(error);
     }];
 }
@@ -98,7 +89,7 @@ static NSString *users = @"users";
     NSDictionary *parameters = @{@"UserName": self.userName};
                                  
 
-    [[[self session] restService] POST:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[self client] restService] POST:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json, nil);
     }];
 }
@@ -110,7 +101,7 @@ static NSString *users = @"users";
                                  @"ResetCode": resetCode,
                                  @"NewPassword": newPassword};
     
-    [[[self session] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[self client] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(nil);
     }];
 }
@@ -122,7 +113,7 @@ static NSString *users = @"users";
     NSString *resource = @"users/identity";
     NSDictionary *parameters = @{@"Identity": identityValue};
     
-    [[[self session] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[self client] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json);
     }];
 }
@@ -132,7 +123,7 @@ static NSString *users = @"users";
     NSString *resource = [@"users/identity/" stringByAppendingString:identityValue];
     NSDictionary *parameters = @{@"Identity": identityValue};
     
-    [[[self session] restService] DELETE:resource parameters:parameters callback:^(id json, NSError *error) {
+    [[[self client] restService] DELETE:resource parameters:parameters callback:^(id json, NSError *error) {
         callback(json);
     }];
 }
@@ -146,7 +137,7 @@ static NSString *users = @"users";
 
     NSDictionary *data = @{@"data": UIImagePNGRepresentation(picture)};
     
-    [[[self session] restService] MULTIPART_POST:resource parameters:parameters data:data callback:^(id json, NSError *error) {
+    [[[self client] restService] MULTIPART_POST:resource parameters:parameters data:data callback:^(id json, NSError *error) {
 #pragma message ("Return the actual image?")
         callback(error);
     }];
@@ -156,7 +147,7 @@ static NSString *users = @"users";
 {
     NSString *resource = [NSString stringWithFormat:@"user/%@/profilepicture", self.id];
     
-    [[[self session] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
+    [[[self client] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
         callback(error);
     }];
 }

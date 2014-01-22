@@ -8,13 +8,13 @@
 
 #import "BPCheckinCollection.h"
 #import "BPCheckin.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BuddyObject+Private.h"
 
 @implementation BPCheckinCollection
 
--(instancetype)initWithSession:(BPSession*)session{
-    self = [super initWithSession:session];
+-(instancetype)initWithClient:(BPClient*)client{
+    self = [super initWithClient:client];
     if(self){
         self.type = [BPCheckin class];
     }
@@ -29,7 +29,7 @@
                                  @"description": description,
                                  @"location": @"1.2, 3.4"};
     
-    [BPCheckin createFromServerWithParameters:parameters session:self.session callback:callback];
+    [BPCheckin createFromServerWithParameters:parameters client:self.client callback:callback];
 }
 
 -(void)checkinWithComment:(NSString *)comment

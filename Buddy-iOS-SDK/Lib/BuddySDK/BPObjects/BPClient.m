@@ -6,7 +6,7 @@
 //
 //
 
-#import "BPSession.h"
+#import "BPClient.h"
 #import "AFNetworking.h"
 #import "BPServiceController.h"
 #import "AFNetworking.h"
@@ -26,18 +26,20 @@
 
 
 
-@interface BPSession()
+@interface BPClient()
 @property (nonatomic, strong) BPServiceController *service;
 
 - (void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
 - (void)socialLoginWorker:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 - (void)initializeCollectionsWithUser:(BPUser *)user;
 
+
+
 @property (nonatomic, strong) BuddyLocation *location;
 
 @end
 
-@implementation BPSession
+@implementation BPClient
 
 @synthesize user=_user;
 
@@ -57,9 +59,9 @@
 {
     _user = user;
     
-    _checkins = [[BPCheckinCollection alloc] initWithSession:self];
-    _photos = [[BPPhotoCollection alloc] initWithSession:self];
-    _blobs = [[BPBlobCollection alloc] initWithSession:self];
+    _checkins = [[BPCheckinCollection alloc] initWithClient:self];
+    _photos = [[BPPhotoCollection alloc] initWithClient:self];
+    _blobs = [[BPBlobCollection alloc] initWithClient:self];
     _location = [BuddyLocation new];
 }
 
@@ -78,7 +80,7 @@
     NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
 #endif
 
-    self.service = [[BPServiceController alloc] initWithBuddyUrl:serviceUrl session:self];
+    self.service = [[BPServiceController alloc] initWithBuddyUrl:serviceUrl client:self];
     
     // TODO - Does the client need a copy? Do users need to read back key/id?
     _appKey = appKey;
@@ -97,9 +99,9 @@
 
 # pragma mark -
 # pragma mark Singleton
-+(instancetype)currentSession
++(instancetype)defaultClient
 {
-    static BPSession *sharedClient = nil;
+    static BPClient *sharedClient = nil;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedClient = [[self alloc] init];
@@ -157,7 +159,7 @@
             return;
         }
         
-        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andSession:self];
+        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andClient:self];
         user.isMe = YES;
         
         [user refresh:^(NSError *error){
@@ -179,7 +181,7 @@
             return;
         }
         
-        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andSession:self];
+        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andClient:self];
         user.isMe = YES;
         
         [user refresh:^(NSError *error){

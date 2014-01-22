@@ -9,11 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "BuddyObject.h"
 
-#define BPUserNameField @"name"
 #define BPUserGenderField @"gender"
 #define BPUserEmailField @"email"
+#define BPUserFirstNameField @"firstName"
+#define BPUserLastNameField @"lastName"
 #define BPUserDateOfBirthField @"dateOfBirth"
-#define BPUserRelationshipStatusField @"relationshipStatus"
+
 #define BPUserCelebrityModeField @"celebrityMode"
 #define BPUserFuzzLocationField @"fuzzLocation"
 
@@ -28,26 +29,6 @@ typedef NS_ENUM(NSInteger, BPUserGender)
 	BPUserGender_Female = 2,
 } ;
 
-/**
- Enum for specifying relationship status.
- */
-typedef NS_ENUM(NSInteger, BPUserRelationshipStatus)
-{
-    /** Single */
-    BPUserRelationshipStatusSingle = 1,
-    /** Dating */
-    BPUserRelationshipStatusDating = 2,
-    /** Engaged */
-    BPUserRelationshipStatusEngaged = 3,
-    /** Married */
-    BPUserRelationshipStatusMarried = 4,
-    /** Divorced */
-    BPUserRelationshipStatusDivorced = 5,
-    /** Widowed */
-    BPUserRelationshipStatusWidowed = 6,
-    /** On the Prowl */
-    BPUserRelationshipStatusOnTheProwl = 7,
-};
 
 @interface BPUser : BuddyObject
 
@@ -70,7 +51,6 @@ typedef NS_ENUM(NSInteger, BPUserRelationshipStatus)
 @property (nonatomic, strong) NSURL *profilePicture;
 @property (nonatomic, copy) NSString *profilePictureId;
 @property (nonatomic, readonly) NSInteger age;
-@property (nonatomic, assign) BPUserRelationshipStatus relationshipStatus;
 @property (nonatomic, assign) BOOL friendRequestPending;
 
 @property (nonatomic, assign) BOOL isMe;

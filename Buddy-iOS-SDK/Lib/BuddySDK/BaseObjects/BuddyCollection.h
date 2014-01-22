@@ -8,19 +8,19 @@
 
 #import <Foundation/Foundation.h>
 
-@class BPSession;
+@class BPClient;
 
 typedef void (^BuddyCollectionCallback)(NSArray *buddyObjects, NSError *error);
 
 @interface BuddyCollection : NSObject
 
 @property (nonatomic) Class type;
-@property (nonatomic,readonly,strong) BPSession *session;
+@property (nonatomic,readonly,strong) BPClient *client;
 
 - (instancetype) init __attribute__((unavailable("init not available")));
 + (instancetype) new __attribute__((unavailable("new not available")));
 
-- (instancetype)initWithSession:(BPSession*)session;
+- (instancetype)initWithClient:(BPClient*)client;
 
 - (void)getAll:(BuddyCollectionCallback)callback;
 

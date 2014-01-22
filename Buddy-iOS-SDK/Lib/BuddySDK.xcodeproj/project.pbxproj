@@ -22,6 +22,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		0183A51B188F30060065C76C /* BPClientDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B8076A184061070086B843 /* BPClientDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C1010D31187A4CC3009EB04E /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2C187A4CC3009EB04E /* 0.jpg */; };
@@ -35,8 +36,8 @@
 		C10E2B98186950D8007A0136 /* BPAuthenticatedUser.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */; };
 		C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B86186950D8007A0136 /* BPCheckin.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2B9B186950D8007A0136 /* BPCheckin.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B87186950D8007A0136 /* BPCheckin.m */; };
-		C10E2B9D186950D8007A0136 /* BPSession.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B88186950D8007A0136 /* BPSession.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C10E2B9E186950D8007A0136 /* BPSession.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B89186950D8007A0136 /* BPSession.m */; };
+		C10E2B9D186950D8007A0136 /* BPClient.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B88186950D8007A0136 /* BPClient.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C10E2B9E186950D8007A0136 /* BPClient.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B89186950D8007A0136 /* BPClient.m */; };
 		C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8A186950D8007A0136 /* BPCoordinate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C10E2BA1186950D8007A0136 /* BPCoordinate.m in Sources */ = {isa = PBXBuildFile; fileRef = C10E2B8B186950D8007A0136 /* BPCoordinate.m */; };
 		C10E2BA3186950D8007A0136 /* BPGameBoards.h in Headers */ = {isa = PBXBuildFile; fileRef = C10E2B8C186950D8007A0136 /* BPGameBoards.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -157,6 +158,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		0183A51C188F4D2C0065C76C /* BPClient+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BPClient+Private.h"; sourceTree = "<group>"; };
 		29345A5A1773D2A400EEB8F5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		29345ABD1773DB3B00EEB8F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		81137A46380B4BCCA3A2E417 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -176,8 +178,8 @@
 		C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAuthenticatedUser.m; sourceTree = "<group>"; };
 		C10E2B86186950D8007A0136 /* BPCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCheckin.h; sourceTree = "<group>"; };
 		C10E2B87186950D8007A0136 /* BPCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCheckin.m; sourceTree = "<group>"; };
-		C10E2B88186950D8007A0136 /* BPSession.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BPSession.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C10E2B89186950D8007A0136 /* BPSession.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BPSession.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C10E2B88186950D8007A0136 /* BPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BPClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C10E2B89186950D8007A0136 /* BPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BPClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C10E2B8A186950D8007A0136 /* BPCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCoordinate.h; sourceTree = "<group>"; };
 		C10E2B8B186950D8007A0136 /* BPCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCoordinate.m; sourceTree = "<group>"; };
 		C10E2B8C186950D8007A0136 /* BPGameBoards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPGameBoards.h; sourceTree = "<group>"; };
@@ -451,8 +453,8 @@
 				C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */,
 				C10E2B86186950D8007A0136 /* BPCheckin.h */,
 				C10E2B87186950D8007A0136 /* BPCheckin.m */,
-				C10E2B88186950D8007A0136 /* BPSession.h */,
-				C10E2B89186950D8007A0136 /* BPSession.m */,
+				C10E2B88186950D8007A0136 /* BPClient.h */,
+				C10E2B89186950D8007A0136 /* BPClient.m */,
 				C10E2B8A186950D8007A0136 /* BPCoordinate.h */,
 				C10E2B8B186950D8007A0136 /* BPCoordinate.m */,
 				C10E2B8C186950D8007A0136 /* BPGameBoards.h */,
@@ -470,6 +472,7 @@
 				C154CEEB187F750C00EACE4B /* BPLocation.h */,
 				C154CEEC187F750C00EACE4B /* BPLocation.m */,
 				C1D7094A1883942D003D112C /* BPEnumMapping.h */,
+				0183A51C188F4D2C0065C76C /* BPClient+Private.h */,
 			);
 			name = BPObjects;
 			path = ../../Lib/BuddySDK/BPObjects;
@@ -582,7 +585,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C10E2BB6186951FA007A0136 /* Buddy.h in Headers */,
-				C10E2B9D186950D8007A0136 /* BPSession.h in Headers */,
+				C10E2B9D186950D8007A0136 /* BPClient.h in Headers */,
 				C10E2BAC186950D8007A0136 /* BPUser.h in Headers */,
 				C10E2BA9186950D8007A0136 /* BPSounds.h in Headers */,
 				C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */,
@@ -602,6 +605,7 @@
 				C10E2B9A186950D8007A0136 /* BPCheckin.h in Headers */,
 				C154CEF6187F90A700EACE4B /* UIImageView+BuddyImage.h in Headers */,
 				C154CEF1187F78E800EACE4B /* BPLocationCollection.h in Headers */,
+				0183A51B188F30060065C76C /* BPClientDelegate.h in Headers */,
 				C1FEEB4E187E483100B45505 /* BPAlbum.h in Headers */,
 				C1B95A2A18370817000C8417 /* BuddySDK-Prefix.pch in Headers */,
 				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
@@ -837,7 +841,7 @@
 				C1E0D1D91831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */,
 				C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */,
 				C10E2BAA186950D8007A0136 /* BPSounds.m in Sources */,
-				C10E2B9E186950D8007A0136 /* BPSession.m in Sources */,
+				C10E2B9E186950D8007A0136 /* BPClient.m in Sources */,
 				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */,
 				C1D7094918832983003D112C /* BPDescriptors.m in Sources */,

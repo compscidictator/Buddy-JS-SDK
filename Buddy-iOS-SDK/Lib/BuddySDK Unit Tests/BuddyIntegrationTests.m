@@ -35,11 +35,11 @@ describe(@"BPUser", ^{
         it(@"Should allow you to create a user.", ^{
             
             __block BPUser *newUser;
-            NSDictionary *options = @{BPUserNameField: @"Erik Kerber",
+            NSDictionary *options = @{BPUserFirstNameField: @"Erik",
+                                      BPUserLastNameField: @"Kerber",
                                       BPUserGenderField: @(BPUserGender_Male),
                                       BPUserEmailField: @"erik.kerber@gmail.com",
                                       BPUserDateOfBirthField: [NSNull null],
-                                      BPUserRelationshipStatusField: @(BPUserRelationshipStatusOnTheProwl),
                                       BPUserCelebrityModeField: @(YES),
                                       BPUserFuzzLocationField: @(NO)
                                       };
@@ -49,6 +49,8 @@ describe(@"BPUser", ^{
             }];
             
             [[expectFutureValue(newUser.userName) shouldEventually] equal:testCreateDeleteName];
+            [[expectFutureValue(newUser.firstName) shouldEventually] equal:@"Erik"];
+            [[expectFutureValue(newUser.lastName) shouldEventually] equal:@"Kerber"];
         });
         
         it(@"Should allow you to login.", ^{

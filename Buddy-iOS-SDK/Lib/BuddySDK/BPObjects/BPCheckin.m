@@ -11,8 +11,8 @@
 
 @implementation BPCheckin
 
--(instancetype)initBuddyWithSession:(BPSession *)session{
-    self = [super initBuddyWithSession:session];
+-(instancetype)initBuddyWithClient:(BPClient *)client{
+    self = [super initBuddyWithClient:client];
     if(self)
     {
         [self registerProperty:@selector(comment)];

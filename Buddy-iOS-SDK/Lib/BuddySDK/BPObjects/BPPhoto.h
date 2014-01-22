@@ -16,7 +16,7 @@
 
 + (void)createWithImage:(UIImage *)image
                 andComment:(NSString *)comment
-                session:(BPSession*)session
+                client:(BPClient*)client
                 callback:(BuddyObjectCallback)callback;
 
 @end

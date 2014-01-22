@@ -35,7 +35,7 @@ typedef NS_ENUM(NSInteger, BPAuthenticationLevel) {
     BPAuthenticationLevelUser
 };
 
-@interface BPSession : NSObject
+@interface BPClient : NSObject
 
 
 /** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.
@@ -109,13 +109,12 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// </summary>
 @property (nonatomic, readonly, strong) BPUser *user;
 
-// Move to anon category?
 @property (nonatomic,weak) id<BPClientDelegate> delegate;
 
 /// <summary>
 /// Singleton instance of the client.
 /// </summary>
-+ (instancetype)currentSession;
++ (instancetype)defaultClient;
 
 
 @property (nonatomic, readonly, strong) id <BPRestProvider> restService;
@@ -125,9 +124,6 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
                 options:(NSDictionary *)options
                 delegate:(id<BPClientDelegate>) delegate
                 callback:(BuddyCompletionCallback)callback;
-
-// TODO: Make this private ?
-- (void) raiseAuthError;
 
 - (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
 
