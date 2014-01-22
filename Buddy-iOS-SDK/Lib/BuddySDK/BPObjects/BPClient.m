@@ -279,18 +279,6 @@
     };
 }
 
-- (RESTCallback) handleFailure:(RESTCallback)callback
-{
-    return ^(AFHTTPRequestOperation *operation, NSError *error){
-    };
-}
-
-
-- (void)handleError:(NSInteger)responseCode responseString:(NSString *)responseString
-{
-    
-}
-
 - (void)raiseAuthError
 {
     id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
