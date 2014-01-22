@@ -37,11 +37,6 @@ namespace BuddySDK
         private int? _uiThreadId;
 
 
-        public enum NetworkConnectionType {
-            None,
-            Carrier,
-            WiFi
-        }
 
         // device info
         //
@@ -53,7 +48,7 @@ namespace BuddySDK
         public abstract string ApplicationID {get;}
         public abstract string AppVersion {get;}
 
-        public abstract NetworkConnectionType ConnectionType {get;}
+        public abstract ConnectivityLevel ConnectionType {get;}
         // TODO: Connection speed?
 
         private int _activity = 0;
@@ -237,7 +232,7 @@ namespace BuddySDK
 
     }
 
-	#if __ANDROID__
+    #if __ANDROID__
 	internal class AndroidPlatformAccess : PlatformAccess
     {
         public override string Platform {
@@ -285,17 +280,17 @@ namespace BuddySDK
 			}
 		}
 
-        public override PlatformAccess.NetworkConnectionType ConnectionType {
+        public override ConnectivityLevel ConnectionType {
 			get {
 				var cs = (ConnectivityManager) Android.App.Application.Context.GetSystemService (Context.ConnectivityService);
 
 				if (!cs.ActiveNetworkInfo.IsConnected)
-					return PlatformAccess.NetworkConnectionType.None;
+                    return ConnectivityLevel.None;
 
-				if (cs.ActiveNetworkInfo.Subtype == ConnectivityType.Wifi)
-					return PlatformAccess.NetworkConnectionType.WiFi;
-				else
-					return PlatformAccess.NetworkConnectionType.Carrier;
+                if (cs.ActiveNetworkInfo.Subtype == ConnectivityType.Wifi)
+                    return ConnectivityLevel.WiFi;
+                else
+                    return ConnectivityLevel.Carrier;
 			}
 		}
 
@@ -379,6 +374,13 @@ namespace BuddySDK
 				a ();
 			}
         }
+
+        protected override void TrackLocationCore (bool track)
+        {
+            // currently not implemneted because of how Android location works.
+            // The location service is attached to the Activity Context, it doesn't look
+            // like we can access it -- need to work out a plan here.
+        }
     }
 
     #elif __IOS__
@@ -403,21 +405,19 @@ namespace BuddySDK
         {
 			string encodedValue = base.EncodeUserSetting (value, expires);
 
-			NSUserDefaults.StandardUserDefaults.SetValueForKey (new NSString(encodedValue), new NSString(key));
+            NSUserDefaults.StandardUserDefaults.SetString(encodedValue, key);
         }
 
         public override void ClearUserSetting (string key)
         {
-            try {
-                NSUserDefaults.StandardUserDefaults.SetNilValueForKey (new NSString(key));
-            }
-            catch {
-            }
+
+            NSUserDefaults.StandardUserDefaults.RemoveObject(key);
+           
         }
 
         public override string GetUserSetting (string key)
         {
-            var value = NSUserDefaults.StandardUserDefaults.ValueForKey (new NSString(key));
+            var value = NSUserDefaults.StandardUserDefaults.StringForKey (key);
             if (value == null) {
                 return null;
             }
@@ -692,15 +692,15 @@ namespace BuddySDK
             }
         }
 
-        public override NetworkConnectionType ConnectionType {
+        public override ConnectivityLevel ConnectionType {
             get {
                 switch (Reachability.InternetConnectionStatus()) {
                     case Reachability.NetworkStatus.NotReachable:
-                        return NetworkConnectionType.None;
+                        return ConnectivityLevel.None;
                     case Reachability.NetworkStatus.ReachableViaCarrierDataNetwork:
-                        return NetworkConnectionType.Carrier;
+                        return ConnectivityLevel.Carrier;
                     case Reachability.NetworkStatus.ReachableViaWiFiNetwork:
-                        return NetworkConnectionType.WiFi;
+                        return ConnectivityLevel.WiFi;
                     default:
                     throw new NotSupportedException ();
                 }
@@ -891,9 +891,11 @@ namespace BuddySDK
         }
 
    
-        public override PlatformAccess.NetworkConnectionType ConnectionType
+        public override ConnectivityLevel ConnectionType
         {
-            get { throw new NotImplementedException(); }
+            get {
+                return ConnectivityLevel.Carrier;
+            }
         }
 
         public override string GetConfigSetting(string key)

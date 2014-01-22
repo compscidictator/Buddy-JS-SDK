@@ -22,7 +22,7 @@ namespace BuddySDK
                             IdentityIDs = identityIDs == null ? null : string.Join("\t", identityIDs)
                         });
 
-                return r.Result.Convert(uids => uids.Select(uid => new User(Client, uid)));
+                    return r.Result.Convert(uids => uids.Select(uid => new User(uid, Client)));
 
                 
             });

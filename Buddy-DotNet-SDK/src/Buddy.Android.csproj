@@ -20,7 +20,7 @@
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
     <OutputPath>bin\Debug\Android\</OutputPath>
-    <DefineConstants>TRACE;DEBUG;NET40;AWAIT_SUPPORTED</DefineConstants>
+    <DefineConstants>TRACE;DEBUG;NET40;AWAIT_SUPPORTED;__ANDROID__</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <DocumentationFile>bin\Debug\Android\Buddy.XML</DocumentationFile>
@@ -84,6 +84,9 @@
     <Compile Include="BuddyResult.cs" />
     <Compile Include="SocialAuthenticatedUser.cs" />
     <Compile Include="UserCollection.cs" />
+    <Compile Include="ConnectivityLevelChangedEventArgs.cs" />
+    <Compile Include="ServiceExceptionEventArgs.cs" />
+    <Compile Include="CurrentUserChangedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

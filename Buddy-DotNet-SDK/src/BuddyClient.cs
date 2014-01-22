@@ -9,6 +9,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using BuddyServiceClient;
 using System.Reflection;
+using System.Collections;
 
 
 #if WINDOWS_PHONE
@@ -21,8 +22,11 @@ using System.Xml.Linq;
 using System.Threading.Tasks;
 using System.IO;
 
+
+
 namespace BuddySDK
 {
+
     /// <summary>
     /// Represents the main class and entry point to the Buddy platform. Use this class to interact with the platform, create and login users and modify general
     /// application level properties like Devices and Metadata.
@@ -37,9 +41,23 @@ namespace BuddySDK
     {
 
         public event EventHandler<ServiceExceptionEventArgs> ServiceException;
+        public event EventHandler<ConnectivityLevelChangedArgs> ConnectivityLevelChanged;
+        public event EventHandler<CurrentUserChangedEventArgs> CurrentUserChanged;
+        public event EventHandler LastLocationChanged;
+        public event EventHandler AuthorizationLevelChanged;
+        public event EventHandler AuthorizationFailure; 
+
+
+        private string _userToken = null;
+        private bool _gettingToken = false;
+        private AuthenticatedUser _user;
+        private static bool _crashReportingSet = false;
+        private BuddyClientFlags _flags;
+
+
 
         /// <summary>
-        /// Gets the BuddyServiceClient interface
+        /// The service we use to call the Buddy backend.
         /// </summary>
         /// 
         private BuddyServiceClientBase _service;
@@ -50,15 +68,90 @@ namespace BuddySDK
             }
         }
 
+        private static string _WebServiceUrl;
+        protected static string WebServiceUrl {
+            get {
+                return _WebServiceUrl ?? "http://10.211.55.3:50800";
+            }
+            set {
+                _WebServiceUrl = value;
+            }
+
+        }
+
         /// <summary>
-        /// Gets the application name for this client.
+        /// Gets the application ID for this client.
         /// </summary>
         public string AppId { get; protected set; }
 
         /// <summary>
-        /// Gets the application password for this client.
+        /// Gets the application secret key for this client.
         /// </summary>
         public string AppKey { get; protected set; }
+
+
+
+        protected string AccessToken
+        {
+            get
+            {
+                return GetAccessToken ().Result;
+
+            }
+        }
+
+        public AuthenticationLevel AuthLevel {
+            get;
+            private set;
+        }
+
+        private string DeviceToken { get; set; }
+
+        private string UserToken { 
+            get { return _userToken; } 
+            set { 
+                _userToken = value; 
+            }
+        }
+
+        public AuthenticatedUser User
+        {
+            get
+            { 
+                return GetUser();
+            }
+            private set
+            {
+                _user = value;
+                if (_user != null)
+                {
+                    UserToken = _user.AccessToken;
+                    PlatformAccess.Current.SetUserSetting ("UserID", _user.ID);
+
+
+                    var lastUserID = PlatformAccess.Current.GetUserSetting ("LastUserID");
+
+                    if (lastUserID != _user.ID) {
+
+                        OnCurrentUserChanged (lastUserID);
+
+                        // update last user
+                        PlatformAccess.Current.SetUserSetting ("LastUserID",_user.ID);
+                    }
+
+                }
+                else
+                {
+                    PlatformAccess.Current.ClearUserSetting("UserID");
+                    UserToken = null;
+                }
+                OnAccessTokenChanged (UserToken, AccessTokenType.User);
+            }
+        }
+
+       
+
+       
 
 
         /// <summary>
@@ -75,7 +168,6 @@ namespace BuddySDK
             }
         }
 
-        public event EventHandler LastLocationChanged;
 
         /// <summary>
         /// Enables or disables tracking of device location.
@@ -98,22 +190,10 @@ namespace BuddySDK
         }
 
 
-        //private BuddyClientFlags _flags;
-        private static string _WebServiceUrl;
+    
 
-        public static string WebServiceUrl {
-            get {
-                return _WebServiceUrl ?? "http://10.211.55.3:50800";
-            }
-            set {
-                _WebServiceUrl = value;
-            }
+       
 
-        }
-
-        private static bool _crashReportingSet = false;
-            BuddyClientFlags _flags;
-        
         public BuddyClient(string appid, string appkey, BuddyClientFlags flags = BuddyClientFlags.Default)
         {
             if (String.IsNullOrEmpty(appid))
@@ -145,61 +225,6 @@ namespace BuddySDK
             
         }
 
-
-        private string DeviceToken { get; set; }
-
-        private string _ut = null;
-        private string UserToken { 
-            get { return _ut; } 
-            set { 
-                _ut = value; 
-            }
-        }
-
-        private bool _gettingToken = false;
-        
-        public string AccessToken
-        {
-            get
-            {
-                return GetAccessToken ().Result;
-                
-            }
-        }
-
-
-        public AuthenticationLevel AuthLevel {
-            get;
-            private set;
-        }
-
-        public event EventHandler AuthLevelChanged;
-
-        AuthenticatedUser _user;
-        public AuthenticatedUser User
-        {
-            get
-            { 
-                return GetUser();
-            }
-            private set
-            {
-                _user = value;
-                if (_user != null)
-                {
-                    UserToken = _user.AccessToken;
-                    PlatformAccess.Current.SetUserSetting ("UserID", _user.ID);
-                }
-                else
-                {
-                    PlatformAccess.Current.ClearUserSetting("UserID");
-                    UserToken = null;
-                }
-                OnAccessTokenChanged (UserToken, AccessTokenType.User);
-            }
-        }
-
-        public event EventHandler AuthorizationFailure; 
 
 
         public class DeviceRegistration
@@ -288,6 +313,18 @@ namespace BuddySDK
                
             }
             return _user;
+        }
+
+        protected virtual void OnCurrentUserChanged (string lastUserId)
+        {
+            User lastUser = null;
+
+            if (lastUserId != null) {
+                lastUser = new User (lastUserId);
+            }
+            if (CurrentUserChanged != null) {
+                CurrentUserChanged(this, new CurrentUserChangedEventArgs(this.User, lastUser));
+            }
         }
 
         private string GetRootUrl() {
@@ -424,6 +461,7 @@ namespace BuddySDK
             if (clearUser) {
                 PlatformAccess.Current.ClearUserSetting ("UserID");
                 PlatformAccess.Current.ClearUserSetting (this.AppId + "-UserAccessToken");
+
                 UserToken = null;
             }
 
@@ -440,7 +478,7 @@ namespace BuddySDK
             }
             var id = PlatformAccess.Current.GetUserSetting ("UserID");
             if (userToken != null && id != null) {
-                User = new AuthenticatedUser (this, id, userToken);
+                User = new AuthenticatedUser (id, userToken, this);
             }
         }
 
@@ -503,7 +541,62 @@ namespace BuddySDK
             UpdateAccessLevel();
         }
 
-      
+        ConnectivityLevel? _connectivity;
+        public ConnectivityLevel ConnectivityLevel {
+            get {
+                if (_connectivity == null) {
+                    return PlatformAccess.Current.ConnectionType;
+                }
+                return _connectivity.GetValueOrDefault(ConnectivityLevel.None);
+            }
+            private set {
+                _connectivity = value;
+            }
+        }
+
+       
+        private void CheckConnectivity(TimeSpan waitTime) {
+            Service.Client.CallServiceMethod<string>("GET", "/service/ping", allowThrow:false)
+                .ContinueWith(r=> {
+
+                    if (r.Result != null && r.Result.IsSuccess) {
+                        PlatformAccess.Current.InvokeOnUiThread(() => {
+                            OnConnectivityChanged(PlatformAccess.Current.ConnectionType);
+                        });
+                    }
+                    else
+                    {
+                        // wait a second and try again
+                        //
+                        Thread.Sleep(waitTime);
+                        CheckConnectivity(waitTime);
+                    }
+                }
+             );
+
+        }
+
+        protected virtual void OnConnectivityChanged(ConnectivityLevel level) {
+            if (level == _connectivity) {
+                return;
+            }
+            _connectivity = level;
+
+            switch (level) {
+            case ConnectivityLevel.None:
+                    CheckConnectivity (TimeSpan.FromSeconds (1));
+                    break;
+              
+            }
+
+
+            if (ConnectivityLevelChanged != null) {
+                ConnectivityLevelChanged (this, new ConnectivityLevelChangedArgs  {
+                    ConnectivityLevel =  level
+                });
+            }
+
+        }
       
         protected bool OnServiceException(BuddyClient client, BuddyServiceException buddyException) {
 
@@ -514,32 +607,18 @@ namespace BuddySDK
                 client.OnAuthorizationFailure ((BuddyUnauthorizedException)buddyException);
                 return false;
             } else if (buddyException is BuddyNoInternetException) {
-                Buddy.OnConnectivityChanged (this, ConnectivityLevel.None);
+                OnConnectivityChanged (ConnectivityLevel.None);
                 return false;
             }
 
-
             bool result = false;
 
-          
-            Action checkException = () => {
-
-                if (ServiceException != null) {
-                    var args = new ServiceExceptionEventArgs (buddyException);
-                    ServiceException (this, args);
-                    result = args.ShouldThrow;
-                } 
-                else {
-                    result = Buddy.OnServiceException(this, buddyException);
-                }
-               
-            };
-
-
-            checkException ();
-
+            if (ServiceException != null) {
+                var args = new ServiceExceptionEventArgs (buddyException);
+                ServiceException (this, args);
+                result = args.ShouldThrow;
+            } 
             return result;
-           
         }
 
         internal virtual void OnAuthorizationFailure(BuddyUnauthorizedException exception) {
@@ -563,8 +642,8 @@ namespace BuddySDK
            
             PlatformAccess.Current.InvokeOnUiThread (() => {
 
-                if (this.AuthLevelChanged != null) {
-                    this.AuthLevelChanged (this, EventArgs.Empty);
+                if (this.AuthorizationLevelChanged != null) {
+                    this.AuthorizationLevelChanged (this, EventArgs.Empty);
                 }
             });
         }
@@ -631,7 +710,7 @@ namespace BuddySDK
 
                 return r.Convert(d => {
 
-                    var user = new AuthenticatedUser(this, (string)r.Value["ID"], (string)r.Value["accessToken"]);
+                        var user = new AuthenticatedUser( (string)r.Value["ID"], (string)r.Value["accessToken"], this);
                     this.User = user;
                     return user;
                 });
@@ -654,7 +733,7 @@ namespace BuddySDK
             {
                 Username = username,
                 Password = password
-            }, (result) => new AuthenticatedUser(this, (string)result["ID"], (string)result["accessToken"]));
+                }, (result) => new AuthenticatedUser((string)result["ID"], (string)result["accessToken"], this));
         }
 
         public System.Threading.Tasks.Task<BuddyResult<SocialAuthenticatedUser>> SocialLoginUserAsync(string identityProviderName, string identityID, string identityAccessToken)
@@ -664,7 +743,7 @@ namespace BuddySDK
                         IdentityProviderName = identityProviderName,
                         IdentityID = identityID,
                         IdentityAccessToken = identityAccessToken
-                    }, (result) => new SocialAuthenticatedUser(this, (string)result["ID"], (string)result["accessToken"], (bool)result["isNew"]));
+                }, (result) => new SocialAuthenticatedUser((string)result["ID"], (string)result["accessToken"], (bool)result["isNew"], this));
         }
 
         private async System.Threading.Tasks.Task<BuddyResult<T>> LoginUserCoreAsync<T>(string path, object parameters, Func<IDictionary<string, object>, T> createUser) where T : AuthenticatedUser
@@ -685,19 +764,44 @@ namespace BuddySDK
            
         }
 
-        public Task<BuddyResult<bool>> LogoutUserAsync() {
-            return Task.Run<BuddyResult<bool>>(() => {
+        private async Task<BuddyResult<bool>> LogoutInternal() {
+
+            IDictionary<string,object> dresult = null;
+
+            var r = await CallServiceMethodHelper<IDictionary<string,object>, bool>(
+                "POST",
+                "/users/me/logout",
+                map: (d) => {
+                    dresult = d;
+                    return d != null;
+
+                });
+
+            if (r.IsSuccess) {
 
                 if (UserToken != null) {
                     UserToken = null;
-                    PlatformAccess.Current.ClearUserSetting(this.AppId + "-UserAccessToken");
+                    this.User = null;
+                    ClearCredentials (true, false);
+                   
                 }
 
-                // TODO: call logout
-                return new BuddyResult<bool> {
-                    Value = true
-                };
-            });
+                if (dresult != null && dresult.ContainsKey("accessToken")) {
+                    var token = dresult ["accessToken"] as string;
+                    DateTime? expires = null;
+                    if (dresult.ContainsKey("accessTokenExpires")) {
+                        object dt = dresult ["accessTokenExpires"];
+                        expires =  (DateTime)dt;
+                    }
+                    DeviceToken = token;
+                    OnAccessTokenChanged(token, AccessTokenType.Device, expires);
+                }
+            }
+            return r;
+        }
+
+        public Task<BuddyResult<bool>> LogoutUserAsync() {
+            return LogoutInternal ();
            
         }
 

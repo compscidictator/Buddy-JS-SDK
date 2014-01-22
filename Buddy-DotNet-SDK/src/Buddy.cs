@@ -44,6 +44,70 @@ namespace BuddySDK
             }
         }
 
+        public static void RunOnUiThread(Action a) {
+            PlatformAccess.Current.InvokeOnUiThread (a);
+        }
+
+
+
+        // Global Events
+        //
+
+        public static event EventHandler AuthorizationLevelChanged {
+            add {
+                Instance.AuthorizationLevelChanged += value;
+            }
+            remove {
+                Instance.AuthorizationLevelChanged -= value;
+            }
+        }
+
+        public static event EventHandler AuthorizationFailure {
+            add {
+                Instance.AuthorizationFailure += value;
+            }
+            remove {
+                Instance.AuthorizationFailure -= value;
+            }
+        }
+
+        public static event EventHandler<ConnectivityLevelChangedArgs> ConnectivityLevelChanged {
+            add {
+                Instance.ConnectivityLevelChanged += value;
+            }
+            remove {
+                Instance.ConnectivityLevelChanged -= value;
+            }
+        }
+
+        public static event EventHandler<CurrentUserChangedEventArgs> CurrentUserChanged {
+            add {
+                Instance.CurrentUserChanged += value;
+            }
+            remove {
+                Instance.CurrentUserChanged -= value;
+            }
+        }
+
+        public static event EventHandler LastLocationChanged {
+            add {
+                Instance.LastLocationChanged += value;
+            }
+            remove {
+                Instance.LastLocationChanged -= value;
+            }
+        }
+
+
+        public static event EventHandler<ServiceExceptionEventArgs> ServiceException {
+            add {
+                Instance.ServiceException += value;
+            }
+            remove {
+                Instance.ServiceException -= value;
+            }
+        }
+
         public static void Init(string appId, string appKey, BuddyClientFlags flags = BuddyClientFlags.Default)
         {
             if (_creds != null)
@@ -63,6 +127,11 @@ namespace BuddySDK
             var t = Instance.LoginUserAsync(username, password);
 
             return t;
+        }
+
+        public static Task<BuddyResult<bool>> LogoutUserAsync ()
+        {
+            return Instance.LogoutUserAsync ();
         }
 
         public static Task<BuddyResult<SocialAuthenticatedUser>> SocialLoginUserAsync(string identityProviderName, string identityID, string identityAccessToken)
@@ -150,75 +219,13 @@ namespace BuddySDK
             }
         }
 
-        // Global Events
-        //
 
-       
-
-       
-
-        public class ConnectivityLevelChangedArgs : EventArgs {
-
-            public ConnectivityLevel ConnectivityLevel {
-                get;
-                internal set;
-            }
-        }
-
-        public static event EventHandler<ConnectivityLevelChangedArgs> ConnectivityLevelChanged;
-
-        internal static void OnConnectivityChanged(BuddyClient client, ConnectivityLevel c) {
-
-
-            if (ConnectivityLevelChanged != null) {
-                var args = new ConnectivityLevelChangedArgs {
-                    ConnectivityLevel = c
-                };
-                ConnectivityLevelChanged (client, args);
-            }
-        }
-
-       
-
-        public static event EventHandler<ServiceExceptionEventArgs> ServiceException;
-
-        internal static bool OnServiceException(BuddyClient client, BuddyServiceException buddyException) {
-
-               if (ServiceException != null) {
-                var args = new ServiceExceptionEventArgs (buddyException);
-
-                ServiceException (client, args);
-
-                return args.ShouldThrow;
-
-            }
-
-            return true;
-
-        }
-
-        public static void RunOnUiThread(Action a) {
-            PlatformAccess.Current.InvokeOnUiThread (a);
-        }
-
+      
 
 
     }
 
-    public enum ConnectivityLevel {
-        None,
-        Connected,
-        Carrier,
-        WiFi
-    }
+   
 
-    public class ServiceExceptionEventArgs : EventArgs {
-        public BuddyServiceException Exception { get; private set;}
-
-        public bool ShouldThrow { get; set; }
-
-        public ServiceExceptionEventArgs(BuddyServiceException ex) {
-            Exception = ex;
-        }
-    }
+   
 }
