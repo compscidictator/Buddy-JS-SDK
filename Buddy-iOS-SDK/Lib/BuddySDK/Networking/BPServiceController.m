@@ -143,7 +143,8 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 {
     return ^(AFHTTPRequestOperation *operation, NSError *error){
 
-        callback([operation response].statusCode, operation.responseString, error);
+        NSInteger statusCode = operation.response ? operation.response.statusCode : 0;
+        callback(statusCode, operation.responseString, error);
     };
 }
 
