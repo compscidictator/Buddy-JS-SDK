@@ -167,7 +167,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         //        + (NSError *)tokenExpiredError:(NSInteger)code;
         //        + (NSError *)badDataError:(NSInteger)code;
         
-        BOOL authError=FALSE;
+        BOOL authError = FALSE;
         
         NSLog (@"Framework: handleFailure");
         
@@ -176,8 +176,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         NSError *buddyError;
         
         NSString *responseString=@"Unknown";
-        if ((operation.responseString!=nil) && ([operation.responseString length]> 0))
-        {
+        if ((operation.responseString) && ([operation.responseString length] > 0)) {
             responseString =operation.responseString;
         }
         switch (responseCode) {
@@ -200,12 +199,10 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                 buddyError = [NSError noInternetError:error.code message:responseString];
                 break;
         }
-        
-        callback(nil, buddyError);
-        if( authError)
-        {
+        if( authError) {
             [self.client raiseAuthError];
         }
+        callback(nil, buddyError);
     };
 }
 

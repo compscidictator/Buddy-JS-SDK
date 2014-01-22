@@ -112,21 +112,14 @@
 #pragma mark BuddyObject
 
 
--(void) setUser:(BPUser*) user
+- (BPUser *) user
 {
-    _user=user;
-}
-
--(BPUser*) user
-{
-    if(_user==nil)
+    if(!_user)
     {
         [self raiseAuthError];
     }
     return _user;
 }
-
-
 
 #pragma mark Login
 
@@ -207,17 +200,13 @@
 {
     id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
     
-    if (self.delegate==nil)
-    {
-        if ( (app!=nil) &&[ app respondsToSelector:@selector(authorizationFailed)])
+    if (!self.delegate) { // First check our delegate
+        if ( (app) &&[ app respondsToSelector:@selector(authorizationFailed)])
         {
             [app performSelector:@selector(authorizationFailed)];
         }
-    }
-    else
-    {
-        if ([self.delegate respondsToSelector:@selector(authorizationFailed)])
-        {
+    } else { // If no delegate, see if we've implemented delegate methods on the AppDelegate.
+        if ([self.delegate respondsToSelector:@selector(authorizationFailed)]) {
             [self.delegate authorizationFailed];
         }
     }

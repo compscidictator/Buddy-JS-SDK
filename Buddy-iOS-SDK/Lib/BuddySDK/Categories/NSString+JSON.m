@@ -46,7 +46,6 @@
     NSTextCheckingResult *regexResult = [dateRegEx firstMatchInString:self options:0 range:NSMakeRange(0, [self length])];
     
 
-    return (regexResult!=nil);
-    //return [self rangeOfString:@"/Date"].location != NSNotFound;
+    return (regexResult != nil);
 }
 @end

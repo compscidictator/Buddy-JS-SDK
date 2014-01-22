@@ -42,8 +42,7 @@ describe(@"BPUser", ^{
             NSString *randomNameLast = [BuddyIntegrationHelper randomString:10];
             NSLog(@"Created New Random Last Name: %@",randomNameLast);
 
-            if ([Buddy user]==nil)
-            {
+            if (![Buddy user]) {
                 NSLog(@"Buddy User is nil");
             }
             

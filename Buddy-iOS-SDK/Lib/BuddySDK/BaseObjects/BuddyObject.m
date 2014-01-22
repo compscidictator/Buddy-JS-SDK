@@ -66,13 +66,7 @@
 
 -(BPClient*)client
 {
-    if(_client!=nil)
-    {
-        return _client;
-    }
-    
-    return [BPClient defaultClient];
-    
+    return _client ?: [BPClient defaultClient];
 }
 
 - (void)registerProperties
