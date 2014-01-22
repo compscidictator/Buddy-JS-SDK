@@ -11,26 +11,22 @@
 
 #import "BPRestProvider.h"
 
-@class BPClient;
+typedef void (^ServiceResponse)(NSInteger responseCode, id response, NSError *error);
 
-
-@interface BPServiceController : NSObject <BPRestProvider>
+@interface BPServiceController : NSObject
 
 -(instancetype) init __attribute__((unavailable("Use initWithUrl:")));
 +(instancetype) new __attribute__((unavailable("Use with initWithUrl:")));
 
--(instancetype)initWithBuddyUrl:(NSString *)url
-                client:(BPClient*)client;
+-(instancetype)initWithBuddyUrl:(NSString *)url;
 
 @property (nonatomic, readonly, retain) NSString *appID;
 @property (nonatomic, readonly, retain) NSString *appKey;
 
-
-
--(void)setAppID:(NSString *)appID
-                withKey:(NSString *)appKey
-                callback:(RESTCallback)callback;
-
-- (void)updateConnectionWithResponse:(id)result;
+- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback;
+- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback;
+- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(ServiceResponse)callback;
+- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback;
+- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback;
 
 @end

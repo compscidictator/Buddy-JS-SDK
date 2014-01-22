@@ -19,25 +19,22 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 
 @interface BPServiceController()
 
-- (AFFailureCallback) handleFailure:(RESTCallback)callback;
-- (AFSuccessCallback) handleSuccess:(RESTCallback)callback;
+- (AFFailureCallback) handleFailure:(ServiceResponse)callback;
+- (AFSuccessCallback) handleSuccess:(ServiceResponse)callback;
 
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @property (nonatomic, strong) NSString *token;
-@property (nonatomic, strong) BPClient *client;
 
 @end
 
 @implementation BPServiceController
 
 - (instancetype)initWithBuddyUrl:(NSString *)url
-                    client:(BPClient*)client
 {
     self = [super init];
     if(self)
     {
-        _client = client;
         [self setupManagerWithBaseUrl:url withToken:nil];
 
     }
@@ -82,27 +79,10 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
     }
 }
 
-- (void)setAppID:(NSString *)appID
-                withKey:(NSString *)appKey
-                callback:(RESTCallback)callback
-{
-    
-    NSDictionary *getTokenParams = @{
-                                     @"appId": appID,
-                                     @"appKey": appKey,
-                                     @"Platform": @"iOS",
-                                     @"UniqueId": [BuddyDevice identifier],
-                                     @"Model": [BuddyDevice deviceModel],
-                                     @"OSVersion": [BuddyDevice osVersion]
-                                     };
-    
-    [self POST:@"devices" parameters:getTokenParams callback:callback];
-}
-
 
 #pragma mark - BPRestProvider
 
-- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager GET:servicePath
            parameters:parameters
@@ -110,7 +90,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
               failure:[self handleFailure:callback]];
 }
 
-- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager POST:servicePath
             parameters:parameters
@@ -118,7 +98,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                failure:[self handleFailure:callback]];
 }
 
-- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(RESTCallback)callback
+- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(ServiceResponse)callback
 {
     void (^constructBody)(id <AFMultipartFormData> formData) =^(id<AFMultipartFormData> formData){
         for(NSString *name in [data allKeys]){
@@ -134,7 +114,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                      failure:[self handleFailure:callback]];
 }
 
-- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager PATCH:servicePath
              parameters:parameters
@@ -142,7 +122,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                 failure:[self handleFailure:callback]];
 }
 
-- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager DELETE:servicePath
               parameters:parameters
@@ -150,59 +130,20 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                  failure:[self handleFailure:callback]];
 }
 
-- (AFSuccessCallback) handleSuccess:(RESTCallback)callback
+- (AFSuccessCallback) handleSuccess:(ServiceResponse)callback
 {
     return ^(AFHTTPRequestOperation *operation, id responseObject){
         id result = responseObject[@"result"];
         [self updateConnectionWithResponse:result];
-        callback(result, nil);
+        callback([operation response].statusCode, responseObject, nil);
     };
 }
 
-- (AFFailureCallback) handleFailure:(RESTCallback)callback
+- (AFFailureCallback) handleFailure:(ServiceResponse)callback
 {
     return ^(AFHTTPRequestOperation *operation, NSError *error){
-        //        + (NSError *)noInternetError:(NSInteger)code;
-        //        + (NSError *)noAuthenticationError:(NSInteger)code;
-        //        + (NSError *)tokenExpiredError:(NSInteger)code;
-        //        + (NSError *)badDataError:(NSInteger)code;
-        
-        BOOL authError = FALSE;
-        
-        NSLog (@"Framework: handleFailure");
-        
-        NSInteger responseCode = operation.response.statusCode;
-        
-        NSError *buddyError;
-        
-        NSString *responseString=@"Unknown";
-        if ((operation.responseString) && ([operation.responseString length] > 0)) {
-            responseString =operation.responseString;
-        }
-        switch (responseCode) {
-            case 400:
-                buddyError = [NSError badDataError:error.code message:responseString];
-                break;
-            case 403:
-                authError=TRUE;
-                if (YES) {
-                    buddyError = [NSError noAuthenticationError:error.code message:responseString];
-                } else {
-                    // TODO - figure out how to determing token expired.
-                    buddyError = [NSError tokenExpiredError:error.code message:responseString];
-                }
-                break;
-            case 500:
-                buddyError = [NSError badDataError:error.code message:responseString];
-                break;
-            default:
-                buddyError = [NSError noInternetError:error.code message:responseString];
-                break;
-        }
-        if( authError) {
-            [self.client raiseAuthError];
-        }
-        callback(nil, buddyError);
+
+        callback([operation response].statusCode, operation.responseString, error);
     };
 }
 

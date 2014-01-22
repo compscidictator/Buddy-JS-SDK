@@ -19,14 +19,14 @@
 #import "BPUser.h"
 #import "BuddyObject+Private.h"
 #import "BuddyLocation.h"
-
+#import "BuddyDevice.h"
 #import <CoreFoundation/CoreFoundation.h>
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
 
 
-@interface BPClient()
+@interface BPClient()<BPRestProvider>
 @property (nonatomic, strong) BPServiceController *service;
 
 - (void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
@@ -80,21 +80,29 @@
     NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
 #endif
 
-    self.service = [[BPServiceController alloc] initWithBuddyUrl:serviceUrl client:self];
+    self.service = [[BPServiceController alloc] initWithBuddyUrl:serviceUrl];
     
     // TODO - Does the client need a copy? Do users need to read back key/id?
     _appKey = appKey;
     _appID = appID;
     
+    NSDictionary *getTokenParams = @{
+                                     @"appId": appID,
+                                     @"appKey": appKey,
+                                     @"Platform": @"iOS",
+                                     @"UniqueId": [BuddyDevice identifier],
+                                     @"Model": [BuddyDevice deviceModel],
+                                     @"OSVersion": [BuddyDevice osVersion]
+                                     };
     
-    [self.service setAppID:appID withKey:appKey callback:^(id json, NSError *error) {
+    [self POST:@"devices" parameters:getTokenParams callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
 
 - (id<BPRestProvider>)restService
 {
-    return self.service;
+    return self;
 }
 
 # pragma mark -
@@ -127,7 +135,7 @@
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password};
-    [self.service POST:@"users/login" parameters:parameters callback:^(id json, NSError *error) {
+    [self POST:@"users/login" parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(json, error) : nil;
     }];
 }
@@ -138,7 +146,7 @@
                                  @"identityId": providerId,
                                  @"identityAccessToken": token};
     
-    [self.service POST:@"users/login/social" parameters:parameters callback:^(id json, NSError *error) {
+    [self POST:@"users/login/social" parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(json, error) : nil;
     }];
 }
@@ -155,11 +163,11 @@
         BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andClient:self];
         user.isMe = YES;
         
-        [user refresh:^(NSError *error){
-         #pragma messsage("TODO - Error")
-         [self initializeCollectionsWithUser:user];
-         callback ? callback(user, nil) : nil;
-         }];
+        [user refresh:^(NSError *error) {
+#pragma messsage("TODO - Error")
+            [self initializeCollectionsWithUser:user];
+            callback ? callback(user, nil) : nil;
+        }];
         
     }];
 }
@@ -188,15 +196,102 @@
 
 -(void)ping:(BPPingCallback)callback
 {
-    [self.service GET:@"ping" parameters:nil callback:^(id json, NSError *error) {
+    [self GET:@"ping" parameters:nil callback:^(id json, NSError *error) {
         callback ? callback([NSDecimalNumber decimalNumberWithString:@"2.0"]) : nil;
     }];
 }
 
+#pragma mark - BPRestProvider
+
+- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+{
+    [self.service GET:servicePath parameters:parameters callback:[self handleResponse:callback]];
+}
+
+- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+{
+    [self.service POST:servicePath parameters:parameters callback:[self handleResponse:callback]];
+}
+
+- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(RESTCallback)callback
+{
+    [self.service MULTIPART_POST:servicePath parameters:parameters data:data callback:[self handleResponse:callback]];
+}
+
+- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+{
+    [self.service PATCH:servicePath parameters:parameters callback:[self handleResponse:callback]];
+}
+
+- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+{
+    [self.service DELETE:servicePath parameters:parameters callback:[self handleResponse:callback]];
+}
+
 #pragma mark Response Handlers
 
+- (ServiceResponse) handleResponse:(RESTCallback)callback
+{
+    return ^(NSInteger responseCode, id response, NSError *error) {
+        //        + (NSError *)noInternetError:(NSInteger)code;
+        //        + (NSError *)noAuthenticationError:(NSInteger)code;
+        //        + (NSError *)tokenExpiredError:(NSInteger)code;
+        //        + (NSError *)badDataError:(NSInteger)code;
+        
+        BOOL authError = FALSE;
+        
+        NSLog (@"Framework: handleResponse");
+        
+        NSError *buddyError;
+        
+        response = response ?: @"Unknown";
+        id responseObject = nil;
+        
+        switch (responseCode) {
+            case 200:
+            case 201:
+                responseObject = response[@"result"];
+                break;
+            case 400:
+                buddyError = [NSError badDataError:error.code message:response];
+                break;
+            case 403:
+                authError=TRUE;
+                if (YES) {
+                    buddyError = [NSError noAuthenticationError:error.code message:response];
+                } else {
+                    // TODO - figure out how to determing token expired.
+                    buddyError = [NSError tokenExpiredError:error.code message:response];
+                }
+                break;
+            case 500:
+                buddyError = [NSError badDataError:error.code message:response];
+                break;
+            default:
+                buddyError = [NSError noInternetError:error.code message:response];
+                break;
+        }
+        if(authError) {
+            [self raiseAuthError];
+        }
+        callback(responseObject, buddyError);
 
--(void) raiseAuthError
+    };
+}
+
+- (RESTCallback) handleFailure:(RESTCallback)callback
+{
+    return ^(AFHTTPRequestOperation *operation, NSError *error){
+    };
+}
+
+
+- (void)handleError:(NSInteger)responseCode responseString:(NSString *)responseString
+{
+    
+}
+
+- (void)raiseAuthError
 {
     id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
     
