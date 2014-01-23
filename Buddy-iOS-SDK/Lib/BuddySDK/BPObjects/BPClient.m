@@ -65,6 +65,16 @@
     _location = [BuddyLocation new];
 }
 
+- (void)resetOnLogout
+{
+    _user = nil;
+    
+    _checkins = nil;
+    _photos = nil;
+    _blobs = nil;
+    _location = nil;
+}
+
 -(void)setupWithApp:(NSString *)appID
                 appKey:(NSString *)appKey
                 options:(NSDictionary *)options
@@ -164,9 +174,8 @@
         user.isMe = YES;
         
         [user refresh:^(NSError *error) {
-#pragma messsage("TODO - Error")
             [self initializeCollectionsWithUser:user];
-            callback ? callback(user, nil) : nil;
+            callback ? callback(user, error) : nil;
         }];
         
     }];
@@ -174,7 +183,7 @@
 
 - (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 {
-    [self socialLogin:provider providerId:providerId token:token success:^(id json, NSError *error) {
+    [self socialLoginWorker:provider providerId:providerId token:token success:^(id json, NSError *error) {
         
         if (error) {
             if (callback)
@@ -188,6 +197,20 @@
         [user refresh:^(NSError *error){
             callback ? callback(user, error) : nil;
         }];
+    }];
+}
+
+
+- (void)logout:(BuddyCompletionCallback)callback
+{
+    NSString *resource = @"users/me/logout";
+    
+    [self POST:resource parameters:nil callback:^(id json, NSError *error) {
+        if (!error) {
+            _user = nil;
+        }
+        
+        callback ? callback(error) : nil;
     }];
 }
 

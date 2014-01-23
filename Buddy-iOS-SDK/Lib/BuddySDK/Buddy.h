@@ -113,4 +113,10 @@
  */
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 
+/**
+ *
+ * Logout of the current app
+ */
++ (void)logout:(BuddyCompletionCallback)callback;
+
 @end

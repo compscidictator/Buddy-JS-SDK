@@ -120,7 +120,7 @@ describe(@"BPUser", ^{
         
         it(@"Should allow the user to logout", ^{
             __block BOOL done = NO;
-            [[Buddy user] logout:^(NSError *error) {
+            [Buddy logout:^(NSError *error) {
                 [[error should] beNil];
                 done = YES;
             }];

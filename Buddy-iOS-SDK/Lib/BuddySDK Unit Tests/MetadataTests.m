@@ -32,7 +32,7 @@ describe(@"Metadata", ^{
         });
         
         afterAll(^{
-            [[Buddy user] logout:nil];
+            [Buddy logout:nil];
         });
         
         it(@"Should be able to set string based metadata", ^{

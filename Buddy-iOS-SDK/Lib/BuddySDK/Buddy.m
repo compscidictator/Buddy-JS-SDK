@@ -130,4 +130,10 @@
 {
     [[BPClient defaultClient] socialLogin:provider providerId:providerId token:token success:callback];
 }
+
++ (void)logout:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] logout:callback];
+}
+
 @end

@@ -129,6 +129,8 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 - (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 
+- (void)logout:(BuddyCompletionCallback)callback;
+
 - (void)ping:(BPPingCallback)callback;
 
 

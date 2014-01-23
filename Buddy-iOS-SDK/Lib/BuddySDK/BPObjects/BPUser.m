@@ -70,17 +70,6 @@ static NSString *users = @"users";
     return components.year;
 }
 
-#pragma mark - Login/Logout
-
-- (void)logout:(BuddyCompletionCallback)callback
-{
-    NSString *resource = @"users/me/logout";
-    
-    [[[self client] restService] POST:resource parameters:nil callback:^(id json, NSError *error) {
-        callback(error);
-    }];
-}
-
 #pragma mark - Password
 
 - (void)requestPasswordReset:(BuddyObjectCallback)callback
