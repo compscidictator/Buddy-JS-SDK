@@ -36,8 +36,7 @@ static NSString *photos = @"pictures";
     id parameters = @{@"comment": comment};
     
     [self createWithData:data parameters:parameters client:client callback:^(id newBuddyObject, NSError *error) {
-#pragma message("TODO - Error")
-        callback(newBuddyObject, nil);
+        callback(newBuddyObject, error);
     }];
 }
 

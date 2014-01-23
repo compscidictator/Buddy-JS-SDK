@@ -312,8 +312,7 @@
     id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
     
     if (!self.delegate) { // First check our delegate
-        if ( (app) &&[ app respondsToSelector:@selector(authorizationFailed)])
-        {
+        if (app && [app respondsToSelector:@selector(authorizationFailed)])  {
             [app performSelector:@selector(authorizationFailed)];
         }
     } else { // If no delegate, see if we've implemented delegate methods on the AppDelegate.

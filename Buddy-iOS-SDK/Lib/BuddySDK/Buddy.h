@@ -75,20 +75,6 @@
             callback:(BuddyCompletionCallback)callback;
 
 
-#pragma message("Will these be necessary?")
-//+ (void) initClient:(NSString *)appID
-//             appKey:(NSString *)appKey
-//        withOptions:(NSDictionary *)options
-//           callback:(BuddyCompletionCallback)callback;
-//
-//+ (void)   initClient:(NSString *)appID
-//               appKey:(NSString *)appKey
-// autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
-//   autoRecordLocation:(BOOL)autoRecordLocation
-//          withOptions:(NSDictionary *)options
-//             callback:(BuddyCompletionCallback)callback;
-
-
 /**
  *
  * Create a new Buddy User.

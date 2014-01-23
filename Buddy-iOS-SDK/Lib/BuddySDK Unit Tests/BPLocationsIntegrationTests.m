@@ -20,7 +20,7 @@ SPEC_BEGIN(BuddyLocationsSpec)
 describe(@"BPLocationIntegrationSpec", ^{
     context(@"When a user is logged in", ^{
         
-        __block BPAlbum *tempAlbum;
+        //__block BPAlbum *tempAlbum;
         
         beforeAll(^{
             __block BOOL fin = NO;
