@@ -43,7 +43,7 @@
 
 @synthesize user=_user;
 
-#pragma mark Initializer
+#pragma mark - Init
 
 - (instancetype)init
 {
@@ -76,10 +76,10 @@
 }
 
 -(void)setupWithApp:(NSString *)appID
-                appKey:(NSString *)appKey
-                options:(NSDictionary *)options
-                delegate:(id<BPClientDelegate>) delegate
-                callback:(BuddyCompletionCallback)callback
+             appKey:(NSString *)appKey
+            options:(NSDictionary *)options
+           delegate:(id<BPClientDelegate>) delegate
+           callback:(BuddyCompletionCallback)callback
 
 {
     
@@ -127,7 +127,7 @@
     return sharedClient;
 }
 
-#pragma mark BuddyObject
+#pragma mark - Collections
 
 
 - (BPUser *) user
@@ -139,7 +139,7 @@
     return _user;
 }
 
-#pragma mark Login
+#pragma mark - Login
 
 -(void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback
 {
@@ -215,7 +215,7 @@
 }
 
 
-#pragma mark Non-BuddyObject Requests
+#pragma mark - Utility
 
 -(void)ping:(BPPingCallback)callback
 {
@@ -256,7 +256,7 @@
     [self.service DELETE:servicePath parameters:parameters callback:[self handleResponse:callback]];
 }
 
-#pragma mark Response Handlers
+#pragma mark - Response Handlers
 
 - (ServiceResponse) handleResponse:(RESTCallback)callback
 {
@@ -323,7 +323,7 @@
     }
 }
 
-#pragma mark Location
+#pragma mark - Location
 
 - (void)setLocationEnabled:(BOOL)locationEnabled
 {
