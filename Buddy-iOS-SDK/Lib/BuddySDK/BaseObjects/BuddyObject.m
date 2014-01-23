@@ -168,7 +168,6 @@
 
 -(void)deleteMe:(BuddyCompletionCallback)callback
 {
-#pragma message("Figure out clean way to know when to use /me and /id")
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           _id];

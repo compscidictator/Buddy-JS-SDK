@@ -27,4 +27,6 @@
 
 - (void)getCheckins:(BuddyCollectionCallback)callback;
 
+- (void)getCheckin:(NSString *)checkinId callback:(BuddyObjectCallback)callback;
+
 @end

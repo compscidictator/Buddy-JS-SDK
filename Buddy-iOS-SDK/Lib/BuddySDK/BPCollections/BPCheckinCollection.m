@@ -47,9 +47,9 @@
     [self getAll:callback];
 }
 
--(void)getCheckin:(BuddyObjectCallback)callback
+- (void)getCheckin:(NSString *)checkinId callback:(BuddyObjectCallback)callback
 {
-    callback(nil, nil);
+    [self getItem:checkinId callback:callback];
 }
 
 @end
