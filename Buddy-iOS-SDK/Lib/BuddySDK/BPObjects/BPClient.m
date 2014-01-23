@@ -207,7 +207,7 @@
     
     [self POST:resource parameters:nil callback:^(id json, NSError *error) {
         if (!error) {
-            _user = nil;
+            [self resetOnLogout];
         }
         
         callback ? callback(error) : nil;
