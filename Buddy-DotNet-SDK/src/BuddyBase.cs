@@ -69,11 +69,11 @@ namespace BuddySDK
     {
         private static Dictionary<Type, List<Tuple<string, string>>> _propMappings = new Dictionary<Type, List<Tuple<string, string>>>();
 
-        protected static void EnsureMappings(object t)
+        protected static List<Tuple<string, string>> EnsureMappings(object t)
         {
             if (_propMappings.ContainsKey(t.GetType()))
             {
-                return;
+                return _propMappings[t.GetType()];
             }
             var l = new List<Tuple<string, string>>();
             foreach (var prop in t.GetType().GetProperties())
@@ -90,6 +90,7 @@ namespace BuddySDK
                 l.Add(new Tuple<string, string>(prop.Name, jsonName));
             }
             _propMappings[t.GetType()] = l;
+            return l;
         }
 
         private BuddyClient _client;
@@ -213,13 +214,9 @@ namespace BuddySDK
             EnsureMappings(this);
         }
 
-        protected BuddyBase(BuddyClient client = null, string id = null)
-            : this(id, client)
-        {
+       
 
-        }
-
-        protected BuddyBase(string id = null, BuddyClient client = null)  : this()
+        protected BuddyBase(string id = null, BuddyClient client = null)
         {
            
             if (client != null) {
@@ -239,12 +236,7 @@ namespace BuddySDK
             }
         }
 
-        protected BuddyBase(BuddyClient client, AuthenticatedUser user):this(client)
-        {
-            throw new NotImplementedException();
-           
-            
-        }
+      
 
         public virtual Task<BuddyResult<bool>> DeleteAsync()
         {
@@ -460,7 +452,7 @@ namespace BuddySDK
             {
                 // gather dirty props.
                 var d = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
-                var mappings = _propMappings[GetType()];
+                var mappings = EnsureMappings (this);
                 foreach (var kvp in _values)
                 {
                     if (kvp.Value.IsDirty)
@@ -533,7 +525,7 @@ namespace BuddySDK
         internal void Update(IDictionary<string, object> values)
         {
             IsPopulated = true;
-            var mappings = _propMappings[this.GetType()];
+            var mappings = EnsureMappings (this);
 
             foreach (var kvp in values)
             {

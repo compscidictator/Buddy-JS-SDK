@@ -48,9 +48,6 @@ namespace BuddySDK
     [BuddyObjectPath("/users")]
     public class User : BuddyBase
     {
-        public User()
-        {
-        }
 
 		[JsonProperty("firstName")]
 		public string FirstName
@@ -181,13 +178,13 @@ namespace BuddySDK
             }
         }
 
-        internal User(BuddyClient client, int id)
-            : base(client, id.ToString())
+        public User()
         {
         }
-		
-        internal User(BuddyClient client, string id)
-            : base(client, id)
+
+       
+        public User(string id, BuddyClient client = null)
+            : base( id, client)
         {
         }
 

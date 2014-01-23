@@ -11,9 +11,9 @@ using System.Threading.Tasks;
 
 namespace BuddySquare.iOS
 {
-    public partial class HomeScreenViewController : UIViewController
+    public partial class HomeScreenViewController : BuddySquareUIViewController
     {
-        public HomeScreenViewController () : base ("HomeScreenViewController", null)
+        public HomeScreenViewController () : base ("HomeScreenViewController")
         {
             this.Title = "BuddySquare!";
         }
@@ -46,7 +46,8 @@ namespace BuddySquare.iOS
         }
 
         private string _timedMetricId;
-       
+
+
         public override void ViewDidLoad ()
         {
             base.ViewDidLoad ();
@@ -70,6 +71,16 @@ namespace BuddySquare.iOS
             };
             this.NavigationItem.RightBarButtonItem = addButton;
 
+            UIBarButtonItem logoutButton = new UIBarButtonItem ("Logout", UIBarButtonItemStyle.Plain, 
+                async (s, e) => {
+
+                    await Buddy.LogoutUserAsync();
+
+
+                });
+
+            this.NavigationItem.LeftBarButtonItem = logoutButton;
+
             HandleAuthLevelChanged (null, null);
 
             _dataSource = new CheckinDataSource (this);
@@ -81,7 +92,10 @@ namespace BuddySquare.iOS
 
         public override void ViewDidAppear (bool animated)
         {
-            Buddy.Instance.AuthLevelChanged += HandleAuthLevelChanged;
+
+            Buddy.ConnectivityLevelChanged += HandleConnectivityLevelChanged;
+            Buddy.Instance.AuthorizationLevelChanged += HandleAuthLevelChanged;
+            Buddy.Instance.CurrentUserChanged += HandleCurrentUserChanged;
             base.ViewDidAppear (animated);
 
             HandleAuthLevelChanged (null, null);
@@ -94,9 +108,28 @@ namespace BuddySquare.iOS
             }
         }
 
+        void HandleCurrentUserChanged (object sender, CurrentUserChangedEventArgs e)
+        {
+            _dataSource.Clear ();
+            checkinTable.ReloadData ();
+        }
+
+        bool noConn;
+        void HandleConnectivityLevelChanged (object sender, ConnectivityLevelChangedArgs e)
+        {
+            if (noConn && e.ConnectivityLevel != ConnectivityLevel.None) {
+                noConn = false;
+                _dataSource.Clear ();
+                checkinTable.ReloadData ();
+            } else {
+                noConn = true;
+            }
+        }
+
         public override void ViewWillDisappear (bool animated)
         {
-            Buddy.Instance.AuthLevelChanged -= HandleAuthLevelChanged;
+            Buddy.ConnectivityLevelChanged += HandleConnectivityLevelChanged;
+            Buddy.Instance.AuthorizationLevelChanged -= HandleAuthLevelChanged;
             base.ViewWillDisappear (animated);
         }
 
@@ -245,7 +278,7 @@ namespace BuddySquare.iOS
             public override int RowsInSection (UITableView tableView, int section)
             {
                 var ci = GetCheckins();
-                if (ci == null)
+                if (ci == null || ci.Count() == 0)
                     return 0;
 
                 return ci.Count ();
@@ -298,6 +331,7 @@ namespace BuddySquare.iOS
             {
                 var c = GetCheckins();
 
+               
                 var ci = c.ElementAt (indexPath.Row);
 
                 UITableViewCell cell = tableView.DequeueReusableCell ("NormalCell");

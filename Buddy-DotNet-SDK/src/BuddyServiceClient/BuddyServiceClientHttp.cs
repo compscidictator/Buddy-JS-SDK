@@ -104,6 +104,13 @@ namespace BuddyServiceClient
             }
         }
 
+        public virtual void LogMessage(string message) {
+            if (LoggingEnabled){
+                Debug.WriteLine(message);
+               
+            }
+        }
+
 
         private void StartRequest() {
 
@@ -236,12 +243,12 @@ namespace BuddyServiceClient
                             bcr.RequestID = envelope.request_id;
 
                         }
-                        catch
+                        catch (Exception pex)
                         {
+                            LogMessage(pex.ToString());
                             bcr.Error = "BadJsonResponse";
                             bcr.Message = "Couldn't parse JSON: \r\n" + body;
                         }
-                        
                     }
                     try
                     {

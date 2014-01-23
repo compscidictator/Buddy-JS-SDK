@@ -13,8 +13,8 @@ namespace BuddySDK
         {
         }
 
-        public AlbumItem(string path, BuddyClient client)
-            : base(client)
+        public AlbumItem(string path, BuddyClient client = null)
+            : base(null, client)
         {
             this.path = path;
         }

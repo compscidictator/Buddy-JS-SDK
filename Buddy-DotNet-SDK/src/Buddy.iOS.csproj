@@ -12,7 +12,6 @@
     <RootNamespace>BuddySDK</RootNamespace>
     <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
     <AssemblyName>Buddy</AssemblyName>
-    <ReleaseVersion>0.2</ReleaseVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -43,7 +42,7 @@
     <Reference Include="System.Xml" />
     <Reference Include="monotouch" />
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\libs\Json50r8\Bin\Net35\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\libs\Json50r8\Bin\Portable40\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup />
@@ -81,6 +80,9 @@
     <Compile Include="UserCollection.cs" />
     <Compile Include="SocialAuthenticatedUser.cs" />
     <Compile Include="BuddyResult.cs" />
+    <Compile Include="ConnectivityLevelChangedEventArgs.cs" />
+    <Compile Include="CurrentUserChangedEventArgs.cs" />
+    <Compile Include="ServiceExceptionEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
@@ -90,10 +92,4 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <XamarinComponentReference Include="json.net">
-      <Version>4.5.11</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
-  </ItemGroup>
 </Project>

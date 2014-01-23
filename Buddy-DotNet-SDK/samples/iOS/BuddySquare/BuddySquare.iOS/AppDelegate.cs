@@ -33,26 +33,19 @@ namespace BuddySquare.iOS
         public override bool WillFinishLaunching (UIApplication application, NSDictionary launchOptions)
         {
            
-            Buddy.Init("bbbbbc.CPkbvKkpqJtg", "06A06E4A-D816-48D5-B07C-9F2E07C9A9F7");
+            Buddy.Init("bbbbbc.gLdbblFMNhwg", "00AD8C51-6D95-4DA1-89ED-D5FEC5083901");
 
             bool showingError = false;
 
-            Buddy.ServiceException += (client, args) => {
+            Func<string, string, UIAlertView> showDialog = (title, message) => {
 
                 if (!showingError) {
                     showingError = true;
 
-                    var msg = args.Exception.Message;
-                    var err = args.Exception.Error;
-
-                    if (args.Exception is BuddyNoInternetException) {
-
-                        msg = "Warning - no connectivity!";
-                    }
-
+                   
                     UIAlertView uav =  
-                        new UIAlertView("Buddy Error", 
-                            String.Format("{0}:{1}", msg,err  ), 
+                        new UIAlertView(title, 
+                            message, 
                             null, "OK");
 
                     uav.Dismissed += (sender, e) => {
@@ -60,13 +53,57 @@ namespace BuddySquare.iOS
                         showingError = false;
                     };             
                     uav.Show();
+                    return uav;
                 }
+                return null;
+            };
+                                            
+
+            Buddy.ServiceException += (client, args) => {
+
+
+                showDialog("Buddy Error", String.Format("{0}\r\n{1}", args.Exception.Error, args.Exception.Message));
 
                 args.ShouldThrow = false;
 
             };
            
-            Buddy.Instance.AuthorizationFailure += (obj, e) => {
+            Buddy.AuthorizationFailure += HandleAuthorizationFailure;
+
+            Buddy.AuthorizationLevelChanged += (sender, e) =>  {
+
+                if (homeController == null && Buddy.CurrentUser != null) {
+
+                        SetupNavController();
+                }
+                else if (Buddy.CurrentUser == null) {
+                    HandleAuthorizationFailure(this, EventArgs.Empty);
+                }
+
+            };
+
+            UIAlertView connectivityAlert = null;
+
+            Buddy.ConnectivityLevelChanged += (sender, e) => {
+
+               
+                if (e.ConnectivityLevel == ConnectivityLevel.None) {
+
+                    connectivityAlert = showDialog("Network", "No Connection Available");
+
+                }
+                else if(connectivityAlert != null) {
+                    connectivityAlert.Hidden = true;
+                    connectivityAlert = null;
+                }
+
+            };
+
+            return true;
+        }
+
+        void HandleAuthorizationFailure (object sender, EventArgs e)
+        {
 
                 if (showingLoginView) {
                     return;
@@ -82,20 +119,6 @@ namespace BuddySquare.iOS
                 showingLoginView = true;
 
                 window.RootViewController.PresentViewController(lv, true,null);
-
-
-            };
-
-            Buddy.Instance.AuthLevelChanged += (sender, e) =>  {
-
-                if (homeController == null && Buddy.CurrentUser != null) {
-
-                        SetupNavController();
-                }
-
-            };
-
-            return true;
         }
 
 
