@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BuddyResult.cs" />
+    <Compile Include="Metadata.cs" />
     <Compile Include="ConnectivityLevelChangedEventArgs.cs" />
     <Compile Include="UserCollection.cs" />
     <None Include="V1\AppMetadata.cs">

@@ -13,9 +13,8 @@ namespace BuddySDK
         }
 
 		internal Album(BuddyClient client)
-			: base(null, client)
+			: base(client)
 		{
-
 		}
 
 		[Newtonsoft.Json.JsonProperty("comment")]
@@ -90,7 +89,6 @@ namespace BuddySDK
         public async Task<BuddyResult<Album>> AddAsync(string name, string comment,
             BuddyGeoLocation location, string defaultMetadata = null, BuddyPermissions readPermissions = BuddyPermissions.User, BuddyPermissions writePermissions = BuddyPermissions.User)
         {
-
             var c = new Album(this.Client)
             {
                 Name = name,
