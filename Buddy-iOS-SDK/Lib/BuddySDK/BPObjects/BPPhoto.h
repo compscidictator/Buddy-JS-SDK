@@ -9,6 +9,8 @@
 #import <UIKit/UIKit.h>
 #import "BPBlob.h"
 
+typedef void(^BuddyImageResponse)(UIImage *image, NSError *error);
+
 @interface BPPhoto : BPBlob
 
 @property (nonatomic, copy) NSString *comment;
@@ -18,5 +20,7 @@
                 andComment:(NSString *)comment
                 client:(BPClient*)client
                 callback:(BuddyObjectCallback)callback;
+
+- (void)getImage:(BuddyImageResponse)callback;
 
 @end

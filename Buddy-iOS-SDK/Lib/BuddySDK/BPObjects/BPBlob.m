@@ -33,29 +33,33 @@ static NSString *blobs = @"blobs";
     NSDictionary *multipartParameters = @{@"data": data};
     
     [[client restService] MULTIPART_POST:[[self class] requestPath]
-                                                parameters:parameters data:multipartParameters
-                                                  callback:^(id json, NSError *error) {
-
-        BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
-
-#pragma messsage("TODO - Short term hack until response is always an object.")
-        if([json isKindOfClass:[NSDictionary class]]){
-            newObject.id = json[@"id"];
-        }else{
-            newObject.id = json;
-        }
+                              parameters:parameters data:multipartParameters
+                                callback:^(id json, NSError *error)
+    {
         
-        if(!newObject.id){
-#pragma messsage("TODO - Error")
-            callback(newObject, nil);
+        if(error){
+            callback(nil, error);
             return;
         }
         
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
+        
+        newObject.id = json[@"id"];
+    
         [newObject refresh:^(NSError *error){
-#pragma messsage("TODO - Error")
-            callback(newObject, nil);
+            callback(newObject, error);
         }];
         
+    }];
+}
+
+- (void)getData:(BuddyDataResponse)callback
+{
+    NSString *resource = [NSString stringWithFormat:@"%@/%@/%@", [[self class] requestPath], self.id, @"file"];
+    
+    [[self.client restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+        NSData *data = [json data];
+        callback(data, error);
     }];
 }
 

@@ -65,6 +65,15 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[expectFutureValue(secondPhoto.comment) shouldEventually] equal:newPhoto.comment];
         });
         
+        it(@"Should allow directly retrieving the image file", ^{
+            __block UIImage *theImage;
+            [newPhoto getImage:^(UIImage *image, NSError *error) {
+                theImage = image;
+            }];
+            
+            [[expectFutureValue(theImage) shouldEventually] beNonNil];
+        });
+        
         it(@"Should allow searching for images", ^{
             __block NSArray *retrievedPhotos;
             [[Buddy photos] searchPhotos:^(NSArray *buddyObjects, NSError *error) {

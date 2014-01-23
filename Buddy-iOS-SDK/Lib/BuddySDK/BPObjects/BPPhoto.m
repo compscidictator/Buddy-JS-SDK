@@ -40,4 +40,11 @@ static NSString *photos = @"pictures";
     }];
 }
 
+- (void)getImage:(BuddyImageResponse)callback
+{
+    [self getData:^(NSData *data, NSError *error) {
+        UIImage *image = [UIImage imageWithData:data];
+        callback(image, error);
+    }];
+}
 @end
