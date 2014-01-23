@@ -25,6 +25,7 @@ describe(@"BPUser", ^{
             [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {
                 fin = YES;
             }];
+            
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
         

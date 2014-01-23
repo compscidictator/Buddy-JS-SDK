@@ -40,6 +40,8 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 - (instancetype) init __attribute__((unavailable("init not available")));
 + (instancetype) new __attribute__((unavailable("new not available")));
 
+- (void)registerProperty:(SEL)property;
+
 + (NSString *)requestPath;
 
 + (void)createFromServerWithParameters:(NSDictionary *)parameters client:(BPClient*)client callback:(BuddyObjectCallback)callback;
@@ -50,7 +52,9 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 - (void)refresh:(BuddyCompletionCallback)callback;
 - (void)save:(BuddyCompletionCallback)callback;
 
-- (void)registerProperty:(SEL)property;
+- (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value callback:(BuddyCompletionCallback)callback;
+- (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback;
 
+- (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback;
 
 @end

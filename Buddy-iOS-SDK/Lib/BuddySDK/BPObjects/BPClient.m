@@ -223,6 +223,11 @@
     [self.service PATCH:servicePath parameters:parameters callback:[self handleResponse:callback]];
 }
 
+- (void)PUT:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+{
+    [self.service PUT:servicePath parameters:parameters callback:[self handleResponse:callback]];
+}
+
 - (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
     [self.service DELETE:servicePath parameters:parameters callback:[self handleResponse:callback]];

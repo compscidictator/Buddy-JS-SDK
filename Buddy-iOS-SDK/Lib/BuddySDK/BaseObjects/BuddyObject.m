@@ -214,6 +214,35 @@
     }];
 }
 
+#pragma mark - Metadata
+
+static NSString *metadataFormat = @"metadata/%@/%@";
+- (NSString *) metadataPath:(NSString *)key
+{
+    return [NSString stringWithFormat:metadataFormat, self.id, key];
+}
+
+- (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value callback:(BuddyCompletionCallback)callback
+{
+    [[self.client restService] PUT:[self metadataPath:key] parameters:nil callback:^(id json, NSError *error) {
+        callback ? callback(error) : nil;
+    }];
+}
+
+- (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback
+{
+    [[self.client restService] PUT:[self metadataPath:key] parameters:nil callback:^(id json, NSError *error) {
+        callback ? callback(error) : nil;
+    }];
+}
+
+- (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
+{
+    [[self.client restService] PUT:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+        callback ? callback(@([metadata integerValue]), error) : nil;
+    }];
+}
+
 #pragma mark - JSON handling
 
 +(JAGPropertyConverter *)converter

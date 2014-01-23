@@ -122,6 +122,14 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                 failure:[self handleFailure:callback]];
 }
 
+- (void)PUT:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
+{
+    [self.manager PUT:servicePath
+           parameters:parameters
+              success:[self handleSuccess:callback]
+              failure:[self handleFailure:callback]];
+}
+
 - (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager DELETE:servicePath

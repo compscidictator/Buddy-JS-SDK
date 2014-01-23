@@ -138,7 +138,6 @@ static NSString *users = @"users";
     NSDictionary *data = @{@"data": UIImagePNGRepresentation(picture)};
     
     [[[self client] restService] MULTIPART_POST:resource parameters:parameters data:data callback:^(id json, NSError *error) {
-#pragma message ("Return the actual image?")
         callback(error);
     }];
 }
