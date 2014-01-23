@@ -16,7 +16,7 @@
 
 SPEC_BEGIN(BuddyIntegrationSpec)
 
-describe(@"BPUser", ^{
+describe(@"Buddy", ^{
     context(@"A clean boot of your app", ^{
         __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin3";
         beforeAll(^{

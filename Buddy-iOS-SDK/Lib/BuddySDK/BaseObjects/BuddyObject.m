@@ -224,22 +224,26 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 
 - (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value callback:(BuddyCompletionCallback)callback
 {
-    [[self.client restService] PUT:[self metadataPath:key] parameters:nil callback:^(id json, NSError *error) {
+    NSDictionary *parameters = @{@"value": value};
+    
+    [[self.client restService] PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
 
 - (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback
 {
-    [[self.client restService] PUT:[self metadataPath:key] parameters:nil callback:^(id json, NSError *error) {
+    NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%d", value]};
+
+    [[self.client restService] PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
 
 - (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
 {
-    [[self.client restService] PUT:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
-        callback ? callback(@([metadata integerValue]), error) : nil;
+    [[self.client restService] GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+        callback ? callback(metadata[@"value"], error) : nil;
     }];
 }
 

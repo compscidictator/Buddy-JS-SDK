@@ -77,6 +77,7 @@
 		C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
 		C17E2B511803924300F64FB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
 		C18875A8186FFF4E00320A00 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
+		C1A58FFD1890A57A00C5A50F /* MetadataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A58FFC1890A57A00C5A50F /* MetadataTests.m */; };
 		C1A62820188E225D009026F8 /* BPUserCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1A6281E188E225D009026F8 /* BPUserCollection.h */; };
 		C1A62821188E225D009026F8 /* BPUserCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A6281F188E225D009026F8 /* BPUserCollection.m */; };
 		C1AA90D818371FF70074B7E8 /* BPServiceController.h in Headers */ = {isa = PBXBuildFile; fileRef = C1AA90D618371FF70074B7E8 /* BPServiceController.h */; };
@@ -219,6 +220,7 @@
 		C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyCollection.m; sourceTree = "<group>"; };
 		C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C17E2B501803924300F64FB6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C1A58FFC1890A57A00C5A50F /* MetadataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetadataTests.m; sourceTree = "<group>"; };
 		C1A6281E188E225D009026F8 /* BPUserCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPUserCollection.h; path = BPCollections/BPUserCollection.h; sourceTree = "<group>"; };
 		C1A6281F188E225D009026F8 /* BPUserCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPUserCollection.m; path = BPCollections/BPUserCollection.m; sourceTree = "<group>"; };
 		C1AA90D618371FF70074B7E8 /* BPServiceController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BPServiceController.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
@@ -532,6 +534,7 @@
 				C1B95A2B183708E8000C8417 /* Test Data */,
 				C1E0D1E71831C2E8001A7A01 /* Supporting Files */,
 				C1AA90E318373BF80074B7E8 /* BPUserIntegrationTests.m */,
+				C1A58FFC1890A57A00C5A50F /* MetadataTests.m */,
 				C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */,
 				C1ADD126184D96B800246313 /* CheckinIntegrationTests.m */,
 				C1ADD129184E2BF300246313 /* BPPhotoIntegrationTests.m */,
@@ -872,6 +875,7 @@
 			files = (
 				C10F1B80187103E500D5364C /* BPUserIntegrationTests.m in Sources */,
 				C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */,
+				C1A58FFD1890A57A00C5A50F /* MetadataTests.m in Sources */,
 				C1FEEB55187E4B2800B45505 /* BPRegionsIntegrationTests.m in Sources */,
 				C1FEEB57187E4B4500B45505 /* BPVideosIntegrationTests.m in Sources */,
 				C1FEEB4B187E481900B45505 /* BPAlbumsIntegrationTests.m in Sources */,
