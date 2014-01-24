@@ -33,7 +33,8 @@ static NSString *photos = @"pictures";
 {
     NSData *data = UIImagePNGRepresentation(image);
 
-    id parameters = @{@"comment": comment};
+#pragma message("TODO - More syntactical sugar. Use macro for now.")
+    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];@{@"comment": BOXNIL(comment)};
     
     [self createWithData:data parameters:parameters client:client callback:^(id newBuddyObject, NSError *error) {
         callback ? callback(newBuddyObject, error) : nil;

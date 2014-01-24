@@ -15,3 +15,5 @@
    #import "NSString+JSON.h"
    #import "NSError+BuddyError.h"
 #endif
+
+#define BOXNIL(x) x ?: [NSNull null]
