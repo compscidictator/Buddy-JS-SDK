@@ -38,16 +38,17 @@ static NSString *blobs = @"blobs";
     {
         
         if(error){
-            callback(nil, error);
+            callback ? callback(nil, error) : nil;
             return;
         }
         
         BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
         
         newObject.id = json[@"id"];
+            callback ? callback(newObject, nil) : nil;
     
         [newObject refresh:^(NSError *error){
-            callback(newObject, error);
+            callback ? callback(newObject, nil) : nil;
         }];
         
     }];

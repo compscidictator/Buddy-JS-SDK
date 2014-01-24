@@ -79,7 +79,7 @@ static NSString *users = @"users";
                                  
 
     [[[self client] restService] POST:resource parameters:parameters callback:^(id json, NSError *error) {
-        callback(json, nil);
+        callback ? callback(json, nil) : nil;
     }];
 }
 
@@ -91,7 +91,7 @@ static NSString *users = @"users";
                                  @"NewPassword": newPassword};
     
     [[[self client] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
-        callback(nil);
+        callback ? callback(nil) : nil;
     }];
 }
 
@@ -103,7 +103,7 @@ static NSString *users = @"users";
     NSDictionary *parameters = @{@"Identity": identityValue};
     
     [[[self client] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
-        callback(json);
+        callback ? callback(error) : nil;
     }];
 }
 
@@ -113,7 +113,7 @@ static NSString *users = @"users";
     NSDictionary *parameters = @{@"Identity": identityValue};
     
     [[[self client] restService] DELETE:resource parameters:parameters callback:^(id json, NSError *error) {
-        callback(json);
+        callback ? callback(error) : nil;
     }];
 }
 
@@ -127,7 +127,7 @@ static NSString *users = @"users";
     NSDictionary *data = @{@"data": UIImagePNGRepresentation(picture)};
     
     [[[self client] restService] MULTIPART_POST:resource parameters:parameters data:data callback:^(id json, NSError *error) {
-        callback(error);
+        callback ? callback(error) : nil;
     }];
 }
 
@@ -136,7 +136,7 @@ static NSString *users = @"users";
     NSString *resource = [NSString stringWithFormat:@"user/%@/profilepicture", self.id];
     
     [[[self client] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
-        callback(error);
+        callback ? callback(error) : nil;
     }];
 }
 

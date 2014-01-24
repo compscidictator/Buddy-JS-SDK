@@ -40,7 +40,7 @@
         NSArray *results = [json[@"pageResults"] map:^id(id object) {
             return [[self.type alloc] initBuddyWithResponse:object andClient:self.client];
         }];
-        callback(results, error);
+        callback ? callback(results, error) : nil;
     }];
 }
 
@@ -52,7 +52,7 @@
     
     [[[BPClient defaultClient] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
         id buddyObject = [[self.type alloc] initBuddyWithResponse:json andClient:self.client];
-        callback(buddyObject, error);
+        callback ? callback(buddyObject, error) : nil;
     }];
 }
 

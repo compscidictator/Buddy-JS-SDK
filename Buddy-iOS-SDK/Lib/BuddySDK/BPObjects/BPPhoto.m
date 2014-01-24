@@ -36,7 +36,7 @@ static NSString *photos = @"pictures";
     id parameters = @{@"comment": comment};
     
     [self createWithData:data parameters:parameters client:client callback:^(id newBuddyObject, NSError *error) {
-        callback(newBuddyObject, error);
+        callback ? callback(newBuddyObject, error) : nil;
     }];
 }
 
@@ -44,7 +44,7 @@ static NSString *photos = @"pictures";
 {
     [self getData:^(NSData *data, NSError *error) {
         UIImage *image = [UIImage imageWithData:data];
-        callback(image, error);
+        callback ? callback(image, error) : nil;
     }];
 }
 @end

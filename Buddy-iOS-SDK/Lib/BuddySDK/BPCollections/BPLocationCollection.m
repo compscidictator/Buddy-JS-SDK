@@ -45,7 +45,7 @@
                  location:(BPLocation *)location
                  callback:(BuddyObjectCallback)callback
 {
-    callback(nil, nil);
+    callback ? callback(nil, nil) : nil;
 }
 
 -(void)getLocations:(BuddyCollectionCallback)callback

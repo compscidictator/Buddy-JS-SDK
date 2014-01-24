@@ -130,7 +130,7 @@
     [[client restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
         
         if (error) {
-            callback(nil, error);
+            callback ? callback(nil, error) : nil;
             return;
         }
         
@@ -139,7 +139,7 @@
         newObject.id = json[@"id"];
         
         [newObject refresh:^(NSError *error){
-            callback(newObject, error);
+            callback ? callback(newObject, error) : nil;
         }];
     }];
 }
@@ -157,7 +157,7 @@
         
         [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
 #pragma messsage("TODO - Error")
-        callback(newObject, nil);
+        callback ? callback(newObject, nil) : nil;
     }];
 }
 
@@ -173,8 +173,7 @@
                           _id];
     
     [[self.client restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
-        if(callback)
-            callback(error);
+        callback ? callback(error) : nil;
     }];
 }
 
@@ -192,8 +191,7 @@
     
     [[self.client restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
-        if(callback)
-            callback(error);
+        callback ? callback(error) : nil;
     }];
 }
 
@@ -209,8 +207,7 @@
 
     [[self.client restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
-        if(callback)
-            callback(error);
+        callback ? callback(error) : nil;
     }];
 }
 

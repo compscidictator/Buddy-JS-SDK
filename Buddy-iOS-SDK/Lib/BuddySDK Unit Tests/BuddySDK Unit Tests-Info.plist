@@ -3,7 +3,7 @@
 <plist version="1.0">
 <dict>
 	<key>BuddyServiceURL</key>
-	<string>http://10.211.55.3/BuddyWebService.V2/</string>
+	<string>http://10.211.55.3:50800/</string>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleExecutable</key>

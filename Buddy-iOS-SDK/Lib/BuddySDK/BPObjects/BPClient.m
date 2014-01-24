@@ -186,8 +186,7 @@
     [self socialLoginWorker:provider providerId:providerId token:token success:^(id json, NSError *error) {
         
         if (error) {
-            if (callback)
-                callback(nil, error);
+            callback ? callback(nil, error) : nil;
             return;
         }
         
