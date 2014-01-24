@@ -42,6 +42,9 @@
 @implementation BPClient
 
 @synthesize user=_user;
+@synthesize checkins=_checkins;
+@synthesize photos =_photos;
+@synthesize blobs = _blobs;
 
 #pragma mark - Init
 
@@ -59,9 +62,6 @@
 {
     _user = user;
     
-    _checkins = [[BPCheckinCollection alloc] initWithClient:self];
-    _photos = [[BPPhotoCollection alloc] initWithClient:self];
-    _blobs = [[BPBlobCollection alloc] initWithClient:self];
     _location = [BuddyLocation new];
 }
 
@@ -137,6 +137,34 @@
         [self raiseAuthError];
     }
     return _user;
+}
+
+-(BPCheckinCollection *)checkins
+{
+    if(!_checkins)
+    {
+        _checkins = [[BPCheckinCollection alloc] initWithClient:self];;
+    }
+    return _checkins;
+}
+
+-(BPPhotoCollection*)photos
+{
+    if(!_photos)
+    {
+        _photos = [[BPPhotoCollection alloc] initWithClient:self];
+    }
+    return _photos;
+}
+
+-(BPBlobCollection*)blobs
+{
+    
+    if(!_blobs)
+    {
+        _blobs = [[BPBlobCollection alloc] initWithClient:self];
+    }
+    return _blobs;
 }
 
 #pragma mark - Login

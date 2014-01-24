@@ -9,7 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "BPBlob.h"
 
-typedef void(^BuddyImageResponse)(UIImage *image, NSError *error);
+@class BPPhoto;
+
+typedef void(^BuddyImageResponse)(UIImage *image, BPPhoto *photo,NSError *error);
 
 @interface BPPhoto : BPBlob
 

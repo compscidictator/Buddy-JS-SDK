@@ -45,7 +45,8 @@ static NSString *photos = @"pictures";
 {
     [self getData:^(NSData *data, NSError *error) {
         UIImage *image = [UIImage imageWithData:data];
-        callback ? callback(image, error) : nil;
+        callback ? callback(image, self, error) : nil;
+
     }];
 }
 @end
