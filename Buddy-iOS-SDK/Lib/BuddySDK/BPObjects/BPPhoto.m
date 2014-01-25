@@ -27,14 +27,14 @@ static NSString *photos = @"pictures";
 }
 
 + (void)createWithImage:(UIImage *)image
-                    andComment:(NSString *)comment
-                    client:(BPClient*)client
-                    callback:(BuddyObjectCallback)callback;
+             andComment:(NSString *)comment
+                 client:(BPClient*)client
+               callback:(BuddyObjectCallback)callback;
 {
     NSData *data = UIImagePNGRepresentation(image);
 
 #pragma message("TODO - More syntactical sugar. Use macro for now.")
-    NSMutableDictionary *parameters = [NSMutableDictionary dictionary];@{@"comment": BOXNIL(comment)};
+    id parameters = @{@"comment": BOXNIL(comment)};
     
     [self createWithData:data parameters:parameters client:client callback:^(id newBuddyObject, NSError *error) {
         callback ? callback(newBuddyObject, error) : nil;
@@ -45,7 +45,7 @@ static NSString *photos = @"pictures";
 {
     [self getData:^(NSData *data, NSError *error) {
         UIImage *image = [UIImage imageWithData:data];
-        callback ? callback(image, self, error) : nil;
+        callback ? callback(image, error) : nil;
 
     }];
 }

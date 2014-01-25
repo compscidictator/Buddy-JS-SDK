@@ -11,7 +11,7 @@
 
 @class BPPhoto;
 
-typedef void(^BuddyImageResponse)(UIImage *image, BPPhoto *photo,NSError *error);
+typedef void(^BuddyImageResponse)(UIImage *image, NSError *error);
 
 @interface BPPhoto : BPBlob
 
