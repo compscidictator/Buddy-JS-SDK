@@ -10,4 +10,7 @@
 
 @interface BPAlbum : BuddyObject
 
+@property (nonatomic, copy) NSString *name;
+@property (nonatomic, copy) NSString *comment;
+    
 @end

@@ -133,6 +133,10 @@
 		C1B0F542189373F6000403E0 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F52F189373F6000403E0 /* AFURLResponseSerialization.m */; };
 		C1B0F543189373F6000403E0 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F530189373F6000403E0 /* AFURLSessionManager.h */; };
 		C1B0F544189373F6000403E0 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F531189373F6000403E0 /* AFURLSessionManager.m */; };
+		C1B0F54718937822000403E0 /* BPAlbumCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F54518937822000403E0 /* BPAlbumCollection.h */; };
+		C1B0F54818937822000403E0 /* BPAlbumCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F54618937822000403E0 /* BPAlbumCollection.m */; };
+		C1B0F54B18937B08000403E0 /* BPAlbumItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F54918937B08000403E0 /* BPAlbumItem.h */; };
+		C1B0F54C18937B08000403E0 /* BPAlbumItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F54A18937B08000403E0 /* BPAlbumItem.m */; };
 		C1B2375F1865569F005C841E /* NSString+JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B2375D1865569E005C841E /* NSString+JSON.h */; };
 		C1B237601865569F005C841E /* NSString+JSON.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B2375E1865569E005C841E /* NSString+JSON.m */; };
 		C1B8076C18441B1A0086B843 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1E0D1E21831C2E8001A7A01 /* XCTest.framework */; };
@@ -324,6 +328,10 @@
 		C1B0F52F189373F6000403E0 /* AFURLResponseSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLResponseSerialization.m; sourceTree = "<group>"; };
 		C1B0F530189373F6000403E0 /* AFURLSessionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFURLSessionManager.h; sourceTree = "<group>"; };
 		C1B0F531189373F6000403E0 /* AFURLSessionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFURLSessionManager.m; sourceTree = "<group>"; };
+		C1B0F54518937822000403E0 /* BPAlbumCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPAlbumCollection.h; path = BPCollections/BPAlbumCollection.h; sourceTree = "<group>"; };
+		C1B0F54618937822000403E0 /* BPAlbumCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPAlbumCollection.m; path = BPCollections/BPAlbumCollection.m; sourceTree = "<group>"; };
+		C1B0F54918937B08000403E0 /* BPAlbumItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAlbumItem.h; sourceTree = "<group>"; };
+		C1B0F54A18937B08000403E0 /* BPAlbumItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAlbumItem.m; sourceTree = "<group>"; };
 		C1B2375C18654884005C841E /* BuddyTestData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BuddyTestData.h; path = "../../Lib/BuddySDK Unit Tests/BuddyTestData.h"; sourceTree = "<group>"; };
 		C1B2375D1865569E005C841E /* NSString+JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+JSON.h"; sourceTree = "<group>"; };
 		C1B2375E1865569E005C841E /* NSString+JSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+JSON.m"; sourceTree = "<group>"; };
@@ -493,6 +501,8 @@
 				C1BFD88D187D169500A1FADF /* BPBlobCollection.m */,
 				C1A6281E188E225D009026F8 /* BPUserCollection.h */,
 				C1A6281F188E225D009026F8 /* BPUserCollection.m */,
+				C1B0F54518937822000403E0 /* BPAlbumCollection.h */,
+				C1B0F54618937822000403E0 /* BPAlbumCollection.m */,
 			);
 			name = BPCollections;
 			sourceTree = "<group>";
@@ -646,6 +656,8 @@
 				C154CEEC187F750C00EACE4B /* BPLocation.m */,
 				C1D7094A1883942D003D112C /* BPEnumMapping.h */,
 				0183A51C188F4D2C0065C76C /* BPClient+Private.h */,
+				C1B0F54918937B08000403E0 /* BPAlbumItem.h */,
+				C1B0F54A18937B08000403E0 /* BPAlbumItem.m */,
 			);
 			name = BPObjects;
 			path = ../../Lib/BuddySDK/BPObjects;
@@ -816,11 +828,13 @@
 				C1B0F4D118937142000403E0 /* NSNumber+ObjectiveSugar.h in Headers */,
 				C1A62820188E225D009026F8 /* BPUserCollection.h in Headers */,
 				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
+				C1B0F54718937822000403E0 /* BPAlbumCollection.h in Headers */,
 				C1B0F539189373F6000403E0 /* AFNetworkReachabilityManager.h in Headers */,
 				C1C2395318789594000D0089 /* BPBlob.h in Headers */,
 				C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */,
 				C1B2375F1865569F005C841E /* NSString+JSON.h in Headers */,
 				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
+				C1B0F54B18937B08000403E0 /* BPAlbumItem.h in Headers */,
 				C1B0F532189373F6000403E0 /* AFHTTPRequestOperation.h in Headers */,
 				C1B0F538189373F6000403E0 /* AFNetworking.h in Headers */,
 			);
@@ -1052,6 +1066,7 @@
 				C1B0F517189373EB000403E0 /* UIButton+AFNetworking.m in Sources */,
 				C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */,
 				C10E2BAA186950D8007A0136 /* BPSounds.m in Sources */,
+				C1B0F54818937822000403E0 /* BPAlbumCollection.m in Sources */,
 				C1B0F51E189373EB000403E0 /* UIWebView+AFNetworking.m in Sources */,
 				C10E2B9E186950D8007A0136 /* BPClient.m in Sources */,
 				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
@@ -1061,6 +1076,7 @@
 				C10E2BAD186950D8007A0136 /* BPUser.m in Sources */,
 				C1E0D1D61831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */,
 				C10E2B9B186950D8007A0136 /* BPCheckin.m in Sources */,
+				C1B0F54C18937B08000403E0 /* BPAlbumItem.m in Sources */,
 				C11E6C92184C57040034E1EB /* BPCheckinCollection.m in Sources */,
 				C10E2B95186950D8007A0136 /* BPAppMetadata.m in Sources */,
 				C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */,

@@ -29,7 +29,7 @@
                                  @"description": description,
                                  @"location": @"1.2, 3.4"};
     
-    [BPCheckin createFromServerWithParameters:parameters client:self.client callback:callback];
+    [self.type createFromServerWithParameters:parameters client:self.client callback:callback];
 }
 
 -(void)checkinWithComment:(NSString *)comment
