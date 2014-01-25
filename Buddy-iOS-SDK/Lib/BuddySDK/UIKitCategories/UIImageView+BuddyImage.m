@@ -8,7 +8,7 @@
 
 #import "UIImageView+BuddyImage.h"
 #import "BPPhoto.h"
-#import <AFNetworking/UIImageView+AFNetworking.h>
+#import "UIImageView+AFNetworking.h"
 
 @implementation UIImageView (BuddyImage)
 

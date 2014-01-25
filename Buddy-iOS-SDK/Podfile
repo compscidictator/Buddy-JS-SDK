@@ -5,5 +5,5 @@ target :'BuddySDK Unit Tests', :exclusive => true do
    pod 'Kiwi/XCTest'
 end
 
-pod 'AFNetworking'
-pod 'ObjectiveSugar'
+#pod 'AFNetworking'
+#pod 'ObjectiveSugar'
