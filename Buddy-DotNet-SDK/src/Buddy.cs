@@ -62,12 +62,12 @@ namespace BuddySDK
             }
         }
 
-        public static event EventHandler AuthorizationFailure {
+        public static event EventHandler AuthorizationNeedsUserLogin {
             add {
-                Instance.AuthorizationFailure += value;
+                Instance.AuthorizationNeedsUserLogin += value;
             }
             remove {
-                Instance.AuthorizationFailure -= value;
+                Instance.AuthorizationNeedsUserLogin -= value;
             }
         }
 

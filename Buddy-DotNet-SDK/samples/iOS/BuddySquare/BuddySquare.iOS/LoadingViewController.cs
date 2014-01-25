@@ -31,7 +31,7 @@ namespace BuddySquare.iOS
         {
             base.ViewDidAppear (animated);
 
-
+           
             if (Buddy.CurrentUser != null) {
 
                 try {
@@ -39,15 +39,12 @@ namespace BuddySquare.iOS
                     // make sure we are logged in.
                     await Buddy.CurrentUser.FetchAsync ();
 
-
-                    AppDelegate.Current.SetupNavController();
-
-                }
-                catch {
+                } catch {
 
                 }
 
             }
+
         }
     }
 }
