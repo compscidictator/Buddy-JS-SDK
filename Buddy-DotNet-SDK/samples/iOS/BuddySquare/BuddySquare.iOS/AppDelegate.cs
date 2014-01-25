@@ -32,8 +32,8 @@ namespace BuddySquare.iOS
        
         public override bool WillFinishLaunching (UIApplication application, NSDictionary launchOptions)
         {
-           
             Buddy.Init("bbbbbc.gLdbblFMNhwg", "00AD8C51-6D95-4DA1-89ED-D5FEC5083901");
+            //Buddy.Init("bbbbbc.xcbbvjJvlKwg", "4C3081D3-26DE-4224-A106-37E43E621599");
 
             bool showingError = false;
 
@@ -70,16 +70,12 @@ namespace BuddySquare.iOS
            
             Buddy.AuthorizationFailure += HandleAuthorizationFailure;
 
-            Buddy.AuthorizationLevelChanged += (sender, e) =>  {
-
-                if (homeController == null && Buddy.CurrentUser != null) {
-
-                        SetupNavController();
+           
+            Buddy.CurrentUserChanged += async(sender, e) => {
+                if (e.NewUser != null) {
+                    await e.NewUser.FetchAsync();
+                    SetupNavController();
                 }
-                else if (Buddy.CurrentUser == null) {
-                    HandleAuthorizationFailure(this, EventArgs.Empty);
-                }
-
             };
 
             UIAlertView connectivityAlert = null;
@@ -143,8 +139,6 @@ namespace BuddySquare.iOS
         //
         public override bool FinishedLaunching (UIApplication app, NSDictionary options)
         {
-
-           
 
              
             window = new UIWindow (UIScreen.MainScreen.Bounds);

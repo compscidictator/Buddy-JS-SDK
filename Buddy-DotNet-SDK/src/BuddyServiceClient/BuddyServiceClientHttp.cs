@@ -152,6 +152,12 @@ namespace BuddyServiceClient
                     if (webEx.Response != null) {
                         response = (HttpWebResponse)webEx.Response;
                         bcr.Message = response.StatusDescription;
+
+                        bcr.StatusCode = (int)response.StatusCode;
+                        if (bcr.StatusCode >= 400) {
+                            err = "UnknownServiceError";
+                        }
+
                     }
                     else {
                         bcr.Message = webEx.Status.ToString();
@@ -180,12 +186,12 @@ namespace BuddyServiceClient
                 if (response == null && ex != null && ex is WebException)
                 {
                     response = (HttpWebResponse)((WebException)ex).Response;
-
+                    
                    
                 }
                 
 
-                if (response == null && ex != null)
+                if ((response == null || isResponseRequest) && ex != null)
                 {
                     finishMethodCall(ex, bcr);
                     
@@ -227,6 +233,7 @@ namespace BuddyServiceClient
                             else if (envelope.error != null)
                             {
                                 bcr.Error = envelope.error;
+                                bcr.ErrorNumber = envelope.errorNumber;
                                 bcr.Message = envelope.message;
                             }
                             else
@@ -327,48 +334,51 @@ namespace BuddyServiceClient
             var requestType = HttpRequestType.HttpPostJson;
             IEnumerable<KeyValuePair<string, object>> files = null;
 
+            var token = await Client.GetAccessToken ();
+
+           
             switch (verb.ToUpperInvariant())
             {
-                case "GET":
-                    url += "?" + GetUrlEncodedParameters(parameters);
-                    requestType = HttpRequestType.HttpGet;
-                    break;
-                default:
-                    // do we have any file parameters.
-                    //
-                    files = from p in parameters where p.Value is BuddyFile select p;
+            case "GET":
+                url += "?" + GetUrlEncodedParameters(parameters);
+                requestType = HttpRequestType.HttpGet;
+                break;
+            default:
+                // do we have any file parameters.
+                //
+                files = from p in parameters where p.Value is BuddyFile select p;
 
-                    if (files.Any())
+                if (files.Any())
+                {
+                    // remove the files from the main array.
+                    requestType = HttpRequestType.HttpPostMultipartForm;
+                    var newParameters = new Dictionary<string, object>();
+                    foreach (var fileKvp in files)
                     {
-                        // remove the files from the main array.
-                        requestType = HttpRequestType.HttpPostMultipartForm;
-                        var newParameters = new Dictionary<string, object>();
-                        foreach (var fileKvp in files)
-                        {
-                            newParameters.Add(fileKvp.Key, fileKvp.Value);
-                        }
-
-                        foreach (var kvp in newParameters)
-                        {
-                            parameters.Remove(kvp.Key);
-                        }
-
-                        // get json for the remainder and make it into a file
-                        var json = JsonConvert.SerializeObject(parameters, Formatting.None);
-
-                        var jsonFile = new BuddyFile()
-                        {
-                            ContentType = "application/json",
-                            Data = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)),
-                            Name = "body"
-                        };
-                        newParameters.Add(jsonFile.Name, jsonFile);
-                        parameters = newParameters;
+                        newParameters.Add(fileKvp.Key, fileKvp.Value);
                     }
-                   
-                    break;
+
+                    foreach (var kvp in newParameters)
+                    {
+                        parameters.Remove(kvp.Key);
+                    }
+
+                    // get json for the remainder and make it into a file
+                    var json = JsonConvert.SerializeObject(parameters, Formatting.None);
+
+                    var jsonFile = new BuddyFile()
+                    {
+                        ContentType = "application/json",
+                        Data = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)),
+                        Name = "body"
+                    };
+                    newParameters.Add(jsonFile.Name, jsonFile);
+                    parameters = newParameters;
+                }
+
+                break;
             }
-           
+
 
             HttpWebRequest wr = null;
 
@@ -383,14 +393,12 @@ namespace BuddyServiceClient
             }
 
             wr.Headers["BuddyPlatformSDK"] = SdkVersion;
-            var token = await Client.GetAccessToken ();
 
-            if (token != null)
+            if (token != null && (parameters == null || !parameters.ContainsKey("accessToken")))
             {
-                wr.Headers["Authorization"] = String.Format("Buddy {0}", token);
+                wr.Headers ["Authorization"] = String.Format ("Buddy {0}", token);
             }
             wr.Method = verb;
-           
 
             Action getResponse = () =>
             {
@@ -581,6 +589,11 @@ namespace BuddyServiceClient
                 set;
             }
             public string error {
+                get;
+                set;
+            }
+
+            public int? errorNumber {
                 get;
                 set;
             }
