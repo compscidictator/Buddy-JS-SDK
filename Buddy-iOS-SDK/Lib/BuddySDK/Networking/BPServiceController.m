@@ -22,6 +22,10 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 - (AFFailureCallback) handleFailure:(ServiceResponse)callback;
 - (AFSuccessCallback) handleSuccess:(ServiceResponse)callback;
 
+@property (nonatomic, strong) AFJSONRequestSerializer *jsonRequestSerializer;
+@property (nonatomic, strong) AFJSONResponseSerializer *jsonResponseSerializer;
+@property (nonatomic, strong) AFHTTPRequestSerializer *httpRequestSerializer;
+@property (nonatomic, strong) AFHTTPResponseSerializer *httpResponseSerializer;
 
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @property (nonatomic, strong) NSString *token;
@@ -35,6 +39,17 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
     self = [super init];
     if(self)
     {
+        _jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+        _jsonResponseSerializer = [AFJSONResponseSerializer serializer];
+        _httpRequestSerializer = [AFHTTPRequestSerializer serializer];
+        _httpResponseSerializer = [AFHTTPResponseSerializer serializer];
+        
+        [_jsonRequestSerializer setValue:@"application/json;image/png" forHTTPHeaderField:@"Accept"];
+        [_jsonRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [_httpRequestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+        //[_httpRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        
+        
         [self setupManagerWithBaseUrl:url withToken:nil];
 
     }
@@ -46,23 +61,18 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 {
     assert([baseUrl length] > 0);
     self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
-    
-    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
-    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
-
-    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
 
     if(token){
         NSLog(@"Setting token: %@", token);
         // Tell our serializer our new Authorization string.
         NSString *authString = [@"Buddy " stringByAppendingString:token];
-        [requestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
+        [self.jsonRequestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
+        [self.httpRequestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
     }
 
     self.token = token;
-    self.manager.responseSerializer = responseSerializer;
-    self.manager.requestSerializer = requestSerializer;
+    self.manager.responseSerializer = self.jsonResponseSerializer;
+    self.manager.requestSerializer = self.jsonRequestSerializer;
 }
 
 
@@ -84,6 +94,14 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 
 - (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
+    if ([servicePath containsString:@"file"]) {
+        self.manager.requestSerializer = self.httpRequestSerializer;
+        self.manager.responseSerializer = self.httpResponseSerializer;
+    } else {
+        self.manager.responseSerializer = self.jsonResponseSerializer;
+        self.manager.requestSerializer = self.jsonRequestSerializer;
+    }
+    
     [self.manager GET:servicePath
            parameters:parameters
               success:[self handleSuccess:callback]
