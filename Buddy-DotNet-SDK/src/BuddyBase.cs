@@ -606,20 +606,34 @@ namespace BuddySDK
         protected Task<BuddyResult<Stream>> GetFileCoreAsync(string url, object parameters) {
 
 
-            return Task.Run<BuddyResult<Stream>>(() =>
+
+            return Task.Run<BuddyResult<Stream>>(async () =>
                     {
 
+                        // need to pass accessToken as a param for these
+                        // so our auth doesn't get sent through to the redirect
+                        //
+                        var parameterDictionary = BuddyServiceClient.BuddyServiceClientBase.ParametersToDictionary(parameters);
+                        parameterDictionary["accessToken"] = await Client.GetAccessToken();
 
                         var r = Client.CallServiceMethod<HttpWebResponse>(
-                                        "GET", 
-                                        url, 
-                                        parameters
+                                "GET", 
+                                url, 
+                            parameterDictionary
                         );
 
-                        var response = r.Result.Convert(hwr => hwr.GetResponseStream());
+                        var result = r.Result;
 
-                        return response;
+                        if (result.IsSuccess && result.Value != null) {
+                            var response = result.Convert(hwr => hwr.GetResponseStream());
 
+                            return response;
+                        }
+                        else {
+                            return result.Convert(hwr => (Stream)null);
+                        }
+                        
+                    
                     });
                
 

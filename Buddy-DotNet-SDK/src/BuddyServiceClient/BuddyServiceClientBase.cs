@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,6 +17,7 @@ namespace BuddyServiceClient
     public class BuddyCallResult<T>
     {
         public string Error { get; set; }
+        public int? ErrorNumber{ get;set;}
         public string Message { get; set; }
         public int    StatusCode { get; set; }
         public T Result { get; set; }

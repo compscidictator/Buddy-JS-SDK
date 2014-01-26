@@ -81,8 +81,6 @@ namespace BuddySquare.iOS
 
             this.NavigationItem.LeftBarButtonItem = logoutButton;
 
-            HandleAuthLevelChanged (null, null);
-
             _dataSource = new CheckinDataSource (this);
             this.checkinTable.Source = _dataSource;
 
@@ -94,13 +92,11 @@ namespace BuddySquare.iOS
         {
 
             Buddy.ConnectivityLevelChanged += HandleConnectivityLevelChanged;
-            Buddy.Instance.AuthorizationLevelChanged += HandleAuthLevelChanged;
             Buddy.Instance.CurrentUserChanged += HandleCurrentUserChanged;
             base.ViewDidAppear (animated);
 
-            HandleAuthLevelChanged (null, null);
-
-            checkinTable.ReloadData ();
+           
+            HandleCurrentUserChanged (null, new CurrentUserChangedEventArgs (Buddy.CurrentUser, null));
            
             if (_timedMetricId != null) {
                 Buddy.RecordTimedMetricEndAsync (_timedMetricId);
@@ -110,6 +106,13 @@ namespace BuddySquare.iOS
 
         void HandleCurrentUserChanged (object sender, CurrentUserChangedEventArgs e)
         {
+            var user = e.NewUser ?? Buddy.CurrentUser;
+            if (user != null) {
+                lblUserCheckins.Text = String.Format ("{0}'s Checkins:", user.FirstName ?? user.Username);
+                lblUserCheckins.Hidden = false;
+            } else {
+                lblUserCheckins.Hidden = true;
+            }
             _dataSource.Clear ();
             checkinTable.ReloadData ();
         }
@@ -129,7 +132,6 @@ namespace BuddySquare.iOS
         public override void ViewWillDisappear (bool animated)
         {
             Buddy.ConnectivityLevelChanged += HandleConnectivityLevelChanged;
-            Buddy.Instance.AuthorizationLevelChanged -= HandleAuthLevelChanged;
             base.ViewWillDisappear (animated);
         }
 
@@ -173,21 +175,6 @@ namespace BuddySquare.iOS
 
         }
 
-        void HandleAuthLevelChanged (object sender, EventArgs e)
-        {
-            try {
-                if (Buddy.CurrentUser != null) {
-                    lblUserCheckins.Text = String.Format ("{0}'s Checkins:", Buddy.CurrentUser.FirstName ?? Buddy.CurrentUser.Username);
-                }
-            }
-            catch {
-                // clear it out.
-                Buddy.Instance.LogoutUserAsync ();
-            }
-
-        }
-
-       
 
         private class CheckinItem : IDisposable {
 
