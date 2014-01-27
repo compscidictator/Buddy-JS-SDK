@@ -14,8 +14,7 @@
 
 @synthesize client=_client;
 
--(instancetype)initWithClient:(BPClient*)client
-{
+- (instancetype)initWithClient:(id<BPRestProvider>)client {
     self = [super init];
     if(self)
     {
@@ -24,7 +23,7 @@
     return self;
 }
 
--(BPClient*)client
+-(id<BPRestProvider>)client
 {   
     return _client ?: [BPClient defaultClient];
 }
@@ -36,7 +35,7 @@
 
 -(void)search:(NSDictionary *)searchParmeters callback:(BuddyCollectionCallback)callback
 {
-    [[self.client restService] GET:[[self type] requestPath] parameters:searchParmeters callback:^(id json, NSError *error) {
+    [self.client GET:[[self type] requestPath] parameters:searchParmeters callback:^(id json, NSError *error) {
         NSArray *results = [json[@"pageResults"] map:^id(id object) {
             return [[self.type alloc] initBuddyWithResponse:object andClient:self.client];
         }];
@@ -50,7 +49,7 @@
                           [[self type] requestPath],
                           identifier];
     
-    [[self.client restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [self.client GET:resource parameters:nil callback:^(id json, NSError *error) {
         id buddyObject = [[self.type alloc] initBuddyWithResponse:json andClient:self.client];
         callback ? callback(buddyObject, error) : nil;
     }];

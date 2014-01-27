@@ -11,7 +11,7 @@
 
 @implementation BPBlobCollection
 
--(instancetype)initWithClient:(BPClient*)client{
+- (instancetype)initWithClient:(id<BPRestProvider>)client {
     self = [super initWithClient:client];
     if(self){
         self.type = [BPBlob class];

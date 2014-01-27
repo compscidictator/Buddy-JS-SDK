@@ -12,7 +12,7 @@
 #import "BPClient.h"
 
 
-@interface BPClient (Private)
+@interface BPClient (Private)<BPRestProvider>
 
 - (void) raiseAuthError;
 

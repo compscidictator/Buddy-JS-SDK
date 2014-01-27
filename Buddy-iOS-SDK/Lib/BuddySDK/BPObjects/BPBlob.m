@@ -12,8 +12,7 @@
 
 @implementation BPBlob
 
-- (id)initBuddyWithClient:(BPClient*)client;
-{
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
     self = [super initBuddyWithClient:client];
     if(self)
     {
@@ -23,16 +22,16 @@
 }
 
 static NSString *blobs = @"blobs";
-+(NSString *) requestPath{
++(NSString *) requestPath {
     return blobs;
 }
 
-+ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters client:(BPClient*)client callback:(BuddyObjectCallback)callback
++ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback
 
 {
     NSDictionary *multipartParameters = @{@"data": data};
     
-    [[client restService] MULTIPART_POST:[[self class] requestPath]
+    [client MULTIPART_POST:[[self class] requestPath]
                               parameters:parameters data:multipartParameters
                                 callback:^(id json, NSError *error)
     {
@@ -57,7 +56,7 @@ static NSString *blobs = @"blobs";
 {
     NSString *resource = [NSString stringWithFormat:@"%@/%@/%@", [[self class] requestPath], self.id, @"file"];
     
-    [[self.client restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [self.client GET:resource parameters:nil callback:^(id json, NSError *error) {
         NSData *data = [json data];
         callback(data, error);
     }];

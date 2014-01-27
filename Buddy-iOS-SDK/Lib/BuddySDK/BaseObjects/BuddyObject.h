@@ -7,8 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
-@class BPClient;
+#import "BPRestProvider.h"
 
 /**
  Permissions scope for Buddy objects.
@@ -25,11 +24,9 @@ typedef NS_ENUM(NSInteger, BuddyPermissions){
 typedef void (^BuddyObjectCallback)(id newBuddyObject, NSError *error);
 typedef void (^BuddyCompletionCallback)(NSError *error);
 
-@class BPClient;
-
 @interface BuddyObject : NSObject
 
-@property (nonatomic, readonly, strong) BPClient* client;
+@property (nonatomic, readonly, strong) id<BPRestProvider> client;
 
 @property (nonatomic, readonly, assign) BOOL isDirty;
 @property (nonatomic, strong) NSDate *created;
@@ -44,8 +41,8 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 
 + (NSString *)requestPath;
 
-+ (void)createFromServerWithParameters:(NSDictionary *)parameters client:(BPClient*)client callback:(BuddyObjectCallback)callback;
-+ (void)queryFromServerWithId:(NSString *)identifier client:(BPClient*)client callback:(BuddyObjectCallback)callback;
++ (void)createFromServerWithParameters:(NSDictionary *)parameters client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback;
++ (void)queryFromServerWithId:(NSString *)identifier client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback;
 - (void)deleteMe:(BuddyCompletionCallback)callback;
 - (void)deleteMe;
 - (void)refresh;

@@ -11,8 +11,7 @@
 
 @implementation BPPhoto
 
-- (id)initBuddyWithClient:(BPClient *)client
-{
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
     self = [super initBuddyWithClient:client];
     if(self)
     {
@@ -28,7 +27,7 @@ static NSString *photos = @"pictures";
 
 + (void)createWithImage:(UIImage *)image
              andComment:(NSString *)comment
-                 client:(BPClient*)client
+                 client:(id<BPRestProvider>)client
                callback:(BuddyObjectCallback)callback;
 {
     NSData *data = UIImagePNGRepresentation(image);

@@ -8,9 +8,9 @@
 
 #import "BuddyObject.h"
 #import "BuddyObject+Private.h"
-#import "BPClient.h"
 
 #import "JAGPropertyConverter.h"
+#import "BPRestProvider.h"
 #import "BPClient.h"
 #import "BPCoordinate.h"
 #import "NSDate+JSON.h"
@@ -39,7 +39,7 @@
 }
 
 
-- (instancetype)initBuddyWithClient:(BPClient*)client
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client
 {
     self = [super init];
     if(self)
@@ -50,7 +50,7 @@
     return self;
 }
 
-- (instancetype)initBuddyWithResponse:(id)response andClient:(BPClient*)client
+- (instancetype)initBuddyWithResponse:(id)response andClient:(id<BPRestProvider>)client
 {
     if (!response) return nil;
     
@@ -64,7 +64,7 @@
     return self;
 }
 
--(BPClient*)client
+- (id<BPRestProvider>)client
 {
     return _client ?: [BPClient defaultClient];
 }
@@ -125,9 +125,9 @@
 
 #pragma mark CRUD
 
-+(void)createFromServerWithParameters:(NSDictionary *)parameters client:(BPClient*)client callback:(BuddyObjectCallback)callback
++(void)createFromServerWithParameters:(NSDictionary *)parameters client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback
 {
-    [[client restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
+    [client POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
         
         if (error) {
             callback ? callback(nil, error) : nil;
@@ -144,13 +144,13 @@
     }];
 }
 
-+(void)queryFromServerWithId:(NSString *)identifier client:(BPClient*)client callback:(BuddyObjectCallback)callback
++(void)queryFromServerWithId:(NSString *)identifier client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           identifier];
     
-    [[client restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [client GET:resource parameters:nil callback:^(id json, NSError *error) {
 
         BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
         newObject.id = json[@"id"];
@@ -172,7 +172,7 @@
                           [[self class] requestPath],
                           _id];
     
-    [[self.client restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
+    [self.client DELETE:resource parameters:nil callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
@@ -189,7 +189,7 @@
                           [[self class] requestPath],
                           self.id];
     
-    [[self.client restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [self.client GET:resource parameters:nil callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         callback ? callback(error) : nil;
     }];
@@ -205,7 +205,7 @@
     // Dictionary of property names/values
     NSDictionary *parameters = [self buildUpdateDictionary];
 
-    [[self.client restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+    [self.client PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
         callback ? callback(error) : nil;
     }];
@@ -223,7 +223,7 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 {
     NSDictionary *parameters = @{@"value": value};
     
-    [[self.client restService] PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
+    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
@@ -232,14 +232,14 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 {
     NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%d", value]};
 
-    [[self.client restService] PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
+    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
 
 - (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
 {
-    [[self.client restService] GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+    [self.client GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
         callback ? callback(metadata[@"value"], error) : nil;
     }];
 }

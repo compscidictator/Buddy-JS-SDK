@@ -113,11 +113,6 @@
     }];
 }
 
-- (id<BPRestProvider>)restService
-{
-    return self;
-}
-
 # pragma mark -
 # pragma mark Singleton
 +(instancetype)defaultClient

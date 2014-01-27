@@ -19,8 +19,7 @@
 
 @implementation BPAlbum
 
-- (id)initBuddyWithClient:(BPClient *)client
-{
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
     self = [super initBuddyWithClient:client];
     if(self)
     {
@@ -37,7 +36,7 @@ static NSString *albums = @"albums";
 
 - (void)addItemToAlbum:(id)albumItem
 {
-    [[self.client restService] POST:[[self class] requestPath] parameters:nil callback:^(id json, NSError *error) {
+    [self.client POST:[[self class] requestPath] parameters:nil callback:^(id json, NSError *error) {
     }];
 }
 

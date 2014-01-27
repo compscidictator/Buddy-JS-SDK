@@ -7,13 +7,12 @@
 //
 
 #import "BuddyObject.h"
-
-@class BPClient;
+#import "BPRestProvider.h"
 
 @interface BuddyObject (Private)
 
-- (instancetype)initBuddyWithClient:(BPClient*)client;
-- (instancetype)initBuddyWithResponse:(id)response andClient:(BPClient*)client;
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client;
+- (instancetype)initBuddyWithResponse:(id)response andClient:(id<BPRestProvider>)rest;
 
 - (NSDictionary *)buildUpdateDictionary;
 
