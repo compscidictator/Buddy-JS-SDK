@@ -14,6 +14,7 @@
 #import "BPGameBoards.h"
 #import "BPSounds.h"
 #import "BPPhotoCollection.h"
+#import "BPAlbumCollection.h"
 #import "BPBlobCollection.h"
 #import "BPRestProvider.h"
 #import "BPUser.h"
@@ -45,6 +46,7 @@
 @synthesize checkins=_checkins;
 @synthesize photos =_photos;
 @synthesize blobs = _blobs;
+@synthesize albums = _albums;
 
 #pragma mark - Init
 
@@ -72,6 +74,7 @@
     _checkins = nil;
     _photos = nil;
     _blobs = nil;
+    _albums = nil;
     _location = nil;
 }
 
@@ -148,7 +151,7 @@
     return _checkins;
 }
 
--(BPPhotoCollection*)photos
+-(BPPhotoCollection *)photos
 {
     if(!_photos)
     {
@@ -157,7 +160,7 @@
     return _photos;
 }
 
--(BPBlobCollection*)blobs
+-(BPBlobCollection *)blobs
 {
     
     if(!_blobs)
@@ -165,6 +168,16 @@
         _blobs = [[BPBlobCollection alloc] initWithClient:self];
     }
     return _blobs;
+}
+
+-(BPAlbumCollection *)albums
+{
+    
+    if(!_albums)
+    {
+        _albums = [[BPAlbumCollection alloc] initWithClient:self];
+    }
+    return _albums;
 }
 
 #pragma mark - Login

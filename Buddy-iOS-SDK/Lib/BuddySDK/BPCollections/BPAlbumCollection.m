@@ -8,15 +8,48 @@
 
 #import "BPAlbumCollection.h"
 #import "BuddyObject+Private.h"
+#import "BPAlbum.h"
 
 @implementation BPAlbumCollection
 
-- (void)addAlbum:(UIImage *)photo
+-(instancetype)initWithClient:(BPClient*)client{
+    self = [super initWithClient:client];
+    if(self){
+        self.type = [BPAlbum class];
+    }
+    return self;
+}
+    
+- (void)addAlbum:(NSString *)name
      withComment:(NSString *)comment
         callback:(BuddyObjectCallback)callback
 {
-    id parameters;
+    NSDictionary *parameters = @{
+                                 @"name": BOXNIL(name),
+                                 @"comment": BOXNIL(comment)
+                                 };
+    
     [self.type createFromServerWithParameters:parameters client:self.client callback:callback];
+}
+    
+    
+-(void)getAlbums:(BuddyCollectionCallback)callback
+{
+    [self getAll:callback];
+}
+    
+-(void)searchAlbums:(BuddyCollectionCallback)callback
+{
+    NSDictionary *parameters = @{
+                                 @"ownerID": BOXNIL([Buddy user].id)
+                                 };
+    
+    [self search:parameters callback:callback];
+}
+    
+- (void)getAlbum:(NSString *)albumId callback:(BuddyObjectCallback)callback
+{
+    [self getItem:albumId callback:callback];
 }
 
 @end

@@ -23,6 +23,7 @@
 
 /* Begin PBXBuildFile section */
 		0183A51B188F30060065C76C /* BPClientDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B8076A184061070086B843 /* BPClientDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		291DCC29928046FC88A33799 /* libPods-BuddySDK Unit Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A07FFFC093E94E77A9A92AF0 /* libPods-BuddySDK Unit Tests.a */; };
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C1010D31187A4CC3009EB04E /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2C187A4CC3009EB04E /* 0.jpg */; };
@@ -73,6 +74,10 @@
 		C15B5F08186FB465004F2717 /* SenTestingKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1F091B217FD043500B2B9F2 /* SenTestingKit.framework */; };
 		C161A89B17FD2A33001F5361 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89917FD2A2C001F5361 /* CoreGraphics.framework */; };
 		C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
+		C16FE35018944D0A0033EFAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
+		C16FE35118944D660033EFAF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
+		C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C16FE35218945CF30033EFAF /* BPAlbumItemCollection.h */; };
+		C16FE35518945CF30033EFAF /* BPAlbumItemCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C16FE35318945CF30033EFAF /* BPAlbumItemCollection.m */; };
 		C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */; };
 		C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
 		C17E2B511803924300F64FB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
@@ -176,8 +181,6 @@
 		C1FEEB53187E4B0300B45505 /* BPMessagesIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB52187E4B0300B45505 /* BPMessagesIntegrationTests.m */; };
 		C1FEEB55187E4B2800B45505 /* BPRegionsIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB54187E4B2800B45505 /* BPRegionsIntegrationTests.m */; };
 		C1FEEB57187E4B4500B45505 /* BPVideosIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FEEB56187E4B4500B45505 /* BPVideosIntegrationTests.m */; };
-		E70B93A88942431C9F1C6F28 /* libPods-BuddySDK Unit Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A07FFFC093E94E77A9A92AF0 /* libPods-BuddySDK Unit Tests.a */; };
-		E9ECB3D9712E48ACB20EF07A /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 81137A46380B4BCCA3A2E417 /* libPods.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -268,6 +271,8 @@
 		C161A89617FD2A00001F5361 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		C161A89917FD2A2C001F5361 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		C161A89C17FD2A3B001F5361 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		C16FE35218945CF30033EFAF /* BPAlbumItemCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPAlbumItemCollection.h; path = BPCollections/BPAlbumItemCollection.h; sourceTree = "<group>"; };
+		C16FE35318945CF30033EFAF /* BPAlbumItemCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPAlbumItemCollection.m; path = BPCollections/BPAlbumItemCollection.m; sourceTree = "<group>"; };
 		C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyCollection.m; sourceTree = "<group>"; };
 		C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C17E2B501803924300F64FB6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
@@ -390,7 +395,6 @@
 				C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */,
 				29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */,
 				A6291F80165C01800051F83C /* Foundation.framework in Frameworks */,
-				E9ECB3D9712E48ACB20EF07A /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -398,13 +402,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C16FE35118944D660033EFAF /* MobileCoreServices.framework in Frameworks */,
+				C16FE35018944D0A0033EFAF /* SystemConfiguration.framework in Frameworks */,
 				C18875A8186FFF4E00320A00 /* CoreLocation.framework in Frameworks */,
 				C15B5F08186FB465004F2717 /* SenTestingKit.framework in Frameworks */,
 				C1B8077218441D660086B843 /* libBuddySDK.a in Frameworks */,
 				C1B8076C18441B1A0086B843 /* XCTest.framework in Frameworks */,
 				C1E0D1E51831C2E8001A7A01 /* UIKit.framework in Frameworks */,
 				C1E0D1E41831C2E8001A7A01 /* Foundation.framework in Frameworks */,
-				E70B93A88942431C9F1C6F28 /* libPods-BuddySDK Unit Tests.a in Frameworks */,
+				291DCC29928046FC88A33799 /* libPods-BuddySDK Unit Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -503,6 +509,8 @@
 				C1A6281F188E225D009026F8 /* BPUserCollection.m */,
 				C1B0F54518937822000403E0 /* BPAlbumCollection.h */,
 				C1B0F54618937822000403E0 /* BPAlbumCollection.m */,
+				C16FE35218945CF30033EFAF /* BPAlbumItemCollection.h */,
+				C16FE35318945CF30033EFAF /* BPAlbumItemCollection.m */,
 			);
 			name = BPCollections;
 			sourceTree = "<group>";
@@ -817,6 +825,7 @@
 				C1B0F53D189373F6000403E0 /* AFURLConnectionOperation.h in Headers */,
 				C1B0F51A189373EB000403E0 /* UIKit+AFNetworking.h in Headers */,
 				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
+				C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */,
 				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
 				C1B0F518189373EB000403E0 /* UIImageView+AFNetworking.h in Headers */,
 				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
@@ -852,7 +861,6 @@
 				A6291F79165C01800051F83C /* Frameworks */,
 				A6291F7A165C01800051F83C /* Headers */,
 				D45A7BB3166235BE000E5257 /* CopyFiles */,
-				17FEBE2AC3674A169875D82A /* Copy Pods Resources */,
 				C1C239471877BE97000D0089 /* Prepare Framework */,
 				C18F93631884D85F00B46B89 /* Generate Appledocs */,
 			);
@@ -948,21 +956,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
-			showEnvVarsInLog = 0;
-		};
-		17FEBE2AC3674A169875D82A /* Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Copy Pods Resources";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/../Pods/Pods-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2F1E909A47694395883183DE /* Check Pods Manifest.lock */ = {
@@ -1081,6 +1074,7 @@
 				C10E2B95186950D8007A0136 /* BPAppMetadata.m in Sources */,
 				C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */,
 				C10E2BB2186951C3007A0136 /* BuddyDevice.m in Sources */,
+				C16FE35518945CF30033EFAF /* BPAlbumItemCollection.m in Sources */,
 				C1B0F4D218937142000403E0 /* NSNumber+ObjectiveSugar.m in Sources */,
 				C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */,
 				C10E2BA7186950D8007A0136 /* BPPhoto.m in Sources */,
@@ -1193,7 +1187,7 @@
 					"-fprofile_arcs",
 					"-ftest_coverage",
 				);
-				OTHER_LDFLAGS = "-Objc";
+				OTHER_LDFLAGS = "";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1237,7 +1231,7 @@
 					"-fprofile_arcs",
 					"-ftest_coverage",
 				);
-				OTHER_LDFLAGS = "-Objc";
+				OTHER_LDFLAGS = "";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;

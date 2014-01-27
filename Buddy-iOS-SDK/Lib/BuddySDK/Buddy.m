@@ -44,6 +44,10 @@
     return [[BPClient defaultClient] blobs];
 }
 
++ (BPAlbumCollection *) albums{
+    return [[BPClient defaultClient] albums];
+}
+
 + (BOOL) locationEnabled{
     @synchronized(self){
         return [[BPClient defaultClient] locationEnabled];

@@ -38,7 +38,7 @@
 -(void)searchPhotos:(BuddyCollectionCallback)callback
 {
     NSDictionary *parameters = @{
-                                 @"ownerID": [Buddy user].id
+                                 @"ownerID": BOXNIL([Buddy user].id)
                                  };
     
     [self search:parameters callback:callback];

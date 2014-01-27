@@ -21,6 +21,7 @@
 @class BPCheckinCollection;
 @class BPPhotoCollection;
 @class BPBlobCollection;
+@class BPAlbumCollection;
 @class BPCoordinate;
 
 /**
@@ -93,6 +94,11 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// TODO
 /// </summary>
 @property (readonly, nonatomic, strong) BPBlobCollection *blobs;
+
+/// <summary>
+/// TODO
+/// </summary>
+@property (readonly, nonatomic, strong) BPAlbumCollection *albums;
 
 /// <summary>
 /// TODO

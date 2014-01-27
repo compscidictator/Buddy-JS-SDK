@@ -13,6 +13,7 @@
 #import "BPClient.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"
+#import "BPAlbumCollection.h"
 #import "BPPhoto.h"
 #import "BPUser.h"
 #import "BPGameBoards.h"
@@ -53,6 +54,12 @@
  Accessor to create and query data and files.
  */
 + (BPBlobCollection *) blobs;
+
+    
+/**
+ Accessor to create and query albums.
+ */
++ (BPAlbumCollection *) albums;
 
 
 + (BOOL) locationEnabled;
