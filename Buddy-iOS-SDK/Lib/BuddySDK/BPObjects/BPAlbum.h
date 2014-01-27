@@ -12,5 +12,7 @@
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *comment;
-    
+
+- (void)addItemToAlbum:(id)albumItem callback:(BuddyCompletionCallback)callback;
+
 @end

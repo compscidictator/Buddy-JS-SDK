@@ -25,6 +25,7 @@
     {
         [self registerProperty:@selector(name)];
         [self registerProperty:@selector(comment)];
+        _items = [[BPAlbumItemCollection alloc] initWithAlbum:self andClient:client];
     }
     return self;
 }
@@ -34,9 +35,10 @@ static NSString *albums = @"albums";
     return albums;
 }
 
-- (void)addItemToAlbum:(id)albumItem
+- (void)addItemToAlbum:(id)albumItem callback:(BuddyCompletionCallback)callback
 {
-    [self.client POST:[[self class] requestPath] parameters:nil callback:^(id json, NSError *error) {
+    [self.items addAlbumItem:albumItem withComment:@"" callback:^(NSError *error) {
+        callback(error);
     }];
 }
 

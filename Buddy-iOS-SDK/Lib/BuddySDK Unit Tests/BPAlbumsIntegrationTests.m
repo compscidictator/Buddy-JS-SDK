@@ -74,7 +74,20 @@ describe(@"BPAlbumIntegrationSpec", ^{
         
         
         it(@"Should allow you to add items to an album.", ^{
+            NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+            NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
+            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
+            __block BOOL fin = NO;
+            
+            [[Buddy photos] addPhoto:image withComment:@"Test image for album." callback:^(id newBuddyObject, NSError *error) {
+                [tempAlbum addItemToAlbum:[newBuddyObject id] callback:^(NSError *error) {
+                    [[error should] beNil];
+                    fin = YES;
+                }];
+            }];
+            
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
         
         

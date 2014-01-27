@@ -7,12 +7,18 @@
 //
 
 #import "BuddyCollection.h"
+#import "BPAlbum.h"
 
 @interface BPAlbumItemCollection : BuddyCollection
 
-- (void)addAlbumItem:(UIImage *)photo
+
+
+- (instancetype)initWithClient:(id<BPRestProvider>)client __attribute__((unavailable("Use initWithAlbum:andClient:")));;
+- (instancetype)initWithAlbum:(BPAlbum *)album andClient:(id<BPRestProvider>)client;
+
+- (void)addAlbumItem:(NSString *)itemId
          withComment:(NSString *)comment
-            callback:(BuddyObjectCallback)callback;
+            callback:(BuddyCompletionCallback)callback;
     
 - (void)getAlbumItems:(BuddyCollectionCallback)callback;
     
