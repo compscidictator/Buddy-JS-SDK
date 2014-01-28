@@ -1,21 +1,22 @@
 //
 //  Constants.h
-//  PhotoGallery
+//  PhotoAlbum
 //
-//  Created by Nick Ambrose on 1/22/14.
+//  Created by Nick Ambrose on 1/27/14.
 //  Copyright (c) 2014 Buddy Platform. All rights reserved.
 //
 
-#ifndef PhotoGallery_Constants_h
-#define PhotoGallery_Constants_h
+#ifndef PhotoAlbum_Constants_h
+#define PhotoAlbum_Constants_h
 
 #define USERNAME_PREF_KEY @"BD_USERNAME"
 #define PASSWORD_PREF_KEY @"BD_PASSWORD"
 
-#define APP_ID @"bbbbbc.dCbbbCkHnCGg"
-#define APP_KEY @"7A41FE42-81A2-49C4-80BB-20A60EB08DBB"
+#define APP_ID @"YOUR_APP_ID"
+#define APP_KEY @"YOUR_APP_KEY"
 
 #define DEFAULT_BUT_CORNER_RAD 10
 #define DEFAULT_BUT_BORDER_WIDTH 1
+
 
 #endif

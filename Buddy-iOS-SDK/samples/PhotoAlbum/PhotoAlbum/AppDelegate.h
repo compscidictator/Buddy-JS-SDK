@@ -1,8 +1,8 @@
 //
 //  AppDelegate.h
-//  PhotoGallery
+//  PhotoAlbum
 //
-//  Created by Nick Ambrose on 1/22/14.
+//  Created by Nick Ambrose on 1/27/14.
 //  Copyright (c) 2014 Buddy Platform. All rights reserved.
 //
 
@@ -10,20 +10,16 @@
 
 #import "BuddySDK/BPClientDelegate.h"
 
-@class MainViewController;
-@class PhotoList;
-
 #define CommonAppDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
 
-@interface AppDelegate : UIResponder <UIApplicationDelegate,BPClientDelegate>
+@class MainViewController;
+
+@interface AppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 @property (nonatomic,strong) UINavigationController *navController;
 @property (nonatomic,strong) MainViewController *topController;
 @property (nonatomic,assign) BOOL loginPresented;
-
-// Just the info about the photos, not the actual UIImages
-@property (nonatomic,strong) PhotoList *userPhotos;
 
 -(void) storeUsername:(NSString*)userName;
 -(NSString*) fetchUsername;
@@ -41,4 +37,5 @@
 -(BOOL) isPasswordSet;
 
 -(void) storeUsername:(NSString *)userName andPassword:(NSString*)password;
+
 @end
