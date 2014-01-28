@@ -101,7 +101,6 @@
             return;
         }
         
-        NSLog(@"getLoadPhotoDataCallback: PhotoID: %@, ImageView:%@",weakPhoto.id,weakimageView );
         [[CommonAppDelegate userPhotos] addImage:image withPhotoID:weakPhoto.id];
         if(image!=nil)
         {

@@ -10,8 +10,8 @@
 		0111B6851892C49600745813 /* PhotoThumbView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B6841892C49500745813 /* PhotoThumbView.xib */; };
 		0111B68B1892DEF200745813 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111B6891892DEF200745813 /* EditPhotoViewController.m */; };
 		0111B68C1892DEF200745813 /* EditPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B68A1892DEF200745813 /* EditPhotoViewController.xib */; };
-		013D697E1897080D0052B091 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013D697D1897080D0052B091 /* BuddySDK.framework */; };
 		013D69D41897331E0052B091 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */; };
+		015F9C3B189811650087069B /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 015F9C3A189811650087069B /* BuddySDK.framework */; };
 		01AEB8871890914C003B051A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8861890914C003B051A /* Foundation.framework */; };
 		01AEB8891890914C003B051A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8881890914C003B051A /* CoreGraphics.framework */; };
 		01AEB88B1890914C003B051A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB88A1890914C003B051A /* UIKit.framework */; };
@@ -55,9 +55,9 @@
 		0111B6881892DEF200745813 /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
 		0111B6891892DEF200745813 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
 		0111B68A1892DEF200745813 /* EditPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditPhotoViewController.xib; sourceTree = "<group>"; };
-		013D697D1897080D0052B091 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		013D69D21897331E0052B091 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		015F9C3A189811650087069B /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		01AEB8831890914C003B051A /* PhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01AEB8861890914C003B051A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		01AEB8881890914C003B051A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -109,7 +109,7 @@
 				01AEB8891890914C003B051A /* CoreGraphics.framework in Frameworks */,
 				01AEB88B1890914C003B051A /* UIKit.framework in Frameworks */,
 				01AEB8871890914C003B051A /* Foundation.framework in Frameworks */,
-				013D697E1897080D0052B091 /* BuddySDK.framework in Frameworks */,
+				015F9C3B189811650087069B /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +148,7 @@
 		01AEB8851890914C003B051A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				013D697D1897080D0052B091 /* BuddySDK.framework */,
+				015F9C3A189811650087069B /* BuddySDK.framework */,
 				01AEB8D01890957B003B051A /* CoreLocation.framework */,
 				01AEB8CE189093C7003B051A /* QuartzCore.framework */,
 				01AEB8CC189093C0003B051A /* SystemConfiguration.framework */,
@@ -514,7 +514,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/nick/src/v2sdk/Buddy-iOS-SDK/samples/PhotoGallery",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoGallery/PhotoGallery-Prefix.pch";
@@ -533,7 +532,6 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
-					"/Users/nick/src/v2sdk/Buddy-iOS-SDK/samples/PhotoGallery",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoGallery/PhotoGallery-Prefix.pch";

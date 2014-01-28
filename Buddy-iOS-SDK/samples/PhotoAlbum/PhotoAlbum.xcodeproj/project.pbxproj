@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		01254F65189749EB009B923A /* AlbumList.m in Sources */ = {isa = PBXBuildFile; fileRef = 01254F64189749EB009B923A /* AlbumList.m */; };
 		013D698C189730C20052B091 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013D698B189730C20052B091 /* Foundation.framework */; };
 		013D698E189730C20052B091 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013D698D189730C20052B091 /* CoreGraphics.framework */; };
 		013D6990189730C20052B091 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013D698F189730C20052B091 /* UIKit.framework */; };
@@ -21,7 +22,6 @@
 		013D69B1189730C20052B091 /* PhotoAlbumTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D69B0189730C20052B091 /* PhotoAlbumTests.m */; };
 		013D69BB189730D90052B091 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013D69BA189730D90052B091 /* QuartzCore.framework */; };
 		013D69BD189730E20052B091 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013D69BC189730E20052B091 /* SystemConfiguration.framework */; };
-		013D69BF189730EF0052B091 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013D69BE189730EF0052B091 /* BuddySDK.framework */; };
 		013D69DB189733B30052B091 /* LoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D69D9189733B30052B091 /* LoginViewController.m */; };
 		013D69DC189733B30052B091 /* LoginViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 013D69DA189733B30052B091 /* LoginViewController.xib */; };
 		013D69DF189733C30052B091 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D69DE189733C30052B091 /* MBProgressHUD.m */; };
@@ -49,6 +49,10 @@
 		013D6A171897478B0052B091 /* WEPopoverContainerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D6A021897478B0052B091 /* WEPopoverContainerView.m */; };
 		013D6A181897478B0052B091 /* WEPopoverController.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D6A041897478B0052B091 /* WEPopoverController.m */; };
 		013D6A191897478B0052B091 /* WETouchableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D6A071897478B0052B091 /* WETouchableView.m */; };
+		0154569F1898148C00E5CE01 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0154569E1898148C00E5CE01 /* MobileCoreServices.framework */; };
+		015F9C2B18980ED10087069B /* UIBarButtonItem+WEPopover.m in Sources */ = {isa = PBXBuildFile; fileRef = 015F9C2A18980ED10087069B /* UIBarButtonItem+WEPopover.m */; };
+		015F9C2D18980EF20087069B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 015F9C2C18980EF20087069B /* CoreLocation.framework */; };
+		015F9C37189810B90087069B /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 015F9C36189810B90087069B /* BuddySDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		01254F63189749EB009B923A /* AlbumList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AlbumList.h; path = PhotoAlbum/AlbumList.h; sourceTree = "<group>"; };
+		01254F64189749EB009B923A /* AlbumList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AlbumList.m; path = PhotoAlbum/AlbumList.m; sourceTree = "<group>"; };
 		013D6988189730C20052B091 /* PhotoAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		013D698B189730C20052B091 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		013D698D189730C20052B091 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -80,7 +86,6 @@
 		013D69B0189730C20052B091 /* PhotoAlbumTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoAlbumTests.m; sourceTree = "<group>"; };
 		013D69BA189730D90052B091 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		013D69BC189730E20052B091 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		013D69BE189730EF0052B091 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		013D69D8189733B30052B091 /* LoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = LoginViewController.h; path = PhotoAlbum/LoginViewController.h; sourceTree = "<group>"; };
 		013D69D9189733B30052B091 /* LoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = LoginViewController.m; path = PhotoAlbum/LoginViewController.m; sourceTree = "<group>"; };
 		013D69DA189733B30052B091 /* LoginViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = LoginViewController.xib; path = PhotoAlbum/LoginViewController.xib; sourceTree = "<group>"; };
@@ -118,6 +123,11 @@
 		013D6A051897478B0052B091 /* WEPopoverParentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WEPopoverParentView.h; path = PhotoAlbum/WEPopover/WEPopoverParentView.h; sourceTree = "<group>"; };
 		013D6A061897478B0052B091 /* WETouchableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WETouchableView.h; path = PhotoAlbum/WEPopover/WETouchableView.h; sourceTree = "<group>"; };
 		013D6A071897478B0052B091 /* WETouchableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = WETouchableView.m; path = PhotoAlbum/WEPopover/WETouchableView.m; sourceTree = "<group>"; };
+		0154569E1898148C00E5CE01 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		015F9C2918980ED00087069B /* UIBarButtonItem+WEPopover.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIBarButtonItem+WEPopover.h"; path = "PhotoAlbum/UIBarButtonItem+WEPopover.h"; sourceTree = "<group>"; };
+		015F9C2A18980ED10087069B /* UIBarButtonItem+WEPopover.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIBarButtonItem+WEPopover.m"; path = "PhotoAlbum/UIBarButtonItem+WEPopover.m"; sourceTree = "<group>"; };
+		015F9C2C18980EF20087069B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		015F9C36189810B90087069B /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -125,12 +135,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0154569F1898148C00E5CE01 /* MobileCoreServices.framework in Frameworks */,
+				015F9C2D18980EF20087069B /* CoreLocation.framework in Frameworks */,
 				013D69BD189730E20052B091 /* SystemConfiguration.framework in Frameworks */,
 				013D69BB189730D90052B091 /* QuartzCore.framework in Frameworks */,
 				013D698E189730C20052B091 /* CoreGraphics.framework in Frameworks */,
 				013D6990189730C20052B091 /* UIKit.framework in Frameworks */,
-				013D69BF189730EF0052B091 /* BuddySDK.framework in Frameworks */,
 				013D698C189730C20052B091 /* Foundation.framework in Frameworks */,
+				015F9C37189810B90087069B /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -147,9 +159,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		01254F6218974909009B923A /* Containers */ = {
+			isa = PBXGroup;
+			children = (
+				01254F63189749EB009B923A /* AlbumList.h */,
+				01254F64189749EB009B923A /* AlbumList.m */,
+			);
+			name = Containers;
+			sourceTree = "<group>";
+		};
 		013D697F189730C20052B091 = {
 			isa = PBXGroup;
 			children = (
+				01254F6218974909009B923A /* Containers */,
 				013D69EE189741640052B091 /* MainView */,
 				013D69E8189733F30052B091 /* Constants.h */,
 				013D69CC189732670052B091 /* 3rd Party */,
@@ -173,7 +195,9 @@
 		013D698A189730C20052B091 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				013D69BE189730EF0052B091 /* BuddySDK.framework */,
+				0154569E1898148C00E5CE01 /* MobileCoreServices.framework */,
+				015F9C36189810B90087069B /* BuddySDK.framework */,
+				015F9C2C18980EF20087069B /* CoreLocation.framework */,
 				013D69BC189730E20052B091 /* SystemConfiguration.framework */,
 				013D69BA189730D90052B091 /* QuartzCore.framework */,
 				013D698B189730C20052B091 /* Foundation.framework */,
@@ -279,6 +303,8 @@
 		013D69F1189743590052B091 /* WEPopover */ = {
 			isa = PBXGroup;
 			children = (
+				015F9C2918980ED00087069B /* UIBarButtonItem+WEPopover.h */,
+				015F9C2A18980ED10087069B /* UIBarButtonItem+WEPopover.m */,
 				013D69F21897478B0052B091 /* popoverArrowDown.png */,
 				013D69F31897478B0052B091 /* popoverArrowDown@2x.png */,
 				013D69F41897478B0052B091 /* popoverArrowDownSimple.png */,
@@ -421,6 +447,7 @@
 			files = (
 				013D6A171897478B0052B091 /* WEPopoverContainerView.m in Sources */,
 				013D69E5189733DE0052B091 /* RegisterViewController.m in Sources */,
+				015F9C2B18980ED10087069B /* UIBarButtonItem+WEPopover.m in Sources */,
 				013D69DB189733B30052B091 /* LoginViewController.m in Sources */,
 				013D699C189730C20052B091 /* AppDelegate.m in Sources */,
 				013D6A181897478B0052B091 /* WEPopoverController.m in Sources */,
@@ -429,6 +456,7 @@
 				013D69EC189741480052B091 /* MainViewController.m in Sources */,
 				013D69DF189733C30052B091 /* MBProgressHUD.m in Sources */,
 				013D6998189730C20052B091 /* main.m in Sources */,
+				01254F65189749EB009B923A /* AlbumList.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -637,6 +665,7 @@
 				013D69B6189730C20052B091 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		013D69B7189730C20052B091 /* Build configuration list for PBXNativeTarget "PhotoAlbumTests" */ = {
 			isa = XCConfigurationList;
@@ -645,6 +674,7 @@
 				013D69B9189730C20052B091 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
