@@ -20,7 +20,7 @@ typedef void(^BuddyImageResponse)(UIImage *image, NSError *error);
 
 + (void)createWithImage:(UIImage *)image
                 andComment:(NSString *)comment
-                client:(BPClient*)client
+                client:(id<BPRestProvider>)client
                 callback:(BuddyObjectCallback)callback;
 
 - (void)getImage:(BuddyImageResponse)callback;

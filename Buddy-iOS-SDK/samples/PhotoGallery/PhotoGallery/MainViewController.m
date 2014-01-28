@@ -31,7 +31,7 @@
 
 -(void) loadUserPhotos;
 -(BuddyCollectionCallback) getLoadUserPhotosCallback;
--(BuddyImageResponse) getLoadPhotoDataCallback:(BPPhoto*)photo;
+-(BuddyImageResponse) getLoadPhotoDataCallback:(BPPhoto*)photo withImage:(UIImageView*)imageView;
 -(void)doRefreshCollection;
 @end
 
@@ -79,11 +79,11 @@
     [self loadUserPhotos];
 }
 
--(BuddyImageResponse) getLoadPhotoDataCallback:(BPPhoto*)photo
+-(BuddyImageResponse) getLoadPhotoDataCallback:(BPPhoto*)photo withImage:(UIImageView*)imageView
 {
     MainViewController * __weak weakSelf = self;
     BPPhoto * __weak weakPhoto = photo;
-    
+    UIImageView * __weak weakimageView = imageView;
     return ^(UIImage *image,  NSError *error)
     {
         if(weakSelf==nil)
@@ -93,7 +93,6 @@
         
         if(error!=nil)
         {
-            // Consider setting some kind of error image in this case ? (Use case for userData hook!)
             return;
         }
         
@@ -102,7 +101,12 @@
             return;
         }
         
+        NSLog(@"getLoadPhotoDataCallback: PhotoID: %@, ImageView:%@",weakPhoto.id,weakimageView );
         [[CommonAppDelegate userPhotos] addImage:image withPhotoID:weakPhoto.id];
+        if(image!=nil)
+        {
+            [weakimageView setImage:image];
+        }
         [weakSelf.galleryCollection reloadData];
     };
 
@@ -208,16 +212,18 @@
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)cv cellForItemAtIndexPath:(NSIndexPath *)indexPath {
-    //PhotoThumbnailView *cell = [cv dequeueReusableCellWithReuseIdentifier:@"PhotoThumbnail" forIndexPath:indexPath];
     UICollectionViewCell *cell =[cv dequeueReusableCellWithReuseIdentifier:@"PhotoThumb" forIndexPath:indexPath];
-    cell.backgroundColor = [UIColor blackColor];
+    cell.backgroundColor = [UIColor clearColor];
     
     BPPhoto *photo = [[CommonAppDelegate userPhotos] photoAtIndex:indexPath.row];
+    
+    
     if(photo==nil)
     {
         // Not so great
         return cell;
     }
+    NSLog (@"Cell for Item at Index: %d PhotoID: %@",indexPath.row, photo.id);
     
     UIImageView *image = (UIImageView*)[cell viewWithTag:1];
     image.layer.cornerRadius = DEFAULT_BUT_CORNER_RAD;
@@ -230,23 +236,17 @@
     UIImage *photoImage = [[CommonAppDelegate userPhotos] getImageByPhotoID:photo.id];
     if(photoImage!=nil)
     {
-        //[cell.cellImage setImage:photoImage];
+        [image setImage:photoImage];
     }
     else
     {
-        // For now use signed URL (may want to do direct access later)
-        //[photo getImage: [self getLoadPhotoDataCallback,photo]];
+        [photo getImage: [self getLoadPhotoDataCallback:photo withImage:image]];
         NSLog(@"Signed URL: %@",photo.signedUrl);
-        cell.backgroundColor = [UIColor clearColor];
-        [image setImageWithBPPhoto:photo];
-        //cell.cellImage.backgroundColor = [UIColor redColor];
-        //cell.label.text=@"HI";
-        
     }
     
     return cell;
 }
-// 4
+
 /*- (UICollectionReusableView *)collectionView:
  (UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath
  {
@@ -275,21 +275,16 @@
 
 #pragma mark – UICollectionViewDelegateFlowLayout
 
-// 1
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath {
     
-    //CGSize retval = photo.thumbnail.size.width > 0 ? photo.thumbnail.size : CGSizeMake(100, 100);
     CGSize retval =CGSizeMake(110, 110);
-    //retval.height += 20;
-    //retval.width += 20;
+    
     return retval;
 }
 
-// 3
 - (UIEdgeInsets)collectionView:
 (UICollectionView *)collectionView layout:(UICollectionViewLayout*)collectionViewLayout insetForSectionAtIndex:(NSInteger)section {
     return UIEdgeInsetsMake(50, 20, 50, 20);
-    //return UIEdgeInsetsMake(10, 10, 10, 10);
 }
 
 

@@ -16,7 +16,7 @@ typedef void(^BuddyDataResponse)(NSData *data, NSError *error);
 @property (nonatomic, copy) NSString *signedUrl;
 //@property (nonatomic, copy) NSString *size;
 
-+ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters client:(BPClient*)client callback:(BuddyObjectCallback)callback;
++ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback;
 
 - (void)getData:(BuddyDataResponse)callback;
 

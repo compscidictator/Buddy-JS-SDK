@@ -76,7 +76,7 @@
 		C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
 		C16FE35018944D0A0033EFAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
 		C16FE35118944D660033EFAF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
-		C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C16FE35218945CF30033EFAF /* BPAlbumItemCollection.h */; };
+		C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C16FE35218945CF30033EFAF /* BPAlbumItemCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C16FE35518945CF30033EFAF /* BPAlbumItemCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C16FE35318945CF30033EFAF /* BPAlbumItemCollection.m */; };
 		C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */; };
 		C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
@@ -782,6 +782,7 @@
 			files = (
 				C1B0F543189373F6000403E0 /* AFURLSessionManager.h in Headers */,
 				C1B0F4D318937142000403E0 /* NSSet+ObjectiveSugar.h in Headers */,
+				C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */,
 				C10E2BB6186951FA007A0136 /* Buddy.h in Headers */,
 				C1B0F4CF18937142000403E0 /* NSMutableArray+ObjectiveSugar.h in Headers */,
 				C1B0F51B189373EB000403E0 /* UIProgressView+AFNetworking.h in Headers */,
@@ -825,7 +826,6 @@
 				C1B0F53D189373F6000403E0 /* AFURLConnectionOperation.h in Headers */,
 				C1B0F51A189373EB000403E0 /* UIKit+AFNetworking.h in Headers */,
 				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
-				C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */,
 				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
 				C1B0F518189373EB000403E0 /* UIImageView+AFNetworking.h in Headers */,
 				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
