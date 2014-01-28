@@ -10,7 +10,8 @@
 		0111B6851892C49600745813 /* PhotoThumbView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B6841892C49500745813 /* PhotoThumbView.xib */; };
 		0111B68B1892DEF200745813 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111B6891892DEF200745813 /* EditPhotoViewController.m */; };
 		0111B68C1892DEF200745813 /* EditPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B68A1892DEF200745813 /* EditPhotoViewController.xib */; };
-		01809B46189585FB00476875 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01809B45189585FB00476875 /* BuddySDK.framework */; };
+		013D697E1897080D0052B091 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 013D697D1897080D0052B091 /* BuddySDK.framework */; };
+		013D69D41897331E0052B091 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */; };
 		01AEB8871890914C003B051A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8861890914C003B051A /* Foundation.framework */; };
 		01AEB8891890914C003B051A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8881890914C003B051A /* CoreGraphics.framework */; };
 		01AEB88B1890914C003B051A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB88A1890914C003B051A /* UIKit.framework */; };
@@ -33,7 +34,6 @@
 		01AEB8CD189093C0003B051A /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8CC189093C0003B051A /* SystemConfiguration.framework */; };
 		01AEB8CF189093C7003B051A /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8CE189093C7003B051A /* QuartzCore.framework */; };
 		01AEB8D11890957B003B051A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8D01890957B003B051A /* CoreLocation.framework */; };
-		01AEB8D51890974D003B051A /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AEB8D41890974D003B051A /* TPKeyboardAvoidingScrollView.m */; };
 		01AEB8D918909D24003B051A /* AddPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 01AEB8D718909D24003B051A /* AddPhotoViewController.m */; };
 		01AEB8DA18909D24003B051A /* AddPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AEB8D818909D24003B051A /* AddPhotoViewController.xib */; };
 		01B718E018917BAD0079495F /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B718DF18917BAD0079495F /* ImageCache.m */; };
@@ -55,7 +55,9 @@
 		0111B6881892DEF200745813 /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
 		0111B6891892DEF200745813 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
 		0111B68A1892DEF200745813 /* EditPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditPhotoViewController.xib; sourceTree = "<group>"; };
-		01809B45189585FB00476875 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		013D697D1897080D0052B091 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		013D69D21897331E0052B091 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
+		013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		01AEB8831890914C003B051A /* PhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01AEB8861890914C003B051A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		01AEB8881890914C003B051A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -87,8 +89,6 @@
 		01AEB8CC189093C0003B051A /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		01AEB8CE189093C7003B051A /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		01AEB8D01890957B003B051A /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		01AEB8D31890974D003B051A /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPKeyboardAvoidingScrollView.h; path = ../../registerlogin/registerlogin/TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
-		01AEB8D41890974D003B051A /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPKeyboardAvoidingScrollView.m; path = ../../registerlogin/registerlogin/TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		01AEB8D618909D24003B051A /* AddPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddPhotoViewController.h; sourceTree = "<group>"; };
 		01AEB8D718909D24003B051A /* AddPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddPhotoViewController.m; sourceTree = "<group>"; };
 		01AEB8D818909D24003B051A /* AddPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddPhotoViewController.xib; sourceTree = "<group>"; };
@@ -109,7 +109,7 @@
 				01AEB8891890914C003B051A /* CoreGraphics.framework in Frameworks */,
 				01AEB88B1890914C003B051A /* UIKit.framework in Frameworks */,
 				01AEB8871890914C003B051A /* Foundation.framework in Frameworks */,
-				01809B46189585FB00476875 /* BuddySDK.framework in Frameworks */,
+				013D697E1897080D0052B091 /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +148,7 @@
 		01AEB8851890914C003B051A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				01809B45189585FB00476875 /* BuddySDK.framework */,
+				013D697D1897080D0052B091 /* BuddySDK.framework */,
 				01AEB8D01890957B003B051A /* CoreLocation.framework */,
 				01AEB8CE189093C7003B051A /* QuartzCore.framework */,
 				01AEB8CC189093C0003B051A /* SystemConfiguration.framework */,
@@ -228,8 +228,8 @@
 		01AEB8D218909737003B051A /* TPKBDAvoider */ = {
 			isa = PBXGroup;
 			children = (
-				01AEB8D31890974D003B051A /* TPKeyboardAvoidingScrollView.h */,
-				01AEB8D41890974D003B051A /* TPKeyboardAvoidingScrollView.m */,
+				013D69D21897331E0052B091 /* TPKeyboardAvoidingScrollView.h */,
+				013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */,
 			);
 			name = TPKBDAvoider;
 			sourceTree = "<group>";
@@ -382,12 +382,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01AEB8D51890974D003B051A /* TPKeyboardAvoidingScrollView.m in Sources */,
 				01AEB8BE18909263003B051A /* LoginViewController.m in Sources */,
 				01AEB8C9189092E2003B051A /* MBProgressHUD.m in Sources */,
 				01AEB8971890914C003B051A /* AppDelegate.m in Sources */,
 				01AEB8B918909251003B051A /* RegisterViewController.m in Sources */,
 				0111B68B1892DEF200745813 /* EditPhotoViewController.m in Sources */,
+				013D69D41897331E0052B091 /* TPKeyboardAvoidingScrollView.m in Sources */,
 				01AEB8D918909D24003B051A /* AddPhotoViewController.m in Sources */,
 				01B718EB189197E80079495F /* PhotoList.m in Sources */,
 				01AEB8C318909276003B051A /* MainViewController.m in Sources */,
@@ -514,6 +514,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"/Users/nick/src/v2sdk/Buddy-iOS-SDK/samples/PhotoGallery",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoGallery/PhotoGallery-Prefix.pch";
@@ -532,6 +533,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"/Users/nick/src/v2sdk/Buddy-iOS-SDK/samples/PhotoGallery",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoGallery/PhotoGallery-Prefix.pch";

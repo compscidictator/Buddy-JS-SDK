@@ -164,7 +164,6 @@
 -(void) resignTextFields
 {
     [self.captionField resignFirstResponder];
-    
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textBoxName

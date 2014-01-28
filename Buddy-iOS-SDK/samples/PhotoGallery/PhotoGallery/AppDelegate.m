@@ -7,11 +7,9 @@
 //
 
 #import "AppDelegate.h"
-
 #import "BuddySDK/Buddy.h"
 
 #import "Constants.h"
-
 #import "PhotoList.h"
 
 #import "MainViewController.h"

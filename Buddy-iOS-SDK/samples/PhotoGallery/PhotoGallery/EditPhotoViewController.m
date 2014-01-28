@@ -85,7 +85,7 @@
         }
         
         NSLog(@"SavePhotoCallback - success Called");
-        [weakSelf.photo setMetadataWithKey:TAG_META_KEY andString:weakSelf.tagText.text callback:[weakSelf getSaveTagCallback]];
+        [weakSelf.photo setMetadataWithKey:TAG_META_KEY andString:weakSelf.tagString callback:[weakSelf getSaveTagCallback]];
         
     };
     
@@ -144,6 +144,7 @@
     };
 
 }
+
 -(BuddyObjectCallback) getFetchMetadataCallback
 {
     EditPhotoViewController * __weak weakSelf = self;
@@ -165,6 +166,17 @@
     [[CommonAppDelegate navController] popViewControllerAnimated:YES];
 }
 
+-(void) resignTextFields
+{
+    [self.commentText resignFirstResponder];
+    [self.tagText resignFirstResponder];
+}
+
+- (BOOL)textFieldShouldReturn:(UITextField *)textBoxName
+{
+	[textBoxName resignFirstResponder];
+	return YES;
+}
 
 -(void) populateUI
 {
@@ -189,6 +201,7 @@
     
     
 }
+
 -(IBAction)doDelete:(id)sender
 {
     if(self.photo==nil)
@@ -198,6 +211,7 @@
     [self.photo deleteMe:[self getDeletePhotoCallback]];
 
 }
+
 -(IBAction)doSave:(id)sender
 {
     if(self.photo==nil)
@@ -206,11 +220,12 @@
     }
     
     self.photo.comment = self.commentText.text;
+    self.tagString = self.tagText.text;
+    
     
     [self.photo save:[self getSavePhotoCallback]];
     
 }
-
 
 -(void) loadMetaData
 {

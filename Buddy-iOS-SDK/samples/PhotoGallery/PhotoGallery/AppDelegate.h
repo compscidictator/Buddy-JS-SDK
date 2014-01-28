@@ -11,13 +11,9 @@
 #import "BuddySDK/BPClientDelegate.h"
 
 @class MainViewController;
-
-
 @class PhotoList;
 
 #define CommonAppDelegate (AppDelegate*)[[UIApplication sharedApplication] delegate]
-
-#import <UIKit/UIKit.h>
 
 @interface AppDelegate : UIResponder <UIApplicationDelegate,BPClientDelegate>
 
