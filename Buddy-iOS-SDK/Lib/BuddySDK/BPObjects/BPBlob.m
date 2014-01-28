@@ -46,7 +46,7 @@ static NSString *blobs = @"blobs";
         newObject.id = json[@"id"];
     
         [newObject refresh:^(NSError *error){
-            callback ? callback(newObject, nil) : nil;
+            callback ? callback(newObject, error) : nil;
         }];
         
     }];
@@ -56,9 +56,8 @@ static NSString *blobs = @"blobs";
 {
     NSString *resource = [NSString stringWithFormat:@"%@/%@/%@", [[self class] requestPath], self.id, @"file"];
     
-    [self.client GET:resource parameters:nil callback:^(id json, NSError *error) {
-        NSData *data = [json data];
-        callback(data, error);
+    [self.client GET_FILE:resource parameters:nil callback:^(id imageByes, NSError *error) {
+        callback(imageByes, error);
     }];
 }
 

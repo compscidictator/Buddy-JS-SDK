@@ -82,6 +82,9 @@
 		C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
 		C17E2B511803924300F64FB6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
 		C18875A8186FFF4E00320A00 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
+		C1A4652F1897440C00FCCBF9 /* BPBaseIntegrationTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A4652E1897440C00FCCBF9 /* BPBaseIntegrationTests.m */; };
+		C1A46531189750E800FCCBF9 /* help.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1A46530189750E800FCCBF9 /* help.jpg */; };
+		C1A46533189753AC00FCCBF9 /* test.png in Resources */ = {isa = PBXBuildFile; fileRef = C1A46532189753AC00FCCBF9 /* test.png */; };
 		C1A58FFD1890A57A00C5A50F /* MetadataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A58FFC1890A57A00C5A50F /* MetadataTests.m */; };
 		C1A62820188E225D009026F8 /* BPUserCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1A6281E188E225D009026F8 /* BPUserCollection.h */; };
 		C1A62821188E225D009026F8 /* BPUserCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1A6281F188E225D009026F8 /* BPUserCollection.m */; };
@@ -276,6 +279,9 @@
 		C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyCollection.m; sourceTree = "<group>"; };
 		C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		C17E2B501803924300F64FB6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		C1A4652E1897440C00FCCBF9 /* BPBaseIntegrationTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPBaseIntegrationTests.m; sourceTree = "<group>"; };
+		C1A46530189750E800FCCBF9 /* help.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = help.jpg; sourceTree = "<group>"; };
+		C1A46532189753AC00FCCBF9 /* test.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test.png; sourceTree = "<group>"; };
 		C1A58FFC1890A57A00C5A50F /* MetadataTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetadataTests.m; sourceTree = "<group>"; };
 		C1A6281E188E225D009026F8 /* BPUserCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPUserCollection.h; path = BPCollections/BPUserCollection.h; sourceTree = "<group>"; };
 		C1A6281F188E225D009026F8 /* BPUserCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPUserCollection.m; path = BPCollections/BPUserCollection.m; sourceTree = "<group>"; };
@@ -674,6 +680,8 @@
 		C1B95A2B183708E8000C8417 /* Test Data */ = {
 			isa = PBXGroup;
 			children = (
+				C1A46532189753AC00FCCBF9 /* test.png */,
+				C1A46530189750E800FCCBF9 /* help.jpg */,
 				C1BFD88A187D15D000A1FADF /* blob.json */,
 				C1010D2C187A4CC3009EB04E /* 0.jpg */,
 				C1010D2D187A4CC3009EB04E /* 1.jpg */,
@@ -726,6 +734,7 @@
 			children = (
 				C1B95A2B183708E8000C8417 /* Test Data */,
 				C1E0D1E71831C2E8001A7A01 /* Supporting Files */,
+				C1A4652E1897440C00FCCBF9 /* BPBaseIntegrationTests.m */,
 				C1AA90E318373BF80074B7E8 /* BPUserIntegrationTests.m */,
 				C1A58FFC1890A57A00C5A50F /* MetadataTests.m */,
 				C1B8076E18441BD30086B843 /* BuddyIntegrationTests.m */,
@@ -930,9 +939,11 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1A46531189750E800FCCBF9 /* help.jpg in Resources */,
 				C1010D35187A4CC3009EB04E /* 4.jpg in Resources */,
 				C1010D34187A4CC3009EB04E /* 3.jpg in Resources */,
 				C1010D32187A4CC3009EB04E /* 1.jpg in Resources */,
+				C1A46533189753AC00FCCBF9 /* test.png in Resources */,
 				C1010D31187A4CC3009EB04E /* 0.jpg in Resources */,
 				C1010D33187A4CC3009EB04E /* 2.jpg in Resources */,
 				C1E0D1EB1831C2E8001A7A01 /* InfoPlist.strings in Resources */,
@@ -1105,6 +1116,7 @@
 			files = (
 				C10F1B80187103E500D5364C /* BPUserIntegrationTests.m in Sources */,
 				C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */,
+				C1A4652F1897440C00FCCBF9 /* BPBaseIntegrationTests.m in Sources */,
 				C1A58FFD1890A57A00C5A50F /* MetadataTests.m in Sources */,
 				C1FEEB55187E4B2800B45505 /* BPRegionsIntegrationTests.m in Sources */,
 				C1FEEB57187E4B4500B45505 /* BPVideosIntegrationTests.m in Sources */,

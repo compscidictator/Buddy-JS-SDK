@@ -24,7 +24,13 @@
                                   BPUserFuzzLocationField: @(NO)
                                   };
         
+        if (error) {
+            NSLog(@"!!!!!!!!!initClient error!!!!!!!!!");
+            callback();
+            return;
+        }
         [Buddy login:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
+            
             if(loggedInsUser)
                 callback();
             else {

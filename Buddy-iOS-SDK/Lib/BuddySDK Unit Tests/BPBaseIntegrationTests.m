@@ -13,12 +13,12 @@
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
 #undef kKW_DEFAULT_PROBE_TIMEOUT
 #endif
-#define kKW_DEFAULT_PROBE_TIMEOUT 4.0
+#define kKW_DEFAULT_PROBE_TIMEOUT 3.0
 
-SPEC_BEGIN(BuddyPhotoSpec)
+SPEC_BEGIN(BuddyObjectSpec)
 
-describe(@"BPPhotoIntegrationSpec", ^{
-    context(@"When a user is logged in", ^{
+describe(@"BuddyObjectSpec", ^{
+    context(@"With a valid buddy object", ^{
         __block BPPhoto *newPhoto;
         
         beforeAll(^{
@@ -37,7 +37,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
         
         it(@"Should allow users to post photos", ^{
             NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-            NSString *imagePath = [bundle pathForResource:@"test" ofType:@"png"];
+            NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
             [[Buddy photos] addPhoto:image withComment:@"Hello, comment!" callback:^(id buddyObject, NSError *error) {
@@ -60,7 +60,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
             
             [[expectFutureValue(secondPhoto) shouldEventually] beNonNil];
             [[expectFutureValue(theValue(secondPhoto.contentLength)) shouldEventually] equal:theValue(newPhoto.contentLength)];
-            [[expectFutureValue(secondPhoto.contentType) shouldEventually] equal:newPhoto.contentType];
+            [[expectFutureValue(secondPhoto.contentType) shouldEventually] equal:@"image/png"];
             [[expectFutureValue([secondPhoto.signedUrl componentsSeparatedByString:@"?"][0]) shouldEventually] equal:[newPhoto.signedUrl componentsSeparatedByString:@"?"][0]];
             [[expectFutureValue(secondPhoto.comment) shouldEventually] equal:newPhoto.comment];
         });
@@ -76,7 +76,6 @@ describe(@"BPPhotoIntegrationSpec", ^{
         
         it(@"Should allow searching for images", ^{
             __block NSArray *retrievedPhotos;
-            return;
             [[Buddy photos] searchPhotos:^(NSArray *buddyObjects, NSError *error) {
                 retrievedPhotos = buddyObjects;
             }];
@@ -85,7 +84,6 @@ describe(@"BPPhotoIntegrationSpec", ^{
         });
         
         it(@"Should allow the user to delete photos", ^{
-            return;
             [newPhoto deleteMe:^(NSError *error){
                 [[Buddy photos] getPhoto:newPhoto.id callback:^(id newBuddyObject, NSError *error) {
                     newPhoto = newBuddyObject;

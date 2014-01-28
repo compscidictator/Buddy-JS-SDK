@@ -266,6 +266,11 @@
     [self.service GET:servicePath parameters:parameters callback:[self handleResponse:callback]];
 }
 
+- (void)GET_FILE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+{
+    [self.service GET_FILE:servicePath parameters:parameters callback:[self handleResponse:callback]];
+}
+
 - (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
     [self.service POST:servicePath parameters:parameters callback:[self handleResponse:callback]];
@@ -313,10 +318,11 @@
         switch (responseCode) {
             case 200:
             case 201:
-                responseObject = response[@"result"];
+                responseObject = response;
                 break;
             case 400:
                 buddyError = [NSError badDataError:error.code message:response];
+                
                 break;
             case 403:
                 authError=TRUE;

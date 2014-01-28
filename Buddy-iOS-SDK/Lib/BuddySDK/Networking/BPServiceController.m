@@ -44,7 +44,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         _httpRequestSerializer = [AFHTTPRequestSerializer serializer];
         _httpResponseSerializer = [AFHTTPResponseSerializer serializer];
         
-        [_jsonRequestSerializer setValue:@"application/json;image/png" forHTTPHeaderField:@"Accept"];
+        [_jsonRequestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [_jsonRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [_httpRequestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
         //[_httpRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
@@ -92,20 +92,27 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 
 #pragma mark - BPRestProvider
 
+- (void)GET_FILE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
+{
+    self.manager.requestSerializer = self.httpRequestSerializer;
+    self.manager.responseSerializer = self.httpResponseSerializer;
+    
+    [self.manager GET:servicePath
+           parameters:parameters
+              success:[self handleSuccess:callback json:NO]
+              failure:[self handleFailure:callback]];
+}
+
 - (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
-    if ([servicePath containsString:@"file"]) {
-        self.manager.requestSerializer = self.httpRequestSerializer;
-        self.manager.responseSerializer = self.httpResponseSerializer;
-    } else {
-        self.manager.responseSerializer = self.jsonResponseSerializer;
-        self.manager.requestSerializer = self.jsonRequestSerializer;
-    }
+    self.manager.responseSerializer = self.jsonResponseSerializer;
+    self.manager.requestSerializer = self.jsonRequestSerializer;
     
     [self.manager GET:servicePath
            parameters:parameters
               success:[self handleSuccess:callback]
               failure:[self handleFailure:callback]];
+
 }
 
 - (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
@@ -158,10 +165,22 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 
 - (AFSuccessCallback) handleSuccess:(ServiceResponse)callback
 {
+    return [self handleSuccess:callback json:YES];
+}
+
+- (AFSuccessCallback) handleSuccess:(ServiceResponse)callback json:(BOOL)json
+{
     return ^(AFHTTPRequestOperation *operation, id responseObject){
-        id result = responseObject[@"result"];
-        [self updateConnectionWithResponse:result];
-        callback([operation response].statusCode, responseObject, nil);
+
+        id result = responseObject;
+        if (json) {
+            // json is a weird parameter I know, it basically means it's
+            // a Buddy service call and can have token information etc..
+            result = responseObject[@"result"];
+            [self updateConnectionWithResponse:result];
+        }
+        
+        callback([operation response].statusCode, result, nil);
     };
 }
 

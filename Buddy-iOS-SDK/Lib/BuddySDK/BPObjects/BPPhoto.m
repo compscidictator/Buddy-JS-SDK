@@ -30,8 +30,9 @@ static NSString *photos = @"pictures";
                  client:(id<BPRestProvider>)client
                callback:(BuddyObjectCallback)callback;
 {
+    //NSData *data = UIImageJPEGRepresentation(image, 1);
     NSData *data = UIImagePNGRepresentation(image);
-
+    
 #pragma message("TODO - More syntactical sugar. Use macro for now.")
     id parameters = @{@"comment": BOXNIL(comment)};
     

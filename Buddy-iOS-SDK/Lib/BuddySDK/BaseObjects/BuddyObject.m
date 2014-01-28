@@ -206,7 +206,8 @@
     NSDictionary *parameters = [self buildUpdateDictionary];
 
     [self.client PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
-        [[[self class] converter] setPropertiesOf:self fromDictionary:json];
+#pragma message("EK commented this out on 1/27. PATCH doesn't provide a response object.")
+        //[[[self class] converter] setPropertiesOf:self fromDictionary:json];
         callback ? callback(error) : nil;
     }];
 }
