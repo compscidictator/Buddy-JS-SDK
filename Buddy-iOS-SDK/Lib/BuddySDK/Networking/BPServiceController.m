@@ -101,13 +101,13 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
            parameters:parameters
               success:[self handleSuccess:callback json:NO]
               failure:[self handleFailure:callback]];
+    
+    self.manager.responseSerializer = self.jsonResponseSerializer;
+    self.manager.requestSerializer = self.jsonRequestSerializer;
 }
 
 - (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
-    self.manager.responseSerializer = self.jsonResponseSerializer;
-    self.manager.requestSerializer = self.jsonRequestSerializer;
-    
     [self.manager GET:servicePath
            parameters:parameters
               success:[self handleSuccess:callback]
