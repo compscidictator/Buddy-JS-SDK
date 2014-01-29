@@ -33,15 +33,28 @@ describe(@"BPPhotoIntegrationSpec", ^{
         
         it(@"Should throw an auth error if they try to access photos.", ^{
             
-            [[Buddy photos] searchPhotos:^(NSArray *buddyObjects, NSError *error) {
-                
-            }];
+            [[Buddy photos] searchPhotos:nil];
             
-            id d = [[UIApplication sharedApplication] delegate];
-            [[[d shouldEventuallyBeforeTimingOutAfter(3)] receive] authorizationFailed];
-
+            id delegate = [[UIApplication sharedApplication] delegate];
+            [[[delegate shouldEventually] receive] authorizationFailed];
         });
         
+        it(@"Should not allow them to add photos.", ^{
+            __block BOOL fin = NO;
+
+            NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+            NSString *imagePath = [bundle pathForResource:@"test" ofType:@"png"];
+            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+            
+            [[Buddy photos] addPhoto:image withComment:@"Hello, comment!" callback:^(id buddyObject, NSError *error) {
+                [[error shouldNot] beNil];
+                [[buddyObject should] beNil];
+                [[theValue([error code]) should] equal:theValue(0x107)]; // AuthUserAccessTokenRequired = 0x107
+                fin = YES;
+            }];
+            
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+        });
     }),
             
     context(@"When a user is logged in", ^{
