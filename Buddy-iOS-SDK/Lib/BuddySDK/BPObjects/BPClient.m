@@ -301,13 +301,6 @@
 - (ServiceResponse) handleResponse:(RESTCallback)callback
 {
     return ^(NSInteger responseCode, id response, NSError *error) {
-        //        + (NSError *)noInternetError:(NSInteger)code;
-        //        + (NSError *)noAuthenticationError:(NSInteger)code;
-        //        + (NSError *)tokenExpiredError:(NSInteger)code;
-        //        + (NSError *)badDataError:(NSInteger)code;
-        
-        BOOL authError = FALSE;
-        
         NSLog (@"Framework: handleResponse");
         
         NSError *buddyError;
@@ -321,26 +314,15 @@
                 responseObject = response;
                 break;
             case 400:
-                buddyError = [NSError badDataError:error.code message:response];
-                
-                break;
             case 403:
-                authError=TRUE;
-                if (YES) {
-                    buddyError = [NSError noAuthenticationError:error.code message:response];
-                } else {
-                    // TODO - figure out how to determing token expired.
-                    buddyError = [NSError tokenExpiredError:error.code message:response];
-                }
-                break;
             case 500:
-                buddyError = [NSError badDataError:error.code message:response];
+                buddyError = [NSError buildBuddyError:response];
                 break;
             default:
                 buddyError = [NSError noInternetError:error.code message:response];
                 break;
         }
-        if(authError) {
+        if([buddyError isAuthError]) {
             [self raiseAuthError];
         }
         callback(responseObject, buddyError);
