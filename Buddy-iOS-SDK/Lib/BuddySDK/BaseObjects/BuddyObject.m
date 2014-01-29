@@ -269,6 +269,13 @@ static NSString *metadataFormat = @"metadata/%@/%@";
     }];
 }
 
+- (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback
+{
+    [self.client DELETE:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+        callback ? callback(error) : nil;
+    }];
+}
+
 #pragma mark - JSON handling
 
 +(JAGPropertyConverter *)converter

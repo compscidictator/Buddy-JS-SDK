@@ -55,5 +55,6 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 - (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback;
 
 - (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback;
+- (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback;
 
 @end

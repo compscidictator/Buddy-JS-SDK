@@ -103,7 +103,24 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[expectFutureValue([secondPhoto.signedUrl componentsSeparatedByString:@"?"][0]) shouldEventually] equal:[newPhoto.signedUrl componentsSeparatedByString:@"?"][0]];
             [[expectFutureValue(secondPhoto.comment) shouldEventually] equal:newPhoto.comment];
         });
-           
+        
+        it(@"Should allow modifying photos", ^{
+            __block BPPhoto *secondPhoto;
+        
+            newPhoto.comment = @"Some new photo comment";
+            
+            [newPhoto save:^(NSError *error) {
+                [[error should] beNil];
+                [[Buddy photos] getPhoto:newPhoto.id callback:^(id newBuddyObject, NSError *error) {
+                    secondPhoto = newBuddyObject;
+                }];
+            }];
+            
+
+            [[expectFutureValue(secondPhoto) shouldEventually] beNonNil];
+            [[expectFutureValue(secondPhoto.comment) shouldEventually] equal:@"Some new photo comment"];
+        });
+        
         it(@"Should allow directly retrieving the image file", ^{
             __block UIImage *theImage;
             [newPhoto getImage:^(UIImage *image, NSError *error) {

@@ -78,6 +78,28 @@ describe(@"Metadata", ^{
             
             [[expectFutureValue(theValue(targetInteger)) shouldEventually] equal:theValue(testInteger)];
         });
+        
+        it(@"Should be able to delete metadata", ^{
+            __block BPCheckin *c = checkin;
+            __block BOOL fin = NO;
+            
+            [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+                [[newBuddyObject shouldNot] beNil];
+                fin = YES;
+            }];
+            
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+            fin = NO;
+            
+            [checkin deleteMetadataWithKey:@"StringlyMetadata" callback:^(NSError *error) {
+                [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+                    [[newBuddyObject should] beNil];
+                    fin = YES;
+                }];
+            }];
+            
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+        });
     });
 });
 
