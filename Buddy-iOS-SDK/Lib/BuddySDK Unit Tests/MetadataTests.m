@@ -35,6 +35,20 @@ describe(@"Metadata", ^{
             [Buddy logout:nil];
         });
         
+        it(@"Should be able to set nil  metadata", ^{
+            __block id targetString = @"Stuff";
+            
+            __block BPCheckin *c = checkin;
+            [checkin setMetadataWithKey:@"StringlyMetadata" andString:nil callback:^(NSError *error) {
+                [[error should] beNil];
+                [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+                    targetString = newBuddyObject;
+                }];
+            }];
+            
+            [[expectFutureValue(targetString) shouldEventually] beNil];
+        });
+        
         it(@"Should be able to set string based metadata", ^{
             NSString *testString = @"Hakuna matata";
             __block NSString *targetString = nil;
