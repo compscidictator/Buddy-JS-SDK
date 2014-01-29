@@ -76,7 +76,7 @@
 		C161A89D17FD2A3B001F5361 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C161A89C17FD2A3B001F5361 /* Security.framework */; };
 		C16FE35018944D0A0033EFAF /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
 		C16FE35118944D660033EFAF /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B501803924300F64FB6 /* MobileCoreServices.framework */; };
-		C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C16FE35218945CF30033EFAF /* BPAlbumItemCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C16FE35218945CF30033EFAF /* BPAlbumItemCollection.h */; };
 		C16FE35518945CF30033EFAF /* BPAlbumItemCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C16FE35318945CF30033EFAF /* BPAlbumItemCollection.m */; };
 		C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C17E2B4A18038F4B00F64FB6 /* BuddyCollection.m */; };
 		C17E2B4F180391D700F64FB6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C17E2B4E180391D700F64FB6 /* SystemConfiguration.framework */; };
@@ -141,7 +141,7 @@
 		C1B0F542189373F6000403E0 /* AFURLResponseSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F52F189373F6000403E0 /* AFURLResponseSerialization.m */; };
 		C1B0F543189373F6000403E0 /* AFURLSessionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F530189373F6000403E0 /* AFURLSessionManager.h */; };
 		C1B0F544189373F6000403E0 /* AFURLSessionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F531189373F6000403E0 /* AFURLSessionManager.m */; };
-		C1B0F54718937822000403E0 /* BPAlbumCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F54518937822000403E0 /* BPAlbumCollection.h */; };
+		C1B0F54718937822000403E0 /* BPAlbumCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F54518937822000403E0 /* BPAlbumCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1B0F54818937822000403E0 /* BPAlbumCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F54618937822000403E0 /* BPAlbumCollection.m */; };
 		C1B0F54B18937B08000403E0 /* BPAlbumItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F54918937B08000403E0 /* BPAlbumItem.h */; };
 		C1B0F54C18937B08000403E0 /* BPAlbumItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F54A18937B08000403E0 /* BPAlbumItem.m */; };
@@ -789,9 +789,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B0F54718937822000403E0 /* BPAlbumCollection.h in Headers */,
 				C1B0F543189373F6000403E0 /* AFURLSessionManager.h in Headers */,
 				C1B0F4D318937142000403E0 /* NSSet+ObjectiveSugar.h in Headers */,
-				C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */,
 				C10E2BB6186951FA007A0136 /* Buddy.h in Headers */,
 				C1B0F4CF18937142000403E0 /* NSMutableArray+ObjectiveSugar.h in Headers */,
 				C1B0F51B189373EB000403E0 /* UIProgressView+AFNetworking.h in Headers */,
@@ -846,13 +846,13 @@
 				C1B0F4D118937142000403E0 /* NSNumber+ObjectiveSugar.h in Headers */,
 				C1A62820188E225D009026F8 /* BPUserCollection.h in Headers */,
 				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
-				C1B0F54718937822000403E0 /* BPAlbumCollection.h in Headers */,
 				C1B0F539189373F6000403E0 /* AFNetworkReachabilityManager.h in Headers */,
 				C1C2395318789594000D0089 /* BPBlob.h in Headers */,
 				C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */,
 				C1B2375F1865569F005C841E /* NSString+JSON.h in Headers */,
 				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
 				C1B0F54B18937B08000403E0 /* BPAlbumItem.h in Headers */,
+				C16FE35418945CF30033EFAF /* BPAlbumItemCollection.h in Headers */,
 				C1B0F532189373F6000403E0 /* AFHTTPRequestOperation.h in Headers */,
 				C1B0F538189373F6000403E0 /* AFNetworking.h in Headers */,
 			);
