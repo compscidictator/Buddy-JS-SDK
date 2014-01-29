@@ -130,9 +130,8 @@ namespace BuddyServiceClient
                         d[prop.Name] = prop.GetValue(parameters, null);
                     }
                 }
-            } else {
-                d = new Dictionary<string, object> (StringComparer.InvariantCultureIgnoreCase);
             }
+
             return d;
         }
 

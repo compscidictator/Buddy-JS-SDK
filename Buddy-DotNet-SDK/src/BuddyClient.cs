@@ -599,7 +599,7 @@ namespace BuddySDK
             UpdateAccessLevel();
         }
 
-        ConnectivityLevel? _connectivity;
+        private ConnectivityLevel? _connectivity;
         public ConnectivityLevel ConnectivityLevel {
             get {
                 if (_connectivity == null) {
@@ -612,48 +612,51 @@ namespace BuddySDK
             }
         }
 
-       
-        private void CheckConnectivity(TimeSpan waitTime) {
-            Service.Client.CallServiceMethod<string>("GET", "/service/ping", allowThrow:false)
-                .ContinueWith(r=> {
 
-                    if (r.Result != null && r.Result.IsSuccess) {
-                        PlatformAccess.Current.InvokeOnUiThread(() => {
-                            OnConnectivityChanged(PlatformAccess.Current.ConnectionType);
-                        });
-                    }
-                    else
-                    {
-                        // wait a second and try again
-                        //
-                        Thread.Sleep(waitTime);
-                        CheckConnectivity(waitTime);
-                    }
-                }
-             );
+        private async Task CheckConnectivity(TimeSpan waitTime) {
+            var service = await Service();
+            var r = await service.Client.CallServiceMethod<string>("GET", "/service/ping", allowThrow: false);
 
-        }
-
-        protected virtual void OnConnectivityChanged(ConnectivityLevel level) {
-            if (level == _connectivity) {
-                return;
-            }
-            _connectivity = level;
-
-            switch (level) {
-            case ConnectivityLevel.None:
-                    CheckConnectivity (TimeSpan.FromSeconds (1));
-                    break;
-              
-            }
-
-
-            if (ConnectivityLevelChanged != null) {
-                ConnectivityLevelChanged (this, new ConnectivityLevelChangedArgs  {
-                    ConnectivityLevel =  level
+            if (r != null && r.IsSuccess)
+            {
+                PlatformAccess.Current.InvokeOnUiThread(async () => {
+                    await OnConnectivityChanged(PlatformAccess.Current.ConnectionType);
                 });
             }
+            else
+            {
+                // wait a bit and try again
+                //
+                Thread.Sleep(waitTime);
+                await CheckConnectivity(waitTime);
+            }
+        }
 
+        protected virtual async Task OnConnectivityChanged(ConnectivityLevel level) {
+            using (await new AsyncLock().LockAsync())
+            {
+                if (level == _connectivity)
+                {
+                    return;
+                }
+
+                if (ConnectivityLevelChanged != null)
+                {
+                    ConnectivityLevelChanged(this, new ConnectivityLevelChangedArgs
+                    {
+                        ConnectivityLevel = level
+                    });
+                }
+
+                _connectivity = level;
+                
+                switch (level)
+                {
+                    case ConnectivityLevel.None:
+                        await CheckConnectivity(TimeSpan.FromSeconds(1));
+                        break;
+                }
+            }
         }
       
         protected bool OnServiceException(BuddyClient client, BuddyServiceException buddyException) {
@@ -665,7 +668,7 @@ namespace BuddySDK
                 client.OnAuthorizationFailure ((BuddyUnauthorizedException)buddyException);
                 return false;
             } else if (buddyException is BuddyNoInternetException) {
-                OnConnectivityChanged (ConnectivityLevel.None);
+                var task = OnConnectivityChanged (ConnectivityLevel.None); // We don't care about async here.
                 return false;
             }
 
@@ -693,15 +696,16 @@ namespace BuddySDK
                 try {
                     bool showLoginDialog = exception == null;
 
+                    Task task;
                     if (exception != null) {
                         switch (exception.Error) {
 
                         case "AuthAppCredentialsInvalid":
                         case "AuthAccessTokenInvalid":
-                            ClearCredentials (false, true);
+                            task = ClearCredentials(false, true);
                             break;
                         case "AuthUserAccessTokenRequired":
-                            ClearCredentials (true, false);
+                            task = ClearCredentials(true, false);
                             showLoginDialog = true;
                             break;
                         }
@@ -867,7 +871,7 @@ namespace BuddySDK
             if (r.IsSuccess) {
 
                 this.User = null;
-                ClearCredentials (true, false);
+                await ClearCredentials (true, false);
               
                 if (dresult != null && dresult.ContainsKey("accessToken")) {
                     var token = dresult ["accessToken"] as string;

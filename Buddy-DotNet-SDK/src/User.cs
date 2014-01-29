@@ -177,8 +177,12 @@ namespace BuddySDK
                 SetValue<string>("ProfilePictureID", value == null ? null : value.ID, checkIsProp: false);
             }
         }
-		
-        internal User(string id, BuddyClient client)
+
+        public User()
+        {
+        }
+
+        public User(string id, BuddyClient client = null)
             : base(id, client)
         {
         }

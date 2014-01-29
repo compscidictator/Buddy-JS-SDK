@@ -57,7 +57,7 @@ namespace BuddySDK
             }
         }
 
-        internal AuthenticatedUser(BuddyClient client, string id, string accessToken)
+        internal AuthenticatedUser(string id, string accessToken, BuddyClient client)
             : base(id, client)
         {
             this.AccessToken = accessToken;

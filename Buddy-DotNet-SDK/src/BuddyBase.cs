@@ -66,7 +66,7 @@ namespace BuddySDK
 
     public abstract class BuddyMetadataBase
     {
-        protected BuddyClient _client;
+        private BuddyClient _client;
         protected BuddyClient Client
         {
             get
