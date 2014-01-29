@@ -241,7 +241,12 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 - (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
 {
     [self.client GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
-        callback ? callback(metadata[@"value"], error) : nil;
+        id md = nil;
+#pragma message ("Probably delete this after the server returns a boxed value for null metadata values")
+        if ([NSJSONSerialization isValidJSONObject:metadata]) {
+            md = metadata[@"value"];
+        }
+        callback ? callback(md, error) : nil;
     }];
 }
 
