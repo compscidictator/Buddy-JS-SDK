@@ -100,11 +100,11 @@
     // Return any enum->string mappings used in responses subclass.
     return @{NSStringFromSelector(@selector(readPermissions)) : @{
                                                 @(BuddyPermissionsApp) : @"App",
-                                                @(BuddyPermissionsOwner) : @"Owner",
+                                                @(BuddyPermissionsUser) : @"User",
                                                 },
              NSStringFromSelector(@selector(writePermissions)) : @{
                      @(BuddyPermissionsApp) : @"App",
-                     @(BuddyPermissionsOwner) : @"Owner",
+                     @(BuddyPermissionsUser) : @"User",
                      }};
 }
 
