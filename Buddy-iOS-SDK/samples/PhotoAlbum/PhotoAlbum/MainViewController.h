@@ -10,7 +10,7 @@
 #import "MBProgressHUD.h"
 
 @interface MainViewController : UIViewController <MBProgressHUDDelegate,UICollectionViewDataSource,
-                                    UICollectionViewDelegateFlowLayout>
+                                    UICollectionViewDelegateFlowLayout> 
 
 
 @property (nonatomic,weak) IBOutlet UICollectionView *albumCollection;

@@ -2,15 +2,15 @@
 //  BPAlbumItem.h
 //  BuddySDK
 //
-//  Created by Erik Kerber on 1/24/14.
+//  Created by Erik Kerber on 1/28/14.
 //
 //
 
-#import "BuddyObject.h"
+#import <Foundation/Foundation.h>
 
-@interface BPAlbumItem : BuddyObject
+@protocol BPAlbumItem <NSObject>
 
-@property (nonatomic, copy) NSString *albumID;
-@property (nonatomic, copy) NSString *itemID;
+@required
+- (NSString *)id;
 
 @end

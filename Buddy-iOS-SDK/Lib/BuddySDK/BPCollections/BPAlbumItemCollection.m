@@ -8,7 +8,7 @@
 
 #import "BPAlbumItemCollection.h"
 #import "BuddyCollection+Private.h"
-#import "BPAlbumItem.h"
+#import "BPAlbumItemContainer.h"
 
 @interface BPAlbumItemCollection()
 
@@ -22,7 +22,7 @@
 {
     self = [super initWithClient:client];
     if (self) {
-        self.type = [BPAlbumItem class];
+        self.type = [BPAlbumItemContainer class];
         _album = album;
     }
     return self;

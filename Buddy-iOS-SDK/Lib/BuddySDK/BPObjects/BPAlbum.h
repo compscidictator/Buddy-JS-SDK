@@ -17,4 +17,6 @@
 
 - (void)getAlbumItem:(NSString *)itemId callback:(BuddyObjectCallback)callback;
 
+- (void)addItemIdToAlbum:(NSString *)itemId callback:(BuddyObjectCallback)callback;
+
 @end

@@ -6,10 +6,11 @@
 //
 //
 
-#import "BPAlbumItem.h"
+#import "BPAlbumItemContainer.h"
 #import "BuddyObject+Private.h"
 
-@implementation BPAlbumItem
+
+@implementation BPAlbumItemContainer
 
 - (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
     self = [super initBuddyWithClient:client];

@@ -22,7 +22,7 @@ describe(@"BPAlbumIntegrationSpec", ^{
         
         __block BPAlbum *tempAlbum;
         __block BPPhoto *tempPhoto;
-        __block BPAlbumItem *tempItem;
+        __block BPAlbumItemContainer *tempItem;
         
         beforeAll(^{
             __block BOOL fin = NO;
@@ -60,6 +60,15 @@ describe(@"BPAlbumIntegrationSpec", ^{
             [[expectFutureValue(retrievedAlbum.comment) shouldEventually] equal:tempAlbum.comment];
         });
         
+        it(@"Should allow you to search for albums.", ^{
+            __block NSArray *retrievedAlbums;
+            [[Buddy albums] search:nil callback:^(NSArray *buddyObjects, NSError *error) {
+                retrievedAlbums = buddyObjects;
+            }];
+            
+            [[expectFutureValue(theValue([retrievedAlbums count])) shouldEventually] beGreaterThan:theValue(0)];
+        });
+        
         it(@"Should allow you to modify an album.", ^{
             __block BPAlbum *retrievedAlbum;
 
@@ -82,7 +91,7 @@ describe(@"BPAlbumIntegrationSpec", ^{
             
             [[Buddy photos] addPhoto:image withComment:@"Test image for album." callback:^(id newBuddyObject, NSError *error) {
                 tempPhoto = newBuddyObject;
-                [tempAlbum addItemToAlbum:tempPhoto.id callback:^(id newBuddyObject, NSError *error) {
+                [tempAlbum addItemToAlbum:tempPhoto callback:^(id newBuddyObject, NSError *error) {
                     [[error should] beNil];
                     tempItem = newBuddyObject;
                 }];
@@ -99,8 +108,6 @@ describe(@"BPAlbumIntegrationSpec", ^{
             }];
             
             [[expectFutureValue(retrievedPhoto) shouldEventually] beNonNil];
-            [[expectFutureValue(theValue(retrievedPhoto.contentLength)) shouldEventually] equal:theValue(tempPhoto.contentLength)];
-
         });
         
         it(@"Should allow you to delete an album.", ^{
