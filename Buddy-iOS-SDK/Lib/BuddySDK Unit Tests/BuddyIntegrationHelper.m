@@ -11,6 +11,12 @@
 
 @implementation BuddyIntegrationHelper
 
++ (void) bootstrapInit:(void(^)())callback {
+    [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {
+        callback();
+    }];
+}
+
 + (void) bootstrapLogin:(void(^)())callback
 {
     [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {

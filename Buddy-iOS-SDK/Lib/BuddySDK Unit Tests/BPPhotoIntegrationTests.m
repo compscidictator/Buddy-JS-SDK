@@ -18,6 +18,32 @@
 SPEC_BEGIN(BuddyPhotoSpec)
 
 describe(@"BPPhotoIntegrationSpec", ^{
+    
+    context(@"When a user is NOT logged in", ^{
+        
+        beforeAll(^{
+            __block BOOL fin = NO;
+            
+            [BuddyIntegrationHelper bootstrapInit:^{
+                fin = YES;
+            }];
+            
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+        });
+        
+        it(@"Should throw an auth error if they try to access photos.", ^{
+            
+            [[Buddy photos] searchPhotos:^(NSArray *buddyObjects, NSError *error) {
+                
+            }];
+            
+            id d = [[UIApplication sharedApplication] delegate];
+            [[[d shouldEventuallyBeforeTimingOutAfter(3)] receive] authorizationFailed];
+
+        });
+        
+    }),
+            
     context(@"When a user is logged in", ^{
         __block BPPhoto *newPhoto;
         
