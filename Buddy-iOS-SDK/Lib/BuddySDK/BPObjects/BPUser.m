@@ -11,7 +11,7 @@
 #import "BPClient.h"
 #import "BPEnumMapping.h"
 
-@interface BPUser()<BPEnumMapping>
+@interface BPUser()
 
 @end
 
@@ -37,20 +37,14 @@
     return self;
 }
 
-+ (NSDictionary *)mapForProperty:(NSString *)key
-{
-    return [self enumMap][key];
-}
-
 + (NSDictionary *)enumMap
 {
-    return @{
-             
-             NSStringFromSelector(@selector(gender)) : @{
-                     @(BPUserGender_Male) : @"Male",
-                     @(BPUserGender_Female) : @"Female",
-                     },
-             };
+    return [[[self class] baseEnumMap] dictionaryByMergingWith: @{
+                                                                  NSStringFromSelector(@selector(gender)) : @{
+                                                                          @(BPUserGender_Male) : @"Male",
+                                                                          @(BPUserGender_Female) : @"Female",
+                                                                          },
+                                                                  }];
 }
 
 static NSString *users = @"users";

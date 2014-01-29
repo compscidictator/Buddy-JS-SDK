@@ -14,8 +14,9 @@
 #import "BPClient.h"
 #import "BPCoordinate.h"
 #import "NSDate+JSON.h"
+#import "BPEnumMapping.h"
 
-@interface BuddyObject()
+@interface BuddyObject()<BPEnumMapping>
 
 @property (nonatomic, readwrite, assign) BOOL isDirty;
 @property (nonatomic, strong) NSMutableArray *keyPaths;
@@ -84,11 +85,29 @@
     return nil;
 }
 
++ (NSDictionary *)mapForProperty:(NSString *)key
+{
+    return [self enumMap][key];
+}
+
 + (NSDictionary *)enumMap
 {
-    // Return any enum->string mappings used in responses subclass.
-    return nil;
+    return [self baseEnumMap];
 }
+
++ (NSDictionary *)baseEnumMap
+{
+    // Return any enum->string mappings used in responses subclass.
+    return @{NSStringFromSelector(@selector(readPermissions)) : @{
+                                                @(BuddyPermissionsApp) : @"App",
+                                                @(BuddyPermissionsOwner) : @"Owner",
+                                                },
+             NSStringFromSelector(@selector(writePermissions)) : @{
+                     @(BuddyPermissionsApp) : @"App",
+                     @(BuddyPermissionsOwner) : @"Owner",
+                     }};
+}
+
 
 -(void)registerProperty:(SEL)property
 {

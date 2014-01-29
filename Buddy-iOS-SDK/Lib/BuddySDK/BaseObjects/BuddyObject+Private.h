@@ -16,4 +16,8 @@
 
 - (NSDictionary *)buildUpdateDictionary;
 
++ (NSDictionary *)baseEnumMap;
++ (NSDictionary *)enumMap;
+
+
 @end
