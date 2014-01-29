@@ -7,10 +7,12 @@
 //
 
 #import "BPAlbum.h"
+#import "BPAlbumItem.h"
 #import "BPAlbumItemCollection.h"
 #import "BuddyObject+Private.h"
 #import "BPRestProvider.h"
 #import "BPCLient.h"
+
 @interface BPAlbum()
 
 @property (nonatomic, strong) BPAlbumItemCollection *items;
@@ -35,16 +37,20 @@ static NSString *albums = @"albums";
     return albums;
 }
 
-- (void)addItemToAlbum:(id)albumItem callback:(BuddyCompletionCallback)callback
+
+- (void)addItemToAlbum:(id)albumItem callback:(BuddyObjectCallback)callback
 {
-    [self.items addAlbumItem:albumItem withComment:@"" callback:^(NSError *error) {
-        callback(error);
+    __weak id<BPRestProvider> weakClient = self.client;
+    
+    [self.items addAlbumItem:albumItem withComment:@"" callback:^(id json, NSError *error) {
+        BPAlbumItem *newItem = [[BPAlbumItem alloc] initBuddyWithResponse:json andClient:weakClient];
+        callback ? callback(newItem, error) : nil;
     }];
 }
 
-- (void)getItems:(BuddyCollectionCallback)callback
+- (void)getAlbumItem:(NSString *)itemId callback:(BuddyObjectCallback)callback
 {
-    
+    [self.items getAlbumItem:itemId callback:callback];
 }
 
 @end

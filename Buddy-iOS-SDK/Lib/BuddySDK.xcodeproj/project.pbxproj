@@ -62,6 +62,7 @@
 		C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = C11E6C90184C57040034E1EB /* BPPhotoCollection.m */; };
 		C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C98184D58670034E1EB /* BuddyObject+Private.h */; };
+		C142766D189899B800D5DD85 /* BuddyCollection+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C142766C189899B800D5DD85 /* BuddyCollection+Private.h */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
 		C154CEED187F750C00EACE4B /* BPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEB187F750C00EACE4B /* BPLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEEC187F750C00EACE4B /* BPLocation.m */; };
@@ -262,6 +263,7 @@
 		C11E6C8F184C57040034E1EB /* BPPhotoCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BPPhotoCollection.h; path = ../../Lib/BuddySDK/BPCollections/BPPhotoCollection.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
 		C11E6C90184C57040034E1EB /* BPPhotoCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = BPPhotoCollection.m; path = ../../Lib/BuddySDK/BPCollections/BPPhotoCollection.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		C11E6C98184D58670034E1EB /* BuddyObject+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BuddyObject+Private.h"; sourceTree = "<group>"; };
+		C142766C189899B800D5DD85 /* BuddyCollection+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BuddyCollection+Private.h"; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
 		C154CEEB187F750C00EACE4B /* BPLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLocation.h; sourceTree = "<group>"; };
 		C154CEEC187F750C00EACE4B /* BPLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLocation.m; sourceTree = "<group>"; };
@@ -517,6 +519,7 @@
 				C1B0F54618937822000403E0 /* BPAlbumCollection.m */,
 				C16FE35218945CF30033EFAF /* BPAlbumItemCollection.h */,
 				C16FE35318945CF30033EFAF /* BPAlbumItemCollection.m */,
+				C142766C189899B800D5DD85 /* BuddyCollection+Private.h */,
 			);
 			name = BPCollections;
 			sourceTree = "<group>";
@@ -811,6 +814,7 @@
 				C1B0F51D189373EB000403E0 /* UIWebView+AFNetworking.h in Headers */,
 				C1B0F536189373F6000403E0 /* AFHTTPSessionManager.h in Headers */,
 				C10E2BA6186950D8007A0136 /* BPPhoto.h in Headers */,
+				C142766D189899B800D5DD85 /* BuddyCollection+Private.h in Headers */,
 				C1B0F53F189373F6000403E0 /* AFURLRequestSerialization.h in Headers */,
 				C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */,
 				C1B0F4CB18937142000403E0 /* NSArray+ObjectiveSugar.h in Headers */,

@@ -21,6 +21,8 @@ describe(@"BPAlbumIntegrationSpec", ^{
     context(@"When a user is logged in", ^{
         
         __block BPAlbum *tempAlbum;
+        __block BPPhoto *tempPhoto;
+        __block BPAlbumItem *tempItem;
         
         beforeAll(^{
             __block BOOL fin = NO;
@@ -78,20 +80,26 @@ describe(@"BPAlbumIntegrationSpec", ^{
             NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
-            __block BOOL fin = NO;
-            
             [[Buddy photos] addPhoto:image withComment:@"Test image for album." callback:^(id newBuddyObject, NSError *error) {
-                [tempAlbum addItemToAlbum:[newBuddyObject id] callback:^(NSError *error) {
+                tempPhoto = newBuddyObject;
+                [tempAlbum addItemToAlbum:tempPhoto.id callback:^(id newBuddyObject, NSError *error) {
                     [[error should] beNil];
-                    fin = YES;
+                    tempItem = newBuddyObject;
                 }];
             }];
             
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+            [[expectFutureValue(tempItem) shouldEventually] beNonNil];
         });
         
         
-        it(@"Should allow you to retrieve items from an album.", ^{
+        it(@"Should allow you to retrieve an item from an album.", ^{
+            __block BPPhoto *retrievedPhoto;
+            [tempAlbum getAlbumItem:tempItem.id callback:^(id newBuddyObject, NSError *error) {
+                retrievedPhoto = newBuddyObject;
+            }];
+            
+            [[expectFutureValue(retrievedPhoto) shouldEventually] beNonNil];
+            [[expectFutureValue(theValue(retrievedPhoto.contentLength)) shouldEventually] equal:theValue(tempPhoto.contentLength)];
 
         });
         

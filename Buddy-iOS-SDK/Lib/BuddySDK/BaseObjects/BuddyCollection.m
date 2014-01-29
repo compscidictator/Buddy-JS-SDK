@@ -9,6 +9,13 @@
 #import "BuddyCollection.h"
 #import "BPClient.h"
 #import "BuddyObject+Private.h"
+#import "BuddyCollection+Private.h"
+
+@interface BuddyCollection()
+
+@property (nonatomic, copy) NSString *requestPrefix;
+
+@end
 
 @implementation BuddyCollection
 
@@ -21,6 +28,11 @@
         _client = client;
     }
     return self;
+}
+
+- (NSString *)requestPrefix
+{
+    return @"";
 }
 
 -(id<BPRestProvider>)client
@@ -45,9 +57,9 @@
 
 - (void)getItem:(NSString *)identifier callback:(BuddyObjectCallback)callback
 {
-    NSString *resource = [NSString stringWithFormat:@"%@/%@",
-                          [[self type] requestPath],
-                          identifier];
+    NSString *resource = [self.requestPrefix stringByAppendingFormat:@"%@/%@",
+                                [[self type] requestPath],
+                                identifier];
     
     [self.client GET:resource parameters:nil callback:^(id json, NSError *error) {
         id buddyObject = [[self.type alloc] initBuddyWithResponse:json andClient:self.client];

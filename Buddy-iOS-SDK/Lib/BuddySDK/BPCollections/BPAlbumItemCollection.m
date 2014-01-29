@@ -7,6 +7,8 @@
 //
 
 #import "BPAlbumItemCollection.h"
+#import "BuddyCollection+Private.h"
+#import "BPAlbumItem.h"
 
 @interface BPAlbumItemCollection()
 
@@ -20,28 +22,35 @@
 {
     self = [super initWithClient:client];
     if (self) {
+        self.type = [BPAlbumItem class];
         _album = album;
     }
     return self;
 }
 
-- (NSString *)buildItemPath
+- (NSString *)requestPrefix
 {
-    return [NSString stringWithFormat:@"albums/%@/items", self.album.id];
+    return [NSString stringWithFormat:@"albums/%@/", self.album.id];
 }
 
 - (void)addAlbumItem:(NSString *)itemId
          withComment:(NSString *)comment
-            callback:(BuddyCompletionCallback)callback
+            callback:(BuddyObjectCallback)callback
 {
     NSDictionary *params = @{
                              @"ItemId": itemId,
                              @"Comment": comment
                              };
+    NSString *requestPath = [self.requestPrefix stringByAppendingString:[[self type] requestPath]];
     
-    [self.client POST:[self buildItemPath] parameters:params callback:^(id json, NSError *error) {
-        callback(error);
+    [self.client POST:requestPath parameters:params callback:^(id json, NSError *error) {
+        callback(json, error);
     }];
 }
 
+- (void)getAlbumItem:(NSString *)itemId
+            callback:(BuddyObjectCallback)callback
+{
+    [self getItem:itemId callback:callback];
+}
 @end

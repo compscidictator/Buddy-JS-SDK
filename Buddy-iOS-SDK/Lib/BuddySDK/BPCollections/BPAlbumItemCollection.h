@@ -18,10 +18,8 @@
 
 - (void)addAlbumItem:(NSString *)itemId
          withComment:(NSString *)comment
-            callback:(BuddyCompletionCallback)callback;
-    
-- (void)getAlbumItems:(BuddyCollectionCallback)callback;
-    
+            callback:(BuddyObjectCallback)callback;
+        
 - (void)searchAlbumItems:(BuddyCollectionCallback)callback;
     
 - (void)getAlbumItem:(NSString *)photoId callback:(BuddyObjectCallback)callback;

@@ -11,7 +11,7 @@
 
 @implementation BPCheckin
 
--(instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
     self = [super initBuddyWithClient:client];
     if(self)
     {

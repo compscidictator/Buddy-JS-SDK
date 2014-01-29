@@ -222,7 +222,7 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 
 - (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value callback:(BuddyCompletionCallback)callback
 {
-    NSDictionary *parameters = @{@"value": value};
+    NSDictionary *parameters = @{@"value": BOXNIL(value)};
     
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
