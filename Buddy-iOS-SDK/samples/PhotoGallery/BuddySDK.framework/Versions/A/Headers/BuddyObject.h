@@ -13,12 +13,12 @@
  Permissions scope for Buddy objects.
  */
 typedef NS_ENUM(NSInteger, BuddyPermissions){
-    /** Accessible by owner. */
-    BuddyPermissionsOwner,
     /** Accessible by App. */
     BuddyPermissionsApp,
+    /** Accessible by owner. */
+    BuddyPermissionsUser,
     /** Default (Accessible by Owner). */
-    BuddyPermissionsDefault = BuddyPermissionsOwner
+    BuddyPermissionsDefault = BuddyPermissionsUser
 };
 
 typedef void (^BuddyObjectCallback)(id newBuddyObject, NSError *error);
@@ -55,5 +55,6 @@ typedef void (^BuddyCompletionCallback)(NSError *error);
 - (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback;
 
 - (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback;
+- (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback;
 
 @end

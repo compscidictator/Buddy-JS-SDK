@@ -12,14 +12,12 @@
 
 @implementation BPAlbumItemContainer
 
-- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
-    self = [super initBuddyWithClient:client];
-    if(self)
-    {
-        [self registerProperty:@selector(albumID)];
-        [self registerProperty:@selector(itemID)];
-    }
-    return self;
+- (void)registerProperties
+{
+    [super registerProperties];
+    
+    [self registerProperty:@selector(albumID)];
+    [self registerProperty:@selector(itemID)];
 }
 
 + (NSString *)requestPath

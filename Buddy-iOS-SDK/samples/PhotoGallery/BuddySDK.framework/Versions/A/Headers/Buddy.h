@@ -10,6 +10,7 @@
 
 #import "BPClientDelegate.h"
 #import "BuddyDevice.h"
+#import "BPAlbumItemContainer.h"
 #import "BPClient.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"

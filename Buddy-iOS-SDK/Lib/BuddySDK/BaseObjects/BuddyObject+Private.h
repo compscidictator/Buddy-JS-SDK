@@ -15,6 +15,7 @@
 - (instancetype)initBuddyWithResponse:(id)response andClient:(id<BPRestProvider>)rest;
 
 - (NSDictionary *)buildUpdateDictionary;
+- (void)registerProperties;
 
 + (NSDictionary *)baseEnumMap;
 + (NSDictionary *)enumMap;

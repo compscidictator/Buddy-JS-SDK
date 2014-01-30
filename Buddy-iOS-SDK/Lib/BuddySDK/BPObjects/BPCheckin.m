@@ -11,14 +11,12 @@
 
 @implementation BPCheckin
 
-- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
-    self = [super initBuddyWithClient:client];
-    if(self)
-    {
-        [self registerProperty:@selector(comment)];
-        [self registerProperty:@selector(description)];
-    }
-    return self;
+- (void)registerProperties
+{
+    [super registerProperties];
+    
+    [self registerProperty:@selector(comment)];
+    [self registerProperty:@selector(description)];
 }
 
 static NSString *checkins = @"checkins";

@@ -17,24 +17,21 @@
 
 @implementation BPUser
 
-- (instancetype)initBuddyWithResponse:(id)response andClient:(id<BPRestProvider>)client;
+- (void)registerProperties
 {
-    self = [super initBuddyWithResponse:response andClient:client];
-    if(self)
-    {
-        [self registerProperty:@selector(firstName)];
-        [self registerProperty:@selector(lastName)];
-        [self registerProperty:@selector(userName)];
-        [self registerProperty:@selector(gender)];
-        [self registerProperty:@selector(dateOfBirth)];
-        [self registerProperty:@selector(profilePicture)];
-        [self registerProperty:@selector(profilePictureId)];
-        [self registerProperty:@selector(lastLogin)];
-        [self registerProperty:@selector(created)];
-        [self registerProperty:@selector(profilePicture)];
-        [self registerProperty:@selector(profilePictureId)];
-    }
-    return self;
+    [super registerProperties];
+    
+    [self registerProperty:@selector(firstName)];
+    [self registerProperty:@selector(lastName)];
+    [self registerProperty:@selector(userName)];
+    [self registerProperty:@selector(gender)];
+    [self registerProperty:@selector(dateOfBirth)];
+    [self registerProperty:@selector(profilePicture)];
+    [self registerProperty:@selector(profilePictureId)];
+    [self registerProperty:@selector(lastLogin)];
+    [self registerProperty:@selector(created)];
+    [self registerProperty:@selector(profilePicture)];
+    [self registerProperty:@selector(profilePictureId)];
 }
 
 + (NSDictionary *)enumMap

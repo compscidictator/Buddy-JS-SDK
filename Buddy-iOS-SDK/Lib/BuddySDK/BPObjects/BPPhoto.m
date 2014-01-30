@@ -11,14 +11,13 @@
 
 @implementation BPPhoto
 
-- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
-    self = [super initBuddyWithClient:client];
-    if(self)
-    {
-        [self registerProperty:@selector(comment)];
-    }
-    return self;
+- (void)registerProperties
+{
+    [super registerProperties];
+    
+    [self registerProperty:@selector(comment)];
 }
+
 
 static NSString *photos = @"pictures";
 +(NSString *) requestPath{
