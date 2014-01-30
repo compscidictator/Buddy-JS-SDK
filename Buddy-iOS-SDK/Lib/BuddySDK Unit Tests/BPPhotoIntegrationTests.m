@@ -121,6 +121,29 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[expectFutureValue(secondPhoto.comment) shouldEventually] equal:@"Some new photo comment"];
         });
         
+        it(@"Should allow modifying a *retrieved* photo", ^{
+            __block BPPhoto *retrievedPhoto;
+            [[Buddy photos] getPhoto:newPhoto.id callback:^(id newBuddyObject, NSError *error) {
+                retrievedPhoto = newBuddyObject;
+            }];
+            
+            [[expectFutureValue(retrievedPhoto) shouldEventually] beNonNil];
+            
+            retrievedPhoto.comment = @"Hakuna matata";
+            
+            [retrievedPhoto save:^(NSError *error) {
+                [[error should] beNil];
+                retrievedPhoto = nil;
+                [[Buddy photos] getPhoto:newPhoto.id callback:^(id newBuddyObject, NSError *error) {
+                    retrievedPhoto = newBuddyObject;
+                }];
+            }];
+            
+            
+            [[expectFutureValue(retrievedPhoto) shouldEventually] beNonNil];
+            [[expectFutureValue(retrievedPhoto.comment) shouldEventually] equal:@"Hakuna matata"];
+        });
+        
         it(@"Should allow directly retrieving the image file", ^{
             __block UIImage *theImage;
             [newPhoto getImage:^(UIImage *image, NSError *error) {
