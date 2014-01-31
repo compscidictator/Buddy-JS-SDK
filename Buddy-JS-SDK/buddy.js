@@ -1,10 +1,14 @@
 window.Buddy = function(root) {
 
-	root = root || "http://api-us.buddyplatform.com"
+	root = root || "http://api.buddyplatform.com"
 
-	var result = {};
+	var buddy = {};
 
-	var accessToken = null;
+	
+	var _appId;
+	var _appKey;
+	var _options;
+	var _settings;
 
 
 	function supports_html5_storage() {
@@ -14,130 +18,344 @@ window.Buddy = function(root) {
 	    return false;
 	  }
 	}
-	function getUniqueId() {
 
-		var id = getValue("buddyExplorerUniqueId");
-		if (!id) {
-			id = new Date().getTime(); // good enough for this
-			setValue("buddyExplorerUniqueId", id);
+	function getSettings(force) {
+		if ((!_settings || force) && supports_html5_storage() && _appId) {
+
+			var json = window.localStorage.getItem(_appId);
+			_settings = JSON.parse(json);
 		}
-		return id;
-		
-		
+		return _settings || {};
 	}
 
-	function setValue(key, value) {
-		if (supports_html5_storage()) {
-			if (value) {
-				window.localStorage.setItem(key, value);
+	function updateSettings(updates, replace) {
+		if (supports_html5_storage() && _appId) {
+
+
+			var settings = updates;
+
+			if (!replace) {
+				settings = getSettings();
+				for (var key in updates) {
+					settings[key] = updates[key];
+				}
+			}
+
+			window.localStorage.setItem(_appId, JSON.stringify(settings));
+			_settings = settings;
+			return _settings;
+		}
+
+	}
+
+	function clearSettings(type) {
+		if (supports_html5_storage() && _appId) {
+
+			if (!type) {
+				window.localStorage.removeItem(_appId);
+				_settings = {}
 			}
 			else {
-				clearValue(key);
-			}
-		}
-	}
 
-	function getValue(key) {
-		if (supports_html5_storage()) {
-			var val = window.localStorage.getItem(key);
-			if (val != "null") {
-				return val;
-			}
-		}
-		return null;
-	}
-	function clearValue(key) {
-		if (supports_html5_storage()) {
-			 window.localStorage.removeItem(key);
-		}
+				var s = getSettings();
+				for (var key in s) {
 
-	}
-	function setAccessToken(token) {
-
-			if (!_nosave) {
-				if (token) {
-					setValue("buddyExplorerAccessToken_" + _appId, token);
+					var remove = type.device && key.indexOf("device") === 0 ||
+								 type.user && key.indexOf("user") === 0;
+					if (remove) {
+						delete s[key];
+					}
 				}
-				else {
-					clearValue("buddyExplorerAccessToken_" + _appId);
-				}
+				return updateSettings(s, true);
 			}
-			accessToken = token;
+		}
+	}
+
+
+	function getUniqueId() {
+
+		var s = getSettings();
+
+		if (!s.unique_id) {
+			
+			s = updateSettings({
+				unique_id: _appId + ":" +new Date().getTime() // good enough for this
+			})
+		}
 		
+		return s.unique_id;
 	}
+	
 
 	function getAccessToken() {
 
-		if (accessToken) {
-			return accessToken;
+		var s = getSettings();
+		
+		var token = s.user_token || s.device_token;
+
+		if (token && (!token.expires || token.expires > new Date().getTime())) {
+			return token.value;
 		}
-		else if (_appId) {
-			 accessToken = getValue("buddyExplorerAccessToken_" + _appId);
-			 return accessToken;
-		}
+		return null;
 	}
 
-	var _appId;
-	var _appKey;
-	var _nosave;
+	
+	function setAccessToken(type, value) {
 
+
+		if (value) {
+			
+			value = {
+				value: value.accessToken,
+				expires: value.accessTokenExpires.getTime()
+			}
+		}
+
+		var update = {};
+
+		update[type + "_token"] = value;
+
+		updateSettings(update);
+	}
+
+	
 	function loadCreds() {
-		_appId = getValue("buddyExplorer_appid");
-		_appKey = getValue("buddyExplorer_appkey");
-		getAccessToken();
+		var s = getSettings();
+
+		if (s && s.app_id) {
+			_appId = s.app_id;
+			_appKey = s.app_key;
+			getAccessToken();
+		}
 	}
 
 	loadCreds();
 
-	result.init = function(appId, appKey, nosave) {
+	buddy.init = function(appId, appKey, options) {
+
+		_options = options || {};
+
 		_appId = appId;
+
+		if (!_appId) throw new Error("appId and appKey required");
+
 		_appKey = appKey;
-		_nosave = nosave;
+
+		if (_options.root) {
+			root = options.root;
+		}
+
+		getSettings(true);
 		
-		result.registerDevice(appId, appKey, nosave);
+		buddy.registerDevice(appId, appKey);
 
 	}
 
-	result.clear = function() {
-		setAccessToken(null);
-		_appId = clearValue("buddyExplorer_appid");
-		_appKey = clearValue("buddyExplorer_appkey");
+	buddy.clear = function() {
+
+		clearSettings();
 	}
 
-	result.registerDevice = function(appId, appKey, nosave, callback) {
+	buddy.registerDevice = function(appId, appKey, callback) {
 
 		if (getAccessToken()) {
 			callback && callback();
+			return;
 		}
 
-		result.makeRequest("POST", "/devices", {
+		buddy.makeRequest("POST", "/devices", {
 			appID: appId || _appId,
 			appKey: appKey || _appKey,
-			platform: "Browser",
+			platform: "Javascript",
 			model: navigator.userAgent,
 			uniqueId: getUniqueId()
-		}, function(err, result){
-			if (!err && !nosave) {
-				setValue("buddyExplorer_appid", appId);
-				setValue("buddyExplorer_appkey", appKey);
+		}, function(err, r){
+			if (r.success) {
+				_appId = appId || _appId;
+				_appKey = appKey || _appKey;
+				updateSettings({app_id: _appId, app_key:appKey, service_root: r.serviceRoot});
+				setAccessToken("device", r.result);
 			}
-			callback && callback(null, result);
+			callback && callback(err, r);
 		}, true)
 	}
 
-	result.loginUser = function(username, password, callback) {
+	buddy.getUser = function(callback) {
+
+		var s = getSettings();
+
+		if (!s.user_id) {
+			return callback && callback();
+		}
+
+		if (callback) {
+
+			buddy.makeRequest("GET", "/users/me", function(err, r){
+
+				callback && callback(err, r.result);
+			});
+		}
+
+		return s.user_id;
+
+
+	}
+
+	buddy.loginUser = function(username, password, callback) {
 
 		if (!getAccessToken()) {
 			throw new Error("Device must be registered first")
 		}
 
-		result.makeRequest("POST", "/users/login", {
+		buddy.makeRequest("POST", "/users/login", {
 			username: username,
 			password: password
-		}, callback);
+		}, function(err, r){
+
+
+			if (r.success) {
+				var user = r.result;
+				updateSettings({
+					user_id: user.id
+				});
+
+				setAccessToken('user', user);
+			
+			}
+			callback && callback(err, r && r.result);
+		});
 	}
 
-	result.makeRequest = function(method, url, parameters, callback, noAutoToken) {
+	buddy.logoutUser = function(callback) {
+
+		var s = getSettings();
+		var userId = s.user_id;
+
+		if (!userId) {
+			return callback && callback();
+		}
+
+		
+
+		buddy.makeRequest("POST", '/users/me/logout', function(){
+
+				clearSettings({
+					user: true
+				})
+
+				callback && callback();
+
+		});
+	}
+
+	buddy.createUser = function(options, callback) {
+
+		if (!getAccessToken()) {
+			throw new Error("Device must be registered first")
+		}
+
+		if (!options.username || !options.password) {
+			throw new Error("Username and password are required.");
+		}
+
+		buddy.makeRequest("POST", "/users", options, function(err, r){
+
+			if (r.success) {
+				var user = r.result;
+				updateSettings({
+						user_id: user.id
+					});
+				setAccessToken('user', user);
+			}
+			callback && callback(err, r && r.result);
+		});
+	}
+
+	function defer(callback) {
+
+		if (!callback) return;
+
+		setTimeout(function() {
+			var args = Array.prototype.slice.call(arguments, 2);
+			callback.apply(null, args);
+		}, 0);
+	}
+
+	var AuthErrors = {
+		AuthFailed :                        0x100,
+		AuthAccessTokenInvalid :            0x104,
+		AuthUserAccessTokenRequired :       0x107,
+		AuthAppCredentialsInvalid :         0x105
+	}
+
+
+	var _requestCount = 0;
+
+	function startRequest() {
+		_requestCount++;
+	}
+	function processResult(result, callback) {
+
+		_requestCount--;
+		
+		result.success = !result.error && typeof result.result != 'undefined';
+
+		if (result.error) {
+			var err = new Error(result.message || result.error);
+			err.error = result.error;
+			err.errorNumber = result.errorNumber;
+			err.status = result.status;
+
+			callback && callback(err, result);
+			if (!callback) {
+				console.warn(result.error);
+			}
+		}
+		else {
+			convertDates(result.result);
+			callback && callback(null, result);
+			if (!callback) {
+
+				console.log(JSON.stringify(result,  null, 2));
+			}
+		}
+
+
+	}
+
+
+function convertDates(obj, seen) {
+
+		seen = seen || {};
+
+		if (!obj || seen[obj]) {
+			return;
+		}
+
+		seen[obj] = true;
+
+		for (var key in obj) {
+			var val = obj[key];
+			if (typeof val ==  'string') {
+				var match = val.match(/\/Date\((\d+)\)\//);
+				if (match) {
+					obj[key] = new Date(Number(match[1]));
+				}
+			}
+			else if (typeof value == 'object') {
+				convertDates(obj);
+			}
+		}
+		return obj;
+
+	}
+
+	
+	
+
+
+	
+	buddy.makeRequest = function(method, url, parameters, callback, noAutoToken) {
 
 		var at = getAccessToken();
 		
@@ -146,13 +364,12 @@ window.Buddy = function(root) {
 		}
 		else if (!at && !noAutoToken) {
 
-			result.registerDevice(null, null, false, function(err, r1){
-				if (!err) {
+			buddy.registerDevice(null, null, false, function(err, r1){
+				if (!err && r1.success) {
 					at = getAccessToken();
 
 					if (at) {
-
-						result.makeRequest(method, url, parameters, callback);
+						buddy.makeRequest(method, url, parameters, callback);
 						return;
 					}
 
@@ -190,36 +407,84 @@ window.Buddy = function(root) {
 			headers["Authorization"] = "Buddy " + at;
 		}
 
+		// look for file parameters
+		//
+		if (parameters) {
+
+
+			var fileParams = null;
+			var nonFileParams = null;
+
+			for (var name in parameters) {
+				var val = parameters[name];
+
+				if (val instanceof File) {
+					fileParams = {} || fileParams;
+					fileParams[name] = val;
+				}
+				else {
+					nonFileParams = nonFileParams || {}
+					nonFileParams[name] = val;
+				}
+			}
+
+			if (fileParams) {
+				delete headers["Content-Type"];
+
+
+				var formData = new FormData();
+
+                for (var p in fileParams) {
+                        formData.append(p, fileParams[p]);
+                }
+                if (nonFileParams) {
+	                formData.append("body", new Blob([JSON.stringify(nonFileParams)], {type:'applicaiton/json'}));
+	            }
+                parameters = formData;
+
+			}
+			else {
+				parameters = nonFileParams ? JSON.stringify(nonFileParams) : null;
+			}
+		}
+		
+		var s = getSettings();
+		var r = s.service_root || root;
 	    $.ajax({
 			method: method,
 			url: root + url,
 			headers: headers,
+			contentType: false,
 			processData: false,
-			data: parameters ? JSON.stringify(parameters) : null,
+			data: parameters,
 			success:function(data) {
-				var result = data.result;
-				if (result && result.accessToken != null) {
-					
-					setAccessToken(result.accessToken);
-				}
-				callback && callback(null, data);
-				if (!callback) {
-					console.log(data);
-				}
+				processResult(data, callback);
 			},
 			error: function(data, status, response) {
-				var err = response;
 				if (data.status === 0) {
-					err = "NoInternetConnection";
+					data = {
+						status: 0,
+						error: "NoInternetConnection",
+						errorNumber: -1
+					};
 				}
 				else {
 					data = JSON.parse(data.responseText);
-					err = data.error;
+					
+					switch (data.errorNumber) {
+						case AuthErrors.AuthAccessTokenInvalid:
+						case AuthErrors.AuthAppCredentialsInvalid:
+							clearSettings();
+							break;
+						case AuthErrors.AuthUserAccessTokenRequired:
+							clearSettings({user:true});
+							options && options.loginRequired && defer(options.loginRequired);
+							break;
+					}
 				}
-				callback && callback(new Error(data.error), data);
-				if (!callback) {
-					console.warn(data.error);
-				}
+
+				processResult(data, callback);
+				
 			}
 		});
 
@@ -229,7 +494,7 @@ window.Buddy = function(root) {
 
 
 
-	return result;
+	return buddy;
 	
 
 }();
