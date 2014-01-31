@@ -87,6 +87,7 @@
     <Compile Include="ConnectivityLevelChangedEventArgs.cs" />
     <Compile Include="ServiceExceptionEventArgs.cs" />
     <Compile Include="CurrentUserChangedEventArgs.cs" />
+    <Compile Include="Metadata.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
