@@ -68,7 +68,7 @@ namespace BuddySquare.iOS
 
             };
            
-            Buddy.AuthorizationFailure += HandleAuthorizationFailure;
+            Buddy.AuthorizationNeedsUserLogin += HandleAuthorizationFailure;
 
            
             Buddy.CurrentUserChanged += async(sender, e) => {
