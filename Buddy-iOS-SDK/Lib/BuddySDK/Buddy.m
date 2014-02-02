@@ -24,6 +24,10 @@
 
 @implementation Buddy
 
++ (id<BPRestProvider>)buddyRestProvider {
+    return [BPClient defaultClient].restService;
+}
+
 + (BPUser *)user{
     return [[BPClient defaultClient] user];
 }

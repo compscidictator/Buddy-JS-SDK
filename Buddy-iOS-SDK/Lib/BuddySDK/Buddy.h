@@ -62,6 +62,11 @@
  */
 + (BPAlbumCollection *) albums;
 
+/**
+  Public REST provider for passthrough access.
+ */
++ (id<BPRestProvider>)buddyRestProvider;
+
 
 + (BOOL) locationEnabled;
 
