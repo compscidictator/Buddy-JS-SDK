@@ -1,3 +1,5 @@
+
+
 window.Buddy = function(root) {
 
 	root = root || "http://api.buddyplatform.com"
@@ -156,6 +158,11 @@ window.Buddy = function(root) {
 		clearSettings();
 	}
 
+	//
+	// HELPER METHODS -
+	// We wrap a few common operations.
+	//
+
 	buddy.registerDevice = function(appId, appKey, callback) {
 
 		if (getAccessToken()) {
@@ -163,7 +170,7 @@ window.Buddy = function(root) {
 			return;
 		}
 
-		buddy.makeRequest("POST", "/devices", {
+		buddy.post("/devices", {
 			appID: appId || _appId,
 			appKey: appKey || _appKey,
 			platform: "Javascript",
@@ -190,7 +197,7 @@ window.Buddy = function(root) {
 
 		if (callback) {
 
-			buddy.makeRequest("GET", "/users/me", function(err, r){
+			buddy.get("/users/me", function(err, r){
 
 				callback && callback(err, r.result);
 			});
@@ -207,12 +214,10 @@ window.Buddy = function(root) {
 			throw new Error("Device must be registered first")
 		}
 
-		buddy.makeRequest("POST", "/users/login", {
+		buddy.post("/users/login", {
 			username: username,
 			password: password
 		}, function(err, r){
-
-
 			if (r.success) {
 				var user = r.result;
 				updateSettings({
@@ -235,9 +240,7 @@ window.Buddy = function(root) {
 			return callback && callback();
 		}
 
-		
-
-		buddy.makeRequest("POST", '/users/me/logout', function(){
+		buddy.post('/users/me/logout', function(){
 
 				clearSettings({
 					user: true
@@ -258,7 +261,7 @@ window.Buddy = function(root) {
 			throw new Error("Username and password are required.");
 		}
 
-		buddy.makeRequest("POST", "/users", options, function(err, r){
+		buddy.post("/users", options, function(err, r){
 
 			if (r.success) {
 				var user = r.result;
@@ -271,6 +274,52 @@ window.Buddy = function(root) {
 		});
 	}
 
+	//
+	// Record an 
+	//
+	buddy.recordMetricEvent = function(eventName, values, timeoutInMinutes, callback) {
+
+		if (typeof timeoutInMinutes == 'function') {
+			callback = timeoutInMinutes;
+			timeoutInMinutes = null;
+		}
+
+		buddy.post("/metrics/events", {
+			values: values,
+			timeoutInMinutes: timeoutInMinutes
+		}, function(err, result){
+
+			if (err) {
+				callback(err);
+			}
+			else if (timeoutInMinutes && result.result) {
+				var r2 = {
+					 finish: function(values2, callback2){
+					 	if (typeof values2 == 'function') {
+					 		callback2 = values2;
+					 		values2 = null;
+					 	}
+						buddy.delete(
+							'/metrics/events/' + result.result.id, 
+							{
+									values: values
+							}, 
+							function(err){
+								callback2 && callback2(err);
+							});
+					}
+				};
+				callback(null, r2);
+			}
+			else {
+				callback(err, result);
+			}
+		});
+
+
+	}
+
+	// just let things unwind a bit, mmk?
 	function defer(callback) {
 
 		if (!callback) return;
@@ -294,6 +343,7 @@ window.Buddy = function(root) {
 	function startRequest() {
 		_requestCount++;
 	}
+
 	function processResult(result, callback) {
 
 		_requestCount--;
@@ -319,12 +369,12 @@ window.Buddy = function(root) {
 				console.log(JSON.stringify(result,  null, 2));
 			}
 		}
-
-
 	}
 
-
-function convertDates(obj, seen) {
+	//
+	// Convert dates format like /Date(124124)/ to a JS Date, recursively
+	//
+	function convertDates(obj, seen) {
 
 		seen = seen || {};
 
@@ -332,6 +382,7 @@ function convertDates(obj, seen) {
 			return;
 		}
 
+		// prevent loops
 		seen[obj] = true;
 
 		for (var key in obj) {
@@ -347,48 +398,59 @@ function convertDates(obj, seen) {
 			}
 		}
 		return obj;
-
 	}
 
-	
-	
+	//
+	// The main caller request, handles call setup and formatting,
+	// authentication, and basic error conditions such as triggering the login
+	// callback or no internet callback.
+	//
+	function makeRequest(method, url, parameters, callback, noAutoToken) {
 
-
-	
-	buddy.makeRequest = function(method, url, parameters, callback, noAutoToken) {
-
-		var at = getAccessToken();
-		
-		if (at && !_appKey) {
-			return callback(new Error("Init must be called first."))
+		if (!method || !url) {
+			throw new Error("Method and URL required.")
 		}
-		else if (!at && !noAutoToken) {
-
-			buddy.registerDevice(null, null, false, function(err, r1){
-				if (!err && r1.success) {
-					at = getAccessToken();
-
-					if (at) {
-						buddy.makeRequest(method, url, parameters, callback);
-						return;
-					}
-
-				}
-
-			})
-			return;
-		}
+		method = method.toUpperCase();
 
 		if (typeof parameters == 'function') {
 			callback = parameters;
 			parameters = null;
 		}
 
+		// see if we've already got an access token
+		var at = getAccessToken();
+		
+		if (at && !_appKey) {
+			return callback(new Error("Init must be called first."))
+		}
+		else if (!at && !noAutoToken) {
+			// if we don't have an access token, automatically get the device
+			// registered, then retry this call.
+			//
+			buddy.registerDevice(null, null, false, function(err, r1){
+				if (!err && r1.success) {
+					at = getAccessToken();
 
+					if (at) {
+						makeRequest(method, url, parameters, callback);
+						return;
+					}
+				}
+				else {
+					callback(err);
+				}
+			})
+			return;
+		}
+
+		// we love JSON.
 		var headers = {
 				"Accept" : "application/json"
-			};
+		};
 
+		// if it's a get, encode the parameters
+		// on the URL
+		//
 		if (method == "GET" && parameters != null) {
 			url += "?"
 			for (var k in parameters) {
@@ -411,7 +473,6 @@ function convertDates(obj, seen) {
 		//
 		if (parameters) {
 
-
 			var fileParams = null;
 			var nonFileParams = null;
 
@@ -429,25 +490,43 @@ function convertDates(obj, seen) {
 			}
 
 			if (fileParams) {
-				delete headers["Content-Type"];
 
+				if (method == "GET") {
+					throw new Error("Get does not support file parameters.");
+				}
+
+				if (!FormData) {
+					throw new Error("Sorry, this browser doesn't support FormData.");
+				}
+
+				// for any file parameters, build up a FormData object.
+
+				// should we make this "multipart/form"?
+				delete headers["Content-Type"];
 
 				var formData = new FormData();
 
+				// push in any file parameters
                 for (var p in fileParams) {
                         formData.append(p, fileParams[p]);
                 }
+
+                // the rest of the params go in as a single JSON entity named "body"
+                //
                 if (nonFileParams) {
-	                formData.append("body", new Blob([JSON.stringify(nonFileParams)], {type:'applicaiton/json'}));
+	                formData.append("body", new Blob([JSON.stringify(nonFileParams)], {type:'application/json'}));
 	            }
                 parameters = formData;
 
 			}
 			else {
+				// if we just have normal params, we stringify and push them into the body.
 				parameters = nonFileParams ? JSON.stringify(nonFileParams) : null;
 			}
 		}
 		
+		// OK, let's make the call for realz
+		//
 		var s = getSettings();
 		var r = s.service_root || root;
 	    $.ajax({
@@ -461,40 +540,56 @@ function convertDates(obj, seen) {
 				processResult(data, callback);
 			},
 			error: function(data, status, response) {
+
+				// chekc our eror states, then continue to process result
 				if (data.status === 0) {
 					data = {
 						status: 0,
 						error: "NoInternetConnection",
 						errorNumber: -1
 					};
+					console.warn("Can't connect to Buddy Platform.");
+					_options && _options.connectionStateChanged && defer(_options.connectionStateChagned);
 				}
 				else {
 					data = JSON.parse(data.responseText);
-					
 					switch (data.errorNumber) {
 						case AuthErrors.AuthAccessTokenInvalid:
 						case AuthErrors.AuthAppCredentialsInvalid:
+							// if we get either of those, drop all our app state.
+							// 
 							clearSettings();
 							break;
 						case AuthErrors.AuthUserAccessTokenRequired:
 							clearSettings({user:true});
-							options && options.loginRequired && defer(options.loginRequired);
+							_options && _options.loginRequired && defer(_options.loginRequired);
 							break;
 					}
 				}
-
 				processResult(data, callback);
-				
 			}
 		});
-
-
 	}
 
+	buddy.get = function(url, parameters, callback, noAuto) {
+		return makeRequest("GET", url, parameters, callback, noAuto);
+	}
 
+	buddy.post = function(url, parameters, callback, noAuto) {
+		return makeRequest("POST", url, parameters, callback, noAuto);
+	}
 
+	buddy.put = function(url, parameters, callback, noAuto) {
+		return makeRequest("PUT", url, parameters, callback, noAuto);
+	}
+
+	buddy.patch = function(url, parameters, callback, noAuto) {
+		return makeRequest("PATCH", url, parameters, callback, noAuto);
+	}
+
+	buddy.delete = function(url, parameters, callback, noAuto) {
+		return makeRequest("DELETE", url, parameters, callback, noAuto);
+	}
 
 	return buddy;
-	
-
 }();
