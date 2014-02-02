@@ -15,6 +15,6 @@
 
 //-(void)authenticationLevelChanged:(BPAuthenticationLevel)authenticationLevel;
 
--(void)authorizationFailed;
+-(void)authorizationNeedsUserLogin;
 
 @end

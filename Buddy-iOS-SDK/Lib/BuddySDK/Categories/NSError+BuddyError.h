@@ -8,46 +8,44 @@
 
 #import <Foundation/Foundation.h>
 
-@interface NSError (BuddyError)
+typedef NS_ENUM(NSInteger, BuddyErrorType)
+{
+    BPErrorAuthFailed =                        0x100,
+    BPErrorAuthAPICallDisabledByDeveloper =    0x101,
+    BPErrorAuthSignatureInvalid =              0x102,
+    BPErrorAuthRegionAccessKeyInvalid =        0x103,
+    BPErrorAuthAccessTokenInvalid =            0x104,
+    BPErrorAuthAppCredentialsInvalid =         0x105,
+    BPErrorAuthBadUsernameOrPassword =         0x106,
+    BPErrorAuthUserAccessTokenRequired =       0x107,
+    BPErrorAuthUserAccountDisabled =           0x108,
+    
+    // Params
+    BPErrorParameterMissingRequiredValue =     0x201,
+    BPErrorParameterOutOfRange =               0x202,
+    BPErrorParameterIncorrectFormat =          0x203,
+    
+    // Common
+    BPErrorOperationNotFound =                 0x204,
+    
+    //Internal
+    BPErrorInvalidObjectType =                 0x205,
+    
+    // Item
+    BPErrorItemDoesNotExist =                  0x301,
+    BPErrorItemAlreadyExists =                 0x302,
+    BPErrorObjectPermissionDenied =            0x303,
+    
+    // Binary
+    BPErrorFileUploadFailed =                  0x401,
+};
 
-/*
- AuthFailed =                        0x100,
- AuthAPICallDisabledByDeveloper =    0x101,
- AuthSignatureInvalid =              0x102,
- AuthRegionAccessKeyInvalid =        0x103,
- AuthAccessTokenInvalid =            0x104,
- AuthAppCredentialsInvalid =         0x105,
- AuthBadUsernameOrPassword =         0x106,
- AuthUserAccessTokenRequired =       0x107,
- AuthUserAccountDisabled =           0x108,
- 
- 
- // Params
- ParameterMissingRequiredValue =     0x201,
- ParameterOutOfRange =               0x202,
- ParameterIncorrectFormat =          0x203,
- 
- // Common
- OperationNotFound =                 0x204,
- 
- //Internal
- InvalidObjectType =                 0x205,
- 
- 
- // Item
- ItemDoesNotExist =                  0x301,
- ItemAlreadyExists =                 0x302,
- ObjectPermissionDenied =            0x303,
- 
- 
- 
- // Binary
- FileUploadFailed =                  0x401,
- */
+@interface NSError (BuddyError)
 
 + (NSError *)noInternetError:(NSInteger)code message:(NSString *)message;
 + (NSError *)buildBuddyError:(id)buddyJSON;
 
-- (BOOL)isAuthError;
+- (BOOL)needsLogin;
+- (BOOL)credentialsInvalid;
 
 @end

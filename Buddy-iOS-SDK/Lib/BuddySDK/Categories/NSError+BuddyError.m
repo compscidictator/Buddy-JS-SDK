@@ -36,9 +36,15 @@ static NSString *NoInternetError = @"NoInternetError";
     return [NSError errorWithDomain:buddyErrorDomain code:buddyErrorCode userInfo:@{@"message": message}];
 }
 
-- (BOOL)isAuthError
+- (BOOL)needsLogin
 {
-    return (self.code & 0x100) > 0;
+    return self.code == BPErrorAuthUserAccessTokenRequired;
+}
+
+- (BOOL)credentialsInvalid
+{
+    return  self.code == BPErrorAuthAppCredentialsInvalid ||
+            self.code == BPErrorAuthAccessTokenInvalid;
 }
 
 @end

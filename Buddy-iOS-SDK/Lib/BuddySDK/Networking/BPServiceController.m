@@ -11,7 +11,6 @@
 #import "BuddyDevice.h"
 #import "NSError+BuddyError.h"
 #import "BPClient.h"
-#import "BPClient+Private.h"
 
 typedef void (^AFFailureCallback)(AFHTTPRequestOperation *operation, NSError *error);
 typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id responseObject);
@@ -21,6 +20,8 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 
 - (AFFailureCallback) handleFailure:(ServiceResponse)callback;
 - (AFSuccessCallback) handleSuccess:(ServiceResponse)callback;
+
+@property (nonatomic, strong) BPAppSettings *appSettings;
 
 @property (nonatomic, strong) AFJSONRequestSerializer *jsonRequestSerializer;
 @property (nonatomic, strong) AFJSONResponseSerializer *jsonResponseSerializer;
@@ -34,11 +35,12 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 
 @implementation BPServiceController
 
-- (instancetype)initWithBuddyUrl:(NSString *)url
+- (instancetype)initWithAppSettings:(BPAppSettings *)appSettings
 {
     self = [super init];
     if(self)
     {
+        _appSettings = appSettings;
         _jsonRequestSerializer = [AFJSONRequestSerializer serializer];
         _jsonResponseSerializer = [AFJSONResponseSerializer serializer];
         _httpRequestSerializer = [AFHTTPRequestSerializer serializer];
@@ -47,46 +49,37 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         [_jsonRequestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [_jsonRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [_httpRequestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
-        //[_httpRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         
+        [self addObserver:self forKeyPath:@"appSettings.userToken" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"appSettings.appToken" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"appSettings.serviceUrl" options:NSKeyValueObservingOptionNew context:nil];
         
-        [self setupManagerWithBaseUrl:url withToken:nil];
-
+        [self setupManagerWithNewSettings];
     }
     return self;
 }
 
-#pragma mark - Token Management
-- (void)setupManagerWithBaseUrl:(NSString *)baseUrl withToken:(NSString *)token
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
-    assert([baseUrl length] > 0);
-    self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
+    [self setupManagerWithNewSettings];
+}
 
-    if(token){
-        NSLog(@"Setting token: %@", token);
+#pragma mark - Token Management
+- (void)setupManagerWithNewSettings
+{
+    assert([self.appSettings.serviceUrl length] > 0);
+    self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:self.appSettings.serviceUrl]];
+
+    if(self.appSettings.token){
+        NSLog(@"Setting token: %@", self.appSettings.token);
         // Tell our serializer our new Authorization string.
-        NSString *authString = [@"Buddy " stringByAppendingString:token];
+        NSString *authString = [@"Buddy " stringByAppendingString:self.appSettings.token];
         [self.jsonRequestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
         [self.httpRequestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
     }
 
-    self.token = token;
     self.manager.responseSerializer = self.jsonResponseSerializer;
     self.manager.requestSerializer = self.jsonRequestSerializer;
-}
-
-
-- (void)updateConnectionWithResponse:(id)result
-{
-    if(!result || ![result isKindOfClass:[NSDictionary class]])return;
-    // Grab the access token
-    NSString *newToken = result[@"accessToken"];
-    // Grab the potentially different base url.
-    NSString *newBaseUrl = result[@"serviceRoot"];
-    
-    if (newToken && ![newToken isEqualToString:self.token]) {
-        [self setupManagerWithBaseUrl:(newBaseUrl ?: self.manager.baseURL.absoluteString) withToken:newToken];
-    }
 }
 
 
@@ -171,16 +164,8 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
 - (AFSuccessCallback) handleSuccess:(ServiceResponse)callback json:(BOOL)json
 {
     return ^(AFHTTPRequestOperation *operation, id responseObject){
-
-        id result = responseObject;
-        if (json) {
-            // json is a weird parameter I know, it basically means it's
-            // a Buddy service call and can have token information etc..
-            result = responseObject[@"result"];
-            [self updateConnectionWithResponse:result];
-        }
         
-        callback([operation response].statusCode, result, nil);
+        callback([operation response].statusCode, responseObject, nil);
     };
 }
 

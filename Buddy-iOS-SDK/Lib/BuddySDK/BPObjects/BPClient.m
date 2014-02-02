@@ -21,6 +21,7 @@
 #import "BuddyObject+Private.h"
 #import "BuddyLocation.h"
 #import "BuddyDevice.h"
+#import "BPAppSettings.h"
 #import <CoreFoundation/CoreFoundation.h>
 
 #define BuddyServiceURL @"BuddyServiceURL"
@@ -29,6 +30,7 @@
 
 @interface BPClient()<BPRestProvider>
 @property (nonatomic, strong) BPServiceController *service;
+@property (nonatomic, strong) BPAppSettings *appSettings;
 
 - (void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
 - (void)socialLoginWorker:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
@@ -86,18 +88,20 @@
 
 {
     
+    
 #if DEBUG
     // Annoying nuance of running a unit test "bundle".
     NSString *serviceUrl = [[NSBundle bundleForClass:[self class]] infoDictionary][BuddyServiceURL];
 #else
     NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
 #endif
-
-    self.service = [[BPServiceController alloc] initWithBuddyUrl:serviceUrl];
+    
+    _appSettings = [[BPAppSettings alloc] initWithBaseUrl:serviceUrl];
+    _service = [[BPServiceController alloc] initWithAppSettings:_appSettings];
     
     // TODO - Does the client need a copy? Do users need to read back key/id?
-    _appKey = appKey;
-    _appID = appID;
+    _appSettings.appKey = appKey;
+    _appSettings.appID = appID;
     
     NSDictionary *getTokenParams = @{
                                      @"appId": appID,
@@ -132,7 +136,7 @@
 {
     if(!_user)
     {
-        [self raiseAuthError];
+        [self raiseNeedsLoginError];
     }
     return _user;
 }
@@ -305,42 +309,77 @@
         
         NSError *buddyError;
         
+        id result = response;
+        
+        // Is it a JSON response (as opposed to raw bytes)?
+        if(result && [result isKindOfClass:[NSDictionary class]]) {
+            
+            // Grab the result
+            result = response[@"result"];
+            
+            if ([result isKindOfClass:[NSDictionary class]]) {
+                
+                // Grab the access token
+                if ([result hasKey:@"serviceRoot"]) {
+                    self.appSettings.serviceUrl = result[@"serviceRoot"];
+                }
+                // Grab the potentially different base url.
+                if ([result hasKey:@"accessToken"] && ![result[@"accessToken"] isEqualToString:self.appSettings.token]) {
+                    self.appSettings.userToken = result[@"accessToken"];
+                }
+                    
+            }
+        }
+        
         response = response ?: @"Unknown";
         id responseObject = nil;
         
         switch (responseCode) {
             case 200:
             case 201:
-                responseObject = response;
+                responseObject = result;
                 break;
             case 400:
+            case 401:
+            case 402:
             case 403:
+            case 404:
+            case 405:
             case 500:
-                buddyError = [NSError buildBuddyError:response];
+                buddyError = [NSError buildBuddyError:result];
                 break;
             default:
-                buddyError = [NSError noInternetError:error.code message:response];
+                buddyError = [NSError noInternetError:error.code message:result];
                 break;
         }
-        if([buddyError isAuthError]) {
-            [self raiseAuthError];
+        if([buddyError needsLogin]) {
+            [self.appSettings clearUser];
+            [self raiseNeedsLoginError];
         }
+        if([buddyError credentialsInvalid]) {
+            [self.appSettings clear];
+        }
+        
         callback(responseObject, buddyError);
-
     };
 }
 
-- (void)raiseAuthError
+- (void)raiseNeedsLoginError
+{
+    [self tryRaiseDelegate:@selector(authorizationNeedsUserLogin)];
+}
+
+- (void)tryRaiseDelegate:(SEL)selector
 {
     id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
     
     if (!self.delegate) { // First check our delegate
-        if (app && [app respondsToSelector:@selector(authorizationFailed)])  {
-            [app performSelector:@selector(authorizationFailed)];
+        if (app && [app respondsToSelector:@selector(selector)])  {
+            [app performSelector:@selector(selector)];
         }
     } else { // If no delegate, see if we've implemented delegate methods on the AppDelegate.
-        if ([self.delegate respondsToSelector:@selector(authorizationFailed)]) {
-            [self.delegate authorizationFailed];
+        if ([self.delegate respondsToSelector:@selector(selector)]) {
+            [self.delegate authorizationNeedsUserLogin];
         }
     }
 }

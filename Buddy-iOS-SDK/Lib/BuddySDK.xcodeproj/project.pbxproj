@@ -64,6 +64,8 @@
 		C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C11E6C98184D58670034E1EB /* BuddyObject+Private.h */; };
 		C142766D189899B800D5DD85 /* BuddyCollection+Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C142766C189899B800D5DD85 /* BuddyCollection+Private.h */; };
 		C142766F1898BED100D5DD85 /* BPAlbumItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C142766E1898B11500D5DD85 /* BPAlbumItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1427672189AAC3700D5DD85 /* BPAppSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C1427670189AAC3700D5DD85 /* BPAppSettings.h */; };
+		C1427673189AAC3700D5DD85 /* BPAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C1427671189AAC3700D5DD85 /* BPAppSettings.m */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
 		C154CEED187F750C00EACE4B /* BPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEB187F750C00EACE4B /* BPLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C154CEEC187F750C00EACE4B /* BPLocation.m */; };
@@ -266,6 +268,8 @@
 		C11E6C98184D58670034E1EB /* BuddyObject+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BuddyObject+Private.h"; sourceTree = "<group>"; };
 		C142766C189899B800D5DD85 /* BuddyCollection+Private.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "BuddyCollection+Private.h"; sourceTree = "<group>"; };
 		C142766E1898B11500D5DD85 /* BPAlbumItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPAlbumItem.h; sourceTree = "<group>"; };
+		C1427670189AAC3700D5DD85 /* BPAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAppSettings.h; sourceTree = "<group>"; };
+		C1427671189AAC3700D5DD85 /* BPAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAppSettings.m; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
 		C154CEEB187F750C00EACE4B /* BPLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLocation.h; sourceTree = "<group>"; };
 		C154CEEC187F750C00EACE4B /* BPLocation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPLocation.m; sourceTree = "<group>"; };
@@ -483,7 +487,7 @@
 				C11E6C8C184C56AD0034E1EB /* BPCollections */,
 				C1B807691840609F0086B843 /* BPObjects */,
 				C17E2B4818038EFE00F64FB6 /* BaseObjects */,
-				C1B95A9D18370FFD000C8417 /* Networking */,
+				C1B95A9D18370FFD000C8417 /* Service */,
 				C1FBCECE17E670CB00275F6A /* LocationTracking */,
 				C153F86F17E15FC1009CDC81 /* Util.h */,
 				A6291F82165C01800051F83C /* Supporting Files */,
@@ -698,14 +702,16 @@
 			path = "Test Data";
 			sourceTree = "<group>";
 		};
-		C1B95A9D18370FFD000C8417 /* Networking */ = {
+		C1B95A9D18370FFD000C8417 /* Service */ = {
 			isa = PBXGroup;
 			children = (
 				C1AA90D618371FF70074B7E8 /* BPServiceController.h */,
 				C1AA90D718371FF70074B7E8 /* BPServiceController.m */,
 				C10F1B7F1870C35A00D5364C /* BPRestProvider.h */,
+				C1427670189AAC3700D5DD85 /* BPAppSettings.h */,
+				C1427671189AAC3700D5DD85 /* BPAppSettings.m */,
 			);
-			name = Networking;
+			name = Service;
 			path = ../../Lib/BuddySDK/Networking;
 			sourceTree = "<group>";
 		};
@@ -797,6 +803,7 @@
 			files = (
 				C1B0F54B18937B08000403E0 /* BPAlbumItemContainer.h in Headers */,
 				C1B0F54718937822000403E0 /* BPAlbumCollection.h in Headers */,
+				C1427672189AAC3700D5DD85 /* BPAppSettings.h in Headers */,
 				C1B0F543189373F6000403E0 /* AFURLSessionManager.h in Headers */,
 				C142766F1898BED100D5DD85 /* BPAlbumItem.h in Headers */,
 				C1B0F4D318937142000403E0 /* NSSet+ObjectiveSugar.h in Headers */,
@@ -1084,6 +1091,7 @@
 				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */,
 				C1D7094918832983003D112C /* BPDescriptors.m in Sources */,
+				C1427673189AAC3700D5DD85 /* BPAppSettings.m in Sources */,
 				C154CEFB187FAE8600EACE4B /* NSDate+JSON.m in Sources */,
 				C10E2BAD186950D8007A0136 /* BPUser.m in Sources */,
 				C1E0D1D61831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */,

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import "BPClientDelegate.h"
-
+#import "BPAppSettings.h"
 #import "BPRestProvider.h"
 
 typedef void (^ServiceResponse)(NSInteger responseCode, id response, NSError *error);
@@ -18,7 +18,7 @@ typedef void (^ServiceResponse)(NSInteger responseCode, id response, NSError *er
 -(instancetype) init __attribute__((unavailable("Use initWithUrl:")));
 +(instancetype) new __attribute__((unavailable("Use with initWithUrl:")));
 
--(instancetype)initWithBuddyUrl:(NSString *)url;
+- (instancetype)initWithAppSettings:(BPAppSettings *)appSettings;
 
 @property (nonatomic, readonly, retain) NSString *appID;
 @property (nonatomic, readonly, retain) NSString *appKey;

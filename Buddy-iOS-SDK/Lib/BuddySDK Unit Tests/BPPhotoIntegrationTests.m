@@ -36,7 +36,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [[Buddy photos] searchPhotos:nil];
             
             id delegate = [[UIApplication sharedApplication] delegate];
-            [[[delegate shouldEventually] receive] authorizationFailed];
+            [[[delegate shouldEventually] receive] authorizationNeedsUserLogin];
         });
         
         it(@"Should not allow them to add photos.", ^{
