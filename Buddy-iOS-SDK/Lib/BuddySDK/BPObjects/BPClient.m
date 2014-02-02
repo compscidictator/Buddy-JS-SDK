@@ -29,15 +29,9 @@
 
 
 @interface BPClient()<BPRestProvider>
+
 @property (nonatomic, strong) BPServiceController *service;
 @property (nonatomic, strong) BPAppSettings *appSettings;
-
-- (void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback;
-- (void)socialLoginWorker:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
-- (void)initializeCollectionsWithUser:(BPUser *)user;
-
-
-
 @property (nonatomic, strong) BuddyLocation *location;
 
 @end
@@ -113,6 +107,12 @@
                                      };
     
     [self POST:@"devices" parameters:getTokenParams callback:^(id json, NSError *error) {
+        
+        // Grab the potentially different base url.
+        if ([json hasKey:@"accessToken"] && ![json[@"accessToken"] isEqualToString:self.appSettings.token]) {
+            self.appSettings.deviceToken = json[@"accessToken"];
+        }
+        
         callback ? callback(error) : nil;
     }];
 }
@@ -206,12 +206,17 @@
     [self loginWorker:username password:password success:^(id json, NSError *error) {
         
         if(error) {
-            callback(nil, error);
+            callback ? callback(nil, error) : nil;
             return;
         }
         
         BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andClient:self];
         user.isMe = YES;
+        
+        // Grab the potentially different base url.
+        if ([json hasKey:@"accessToken"] && ![json[@"accessToken"] isEqualToString:self.appSettings.token]) {
+            self.appSettings.userToken = json[@"accessToken"];
+        }
         
         [user refresh:^(NSError *error) {
             [self initializeCollectionsWithUser:user];
@@ -323,10 +328,7 @@
                 if ([result hasKey:@"serviceRoot"]) {
                     self.appSettings.serviceUrl = result[@"serviceRoot"];
                 }
-                // Grab the potentially different base url.
-                if ([result hasKey:@"accessToken"] && ![result[@"accessToken"] isEqualToString:self.appSettings.token]) {
-                    self.appSettings.userToken = result[@"accessToken"];
-                }
+
                     
             }
         }

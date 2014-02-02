@@ -51,7 +51,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         [_httpRequestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
         
         [self addObserver:self forKeyPath:@"appSettings.userToken" options:NSKeyValueObservingOptionNew context:nil];
-        [self addObserver:self forKeyPath:@"appSettings.appToken" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"appSettings.deviceToken" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"appSettings.serviceUrl" options:NSKeyValueObservingOptionNew context:nil];
         
         [self setupManagerWithNewSettings];
