@@ -83,6 +83,7 @@
     <Compile Include="ConnectivityLevelChangedEventArgs.cs" />
     <Compile Include="CurrentUserChangedEventArgs.cs" />
     <Compile Include="ServiceExceptionEventArgs.cs" />
+    <Compile Include="Metadata.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

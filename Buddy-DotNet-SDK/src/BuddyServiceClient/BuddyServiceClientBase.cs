@@ -118,16 +118,20 @@ namespace BuddyServiceClient
             IDictionary<string, object> d = parameters as IDictionary<string,object>;
             if (d != null) {
                 return d;
-            } else if (parameters != null) {
-                d = new Dictionary<string, object> (StringComparer.InvariantCultureIgnoreCase);
-                var props = parameters.GetType ().GetProperties ();
-                foreach (var prop in props) {
-                    d [prop.Name] = prop.GetValue (parameters, null);
-                }
-               
-            } else {
-                d = new Dictionary<string, object> (StringComparer.InvariantCultureIgnoreCase);
             }
+            else
+            {
+                d = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
+                if (parameters != null)
+                {
+                    var props = parameters.GetType().GetProperties();
+                    foreach (var prop in props)
+                    {
+                        d[prop.Name] = prop.GetValue(parameters, null);
+                    }
+                }
+            }
+
             return d;
         }
 

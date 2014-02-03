@@ -2,13 +2,14 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Text.RegularExpressions;
-using System.Threading.Tasks;
 using System.IO;
+using System.Linq;
 using System.Net;
+using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
 
 namespace BuddySDK
 {
@@ -63,9 +64,114 @@ namespace BuddySDK
         Default = User
     }
 
+    public abstract class BuddyMetadataBase
+    {
+        private BuddyClient _client;
+        protected BuddyClient Client
+        {
+            get
+            {
+                return _client ?? Buddy.Instance;
+            }
+        }
+
+        protected BuddyMetadataBase(BuddyClient client = null)
+        {
+            if (client != null)
+            {
+                this._client = client;
+            }
+        }
+
+        protected abstract string GetMetadataPath(string key = null);
+
+        private Task<BuddyResult<bool>> SetMetadataCore(string key, object value, BuddyPermissions permissions)
+        {
+            return Client.CallServiceMethod<bool>("PUT",
+                                                    GetMetadataPath(key),
+                                                    new
+                                                    {
+                                                        value = value,
+                                                        permissions = permissions
+                                                    });
+        }
+
+        private Task<BuddyResult<bool>> SetMetadataCore(IDictionary keyValuePairs, BuddyPermissions permissions)
+        {
+            return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(),
+                                                    new
+                                                    {
+                                                        keyValuePairs = keyValuePairs,
+                                                        permissions = permissions
+                                                    });
+        }
+
+        public Task<BuddyResult<bool>> SetMetadataAsync(string key, string value, BuddyPermissions permissions = BuddyPermissions.Default)
+        {
+            return SetMetadataCore(key, value, permissions);
+        }
+
+        public Task<BuddyResult<bool>> SetMetadataAsync(string key, int value, BuddyPermissions permissions = BuddyPermissions.Default)
+        {
+            return SetMetadataCore(key, value, permissions);
+        }
+
+        public Task<BuddyResult<bool>> SetMetadataAsync(IDictionary<string, string> keyValues, BuddyPermissions permissions = BuddyPermissions.Default)
+        {
+            return SetMetadataCore((IDictionary)keyValues, permissions);
+        }
+
+        public Task<BuddyResult<bool>> SetMetadataAsync(IDictionary<string, int> keyValues, BuddyPermissions permissions = BuddyPermissions.Default)
+        {
+            return SetMetadataCore((IDictionary)keyValues, permissions);
+        }
+
+        public Task<BuddyResult<int>> GetMetadataIntAsync(string key)
+        {
+            return GetMetatadataCore<int>(key);
+        }
+
+        public Task<BuddyResult<string>> GetMetadataStringAsync(string key)
+        {
+            return GetMetatadataCore<string>(key);
+        }
+
+        private Task<BuddyResult<T>> GetMetatadataCore<T>(string key)
+        {
+            return Task.Run<BuddyResult<T>>(() =>
+            {
+                return Client.CallServiceMethod<MetadataItem>("GET", GetMetadataPath(key)).Result.Convert<T>(mdi => (T)mdi.Value);
+            });
+        }
+
+        public Task<BuddyResult<MetadataItem>> GetMetadataAsync(string key)
+        {
+            return GetMetatadataCore<MetadataItem>(key);
+        }
+
+        public Task<BuddyResult<int>> IncrementMetadataAsync(string key, int delta)
+        {
+            var path = GetMetadataPath(key) + "/increment";
+
+            var r = Client.CallServiceMethod<int>("POST", path,
+                     new
+                     {
+                         delta = delta
+                     });
+
+            return r;
+        }
+
+        public Task<BuddyResult<bool>> DeleteMetadataAsync(string key)
+        {
+            var t = Client.CallServiceMethod<bool>("DELETE", GetMetadataPath(key));
+
+            return t;
+        }
+    }
 
 
-    public abstract class BuddyBase : System.ComponentModel.INotifyPropertyChanged
+    public abstract class BuddyBase : BuddyMetadataBase, System.ComponentModel.INotifyPropertyChanged
     {
         private static Dictionary<Type, List<Tuple<string, string>>> _propMappings = new Dictionary<Type, List<Tuple<string, string>>>();
 
@@ -91,13 +197,6 @@ namespace BuddySDK
             }
             _propMappings[t.GetType()] = l;
             return l;
-        }
-
-        private BuddyClient _client;
-        protected BuddyClient Client {
-            get {
-                return _client ?? Buddy.Instance;
-            }
         }
 
         protected bool IsDeleted
@@ -206,22 +305,16 @@ namespace BuddySDK
                 return attr.Path;
             }
         }
-        
 
-
-        protected BuddyBase()
+        protected BuddyBase(BuddyClient client)
+            : base(client)
         {
             EnsureMappings(this);
         }
 
-       
-
         protected BuddyBase(string id = null, BuddyClient client = null)
+            : this(client)
         {
-           
-            if (client != null) {
-                this._client = client;
-            }
             if (id != null)
             {
                 SetValue<string>("ID", id);
@@ -235,8 +328,6 @@ namespace BuddySDK
                 throw new ObjectDisposedException("This object has been deleted.");
             }
         }
-
-      
 
         public virtual Task<BuddyResult<bool>> DeleteAsync()
         {
@@ -445,8 +536,6 @@ namespace BuddySDK
         public virtual Task<BuddyResult<bool>> SaveAsync()
         {
             EnsureValid();
-            var t = new Task<BuddyResult<bool>>(() => {  return new BuddyResult<bool>{Value = true};});
-
             var isNew = String.IsNullOrEmpty(GetValueOrDefault<string>("ID", null,false));
             if (IsDirty || isNew)
             {
@@ -463,47 +552,54 @@ namespace BuddySDK
                 }
                 BuddyServiceException error = null;
                 string requestId;
-                t = new Task<BuddyResult<bool>>( () =>
+                return Task.Run<BuddyResult<bool>>(async () =>
                 {
                     IDictionary<string, object> updateDict = null;
                     if (isNew)
                     {
-                           var r =  Client.CallServiceMethod<IDictionary<string, object>>("POST", Path, d).Result;
-                        
-                            if (r.IsSuccess) {
-                                updateDict = r.Value;
-                            }
-                        
+                        var r = Client.CallServiceMethod<IDictionary<string, object>>("POST", Path, d).Result;
+
+                        if (r.IsSuccess)
+                        {
+                            updateDict = r.Value;
+                        }
+
                         error = r.Error;
                         requestId = r.RequestID;
                     }
                     else
                     {
-                        var r =  Client.CallServiceMethod<IDictionary<string, object>>("PATCH", GetObjectPath(), d).Result;
-                    
-                        if (r.IsSuccess) {
+                        var r = Client.CallServiceMethod<IDictionary<string, object>>("PATCH", GetObjectPath(), d).Result;
+
+                        if (r.IsSuccess)
+                        {
                             updateDict = r.Value;
                         }
                         error = r.Error;
                         requestId = r.RequestID;
                     }
 
-                    if (updateDict != null) {
-                        Client.Service.CallOnUiThread(() =>
+                    if (updateDict != null)
+                    {
+                        var service = await Client.Service();
+                        service.CallOnUiThread(() =>
                         {
                             Update(updateDict);
                         });
                     }
-                    return new BuddyResult<bool> {
 
-                            Error = error,
-                            RequestID = requestId,
-                            Value = error == null
+                    return new BuddyResult<bool>
+                    {
+                        Error = error,
+                        RequestID = requestId,
+                        Value = error == null
                     };
                 });
             }
-            t.Start();
-            return t;
+            else
+            {
+                return Task.Run<BuddyResult<bool>>(() => { return new BuddyResult<bool> { Value = true }; });
+            }
         }
 
         internal void UpdateFrom(BuddyBase other)
@@ -540,68 +636,16 @@ namespace BuddySDK
             OnPropertyChanged (null);
         }
 
-        // Metadata stuff
+        protected override string GetMetadataPath(string key = null) {
+            var path = string.Format ("/metadata/{0}", ID);
 
-        private string GetMetadataPath(string key) {
-            return string.Format ("/metadata/{0}/{1}", ID, key);
+            if (!string.IsNullOrEmpty(key))
+            {
+                path = string.Format("{0}/{1}", path, key);
+            }
+
+            return path;
         }
-
-        private Task<BuddyResult<bool>> SetMetadataCore(string key, object value, BuddyPermissions permissions) {
-            return Client.CallServiceMethod<bool> ("PUT", 
-                                                          GetMetadataPath (key), 
-                                                          new  {
-                value = value,
-                permissions = permissions
-            });
-           
-        }
-
-        public Task<BuddyResult<bool>> SetMetadataAsync(string key, string value, BuddyPermissions permissions = BuddyPermissions.Default) {
-            return SetMetadataCore (key, value, permissions);
-        }
-
-        public Task<BuddyResult<bool>> SetMetadataAsync(string key, int value, BuddyPermissions permissions = BuddyPermissions.Default) {
-            return SetMetadataCore (key, value, permissions);
-        }
-
-        private Task<BuddyResult<T>> GetMetatadataCore<T>(string key) {
-
-            return Client.CallServiceMethod<T> ("GET", GetMetadataPath (key));   
-
-                                             
-        }
-
-        public Task<BuddyResult<int>> GetMetadataIntAsync(string key) {
-            return GetMetatadataCore<int> (key);
-        }
-
-        public Task<BuddyResult<string>> GetMetadataStringAsync(string key) {
-            return GetMetatadataCore<string> (key);
-        }
-
-        public Task<BuddyResult<int>> IncrementMetadataAsync(string key, int delta) {
-            var path = String.Format ("/metadata/{0}/{1}/increment", ID, key);
-
-
-
-            var r = Client.CallServiceMethod<int> ("POST",path,
-                     new {
-                        delta = delta
-                    });    
-
-            return r;
-        }
-
-        public Task<BuddyResult<bool>> DeleteMetadataAsync(string key) {
-
-            var t = Client.CallServiceMethod<bool> ("DELETE", 
-                                                          GetMetadataPath (key)
-                                                         );
-
-         
-            return t;
-        }
-
 
         protected Task<BuddyResult<Stream>> GetFileCoreAsync(string url, object parameters) {
 
@@ -655,5 +699,34 @@ namespace BuddySDK
 
         #endregion
 
+    }
+
+    // From http://www.hanselman.com/blog/ComparingTwoTechniquesInNETAsynchronousCoordinationPrimitives.aspx
+    public sealed class AsyncLock
+    {
+        private readonly SemaphoreSlim m_semaphore = new SemaphoreSlim(1, 1);
+        private readonly Task<IDisposable> m_releaser;
+
+        public AsyncLock()
+        {
+            m_releaser = Task.FromResult((IDisposable)new Releaser(this));
+        }
+
+        public Task<IDisposable> LockAsync()
+        {
+            var wait = m_semaphore.WaitAsync();
+            return wait.IsCompleted ?
+                        m_releaser :
+                        wait.ContinueWith((_, state) => (IDisposable)state,
+                            m_releaser.Result, CancellationToken.None,
+            TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+        }
+
+        private sealed class Releaser : IDisposable
+        {
+            private readonly AsyncLock m_toRelease;
+            internal Releaser(AsyncLock toRelease) { m_toRelease = toRelease; }
+            public void Dispose() { m_toRelease.m_semaphore.Release(); }
+        }
     }
 }

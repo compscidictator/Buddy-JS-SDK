@@ -182,9 +182,8 @@ namespace BuddySDK
         {
         }
 
-       
         public User(string id, BuddyClient client = null)
-            : base( id, client)
+            : base(id, client)
         {
         }
 
@@ -196,7 +195,7 @@ namespace BuddySDK
             tr.ContinueWith((t) => {
 
                 if (t.Result.IsSuccess) {
-                    profilePicture = t.Result.Value;
+                    ProfilePicture = t.Result.Value;
                 }
             });
         
@@ -224,7 +223,6 @@ namespace BuddySDK
 
         public override async Task<BuddyResult<bool>> SaveAsync()
         {
-            ProfilePictureID = profilePicture.ID;
             Username = Username; // TODO: user name is required on PATCH, so do this to ensure it gets added to the PATCH dictionary.  Remove when user name is optional
 
             return await Task.Run<BuddyResult<bool>> (async () => {
@@ -272,7 +270,6 @@ namespace BuddySDK
         public Task<BuddyResult<IEnumerable<string>>> GetIdentitiesAsync(string identityProviderName)
         {
             return Client.CallServiceMethod<IEnumerable<string>>("GET", GetObjectPath() + "/identities/" + identityProviderName);
-
         }
     }
 }

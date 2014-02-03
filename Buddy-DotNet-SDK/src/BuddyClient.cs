@@ -143,12 +143,6 @@ namespace BuddySDK
         /// </summary>
         /// 
         private BuddyServiceClientBase _service;
-        internal BuddyServiceClientBase Service { 
-            get {
-                OnEnsureService();
-                return _service;
-            }
-        }
 
         private static string _WebServiceUrl;
         protected static string WebServiceUrl {
@@ -357,14 +351,15 @@ namespace BuddySDK
                     Model = PlatformAccess.Current.Model,
                     OSVersion = PlatformAccess.Current.OSVersion
                 },
-                completed: (r1, r2) => { 
+                completed: async (r1, r2) => { 
                     if (r2.IsSuccess && r2.Value.ServiceRoot != null)
                     {
-                        Service.ServiceRoot = r2.Value.ServiceRoot;
+                        var service = await Service();
+                        service.ServiceRoot = r2.Value.ServiceRoot;
                         _appSettings.ServiceUrl = r2.Value.ServiceRoot;
                     }
                     else if (!r2.IsSuccess){
-                        ClearCredentials();
+                        await ClearCredentials();
                     }
                 });
 
@@ -440,7 +435,7 @@ namespace BuddySDK
         internal Task<BuddyResult<T>> CallServiceMethod<T>(string verb, string path, object parameters = null, bool allowThrow = true) {
 
 
-            return Task.Run<BuddyResult<T>> (() => {
+            return Task.Run<BuddyResult<T>> (async () => {
 
                 var dictionary = BuddyServiceClientBase.ParametersToDictionary(parameters);
                 var loc = PlatformAccess.Current.LastLocation;
@@ -448,7 +443,8 @@ namespace BuddySDK
                     dictionary["location"] = loc.ToString();
                 }
 
-                var bcrTask = Service.CallMethodAsync<T> (verb, path, dictionary);
+                var service = await Service();
+                var bcrTask = service.CallMethodAsync<T>(verb, path, dictionary);
 
                 var bcr = bcrTask.Result;
 
@@ -535,12 +531,13 @@ namespace BuddySDK
 
      
 
-        private void ClearCredentials(bool clearUser = true, bool clearDevice = true) {
+        private async Task ClearCredentials(bool clearUser = true, bool clearDevice = true) {
 
             if (clearDevice) {
 
                 _appSettings.Clear ();
-                Service.ServiceRoot = GetRootUrl ();
+                var service = await Service();
+                service.ServiceRoot = GetRootUrl();
             }
 
             if (clearUser) {
@@ -561,28 +558,34 @@ namespace BuddySDK
             }
         }
 
-        private async void OnEnsureService()
+        internal async Task<BuddyServiceClientBase> Service()
         {
-            if (this._service != null) return;
+            using (await new AsyncLock().LockAsync())
+            {
+                if (this._service != null) return this._service;
 
-            var root = GetRootUrl ();
+                var root = GetRootUrl();
 
-            this._service = BuddyServiceClientBase.CreateServiceClient(this, root);
+                this._service = BuddyServiceClientBase.CreateServiceClient(this, root);
 
-            this._service.ServiceException += (object sender, ExceptionEventArgs e) => {
+                this._service.ServiceException += async (object sender, ExceptionEventArgs e) =>
+                {
 
-                if (e.Exception is BuddyUnauthorizedException) {
-                    ClearCredentials(true, true);
+                    if (e.Exception is BuddyUnauthorizedException)
+                    {
+                        await ClearCredentials(true, true);
+                    }
+
+                };
+
+                var token = await GetAccessToken();
+                if (token == null)
+                {
+                    throw new UnauthorizedAccessException("Failed to register device, check AppID/AppKey");
                 }
 
-            };
-
-            var token = await GetAccessToken ();
-            if (token == null)
-            {
-                throw new UnauthorizedAccessException("Failed to register device, check AppID/AppKey");
+                return _service;
             }
-
         }
 
         protected enum AccessTokenType {
@@ -596,7 +599,7 @@ namespace BuddySDK
             UpdateAccessLevel();
         }
 
-        ConnectivityLevel? _connectivity;
+        private ConnectivityLevel? _connectivity;
         public ConnectivityLevel ConnectivityLevel {
             get {
                 if (_connectivity == null) {
@@ -609,48 +612,51 @@ namespace BuddySDK
             }
         }
 
-       
-        private void CheckConnectivity(TimeSpan waitTime) {
-            Service.Client.CallServiceMethod<string>("GET", "/service/ping", allowThrow:false)
-                .ContinueWith(r=> {
 
-                    if (r.Result != null && r.Result.IsSuccess) {
-                        PlatformAccess.Current.InvokeOnUiThread(() => {
-                            OnConnectivityChanged(PlatformAccess.Current.ConnectionType);
-                        });
-                    }
-                    else
-                    {
-                        // wait a second and try again
-                        //
-                        Thread.Sleep(waitTime);
-                        CheckConnectivity(waitTime);
-                    }
-                }
-             );
+        private async Task CheckConnectivity(TimeSpan waitTime) {
+            var service = await Service();
+            var r = await service.Client.CallServiceMethod<string>("GET", "/service/ping", allowThrow: false);
 
-        }
-
-        protected virtual void OnConnectivityChanged(ConnectivityLevel level) {
-            if (level == _connectivity) {
-                return;
-            }
-            _connectivity = level;
-
-            switch (level) {
-            case ConnectivityLevel.None:
-                    CheckConnectivity (TimeSpan.FromSeconds (1));
-                    break;
-              
-            }
-
-
-            if (ConnectivityLevelChanged != null) {
-                ConnectivityLevelChanged (this, new ConnectivityLevelChangedArgs  {
-                    ConnectivityLevel =  level
+            if (r != null && r.IsSuccess)
+            {
+                PlatformAccess.Current.InvokeOnUiThread(async () => {
+                    await OnConnectivityChanged(PlatformAccess.Current.ConnectionType);
                 });
             }
+            else
+            {
+                // wait a bit and try again
+                //
+                Thread.Sleep(waitTime);
+                await CheckConnectivity(waitTime);
+            }
+        }
 
+        protected virtual async Task OnConnectivityChanged(ConnectivityLevel level) {
+            using (await new AsyncLock().LockAsync())
+            {
+                if (level == _connectivity)
+                {
+                    return;
+                }
+
+                if (ConnectivityLevelChanged != null)
+                {
+                    ConnectivityLevelChanged(this, new ConnectivityLevelChangedArgs
+                    {
+                        ConnectivityLevel = level
+                    });
+                }
+
+                _connectivity = level;
+                
+                switch (level)
+                {
+                    case ConnectivityLevel.None:
+                        await CheckConnectivity(TimeSpan.FromSeconds(1));
+                        break;
+                }
+            }
         }
       
         protected bool OnServiceException(BuddyClient client, BuddyServiceException buddyException) {
@@ -662,7 +668,7 @@ namespace BuddySDK
                 client.OnAuthorizationFailure ((BuddyUnauthorizedException)buddyException);
                 return false;
             } else if (buddyException is BuddyNoInternetException) {
-                OnConnectivityChanged (ConnectivityLevel.None);
+                var task = OnConnectivityChanged (ConnectivityLevel.None); // We don't care about async here.
                 return false;
             }
 
@@ -690,15 +696,16 @@ namespace BuddySDK
                 try {
                     bool showLoginDialog = exception == null;
 
+                    Task task;
                     if (exception != null) {
                         switch (exception.Error) {
 
                         case "AuthAppCredentialsInvalid":
                         case "AuthAccessTokenInvalid":
-                            ClearCredentials (false, true);
+                            task = ClearCredentials(false, true);
                             break;
                         case "AuthUserAccessTokenRequired":
-                            ClearCredentials (true, false);
+                            task = ClearCredentials(true, false);
                             showLoginDialog = true;
                             break;
                         }
@@ -831,10 +838,9 @@ namespace BuddySDK
 
         private async System.Threading.Tasks.Task<BuddyResult<T>> LoginUserCoreAsync<T>(string path, object parameters, Func<IDictionary<string, object>, T> createUser) where T : AuthenticatedUser
         {
-
-            return await CallServiceMethodHelper<IDictionary<string, object>, T> (
-                "POST", 
-                path, 
+            return await CallServiceMethodHelper<IDictionary<string, object>, T>(
+                "POST",
+                path,
                 parameters,
                 map: d => createUser (d),
                 completed: (r1, r2) => {
@@ -847,7 +853,6 @@ namespace BuddySDK
                     }
 
                 });
-           
         }
 
         private async Task<BuddyResult<bool>> LogoutInternal() {
@@ -866,7 +871,7 @@ namespace BuddySDK
             if (r.IsSuccess) {
 
                 this.User = null;
-                ClearCredentials (true, false);
+                await ClearCredentials (true, false);
               
                 if (dresult != null && dresult.ContainsKey("accessToken")) {
                     var token = dresult ["accessToken"] as string;
@@ -899,6 +904,20 @@ namespace BuddySDK
                     _users = new UserCollection(this);
                 }
                 return _users;
+            }
+        }
+
+        private Metadata _appMetadata;
+
+        public Metadata AppMetadata
+        {
+            get
+            {
+                if (_appMetadata == null)
+                {
+                    _appMetadata = new Metadata(this);
+                }
+                return _appMetadata;
             }
         }
 
