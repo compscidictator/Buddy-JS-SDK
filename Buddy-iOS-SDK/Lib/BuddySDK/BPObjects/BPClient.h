@@ -139,6 +139,9 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 - (void)ping:(BPPingCallback)callback;
 
+- (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
+
+- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback;
 
 @end
 
