@@ -135,10 +135,10 @@
     
     [self.navController popToRootViewControllerAnimated:TRUE];
     [self clearDownloadedData];
-    [self authorizationFailed];
+    [self authorizationNeedsUserLogin];
 }
 
--(void)authorizationFailed
+-(void)authorizationNeedsUserLogin
 {
     NSLog(@"auth Failed delegate called");
     

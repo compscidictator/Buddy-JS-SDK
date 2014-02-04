@@ -40,4 +40,7 @@
 -(BOOL) isPasswordSet;
 
 -(void) storeUsername:(NSString *)userName andPassword:(NSString*)password;
+
+-(void)authorizationNeedsUserLogin;
+
 @end
