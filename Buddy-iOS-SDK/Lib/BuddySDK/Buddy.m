@@ -65,6 +65,11 @@
     }
 }
 
++ (void)setClientDelegate:(id<BPClientDelegate>)delegate
+{
+    [BPClient defaultClient].delegate = delegate;
+}
+
 + (void)initClient:(NSString *)appID
             appKey:(NSString *)appKey
             callback:(BuddyCompletionCallback)callback

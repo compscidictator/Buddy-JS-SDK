@@ -374,16 +374,19 @@
 - (void)tryRaiseDelegate:(SEL)selector
 {
     id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
-    
-    if (!self.delegate) { // First check our delegate
-        if (app && [app respondsToSelector:@selector(selector)])  {
-            [app performSelector:@selector(selector)];
+    SuppressPerformSelectorLeakWarning(
+
+        if (!self.delegate) {// If no delegate, see if we've implemented delegate methods on the AppDelegate.
+            if (app && [app respondsToSelector:selector])  {
+                [app performSelector:selector];
+            }
+        } else { // Try the delegate
+            if ([self.delegate respondsToSelector:selector]) {
+                [self.delegate performSelector:selector];
+            }
         }
-    } else { // If no delegate, see if we've implemented delegate methods on the AppDelegate.
-        if ([self.delegate respondsToSelector:@selector(selector)]) {
-            [self.delegate authorizationNeedsUserLogin];
-        }
-    }
+                                       
+    );
 }
 
 #pragma mark - Location

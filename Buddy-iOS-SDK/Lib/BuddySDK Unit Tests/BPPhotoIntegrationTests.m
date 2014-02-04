@@ -32,11 +32,10 @@ describe(@"BPPhotoIntegrationSpec", ^{
         });
         
         it(@"Should throw an auth error if they try to access photos.", ^{
-            
+            id mock = [KWMock mockForProtocol:@protocol(BPClientDelegate)];
+            [Buddy setClientDelegate:mock];
+            [[[mock shouldEventually] receive] authorizationNeedsUserLogin];
             [[Buddy photos] searchPhotos:nil];
-            
-            id delegate = [[UIApplication sharedApplication] delegate];
-            [[[delegate shouldEventually] receive] authorizationNeedsUserLogin];
         });
         
         it(@"Should not allow them to add photos.", ^{
