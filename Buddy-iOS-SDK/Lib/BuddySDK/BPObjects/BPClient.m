@@ -402,4 +402,16 @@
     _lastLocation = newLocation;
 }
 
+#pragma mark - Metrics
+
+- (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
+{
+    // TODO
+}
+
+- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback
+{
+    // TODO
+}
+
 @end

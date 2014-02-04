@@ -146,12 +146,12 @@
 
 + (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
 {
-    [BPClient defaultClient]
+    [[BPClient defaultClient] recordMetric:key andValue:value callback:callback];
 }
 
 + (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback
 {
-    
+    [[BPClient defaultClient] recordTimedMetric:key andValue:value timeout:seconds callback:callback];
 }
 
 @end
