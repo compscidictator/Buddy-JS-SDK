@@ -208,11 +208,9 @@
 
 -(IBAction) goLogin:(id)sender
 {
-    //[[CommonAppDelegate navController] popViewControllerAnimated:YES ];
-    
+  
     LoginViewController *registerView = [[LoginViewController alloc] initWithNibName:
                                          @"LoginViewController" bundle:nil];
-    
     
     [[[CommonAppDelegate navController] topViewController] dismissViewControllerAnimated:FALSE completion:nil];
     

@@ -22,7 +22,6 @@
 -(void)clearAndImages:(BOOL)andImages;
 -(NSInteger)count;
 
-// Consider adding andImages here ? Or is clearAndImages sufficient?
 -(void)putPhotos:(NSMutableArray *)photos;
 -(BPPhoto*)getPhotoByID:(NSString*)photoID;
 -(BPPhoto*)photoAtIndex:(NSInteger)index;

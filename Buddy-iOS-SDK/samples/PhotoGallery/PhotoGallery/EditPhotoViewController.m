@@ -59,6 +59,12 @@
     self.saveButton.layer.borderColor = [UIColor blackColor].CGColor;
     self.saveButton.clipsToBounds = YES;
     
+    self.mainImage.layer.cornerRadius = DEFAULT_BUT_CORNER_RAD;
+    self.mainImage.layer.borderWidth = DEFAULT_BUT_BORDER_WIDTH;
+    self.mainImage.layer.borderColor = [UIColor blackColor].CGColor;
+    self.mainImage.clipsToBounds = YES;
+
+    
     [self loadMetaData];
     [self populateUI];
 }
@@ -196,9 +202,7 @@
     }
     
     self.commentText.text = self.photo.comment;
-    
     self.tagText.text = self.tagString;
-    
     
 }
 
@@ -208,6 +212,7 @@
     {
         return;
     }
+    
     [self.photo deleteMe:[self getDeletePhotoCallback]];
 
 }
@@ -221,7 +226,6 @@
     
     self.photo.comment = self.commentText.text;
     self.tagString = self.tagText.text;
-    
     
     [self.photo save:[self getSavePhotoCallback]];
     

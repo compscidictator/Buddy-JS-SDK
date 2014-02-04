@@ -122,23 +122,9 @@
     
     return ^(NSArray *buddyObjects, NSError *error)
     {
-        
-        /* Disabled for now as this throws a dialog on authError -- Dont really want to have to check in each CB but may have to
-         */
-         
         if(error!=nil)
         {
             self.apiError=TRUE;
-            /*
-            NSLog(@"getLoadUserPhotosCallback - error Called");
-            UIAlertView *alert =
-            [[UIAlertView alloc] initWithTitle: @"Error Loading Photos"
-                                       message: [error localizedDescription]
-                                      delegate: self
-                             cancelButtonTitle: @"OK"
-                             otherButtonTitles: nil];
-            [alert show];
-         */
             return;
         }
         self.apiError=FALSE;
@@ -216,10 +202,8 @@
     
     BPPhoto *photo = [[CommonAppDelegate userPhotos] photoAtIndex:indexPath.row];
     
-    
     if(photo==nil)
     {
-        // Not so great
         return cell;
     }
     NSLog (@"Cell for Item at Index: %d PhotoID: %@",indexPath.row, photo.id);
@@ -258,8 +242,7 @@
     BPPhoto *photo = [[CommonAppDelegate userPhotos] photoAtIndex:indexPath.row];
     if(photo==nil)
     {
-        // Not so great
-        return ;
+        return;
     }
     
     EditPhotoViewController *addPhotoVC = [[EditPhotoViewController alloc]

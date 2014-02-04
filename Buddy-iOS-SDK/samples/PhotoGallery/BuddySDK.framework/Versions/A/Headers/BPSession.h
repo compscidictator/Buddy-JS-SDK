@@ -21,8 +21,6 @@
 @class BPCheckinCollection;
 @class BPPhotoCollection;
 @class BPBlobCollection;
-@class BPAlbumCollection;
-@class BPCoordinate;
 
 /**
  Enum specifying the current authentication level.
@@ -36,7 +34,7 @@ typedef NS_ENUM(NSInteger, BPAuthenticationLevel) {
     BPAuthenticationLevelUser
 };
 
-@interface BPClient : NSObject
+@interface BPSession : NSObject
 
 
 /** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.
@@ -98,29 +96,20 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// <summary>
 /// TODO
 /// </summary>
-@property (readonly, nonatomic, strong) BPAlbumCollection *albums;
-
-/// <summary>
-/// TODO
-/// </summary>
 @property (nonatomic, assign) BOOL locationEnabled;
-
-/**
-  * Most recent BPCoordinate.
-  */
-@property (nonatomic, readonly, strong) BPCoordinate *lastLocation;
 
 /// <summary>
 /// Current BuddyAuthenticatedUser as of the last login
 /// </summary>
 @property (nonatomic, readonly, strong) BPUser *user;
 
+// Move to anon category?
 @property (nonatomic,weak) id<BPClientDelegate> delegate;
 
 /// <summary>
 /// Singleton instance of the client.
 /// </summary>
-+ (instancetype)defaultClient;
++ (instancetype)currentSession;
 
 
 @property (nonatomic, readonly, strong) id <BPRestProvider> restService;
@@ -131,17 +120,15 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
                 delegate:(id<BPClientDelegate>) delegate
                 callback:(BuddyCompletionCallback)callback;
 
+// TODO: Make this private ?
+- (void) raiseAuthError;
+
 - (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
 
 - (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 
-- (void)logout:(BuddyCompletionCallback)callback;
-
 - (void)ping:(BPPingCallback)callback;
 
-- (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
-
-- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback;
 
 @end
 

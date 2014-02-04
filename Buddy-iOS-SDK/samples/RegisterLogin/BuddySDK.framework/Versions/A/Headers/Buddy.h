@@ -10,9 +10,11 @@
 
 #import "BPClientDelegate.h"
 #import "BuddyDevice.h"
+#import "BPAlbumItemContainer.h"
 #import "BPClient.h"
 #import "BPCheckin.h"
 #import "BPCheckinCollection.h"
+#import "BPAlbumCollection.h"
 #import "BPPhoto.h"
 #import "BPUser.h"
 #import "BPGameBoards.h"
@@ -53,6 +55,17 @@
  Accessor to create and query data and files.
  */
 + (BPBlobCollection *) blobs;
+
+    
+/**
+ Accessor to create and query albums.
+ */
++ (BPAlbumCollection *) albums;
+
+/**
+  Public REST provider for passthrough access.
+ */
++ (id<BPRestProvider>)buddyRestProvider;
 
 
 + (BOOL) locationEnabled;
@@ -104,5 +117,10 @@
  * Logout of the current app
  */
 + (void)logout:(BuddyCompletionCallback)callback;
+
+
++ (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
+
++ (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback;
 
 @end

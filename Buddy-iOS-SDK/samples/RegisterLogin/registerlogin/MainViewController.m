@@ -88,10 +88,10 @@
 {
     [Buddy logout:^(NSError *error)
      {
-         NSLog(@"Callback Called - Temp until Framework fixed not to crash with nil callback");
+         NSLog(@"Logout Callback Called");
      }];
     
-    [CommonAppDelegate authorizationFailed];
+    [CommonAppDelegate authorizationNeedsUserLogin];
 }
 
 -(IBAction)doRefresh:(id)sender
@@ -127,8 +127,7 @@
     
     if (self.isMovingFromParentViewController)
     {
-        
-       // [Buddy.user logout:nil];
+        [Buddy logout:nil];
     }
 }
 

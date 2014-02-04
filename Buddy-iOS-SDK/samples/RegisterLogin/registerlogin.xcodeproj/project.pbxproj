@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		012D8A5918A14647004F8757 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012D8A5818A14647004F8757 /* BuddySDK.framework */; };
 		0171960B18879A8F00478055 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171960A18879A8F00478055 /* Foundation.framework */; };
 		0171960D18879A8F00478055 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171960C18879A8F00478055 /* CoreGraphics.framework */; };
 		0171960F18879A8F00478055 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171960E18879A8F00478055 /* UIKit.framework */; };
@@ -30,7 +31,7 @@
 		0171965818879B7E00478055 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171965718879B7E00478055 /* SystemConfiguration.framework */; };
 		0171965A18879B8500478055 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171965918879B8500478055 /* QuartzCore.framework */; };
 		0171965C18879B9B00478055 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171965B18879B9B00478055 /* CoreLocation.framework */; };
-		01809B4818958C8B00476875 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01809B4718958C8B00476875 /* BuddySDK.framework */; };
+		019BC4D418A05BFA0034CF7E /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 019BC4D318A05BFA0034CF7E /* MobileCoreServices.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,6 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		012D8A5818A14647004F8757 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		0171960718879A8F00478055 /* registerlogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = registerlogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0171960A18879A8F00478055 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0171960C18879A8F00478055 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -77,7 +79,7 @@
 		0171965718879B7E00478055 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		0171965918879B8500478055 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
 		0171965B18879B9B00478055 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
-		01809B4718958C8B00476875 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		019BC4D318A05BFA0034CF7E /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -85,13 +87,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				012D8A5918A14647004F8757 /* BuddySDK.framework in Frameworks */,
+				019BC4D418A05BFA0034CF7E /* MobileCoreServices.framework in Frameworks */,
 				0171965C18879B9B00478055 /* CoreLocation.framework in Frameworks */,
 				0171965A18879B8500478055 /* QuartzCore.framework in Frameworks */,
 				0171965818879B7E00478055 /* SystemConfiguration.framework in Frameworks */,
 				0171960D18879A8F00478055 /* CoreGraphics.framework in Frameworks */,
 				0171960F18879A8F00478055 /* UIKit.framework in Frameworks */,
 				0171960B18879A8F00478055 /* Foundation.framework in Frameworks */,
-				01809B4818958C8B00476875 /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -130,7 +133,8 @@
 		0171960918879A8F00478055 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				01809B4718958C8B00476875 /* BuddySDK.framework */,
+				012D8A5818A14647004F8757 /* BuddySDK.framework */,
+				019BC4D318A05BFA0034CF7E /* MobileCoreServices.framework */,
 				0171965B18879B9B00478055 /* CoreLocation.framework */,
 				0171965918879B8500478055 /* QuartzCore.framework */,
 				0171965718879B7E00478055 /* SystemConfiguration.framework */,
@@ -145,19 +149,14 @@
 		0171961018879A8F00478055 /* registerlogin */ = {
 			isa = PBXGroup;
 			children = (
-				0171965018879B0D00478055 /* RegisterViewController.h */,
-				0171965118879B0D00478055 /* RegisterViewController.m */,
-				0171965218879B0D00478055 /* RegisterViewController.xib */,
+				0171963D18879AB000478055 /* 3rd Party */,
+				019BC4D218A0489F0034CF7E /* Auth */,
+				0171963B18879AAB00478055 /* Constants.h */,
 				0171964B18879AFE00478055 /* MainViewController.h */,
 				0171964C18879AFE00478055 /* MainViewController.m */,
 				0171964D18879AFE00478055 /* MainViewController.xib */,
-				0171964618879AF200478055 /* LoginViewController.h */,
-				0171964718879AF200478055 /* LoginViewController.m */,
-				0171964818879AF200478055 /* LoginViewController.xib */,
-				0171963D18879AB000478055 /* 3rd Party */,
 				0171963918879AAB00478055 /* AppDelegate.h */,
 				0171963A18879AAB00478055 /* AppDelegate.m */,
-				0171963B18879AAB00478055 /* Constants.h */,
 				0171961C18879A8F00478055 /* Images.xcassets */,
 				0171961118879A8F00478055 /* Supporting Files */,
 			);
@@ -218,6 +217,19 @@
 				0171964418879AE300478055 /* TPKeyboardAvoidingScrollView.m */,
 			);
 			name = TPKBDAvoider;
+			sourceTree = "<group>";
+		};
+		019BC4D218A0489F0034CF7E /* Auth */ = {
+			isa = PBXGroup;
+			children = (
+				0171964618879AF200478055 /* LoginViewController.h */,
+				0171964718879AF200478055 /* LoginViewController.m */,
+				0171964818879AF200478055 /* LoginViewController.xib */,
+				0171965018879B0D00478055 /* RegisterViewController.h */,
+				0171965118879B0D00478055 /* RegisterViewController.m */,
+				0171965218879B0D00478055 /* RegisterViewController.xib */,
+			);
+			name = Auth;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -62,6 +62,11 @@
  */
 + (BPAlbumCollection *) albums;
 
+/**
+  Public REST provider for passthrough access.
+ */
++ (id<BPRestProvider>)buddyRestProvider;
+
 
 + (BOOL) locationEnabled;
 
@@ -112,5 +117,10 @@
  * Logout of the current app
  */
 + (void)logout:(BuddyCompletionCallback)callback;
+
+
++ (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
+
++ (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback;
 
 @end
