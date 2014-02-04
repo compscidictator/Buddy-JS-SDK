@@ -26,7 +26,7 @@
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
-
+#define BuddyDefaultURL @"api.buddyplatform.com"
 
 @interface BPClient()<BPRestProvider>
 
@@ -82,13 +82,14 @@
 
 {
     
-    
 #if DEBUG
     // Annoying nuance of running a unit test "bundle".
     NSString *serviceUrl = [[NSBundle bundleForClass:[self class]] infoDictionary][BuddyServiceURL];
 #else
     NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
 #endif
+    
+    serviceUrl = serviceUrl ?: BuddyDefaultURL;
     
     _appSettings = [[BPAppSettings alloc] initWithBaseUrl:serviceUrl];
     _service = [[BPServiceController alloc] initWithAppSettings:_appSettings];
@@ -328,8 +329,8 @@
                 if ([result hasKey:@"serviceRoot"]) {
                     self.appSettings.serviceUrl = result[@"serviceRoot"];
                 }
-
-                    
+                
+                
             }
         }
         
