@@ -57,7 +57,7 @@ static NSString *blobs = @"blobs";
     NSString *resource = [NSString stringWithFormat:@"%@/%@/%@", [[self class] requestPath], self.id, @"file"];
     
     [self.client GET_FILE:resource parameters:nil callback:^(id imageByes, NSError *error) {
-        callback(imageByes, error);
+        callback ? callback(imageByes, error) : nil;
     }];
 }
 
