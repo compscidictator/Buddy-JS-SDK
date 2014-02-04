@@ -13,7 +13,7 @@
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
 #undef kKW_DEFAULT_PROBE_TIMEOUT
 #endif
-#define kKW_DEFAULT_PROBE_TIMEOUT 8.0
+#define kKW_DEFAULT_PROBE_TIMEOUT 4.0
 
 SPEC_BEGIN(MetricsSpec)
 
@@ -46,8 +46,9 @@ describe(@"Metrics", ^{
         it(@"Should allow recording timed metrics", ^{
             __block BOOL fin = NO;
             
-            [Buddy recordTimedMetric:@"MetricKey" andValue:@"MetricValue" timeout:10 callback:^(id newBuddyObject, NSError *error) {
+            [Buddy recordTimedMetric:@"MetricKey" andValue:@"MetricValue" timeout:10 callback:^(BPMetricCompletionHandler *completionHandler, NSError *error) {
                 [[error should] beNil];
+                [completionHandler signalComplete];
             }];
             
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];

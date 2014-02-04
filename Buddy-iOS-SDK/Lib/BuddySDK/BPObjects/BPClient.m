@@ -406,12 +406,34 @@
 
 - (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
 {
-    // TODO
+    NSString *resource = [NSString stringWithFormat:@"metrics/events/%@", key];
+    NSDictionary *parameters = @{@"value": BOXNIL(value)};
+    
+    [self POST:resource parameters:parameters callback:^(id json, NSError *error) {
+        callback ? callback(error) : nil;
+    }];
 }
 
-- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback
+- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
 {
-    // TODO
+    NSString *resource = [NSString stringWithFormat:@"metrics/events/%@", key];
+    NSDictionary *parameters = @{@"value": BOXNIL(value),
+                                 @"timeoutInSeconds": @(seconds)};
+    
+    [self POST:resource parameters:parameters callback:^(id json, NSError *error) {
+        BPMetricCompletionHandler *completionHandler;
+        if (!error) {
+            completionHandler = [[BPMetricCompletionHandler alloc] initWithMetricId:json andClient:self];
+        }
+        callback ? callback(completionHandler, error) : nil;
+    }];
+}
+
+#pragma mark - REST workaround
+
+- (id<BPRestProvider>)restService
+{
+    return self;
 }
 
 @end
