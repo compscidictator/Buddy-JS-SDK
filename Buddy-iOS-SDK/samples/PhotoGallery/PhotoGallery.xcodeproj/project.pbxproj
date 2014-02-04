@@ -163,11 +163,10 @@
 		01AEB88C1890914C003B051A /* PhotoGallery */ = {
 			isa = PBXGroup;
 			children = (
+				01AEB8C51890929F003B051A /* 3rd Party */,
+				01B718F01891BEDD0079495F /* Auth */,
 				01B718F21891BEF50079495F /* AddEdit */,
 				01B718F11891BEEC0079495F /* MainView */,
-				01B718F01891BEDD0079495F /* Auth */,
-				01B718EF1891BECB0079495F /* Containers */,
-				01AEB8C51890929F003B051A /* 3rd Party */,
 				01AEB8951890914C003B051A /* AppDelegate.h */,
 				01AEB8961890914C003B051A /* AppDelegate.m */,
 				01AEB8981890914C003B051A /* Images.xcassets */,
@@ -210,6 +209,7 @@
 		01AEB8C51890929F003B051A /* 3rd Party */ = {
 			isa = PBXGroup;
 			children = (
+				01B718EF1891BECB0079495F /* Containers */,
 				01AEB8D218909737003B051A /* TPKBDAvoider */,
 				01AEB8C6189092B4003B051A /* MBPropgressHUD */,
 			);

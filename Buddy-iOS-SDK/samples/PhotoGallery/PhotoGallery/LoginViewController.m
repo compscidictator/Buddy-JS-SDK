@@ -140,10 +140,6 @@
     [[[CommonAppDelegate navController] topViewController] dismissViewControllerAnimated:FALSE completion:nil];
     
     [[[CommonAppDelegate navController] topViewController] presentViewController:registerView animated:FALSE completion:nil];
-    
-    //[ [CommonAppDelegate navController] pushViewController:registerView animated:YES];
-    
-    
 }
 
 -(void) resignTextFields

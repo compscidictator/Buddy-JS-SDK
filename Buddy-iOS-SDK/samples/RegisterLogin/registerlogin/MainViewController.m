@@ -88,7 +88,7 @@
 {
     [Buddy logout:^(NSError *error)
      {
-         NSLog(@"Callback Called - Temp until Framework fixed not to crash with nil callback");
+         NSLog(@"Logout Callback Called");
      }];
     
     [CommonAppDelegate authorizationNeedsUserLogin];

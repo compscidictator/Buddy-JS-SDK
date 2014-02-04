@@ -20,26 +20,12 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
     self.window.backgroundColor = [UIColor whiteColor];
     
     // Create/Clear all caches/data etc.
     [self clearDownloadedData];
     
-    [Buddy initClient: APP_ID appKey: APP_KEY callback:
-     ^(NSError *error)
-     {
-         // TODO -- Store Init state here since I think it hits the network (which it needs to not do eventually)
-         if(error==nil)
-         {
-             NSLog(@"InitClient Callback Called - Success");
-         }
-         else
-         {
-             NSLog(@"InitClient Callback Called - Failed");
-         }
-     }];
-
     
     self.loginPresented=FALSE;
     
@@ -55,6 +41,20 @@
     [self.navController setNavigationBarHidden:TRUE];
     self.window.rootViewController=self.navController;
     
+    
+    [Buddy initClient: APP_ID appKey: APP_KEY callback:
+     ^(NSError *error)
+     {
+         if(error==nil)
+         {
+             NSLog(@"InitClient Callback Called - Success");
+         }
+         else
+         {
+             NSLog(@"InitClient Callback Called - Failed");
+         }
+     }];
+
     
     [self.window makeKeyAndVisible];
     return YES;
@@ -73,14 +73,14 @@
 -(void) storeUsername:(NSString*)userName;
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    // saving an NSString
+    
     [prefs setObject:userName forKey:USERNAME_PREF_KEY];
     [prefs synchronize];
 }
 -(NSString*) fetchUsername
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    // getting an NSString
+    
     return [prefs stringForKey:USERNAME_PREF_KEY];
 }
 -(BOOL) isUsernameSet
@@ -102,14 +102,14 @@
 -(void) storePassword:(NSString*)userName;
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    // saving an NSString
+    
     [prefs setObject:userName forKey:PASSWORD_PREF_KEY];
     [prefs synchronize];
 }
 -(NSString*) fetchPassword
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    // getting an NSString
+    
     return [prefs stringForKey:PASSWORD_PREF_KEY];
 }
 -(BOOL) isPasswordSet

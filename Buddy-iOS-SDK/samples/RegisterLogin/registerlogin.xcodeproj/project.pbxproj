@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01329B9F18A05D3B00DB86B6 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01329B9E18A05D3B00DB86B6 /* BuddySDK.framework */; };
+		012D8A5918A14647004F8757 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 012D8A5818A14647004F8757 /* BuddySDK.framework */; };
 		0171960B18879A8F00478055 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171960A18879A8F00478055 /* Foundation.framework */; };
 		0171960D18879A8F00478055 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171960C18879A8F00478055 /* CoreGraphics.framework */; };
 		0171960F18879A8F00478055 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0171960E18879A8F00478055 /* UIKit.framework */; };
@@ -45,7 +45,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01329B9E18A05D3B00DB86B6 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
+		012D8A5818A14647004F8757 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		0171960718879A8F00478055 /* registerlogin.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = registerlogin.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		0171960A18879A8F00478055 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		0171960C18879A8F00478055 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -87,7 +87,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				01329B9F18A05D3B00DB86B6 /* BuddySDK.framework in Frameworks */,
+				012D8A5918A14647004F8757 /* BuddySDK.framework in Frameworks */,
 				019BC4D418A05BFA0034CF7E /* MobileCoreServices.framework in Frameworks */,
 				0171965C18879B9B00478055 /* CoreLocation.framework in Frameworks */,
 				0171965A18879B8500478055 /* QuartzCore.framework in Frameworks */,
@@ -133,7 +133,7 @@
 		0171960918879A8F00478055 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				01329B9E18A05D3B00DB86B6 /* BuddySDK.framework */,
+				012D8A5818A14647004F8757 /* BuddySDK.framework */,
 				019BC4D318A05BFA0034CF7E /* MobileCoreServices.framework */,
 				0171965B18879B9B00478055 /* CoreLocation.framework */,
 				0171965918879B8500478055 /* QuartzCore.framework */,

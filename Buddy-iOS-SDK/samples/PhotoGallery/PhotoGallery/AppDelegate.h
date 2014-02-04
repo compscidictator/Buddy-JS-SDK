@@ -22,7 +22,6 @@
 @property (nonatomic,strong) MainViewController *topController;
 @property (nonatomic,assign) BOOL loginPresented;
 
-// Just the info about the photos, not the actual UIImages
 @property (nonatomic,strong) PhotoList *userPhotos;
 
 -(void) storeUsername:(NSString*)userName;

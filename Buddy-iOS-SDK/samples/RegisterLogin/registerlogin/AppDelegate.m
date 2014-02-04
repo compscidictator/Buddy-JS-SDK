@@ -24,13 +24,6 @@
     
     self.window.backgroundColor = [UIColor whiteColor];
     
-    
-    [Buddy initClient: APP_ID appKey: APP_KEY callback:
-     ^(NSError *error)
-     {
-         NSLog(@"initClient - Callback Called");
-     }];
-    
     self.loginPresented=FALSE;
     
      MainViewController *mainVC = [[MainViewController alloc]
@@ -47,6 +40,14 @@
 
     
     [self.window makeKeyAndVisible];
+    
+    [Buddy initClient: APP_ID appKey: APP_KEY callback:
+     ^(NSError *error)
+     {
+         NSLog(@"initClient - Callback Called");
+     }];
+
+    
     return YES;
 }
 

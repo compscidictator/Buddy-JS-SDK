@@ -13,10 +13,6 @@
 @interface MainViewController : UIViewController <MBProgressHUDDelegate,UICollectionViewDataSource,
                                                   UICollectionViewDelegateFlowLayout>
 
-
-/* Probably should pass in the userPhotos collection to be accessed here instead of using AppDelegate. More flexible.
- * Thats for later though
- */
  
 @property (nonatomic,weak) IBOutlet UICollectionView *galleryCollection;
 @property (nonatomic,weak) IBOutlet UIButton *addPhotoBut;
