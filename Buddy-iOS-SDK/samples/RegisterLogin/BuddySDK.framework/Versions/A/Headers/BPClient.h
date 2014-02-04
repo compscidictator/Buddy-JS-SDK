@@ -21,6 +21,7 @@
 @class BPCheckinCollection;
 @class BPPhotoCollection;
 @class BPBlobCollection;
+@class BPAlbumCollection;
 @class BPCoordinate;
 
 /**
@@ -97,6 +98,11 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// <summary>
 /// TODO
 /// </summary>
+@property (readonly, nonatomic, strong) BPAlbumCollection *albums;
+
+/// <summary>
+/// TODO
+/// </summary>
 @property (nonatomic, assign) BOOL locationEnabled;
 
 /**
@@ -133,6 +139,9 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 - (void)ping:(BPPingCallback)callback;
 
+- (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
+
+- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback;
 
 @end
 

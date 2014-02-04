@@ -375,11 +375,11 @@
 {
     id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
     
-    if (!self.delegate) { // First check our delegate
+    if (!self.delegate) {// If no delegate, see if we've implemented delegate methods on the AppDelegate.
         if (app && [app respondsToSelector:@selector(selector)])  {
             [app performSelector:@selector(selector)];
         }
-    } else { // If no delegate, see if we've implemented delegate methods on the AppDelegate.
+    } else { // Try the delegate
         if ([self.delegate respondsToSelector:@selector(selector)]) {
             [self.delegate authorizationNeedsUserLogin];
         }

@@ -91,7 +91,7 @@
          NSLog(@"Callback Called - Temp until Framework fixed not to crash with nil callback");
      }];
     
-    [CommonAppDelegate authorizationFailed];
+    [CommonAppDelegate authorizationNeedsUserLogin];
 }
 
 -(IBAction)doRefresh:(id)sender
@@ -127,8 +127,7 @@
     
     if (self.isMovingFromParentViewController)
     {
-        
-       // [Buddy.user logout:nil];
+        [Buddy logout:nil];
     }
 }
 

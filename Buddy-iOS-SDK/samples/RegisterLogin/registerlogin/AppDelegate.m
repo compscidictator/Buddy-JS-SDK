@@ -21,22 +21,15 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+    
     self.window.backgroundColor = [UIColor whiteColor];
     
     
     [Buddy initClient: APP_ID appKey: APP_KEY callback:
      ^(NSError *error)
      {
-         NSLog(@"Callback Called");
+         NSLog(@"initClient - Callback Called");
      }];
-    
-    
-    /*
-    [Buddy initClient: @"aaaac.9kaaEVwuHi" appKey: @"F5E856F6-6EC9-43AA-9327-E7978E1519B1" callback:
-    ^{
-        NSLog(@"Callback Called");
-    }];*/
     
     self.loginPresented=FALSE;
     
@@ -89,14 +82,14 @@
 -(void) storeUsername:(NSString*)userName;
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    // saving an NSString
+    
     [prefs setObject:userName forKey:USERNAME_PREF_KEY];
     [prefs synchronize];
 }
 -(NSString*) fetchUsername
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    // getting an NSString
+    
     return [prefs stringForKey:USERNAME_PREF_KEY];
 }
 -(BOOL) isUsernameSet
@@ -118,14 +111,14 @@
 -(void) storePassword:(NSString*)userName;
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    // saving an NSString
+    
     [prefs setObject:userName forKey:PASSWORD_PREF_KEY];
     [prefs synchronize];
 }
 -(NSString*) fetchPassword
 {
     NSUserDefaults *prefs = [NSUserDefaults standardUserDefaults];
-    // getting an NSString
+    
     return [prefs stringForKey:PASSWORD_PREF_KEY];
 }
 -(BOOL) isPasswordSet
@@ -142,7 +135,7 @@
     return TRUE;
 }
 
--(void)authorizationFailed
+-(void)authorizationNeedsUserLogin
 {
     NSLog(@"auth Failed delegate called");
     
@@ -156,7 +149,6 @@
     
     // Get the "topmost" VC (may need to be careful here if that VC has already presented a VC?
     [self.navController.topViewController presentViewController:loginVC animated:NO completion:nil];
-    
     
 }
 -(void) storeUsername:(NSString *)userName andPassword:(NSString*)password
