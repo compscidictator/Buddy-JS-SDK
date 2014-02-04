@@ -66,8 +66,8 @@
 		C142766F1898BED100D5DD85 /* BPAlbumItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C142766E1898B11500D5DD85 /* BPAlbumItem.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1427672189AAC3700D5DD85 /* BPAppSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = C1427670189AAC3700D5DD85 /* BPAppSettings.h */; };
 		C1427673189AAC3700D5DD85 /* BPAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = C1427671189AAC3700D5DD85 /* BPAppSettings.m */; };
-		C1427677189ECA2300D5DD85 /* BPMetrics.h in Headers */ = {isa = PBXBuildFile; fileRef = C1427675189ECA2300D5DD85 /* BPMetrics.h */; };
-		C1427678189ECA2300D5DD85 /* BPMetrics.m in Sources */ = {isa = PBXBuildFile; fileRef = C1427676189ECA2300D5DD85 /* BPMetrics.m */; };
+		C1427677189ECA2300D5DD85 /* BPMetricCompletionHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = C1427675189ECA2300D5DD85 /* BPMetricCompletionHandler.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		C1427678189ECA2300D5DD85 /* BPMetricCompletionHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = C1427676189ECA2300D5DD85 /* BPMetricCompletionHandler.m */; };
 		C142767A189ECC1600D5DD85 /* MetricsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = C1427679189ECC1600D5DD85 /* MetricsTests.m */; };
 		C153F87017E15FC1009CDC81 /* Util.h in Headers */ = {isa = PBXBuildFile; fileRef = C153F86F17E15FC1009CDC81 /* Util.h */; };
 		C154CEED187F750C00EACE4B /* BPLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C154CEEB187F750C00EACE4B /* BPLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -273,8 +273,8 @@
 		C142766E1898B11500D5DD85 /* BPAlbumItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BPAlbumItem.h; sourceTree = "<group>"; };
 		C1427670189AAC3700D5DD85 /* BPAppSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPAppSettings.h; sourceTree = "<group>"; };
 		C1427671189AAC3700D5DD85 /* BPAppSettings.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAppSettings.m; sourceTree = "<group>"; };
-		C1427675189ECA2300D5DD85 /* BPMetrics.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPMetrics.h; sourceTree = "<group>"; };
-		C1427676189ECA2300D5DD85 /* BPMetrics.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPMetrics.m; sourceTree = "<group>"; };
+		C1427675189ECA2300D5DD85 /* BPMetricCompletionHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPMetricCompletionHandler.h; sourceTree = "<group>"; };
+		C1427676189ECA2300D5DD85 /* BPMetricCompletionHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPMetricCompletionHandler.m; sourceTree = "<group>"; };
 		C1427679189ECC1600D5DD85 /* MetricsTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MetricsTests.m; sourceTree = "<group>"; };
 		C153F86F17E15FC1009CDC81 /* Util.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Util.h; path = ../../Lib/BuddySDK/Util.h; sourceTree = "<group>"; };
 		C154CEEB187F750C00EACE4B /* BPLocation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPLocation.h; sourceTree = "<group>"; };
@@ -502,8 +502,8 @@
 				C1B8076A184061070086B843 /* BPClientDelegate.h */,
 				C1D7094618832983003D112C /* BPDescriptors.h */,
 				C1D7094718832983003D112C /* BPDescriptors.m */,
-				C1427675189ECA2300D5DD85 /* BPMetrics.h */,
-				C1427676189ECA2300D5DD85 /* BPMetrics.m */,
+				C1427675189ECA2300D5DD85 /* BPMetricCompletionHandler.h */,
+				C1427676189ECA2300D5DD85 /* BPMetricCompletionHandler.m */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -824,6 +824,7 @@
 				C10E2BA9186950D8007A0136 /* BPSounds.h in Headers */,
 				C11E6C91184C57040034E1EB /* BPCheckinCollection.h in Headers */,
 				C1C2394E1877C906000D0089 /* BPRestProvider.h in Headers */,
+				C1427677189ECA2300D5DD85 /* BPMetricCompletionHandler.h in Headers */,
 				C10E2BA3186950D8007A0136 /* BPGameBoards.h in Headers */,
 				C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */,
 				C1B959F91837061F000C8417 /* BuddyObject.h in Headers */,
@@ -860,7 +861,6 @@
 				C1B0F53D189373F6000403E0 /* AFURLConnectionOperation.h in Headers */,
 				C1B0F51A189373EB000403E0 /* UIKit+AFNetworking.h in Headers */,
 				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
-				C1427677189ECA2300D5DD85 /* BPMetrics.h in Headers */,
 				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
 				C1B0F518189373EB000403E0 /* UIImageView+AFNetworking.h in Headers */,
 				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
@@ -1129,7 +1129,7 @@
 				C10E2BA4186950D8007A0136 /* BPGameBoards.m in Sources */,
 				C154CEF7187F90A700EACE4B /* UIImageView+BuddyImage.m in Sources */,
 				C10E2BB7186951FA007A0136 /* Buddy.m in Sources */,
-				C1427678189ECA2300D5DD85 /* BPMetrics.m in Sources */,
+				C1427678189ECA2300D5DD85 /* BPMetricCompletionHandler.m in Sources */,
 				C1BFD88F187D169500A1FADF /* BPBlobCollection.m in Sources */,
 				C1B0F513189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				C1FEEB4F187E483100B45505 /* BPAlbum.m in Sources */,

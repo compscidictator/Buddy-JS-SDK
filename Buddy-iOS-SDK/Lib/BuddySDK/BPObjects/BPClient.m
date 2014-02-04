@@ -26,7 +26,7 @@
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
-
+#define BuddyDefaultURL @"api.buddyplatform.com"
 
 @interface BPClient()<BPRestProvider>
 
@@ -82,13 +82,14 @@
 
 {
     
-    
 #if DEBUG
     // Annoying nuance of running a unit test "bundle".
     NSString *serviceUrl = [[NSBundle bundleForClass:[self class]] infoDictionary][BuddyServiceURL];
 #else
     NSString *serviceUrl = [[NSBundle mainBundle] infoDictionary][BuddyServiceURL];
 #endif
+    
+    serviceUrl = serviceUrl ?: BuddyDefaultURL;
     
     _appSettings = [[BPAppSettings alloc] initWithBaseUrl:serviceUrl];
     _service = [[BPServiceController alloc] initWithAppSettings:_appSettings];
@@ -328,8 +329,8 @@
                 if ([result hasKey:@"serviceRoot"]) {
                     self.appSettings.serviceUrl = result[@"serviceRoot"];
                 }
-
-                    
+                
+                
             }
         }
         
@@ -374,16 +375,19 @@
 - (void)tryRaiseDelegate:(SEL)selector
 {
     id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
-    
-    if (!self.delegate) {// If no delegate, see if we've implemented delegate methods on the AppDelegate.
-        if (app && [app respondsToSelector:@selector(selector)])  {
-            [app performSelector:@selector(selector)];
+    SuppressPerformSelectorLeakWarning(
+
+        if (!self.delegate) {// If no delegate, see if we've implemented delegate methods on the AppDelegate.
+            if (app && [app respondsToSelector:selector])  {
+                [app performSelector:selector];
+            }
+        } else { // Try the delegate
+            if ([self.delegate respondsToSelector:selector]) {
+                [self.delegate performSelector:selector];
+            }
         }
-    } else { // Try the delegate
-        if ([self.delegate respondsToSelector:@selector(selector)]) {
-            [self.delegate authorizationNeedsUserLogin];
-        }
-    }
+                                       
+    );
 }
 
 #pragma mark - Location
@@ -400,6 +404,40 @@
 - (void)didUpdateBuddyLocation:(BPCoordinate *)newLocation
 {
     _lastLocation = newLocation;
+}
+
+#pragma mark - Metrics
+
+- (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
+{
+    NSString *resource = [NSString stringWithFormat:@"metrics/events/%@", key];
+    NSDictionary *parameters = @{@"value": BOXNIL(value)};
+    
+    [self POST:resource parameters:parameters callback:^(id json, NSError *error) {
+        callback ? callback(error) : nil;
+    }];
+}
+
+- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
+{
+    NSString *resource = [NSString stringWithFormat:@"metrics/events/%@", key];
+    NSDictionary *parameters = @{@"value": BOXNIL(value),
+                                 @"timeoutInSeconds": @(seconds)};
+    
+    [self POST:resource parameters:parameters callback:^(id json, NSError *error) {
+        BPMetricCompletionHandler *completionHandler;
+        if (!error) {
+            completionHandler = [[BPMetricCompletionHandler alloc] initWithMetricId:json andClient:self];
+        }
+        callback ? callback(completionHandler, error) : nil;
+    }];
+}
+
+#pragma mark - REST workaround
+
+- (id<BPRestProvider>)restService
+{
+    return self;
 }
 
 @end

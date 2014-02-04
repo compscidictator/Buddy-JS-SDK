@@ -16,7 +16,7 @@ static NSString *NoInternetError = @"NoInternetError";
 {
     return [NSError errorWithDomain:NoInternetError
                                code:code
-                           userInfo:@{@"message": message}];
+                           userInfo:@{@"message": BOXNIL(message)}];
 }
 
 + (NSError *)buildBuddyError:(id)buddyJSON
