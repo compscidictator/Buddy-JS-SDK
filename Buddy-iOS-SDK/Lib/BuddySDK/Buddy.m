@@ -72,28 +72,24 @@
 
 + (void)initClient:(NSString *)appID
             appKey:(NSString *)appKey
-            callback:(BuddyCompletionCallback)callback
 {
     
 	[Buddy initClient:appID
             appKey:appKey
             autoRecordDeviceInfo:NO
             autoRecordLocation:NO
-            withOptions:nil
-            callback:callback];
+            withOptions:nil];
 }
 
 + (void) initClient:(NSString *)appID
             appKey:(NSString *)appKey
             withOptions:(NSDictionary *)options
-            callback:(BuddyCompletionCallback)callback
 
 {
     [[BPClient defaultClient] setupWithApp:appID
             appKey:appKey
             options:options
-            delegate:nil
-            callback:callback];
+            delegate:nil];
 }
 
 + (void) initClient:(NSString *)appID
@@ -101,7 +97,6 @@
             autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
             autoRecordLocation:(BOOL)autoRecordLocation
             withOptions:(NSDictionary *)options
-            callback:(BuddyCompletionCallback)callback
 {
     
     NSDictionary *defaultOptions = @{@"autoRecordLocation": @(autoRecordLocation),
@@ -113,8 +108,7 @@
     [[BPClient defaultClient] setupWithApp:appID
             appKey:appKey
             options:combined
-            delegate:nil
-            callback:callback];
+            delegate:nil];
 }
 
 #pragma mark User

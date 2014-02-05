@@ -21,13 +21,7 @@ describe(@"Metrics", ^{
     context(@"When an app has a valid device token", ^{
         
         beforeAll(^{
-            __block BOOL fin = NO;
-            
-            [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {
-                fin = YES;
-            }];
-            
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+            [Buddy initClient:APP_NAME appKey:APP_KEY];
         });
         
         afterAll(^{

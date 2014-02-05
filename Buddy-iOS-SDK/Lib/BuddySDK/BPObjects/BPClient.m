@@ -78,7 +78,6 @@
              appKey:(NSString *)appKey
             options:(NSDictionary *)options
            delegate:(id<BPClientDelegate>) delegate
-           callback:(BuddyCompletionCallback)callback
 
 {
     
@@ -97,25 +96,6 @@
     // TODO - Does the client need a copy? Do users need to read back key/id?
     _appSettings.appKey = appKey;
     _appSettings.appID = appID;
-    
-    NSDictionary *getTokenParams = @{
-                                     @"appId": appID,
-                                     @"appKey": appKey,
-                                     @"Platform": @"iOS",
-                                     @"UniqueId": [BuddyDevice identifier],
-                                     @"Model": [BuddyDevice deviceModel],
-                                     @"OSVersion": [BuddyDevice osVersion]
-                                     };
-    
-    [self POST:@"devices" parameters:getTokenParams callback:^(id json, NSError *error) {
-        
-        // Grab the potentially different base url.
-        if ([json hasKey:@"accessToken"] && ![json[@"accessToken"] isEqualToString:self.appSettings.token]) {
-            self.appSettings.deviceToken = json[@"accessToken"];
-        }
-        
-        callback ? callback(error) : nil;
-    }];
 }
 
 # pragma mark -
@@ -273,45 +253,93 @@
 
 - (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.service GET:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    [self checkDeviceToken:^{
+        [self.service GET:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    }];
 }
 
 - (void)GET_FILE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.service GET_FILE:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    [self checkDeviceToken:^{
+        [self.service GET_FILE:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    }];
 }
 
 - (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.service POST:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    [self checkDeviceToken:^{
+        [self.service POST:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    }];
 }
 
 - (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(RESTCallback)callback
 {
-    [self.service MULTIPART_POST:servicePath parameters:parameters data:data callback:[self handleResponse:callback]];
+    [self checkDeviceToken:^{
+        [self.service MULTIPART_POST:servicePath parameters:parameters data:data callback:[self handleResponse:callback]];
+    }];
 }
 
 - (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.service PATCH:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    [self checkDeviceToken:^{
+        [self.service PATCH:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    }];
 }
 
 - (void)PUT:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.service PUT:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    [self checkDeviceToken:^{
+        [self.service PUT:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    }];
 }
 
 - (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
-    [self.service DELETE:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    [self checkDeviceToken:^{
+        [self.service DELETE:servicePath parameters:parameters callback:[self handleResponse:callback]];
+    }];
 }
 
+NSMutableArray *d;
 - (void)checkDeviceToken:(void(^)())method
 {
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        d = [NSMutableArray array];
+    });
+    
     if ([self.appSettings.deviceToken length] > 0) {
         method();
     } else {
-
+        @synchronized (self) {
+            if ([d count] > 0) {
+                [d addObject:[method copy]];
+                return;
+            }
+            else {
+                [d addObject:[method copy]];
+                
+                NSDictionary *getTokenParams = @{
+                                                 @"appId": self.appSettings.appID,
+                                                 @"appKey": self.appSettings.appKey,
+                                                 @"Platform": @"iOS",
+                                                 @"UniqueId": [BuddyDevice identifier],
+                                                 @"Model": [BuddyDevice deviceModel],
+                                                 @"OSVersion": [BuddyDevice osVersion]
+                                                 };
+                [self.service POST:@"devices" parameters:getTokenParams callback:[self handleResponse:^(id json, NSError *error) {
+                    // Grab the potentially different base url.
+                    if ([json hasKey:@"accessToken"] && ![json[@"accessToken"] isEqualToString:self.appSettings.token]) {
+                        self.appSettings.deviceToken = json[@"accessToken"];
+                        
+                        for (void(^block)() in d) {
+                            block();
+                        }
+                    }
+                    [d removeAllObjects];
+                }]];
+            }
+        }
     }
 }
 

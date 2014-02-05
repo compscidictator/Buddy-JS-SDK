@@ -11,43 +11,36 @@
 
 @implementation BuddyIntegrationHelper
 
-+ (void) bootstrapInit:(void(^)())callback {
-    [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {
-        callback();
-    }];
++ (void) bootstrapInit
+{
+    [Buddy initClient:APP_NAME appKey:APP_KEY];
 }
 
 + (void) bootstrapLogin:(void(^)())callback
 {
-    [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {
+    [Buddy initClient:APP_NAME appKey:APP_KEY];
         
-        NSDictionary *options = @{BPUserFirstNameField: @"Erik",
-                                  BPUserLastNameField: @"Kerber",
-                                  BPUserGenderField: @(BPUserGender_Male),
-                                  BPUserEmailField: @"erik.kerber@gmail.com",
-                                  BPUserDateOfBirthField: [NSNull null],
-                                  BPUserCelebrityModeField: @(YES),
-                                  BPUserFuzzLocationField: @(NO)
-                                  };
+    NSDictionary *options = @{BPUserFirstNameField: @"Erik",
+                              BPUserLastNameField: @"Kerber",
+                              BPUserGenderField: @(BPUserGender_Male),
+                              BPUserEmailField: @"erik.kerber@gmail.com",
+                              BPUserDateOfBirthField: [NSNull null],
+                              BPUserCelebrityModeField: @(YES),
+                              BPUserFuzzLocationField: @(NO)
+                              };
+    
+    [Buddy login:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
         
-        if (error) {
-            NSLog(@"!!!!!!!!!initClient error!!!!!!!!!");
+        if(loggedInsUser)
             callback();
-            return;
-        }
-        [Buddy login:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
-            
-            if(loggedInsUser)
+        else {
+            [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {
                 callback();
-            else {
-                [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {
-                    callback();
-                }];
-            }
-        }];
+            }];
+        }
+    }];
         
 
-    }];
 }
 
 + (NSDate *)randomDate

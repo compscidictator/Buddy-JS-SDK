@@ -20,13 +20,7 @@ describe(@"Buddy", ^{
     context(@"A clean boot of your app", ^{
         __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin3";
         beforeAll(^{
-            __block BOOL fin = NO;
-
-            [Buddy initClient:APP_NAME appKey:APP_KEY callback:^(NSError *error) {
-                fin = YES;
-            }];
-            
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+            [Buddy initClient:APP_NAME appKey:APP_KEY];
         });
         
         afterAll(^{

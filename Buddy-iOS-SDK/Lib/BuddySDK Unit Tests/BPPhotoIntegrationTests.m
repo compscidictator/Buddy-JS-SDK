@@ -22,13 +22,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
     context(@"When a user is NOT logged in", ^{
         
         beforeAll(^{
-            __block BOOL fin = NO;
-            
-            [BuddyIntegrationHelper bootstrapInit:^{
-                fin = YES;
-            }];
-            
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+            [BuddyIntegrationHelper bootstrapInit];
         });
         
         it(@"Should throw an auth error if they try to access photos.", ^{

@@ -87,8 +87,7 @@
  * @param callback A BuddyCompletionBlock that has an error, if any.
  */
 + (void)initClient:(NSString *)appID
-            appKey:(NSString *)appKey
-            callback:(BuddyCompletionCallback)callback;
+            appKey:(NSString *)appKey;
 
 
 /**
