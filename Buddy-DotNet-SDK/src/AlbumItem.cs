@@ -5,7 +5,13 @@ using System.Threading.Tasks;
 
 namespace BuddySDK
 {
-	[BuddyObjectPath("/items")]
+    public enum AlbumItemType
+    {
+        Picture,
+        Video
+    }
+    
+    [BuddyObjectPath("/items")]
 	public class AlbumItem : BuddyBase
 	{
         public AlbumItem()
@@ -32,18 +38,27 @@ namespace BuddySDK
 			}
 		}
 
-		[Newtonsoft.Json.JsonProperty("itemId")]
-		public string ItemId
-		{
-			get
-			{
-				return GetValueOrDefault<string>("ItemId");
-			}
-			set
-			{
-				SetValue<string>("ItemId", value, checkIsProp: false);
-			}
-		}
+        [Newtonsoft.Json.JsonProperty("itemId")]
+        public string ItemId
+        {
+            get
+            {
+                return GetValueOrDefault<string>("ItemId");
+            }
+            set
+            {
+                SetValue<string>("ItemId", value, checkIsProp: false);
+            }
+        }
+
+        [Newtonsoft.Json.JsonProperty("itemType")]
+        public AlbumItemType ItemType
+        {
+            get
+            {
+                return GetValueOrDefault<AlbumItemType>("ItemType");
+            }
+        }
 
         private readonly string path;
         protected override string Path
@@ -66,6 +81,16 @@ namespace BuddySDK
 		internal AlbumItemCollection(string parentObjectPath, BuddyClient client)
 			: base(parentObjectPath + typeof(AlbumItem).GetCustomAttribute<BuddyObjectPathAttribute>(true).Path, client)
         {
+        }
+
+        public Task<SearchResult<AlbumItem>> FindAsync(AlbumItemType? itemType = null, string comment = null,
+            BuddyGeoLocationRange location = null, int maxResults = 100, string pagingToken = null)
+        {
+            return base.FindAsync(null, null, null, location, maxResults, pagingToken, (p) =>
+            {
+                if (itemType.HasValue) { p["itemType"] = itemType; }
+                p["comment"] = comment;
+            });
         }
     }
 }
