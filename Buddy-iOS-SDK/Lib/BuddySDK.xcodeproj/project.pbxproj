@@ -1288,6 +1288,7 @@
 			baseConfigurationReference = BC44442B63AA4BEA943DB005 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
@@ -1325,7 +1326,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = include;
-				VALID_ARCHS = "armv7 armv7s i386";
+				VALID_ARCHS = "armv7 armv7s i386 arm64";
 				WRAPPER_EXTENSION = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1335,6 +1336,7 @@
 			baseConfigurationReference = BC44442B63AA4BEA943DB005 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
@@ -1371,7 +1373,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = include;
-				VALID_ARCHS = "armv7 armv7s i386";
+				VALID_ARCHS = "armv7 armv7s i386 arm64";
 				WRAPPER_EXTENSION = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1379,20 +1381,24 @@
 		C19ECC3517DEA28D008A9130 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
 		C19ECC3617DEA28D008A9130 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
