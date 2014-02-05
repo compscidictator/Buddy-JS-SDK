@@ -300,24 +300,25 @@
     }];
 }
 
-NSMutableArray *d;
+// Data struct to keep track of requests waiting on device token.
+NSMutableArray *queuedRequests;
 - (void)checkDeviceToken:(void(^)())method
 {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        d = [NSMutableArray array];
+        queuedRequests = [NSMutableArray array];
     });
     
     if ([self.appSettings.deviceToken length] > 0) {
         method();
     } else {
         @synchronized (self) {
-            if ([d count] > 0) {
-                [d addObject:[method copy]];
+            if ([queuedRequests count] > 0) {
+                [queuedRequests addObject:[method copy]];
                 return;
             }
             else {
-                [d addObject:[method copy]];
+                [queuedRequests addObject:[method copy]];
                 
                 NSDictionary *getTokenParams = @{
                                                  @"appId": self.appSettings.appID,
@@ -332,11 +333,11 @@ NSMutableArray *d;
                     if ([json hasKey:@"accessToken"] && ![json[@"accessToken"] isEqualToString:self.appSettings.token]) {
                         self.appSettings.deviceToken = json[@"accessToken"];
                         
-                        for (void(^block)() in d) {
+                        for (void(^block)() in queuedRequests) {
                             block();
                         }
                     }
-                    [d removeAllObjects];
+                    [queuedRequests removeAllObjects];
                 }]];
             }
         }
