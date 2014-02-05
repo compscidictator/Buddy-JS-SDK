@@ -10,7 +10,6 @@
 		0111B6851892C49600745813 /* PhotoThumbView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B6841892C49500745813 /* PhotoThumbView.xib */; };
 		0111B68B1892DEF200745813 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111B6891892DEF200745813 /* EditPhotoViewController.m */; };
 		0111B68C1892DEF200745813 /* EditPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B68A1892DEF200745813 /* EditPhotoViewController.xib */; };
-		01329BA118A0665000DB86B6 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01329BA018A0665000DB86B6 /* BuddySDK.framework */; };
 		013D69D41897331E0052B091 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */; };
 		01AEB8871890914C003B051A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8861890914C003B051A /* Foundation.framework */; };
 		01AEB8891890914C003B051A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8881890914C003B051A /* CoreGraphics.framework */; };
@@ -38,6 +37,7 @@
 		01AEB8DA18909D24003B051A /* AddPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AEB8D818909D24003B051A /* AddPhotoViewController.xib */; };
 		01B718E018917BAD0079495F /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B718DF18917BAD0079495F /* ImageCache.m */; };
 		01B718EB189197E80079495F /* PhotoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B718EA189197E80079495F /* PhotoList.m */; };
+		01EA622718A2B793005623FC /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EA622618A2B793005623FC /* BuddySDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -55,7 +55,6 @@
 		0111B6881892DEF200745813 /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
 		0111B6891892DEF200745813 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
 		0111B68A1892DEF200745813 /* EditPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditPhotoViewController.xib; sourceTree = "<group>"; };
-		01329BA018A0665000DB86B6 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		013D69D21897331E0052B091 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
 		01AEB8831890914C003B051A /* PhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -96,6 +95,7 @@
 		01B718DF18917BAD0079495F /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageCache.m; path = ../ImageCache.m; sourceTree = "<group>"; };
 		01B718E9189197E80079495F /* PhotoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoList.h; path = ../PhotoList.h; sourceTree = "<group>"; };
 		01B718EA189197E80079495F /* PhotoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoList.m; path = ../PhotoList.m; sourceTree = "<group>"; };
+		01EA622618A2B793005623FC /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,7 +109,7 @@
 				01AEB8891890914C003B051A /* CoreGraphics.framework in Frameworks */,
 				01AEB88B1890914C003B051A /* UIKit.framework in Frameworks */,
 				01AEB8871890914C003B051A /* Foundation.framework in Frameworks */,
-				01329BA118A0665000DB86B6 /* BuddySDK.framework in Frameworks */,
+				01EA622718A2B793005623FC /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,7 +148,7 @@
 		01AEB8851890914C003B051A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				01329BA018A0665000DB86B6 /* BuddySDK.framework */,
+				01EA622618A2B793005623FC /* BuddySDK.framework */,
 				01AEB8D01890957B003B051A /* CoreLocation.framework */,
 				01AEB8CE189093C7003B051A /* QuartzCore.framework */,
 				01AEB8CC189093C0003B051A /* SystemConfiguration.framework */,
@@ -514,6 +514,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"/Users/nick/src/v2sdk/Buddy-iOS-SDK/samples/PhotoGallery",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoGallery/PhotoGallery-Prefix.pch";
@@ -532,6 +533,7 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)",
+					"/Users/nick/src/v2sdk/Buddy-iOS-SDK/samples/PhotoGallery",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PhotoGallery/PhotoGallery-Prefix.pch";

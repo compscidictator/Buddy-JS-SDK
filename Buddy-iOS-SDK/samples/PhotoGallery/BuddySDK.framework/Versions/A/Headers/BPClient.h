@@ -12,6 +12,7 @@
 #import "BPRestProvider.h"
 #import "BPClientDelegate.h"
 #import "BuddyCollection.h" // TODO - remove dependency
+#import "BPMetricCompletionHandler.h"
 
 @class BuddyDevice;
 @class BPGameBoards;
@@ -128,8 +129,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 -(void)setupWithApp:(NSString *)appID
                 appKey:(NSString *)appKey
                 options:(NSDictionary *)options
-                delegate:(id<BPClientDelegate>) delegate
-                callback:(BuddyCompletionCallback)callback;
+                delegate:(id<BPClientDelegate>) delegate;
 
 - (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
 
@@ -141,7 +141,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 - (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
 
-- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback;
+- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback;
 
 @end
 

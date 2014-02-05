@@ -41,11 +41,7 @@
     
     [self.window makeKeyAndVisible];
     
-    [Buddy initClient: APP_ID appKey: APP_KEY callback:
-     ^(NSError *error)
-     {
-         NSLog(@"initClient - Callback Called");
-     }];
+    [Buddy initClient: APP_ID appKey: APP_KEY];
 
     
     return YES;

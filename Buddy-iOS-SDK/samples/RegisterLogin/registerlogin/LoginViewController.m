@@ -117,7 +117,7 @@
         return;
     }
     
-    self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    self.HUD = [MBProgressHUD showHUDAddedTo:self.view animated:NO];
     self.HUD.labelText= @"Login";
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;

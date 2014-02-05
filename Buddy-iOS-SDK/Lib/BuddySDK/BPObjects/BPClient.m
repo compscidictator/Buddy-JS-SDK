@@ -26,7 +26,7 @@
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
-#define BuddyDefaultURL @"http://api.buddyplatform.com"
+#define BuddyDefaultURL @"https://api.buddyplatform.com"
 
 @interface BPClient()<BPRestProvider>
 
