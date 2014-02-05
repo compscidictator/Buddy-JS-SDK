@@ -35,7 +35,7 @@
 {
     [super viewDidLoad];
     
-    [[CommonAppDelegate navController] setNavigationBarHidden:FALSE];
+    [[CommonAppDelegate navController] setNavigationBarHidden:YES];
     
     UIBarButtonItem *backButton =[[UIBarButtonItem alloc] initWithTitle:@"Logout"  style:UIBarButtonItemStylePlain target:self action:@selector(doLogout)];
     
@@ -51,14 +51,11 @@
     self.clearUserBut.layer.borderWidth = DEFAULT_BUT_BORDER_WIDTH;
     self.clearUserBut.layer.borderColor = [UIColor blackColor].CGColor;
     self.clearUserBut.clipsToBounds = YES;
-
-    [self updateFields];
-    
 }
 
 -(void) updateFields
 {
-    [[CommonAppDelegate navController] setNavigationBarHidden:FALSE];
+    [[CommonAppDelegate navController] setNavigationBarHidden:YES];
     self.mainLabel.text = [NSString stringWithFormat:@"Hi %@ %@",
                            Buddy.user.firstName, Buddy.user.lastName];
     
@@ -71,6 +68,7 @@
     return ^(NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
+        self.HUD=nil;
     };
 }
 
@@ -81,6 +79,7 @@
     return ^(NSError *error)
     {
         [weakSelf.HUD hide:TRUE afterDelay:0.1];
+        self.HUD=nil;
     };
 }
 
@@ -125,6 +124,11 @@
 {
     [super viewWillDisappear:animated];
     
+    if(self.HUD!=nil)
+    {
+        [self.HUD hide:TRUE afterDelay:0.1];
+        self.HUD=nil;
+    }
     if (self.isMovingFromParentViewController)
     {
         [Buddy logout:nil];

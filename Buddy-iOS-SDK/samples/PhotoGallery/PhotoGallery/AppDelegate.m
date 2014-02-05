@@ -42,18 +42,7 @@
     self.window.rootViewController=self.navController;
     
     
-    [Buddy initClient: APP_ID appKey: APP_KEY callback:
-     ^(NSError *error)
-     {
-         if(error==nil)
-         {
-             NSLog(@"InitClient Callback Called - Success");
-         }
-         else
-         {
-             NSLog(@"InitClient Callback Called - Failed");
-         }
-     }];
+    [Buddy initClient: APP_ID appKey: APP_KEY ];
 
     
     [self.window makeKeyAndVisible];

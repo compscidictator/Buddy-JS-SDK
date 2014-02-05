@@ -25,6 +25,7 @@
 #import "BPCoordinate.h"
 #import "BPBlob.h"
 #import "BPAlbum.h"
+#import "BPMetricCompletionHandler.h"
 
 /**
  * TODO
@@ -73,6 +74,8 @@
 #pragma message("Implement location")
 + (void) setLocationEnabled:(BOOL)enabled;
 
++ (void)setClientDelegate:(id<BPClientDelegate>)delegate;
+
 /**
  *
  * Initialize the Buddy SDK with your App ID and App Key
@@ -84,8 +87,7 @@
  * @param callback A BuddyCompletionBlock that has an error, if any.
  */
 + (void)initClient:(NSString *)appID
-            appKey:(NSString *)appKey
-            callback:(BuddyCompletionCallback)callback;
+            appKey:(NSString *)appKey;
 
 
 /**
@@ -121,6 +123,6 @@
 
 + (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
 
-+ (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyObjectCallback)callback;
++ (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback;
 
 @end
