@@ -26,7 +26,7 @@
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
-#define BuddyDefaultURL @"api.buddyplatform.com"
+#define BuddyDefaultURL @"http://api.buddyplatform.com"
 
 @interface BPClient()<BPRestProvider>
 
@@ -304,6 +304,15 @@
 - (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
 {
     [self.service DELETE:servicePath parameters:parameters callback:[self handleResponse:callback]];
+}
+
+- (void)checkDeviceToken:(void(^)())method
+{
+    if ([self.appSettings.deviceToken length] > 0) {
+        method();
+    } else {
+
+    }
 }
 
 #pragma mark - Response Handlers
