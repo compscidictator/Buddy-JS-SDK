@@ -15,3 +15,13 @@
    #import "NSString+JSON.h"
    #import "NSError+BuddyError.h"
 #endif
+
+#define BOXNIL(x) x ?: [NSNull null]
+
+#define SuppressPerformSelectorLeakWarning(Stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)

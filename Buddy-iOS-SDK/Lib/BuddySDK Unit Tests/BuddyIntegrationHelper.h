@@ -10,6 +10,8 @@
 
 @interface BuddyIntegrationHelper : NSObject
 
++ (void) bootstrapInit;
+
 + (void) bootstrapLogin:(void(^)())callback;
 
 + (NSDate *)randomDate;

@@ -11,32 +11,36 @@
 
 @implementation BuddyIntegrationHelper
 
++ (void) bootstrapInit
+{
+    [Buddy initClient:APP_NAME appKey:APP_KEY];
+}
+
 + (void) bootstrapLogin:(void(^)())callback
 {
-    [Buddy initClient:APP_NAME appKey:APP_KEY callback:^{
-        NSDictionary *options = @{@"name": @"Erik Kerber",
-                                  @"gender": @(BPUserGender_Male),
-                                  @"email": @"erik.kerber@gmail.com",
-                                  @"dateOfBirth": [NSNull null],
-                                  @"relationshipStatus": @(BPUserRelationshipStatusOnTheProwl),
-                                  @"celebrityMode": @(YES),
-                                  @"fuzzLocation": @(NO)
-                                  };
+    [Buddy initClient:APP_NAME appKey:APP_KEY];
         
-        [Buddy login:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
-            if(loggedInsUser)
+    NSDictionary *options = @{BPUserFirstNameField: @"Erik",
+                              BPUserLastNameField: @"Kerber",
+                              BPUserGenderField: @(BPUserGender_Male),
+                              BPUserEmailField: @"erik.kerber@gmail.com",
+                              BPUserDateOfBirthField: [NSNull null],
+                              BPUserCelebrityModeField: @(YES),
+                              BPUserFuzzLocationField: @(NO)
+                              };
+    
+    [Buddy login:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
+        
+        if(loggedInsUser)
+            callback();
+        else {
+            [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {
                 callback();
-            else {
-                [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {
-                    [Buddy login:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
-                        callback();
-                    }];
-                }];
-            }
-        }];
+            }];
+        }
+    }];
         
 
-    }];
 }
 
 + (NSDate *)randomDate

@@ -12,18 +12,24 @@ namespace BuddySDK
         /// The error that occured.
         /// </summary>
         public string Error { get; protected set; }
+        public int ErrorNumber { get; protected set;}
 
+        public int StatusCode {
+            get;
+            internal set;
+        }
       
 
-        internal BuddyServiceException(string error, string message): base(message)
+        internal BuddyServiceException(string error, string message, int? number = null): base(message)
         {
             this.Error = error;
+            this.ErrorNumber = number.GetValueOrDefault ();
         }
     }
 
     public class BuddyUnauthorizedException : BuddyServiceException {
 
-        internal BuddyUnauthorizedException(string e, string m): base(e,m) {
+        internal BuddyUnauthorizedException(string e, string m, int? n): base(e,m, n) {
 
 
         }

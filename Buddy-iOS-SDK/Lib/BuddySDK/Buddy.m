@@ -15,6 +15,7 @@
  */
 
 #import "Buddy.h"
+#import "BPClientDelegate.h"
 #import "BuddyObject+Private.h"
 
 /// <summary>
@@ -28,7 +29,7 @@
 }
 
 + (BPUser *)user{
-    return [[BPClient defaultClient] user];
+    return [[BPSession currentSession] user];
 }
 
 + (BuddyDevice *)device{
@@ -60,16 +61,26 @@
 + (void) setLocationEnabled:(BOOL)val
 {
     @synchronized(self){
+        [[BPClient defaultClient] setLocationEnabled:val];
     }
 }
 
-+ (void)initClient:(NSString *)appID
++ (void)setClientDelegate:(id<BPClientDelegate>)delegate
 {
+    [BPClient defaultClient].delegate = delegate;
+}
+
++ (void)initClient:(NSString *)appID
+            appKey:(NSString *)appKey
+{
+    
 	[Buddy initClient:appID
             appKey:appKey
             autoRecordDeviceInfo:NO
             autoRecordLocation:NO
             withOptions:nil];
+}
+
 }
 
 + (void) initClient:(NSString *)appID

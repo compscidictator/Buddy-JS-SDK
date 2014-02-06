@@ -21,6 +21,8 @@ describe(@"BPAlbumIntegrationSpec", ^{
     context(@"When a user is logged in", ^{
         
         __block BPAlbum *tempAlbum;
+        __block BPPhoto *tempPhoto;
+        __block BPAlbumItemContainer *tempItem;
         
         beforeAll(^{
             __block BOOL fin = NO;
@@ -37,19 +39,86 @@ describe(@"BPAlbumIntegrationSpec", ^{
         });
         
         it(@"Should allow you create an album.", ^{
+            [[Buddy albums] addAlbum:@"My album" withComment:@"Kid pictures" callback:^(id newBuddyObject, NSError *error) {
+                tempAlbum = newBuddyObject;
+            }];
+            
+            [[expectFutureValue(tempAlbum) shouldEventually] beNonNil];
+            [[expectFutureValue(tempAlbum.name) shouldEventually] equal:@"My album"];
+            [[expectFutureValue(tempAlbum.comment) shouldEventually] equal:@"Kid pictures"];
             
         });
         
         it(@"Should allow you to retrieve an album.", ^{
+            __block BPAlbum *retrievedAlbum;
+            [[Buddy albums] getAlbum:tempAlbum.id callback:^(id newBuddyObject, NSError *error) {
+                retrievedAlbum = newBuddyObject;
+            }];
+            
+            [[expectFutureValue(retrievedAlbum) shouldEventually] beNonNil];
+            [[expectFutureValue(retrievedAlbum.name) shouldEventually] equal:tempAlbum.name];
+            [[expectFutureValue(retrievedAlbum.comment) shouldEventually] equal:tempAlbum.comment];
         });
         
-        it(@"Should allow you to retrieve a specific album.", ^{
+        it(@"Should allow you to search for albums.", ^{
+            __block NSArray *retrievedAlbums;
+            [[Buddy albums] search:nil callback:^(NSArray *buddyObjects, NSError *error) {
+                retrievedAlbums = buddyObjects;
+            }];
+            
+            [[expectFutureValue(theValue([retrievedAlbums count])) shouldEventually] beGreaterThan:theValue(0)];
         });
         
         it(@"Should allow you to modify an album.", ^{
+            __block BPAlbum *retrievedAlbum;
+
+            tempAlbum.comment = @"Some new comment";
+            
+            [tempAlbum save:^(NSError *error) {
+                [[Buddy albums] getAlbum:tempAlbum.id callback:^(id newBuddyObject, NSError *error) {
+                    retrievedAlbum = newBuddyObject;
+                }];
+            }];
+            
+            [[expectFutureValue(retrievedAlbum.comment) shouldEventually] equal:@"Some new comment"];
+        });
+        
+        
+        it(@"Should allow you to add items to an album.", ^{
+            NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+            NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
+            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+            
+            [[Buddy photos] addPhoto:image withComment:@"Test image for album." callback:^(id newBuddyObject, NSError *error) {
+                tempPhoto = newBuddyObject;
+                [tempAlbum addItemToAlbum:tempPhoto callback:^(id newBuddyObject, NSError *error) {
+                    [[error should] beNil];
+                    tempItem = newBuddyObject;
+                }];
+            }];
+            
+            [[expectFutureValue(tempItem) shouldEventually] beNonNil];
+        });
+        
+        
+        it(@"Should allow you to retrieve an item from an album.", ^{
+            __block BPPhoto *retrievedPhoto;
+            [tempAlbum getAlbumItem:tempItem.id callback:^(id newBuddyObject, NSError *error) {
+                retrievedPhoto = newBuddyObject;
+            }];
+            
+            [[expectFutureValue(retrievedPhoto) shouldEventually] beNonNil];
         });
         
         it(@"Should allow you to delete an album.", ^{
+            __block NSString *deletedId = tempAlbum.id;
+            [tempAlbum deleteMe:^(NSError *error){
+                [[Buddy photos] getPhoto:deletedId callback:^(id newBuddyObject, NSError *error) {
+                    tempAlbum = newBuddyObject;
+                }];
+            }];
+            
+            [[expectFutureValue(tempAlbum) shouldEventually] beNil];
         });
     });
 });

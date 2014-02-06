@@ -10,92 +10,105 @@
 #import "AFNetworking.h"
 #import "BuddyDevice.h"
 #import "NSError+BuddyError.h"
+#import "BPClient.h"
 
 typedef void (^AFFailureCallback)(AFHTTPRequestOperation *operation, NSError *error);
 typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id responseObject);
 
+
 @interface BPServiceController()
+
+- (AFFailureCallback) handleFailure:(ServiceResponse)callback;
+- (AFSuccessCallback) handleSuccess:(ServiceResponse)callback;
+
+@property (nonatomic, strong) BPAppSettings *appSettings;
+
+@property (nonatomic, strong) AFJSONRequestSerializer *jsonRequestSerializer;
+@property (nonatomic, strong) AFJSONResponseSerializer *jsonResponseSerializer;
+@property (nonatomic, strong) AFHTTPRequestSerializer *httpRequestSerializer;
+@property (nonatomic, strong) AFHTTPResponseSerializer *httpResponseSerializer;
+
 @property (nonatomic, strong) AFHTTPRequestOperationManager *manager;
 @property (nonatomic, strong) NSString *token;
+
 @end
 
 @implementation BPServiceController
 
-- (instancetype)initWithBuddyUrl:(NSString *)url
+- (instancetype)initWithAppSettings:(BPAppSettings *)appSettings
 {
     self = [super init];
     if(self)
     {
-        [self setupManagerWithBaseUrl:url withToken:nil];
-
+        _appSettings = appSettings;
+        _jsonRequestSerializer = [AFJSONRequestSerializer serializer];
+        _jsonResponseSerializer = [AFJSONResponseSerializer serializer];
+        _httpRequestSerializer = [AFHTTPRequestSerializer serializer];
+        _httpResponseSerializer = [AFHTTPResponseSerializer serializer];
+        
+        [_jsonRequestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
+        [_jsonRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+        [_httpRequestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
+        
+        [self addObserver:self forKeyPath:@"appSettings.userToken" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"appSettings.deviceToken" options:NSKeyValueObservingOptionNew context:nil];
+        [self addObserver:self forKeyPath:@"appSettings.serviceUrl" options:NSKeyValueObservingOptionNew context:nil];
+        
+        [self setupManagerWithNewSettings];
     }
     return self;
 }
 
+- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
+{
+    [self setupManagerWithNewSettings];
+}
+
 #pragma mark - Token Management
-- (void)setupManagerWithBaseUrl:(NSString *)baseUrl withToken:(NSString *)token
+- (void)setupManagerWithNewSettings
 {
-    assert([baseUrl length] > 0);
-    self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:baseUrl]];
-    
-    AFJSONRequestSerializer *requestSerializer = [AFJSONRequestSerializer serializer];
-    AFJSONResponseSerializer *responseSerializer = [AFJSONResponseSerializer serializer];
+    assert([self.appSettings.serviceUrl length] > 0);
+    self.manager = [[AFHTTPRequestOperationManager alloc] initWithBaseURL:[NSURL URLWithString:self.appSettings.serviceUrl]];
 
-    [requestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
-    [requestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
-
-    if(token){
-        NSLog(@"Setting token: %@", token);
+    if(self.appSettings.token){
+        NSLog(@"Setting token: %@", self.appSettings.token);
         // Tell our serializer our new Authorization string.
-        NSString *authString = [@"Buddy " stringByAppendingString:token];
-        [requestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
+        NSString *authString = [@"Buddy " stringByAppendingString:self.appSettings.token];
+        [self.jsonRequestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
+        [self.httpRequestSerializer setValue:authString forHTTPHeaderField:@"Authorization"];
     }
 
-    self.token = token;
-    self.manager.responseSerializer = responseSerializer;
-    self.manager.requestSerializer = requestSerializer;
-}
-
-
-- (void)updateConnectionWithResponse:(id)result
-{
-    if(!result || ![result isKindOfClass:[NSDictionary class]])return;
-    // Grab the access token
-    NSString *newToken = result[@"accessToken"];
-    // Grab the potentially different base url.
-    NSString *newBaseUrl = result[@"serviceRoot"];
-    
-    if (newToken && ![newToken isEqualToString:self.token]) {
-        [self setupManagerWithBaseUrl:(newBaseUrl ?: self.manager.baseURL.absoluteString) withToken:newToken];
-    }
-}
-
-- (void)setAppID:(NSString *)appID withKey:(NSString *)appKey callback:(RESTCallback)callback
-{
-    NSDictionary *getTokenParams = @{
-                                     @"appId": appID,
-                                     @"appKey": appKey,
-                                     @"Platform": @"iOS",
-                                     @"UniqueId": [BuddyDevice identifier],
-                                     @"Model": [BuddyDevice deviceModel],
-                                     @"OSVersion": [BuddyDevice osVersion]
-                                     };
-    
-    [self POST:@"devices" parameters:getTokenParams callback:callback];
+    self.manager.responseSerializer = self.jsonResponseSerializer;
+    self.manager.requestSerializer = self.jsonRequestSerializer;
 }
 
 
 #pragma mark - BPRestProvider
 
-- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+- (void)GET_FILE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
+{
+    self.manager.requestSerializer = self.httpRequestSerializer;
+    self.manager.responseSerializer = self.httpResponseSerializer;
+    
+    [self.manager GET:servicePath
+           parameters:parameters
+              success:[self handleSuccess:callback json:NO]
+              failure:[self handleFailure:callback]];
+    
+    self.manager.responseSerializer = self.jsonResponseSerializer;
+    self.manager.requestSerializer = self.jsonRequestSerializer;
+}
+
+- (void)GET:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager GET:servicePath
            parameters:parameters
               success:[self handleSuccess:callback]
               failure:[self handleFailure:callback]];
+
 }
 
-- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+- (void)POST:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager POST:servicePath
             parameters:parameters
@@ -103,7 +116,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                failure:[self handleFailure:callback]];
 }
 
-- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(RESTCallback)callback
+- (void)MULTIPART_POST:(NSString *)servicePath parameters:(NSDictionary *)parameters data:(NSDictionary *)data callback:(ServiceResponse)callback
 {
     void (^constructBody)(id <AFMultipartFormData> formData) =^(id<AFMultipartFormData> formData){
         for(NSString *name in [data allKeys]){
@@ -119,7 +132,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                      failure:[self handleFailure:callback]];
 }
 
-- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+- (void)PATCH:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager PATCH:servicePath
              parameters:parameters
@@ -127,7 +140,15 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                 failure:[self handleFailure:callback]];
 }
 
-- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(RESTCallback)callback
+- (void)PUT:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
+{
+    [self.manager PUT:servicePath
+           parameters:parameters
+              success:[self handleSuccess:callback]
+              failure:[self handleFailure:callback]];
+}
+
+- (void)DELETE:(NSString *)servicePath parameters:(NSDictionary *)parameters callback:(ServiceResponse)callback
 {
     [self.manager DELETE:servicePath
               parameters:parameters
@@ -135,51 +156,26 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
                  failure:[self handleFailure:callback]];
 }
 
-#pragma mark Response Handlers
+- (AFSuccessCallback) handleSuccess:(ServiceResponse)callback
+{
+    return [self handleSuccess:callback json:YES];
+}
 
-- (AFSuccessCallback) handleSuccess:(RESTCallback)callback
+- (AFSuccessCallback) handleSuccess:(ServiceResponse)callback json:(BOOL)json
 {
     return ^(AFHTTPRequestOperation *operation, id responseObject){
-        id result = responseObject[@"result"];
-        [self updateConnectionWithResponse:result];
-        callback(result, nil);
+        
+        callback([operation response].statusCode, responseObject, nil);
     };
 }
 
-- (AFFailureCallback) handleFailure:(RESTCallback)callback
+- (AFFailureCallback) handleFailure:(ServiceResponse)callback
 {
     return ^(AFHTTPRequestOperation *operation, NSError *error){
-        //        + (NSError *)noInternetError:(NSInteger)code;
-        //        + (NSError *)noAuthenticationError:(NSInteger)code;
-        //        + (NSError *)tokenExpiredError:(NSInteger)code;
-        //        + (NSError *)badDataError:(NSInteger)code;
-        
-        NSInteger responseCode = operation.response.statusCode;
-        
-        NSError *buddyError;
-        switch (responseCode) {
-            case 400:
-                buddyError = [NSError badDataError:error.code message:operation.responseString];
-                break;
-            case 403:
-                if (YES) {
-                    buddyError = [NSError noAuthenticationError:error.code message:operation.responseString];
-                } else {
-                    // TODO - figure out how to determing token expired.
-                    buddyError = [NSError tokenExpiredError:error.code message:operation.responseString];
-                }
-                break;
-            case 500:
-                buddyError = [NSError badDataError:error.code message:operation.responseString];
-                break;
-            default:
-                buddyError = [NSError noInternetError:error.code message:operation.responseString];
-                break;
-        }
-        
-        callback(nil, buddyError);
+
+        NSInteger statusCode = operation.response ? operation.response.statusCode : 0;
+        callback(statusCode, operation.responseString, error);
     };
 }
-
 
 @end

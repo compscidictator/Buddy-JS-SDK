@@ -7,12 +7,18 @@
 //
 
 #import "BuddyObject.h"
+#import "BPRestProvider.h"
 
 @interface BuddyObject (Private)
 
-- (instancetype)initBuddy;
-- (instancetype)initBuddyWithResponse:(id)response;
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client;
+- (instancetype)initBuddyWithResponse:(id)response andClient:(id<BPRestProvider>)rest;
 
 - (NSDictionary *)buildUpdateDictionary;
+- (void)registerProperties;
+
++ (NSDictionary *)baseEnumMap;
++ (NSDictionary *)enumMap;
+
 
 @end

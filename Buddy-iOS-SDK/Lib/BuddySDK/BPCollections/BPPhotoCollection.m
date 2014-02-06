@@ -8,14 +8,14 @@
 
 #import "BPPhotoCollection.h"
 #import "BPPhoto.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BuddyObject+Private.h"
 #import "Buddy.h"
 
 @implementation BPPhotoCollection
 
--(instancetype)init{
-    self = [super init];
+- (instancetype)initWithClient:(id<BPRestProvider>)client {
+    self = [super initWithClient:client];
     if(self){
         self.type = [BPPhoto class];
     }
@@ -26,7 +26,7 @@
      withComment:(NSString *)comment
         callback:(BuddyObjectCallback)callback
 {
-    [[self type] createWithImage:photo andComment:comment callback:callback];
+    [[self type] createWithImage:photo andComment:comment client:self.client callback:callback];
 }
 
 
@@ -38,7 +38,7 @@
 -(void)searchPhotos:(BuddyCollectionCallback)callback
 {
     NSDictionary *parameters = @{
-                                 @"ownerID": [Buddy user].id
+                                 @"ownerID": BOXNIL([Buddy user].id)
                                  };
     
     [self search:parameters callback:callback];

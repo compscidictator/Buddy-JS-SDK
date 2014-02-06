@@ -66,13 +66,29 @@ describe(@"BPCheckinIntegrationSpec", ^{
         
         it(@"Should allow you to retrieve a specific checkin.", ^{
             __block BPCheckin *retrievedCheckin;
-            [BPCheckin queryFromServerWithId:tempCheckinId callback:^(BPCheckin *newBuddyObject, NSError *error) {
+            [[Buddy checkins] getCheckin:tempCheckinId callback:^(id newBuddyObject, NSError *error) {
                 retrievedCheckin = newBuddyObject;
             }];
 
             [[expectFutureValue(retrievedCheckin.id) shouldEventually] equal:tempCheckin.id];
             [[expectFutureValue(retrievedCheckin.comment) shouldEventually] equal:tempCheckin.comment];
             [[expectFutureValue(retrievedCheckin.description) shouldEventually] equal:tempCheckin.description];
+        });
+        
+        it(@"Should allow modifying the comment of a checkin.", ^{
+            
+            tempCheckin.comment = @"My new comment";
+            
+            [tempCheckin save:^(NSError *error) {
+                [tempCheckin refresh:^(NSError *error) {
+                    NSLog(@"Checkin saved");
+                }];
+            
+            }];
+            
+            tempCheckin.comment = @"";
+            
+            [[expectFutureValue(tempCheckin.comment) shouldEventually] equal:@"My new comment"];
         });
     });
 });

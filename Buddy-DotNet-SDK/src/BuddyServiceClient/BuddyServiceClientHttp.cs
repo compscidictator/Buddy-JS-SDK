@@ -104,6 +104,13 @@ namespace BuddyServiceClient
             }
         }
 
+        public virtual void LogMessage(string message) {
+            if (LoggingEnabled){
+                Debug.WriteLine(message);
+               
+            }
+        }
+
 
         private void StartRequest() {
 
@@ -117,25 +124,7 @@ namespace BuddyServiceClient
 
         }
        
-
-
-        private IDictionary<string, object> ParametersToDictionary(object parameters)
-        {
-            if (parameters == null || parameters is IDictionary<string, object>)
-            {
-                return (IDictionary<string, object>)parameters;
-            }
-            else
-            {
-                var d = new Dictionary<string, object>();
-                var props = parameters.GetType().GetProperties();
-                foreach (var prop in props)
-                {
-                    d[prop.Name] = prop.GetValue(parameters, null);
-                }
-                return d;
-            }
-        }
+       
 
         public override void CallMethodAsync<T>(string verb, string path, object parameters, Action<BuddyCallResult<T>> callback)
         {
@@ -163,6 +152,12 @@ namespace BuddyServiceClient
                     if (webEx.Response != null) {
                         response = (HttpWebResponse)webEx.Response;
                         bcr.Message = response.StatusDescription;
+
+                        bcr.StatusCode = (int)response.StatusCode;
+                        if (bcr.StatusCode >= 400) {
+                            err = "UnknownServiceError";
+                        }
+
                     }
                     else {
                         bcr.Message = webEx.Status.ToString();
@@ -171,13 +166,13 @@ namespace BuddyServiceClient
                 }
                
                 bcr.Error = err;
-                LogResponse(verb + " + " + path, bcr.Message,DateTime.Now.Subtract(start), response);
+                LogResponse(verb + " " + path, bcr.Message,DateTime.Now.Subtract(start), response);
                   
                 callback(bcr);
             };
 
-            parameters = parameters ?? new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
-            MakeRequest(verb, path, ParametersToDictionary(parameters), (ex, response) =>
+            var d = ParametersToDictionary (parameters);
+            MakeRequest(verb, path, d, (ex, response) =>
             {
                 var bcr = new BuddyCallResult<T>();
                 
@@ -191,12 +186,12 @@ namespace BuddyServiceClient
                 if (response == null && ex != null && ex is WebException)
                 {
                     response = (HttpWebResponse)((WebException)ex).Response;
-
+                    
                    
                 }
                 
 
-                if (response == null && ex != null)
+                if ((response == null || isResponseRequest) && ex != null)
                 {
                     finishMethodCall(ex, bcr);
                     
@@ -238,6 +233,7 @@ namespace BuddyServiceClient
                             else if (envelope.error != null)
                             {
                                 bcr.Error = envelope.error;
+                                bcr.ErrorNumber = envelope.errorNumber;
                                 bcr.Message = envelope.message;
                             }
                             else
@@ -245,20 +241,21 @@ namespace BuddyServiceClient
                                 // special case dictionary.
                                 if (typeof(IDictionary<string,object>).IsAssignableFrom(typeof(T))) {
                                     object obj = envelope.result;
-                                    IDictionary<string, object> d = (IDictionary<string, object>)obj;
-                                    obj = (obj == null) ? new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) : new Dictionary<string, object>(d, StringComparer.InvariantCultureIgnoreCase);
+                                    IDictionary<string, object> d2 = (IDictionary<string, object>)obj;
+                                    obj = (obj == null) ? new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) : new Dictionary<string, object>(d2, StringComparer.InvariantCultureIgnoreCase);
                                     envelope.result = (T)obj;
                                 }
                                 bcr.Result = envelope.result;
                             }
+                            bcr.RequestID = envelope.request_id;
 
                         }
-                        catch
+                        catch (Exception pex)
                         {
+                            LogMessage(pex.ToString());
                             bcr.Error = "BadJsonResponse";
                             bcr.Message = "Couldn't parse JSON: \r\n" + body;
                         }
-                        
                     }
                     try
                     {
@@ -326,7 +323,7 @@ namespace BuddyServiceClient
         {
             return verb + " " + path;
         }
-        private void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
+        private async void MakeRequest(string verb, string path, IDictionary<string, object> parameters, Action<Exception, HttpWebResponse> callback)
         {
             if (!path.StartsWith("/"))
             {
@@ -337,48 +334,51 @@ namespace BuddyServiceClient
             var requestType = HttpRequestType.HttpPostJson;
             IEnumerable<KeyValuePair<string, object>> files = null;
 
+            var token = await Client.GetAccessToken ();
+
+           
             switch (verb.ToUpperInvariant())
             {
-                case "GET":
-                    url += "?" + GetUrlEncodedParameters(parameters);
-                    requestType = HttpRequestType.HttpGet;
-                    break;
-                default:
-                    // do we have any file parameters.
-                    //
-                    files = from p in parameters where p.Value is BuddyFile select p;
+            case "GET":
+                url += "?" + GetUrlEncodedParameters(parameters);
+                requestType = HttpRequestType.HttpGet;
+                break;
+            default:
+                // do we have any file parameters.
+                //
+                files = from p in parameters where p.Value is BuddyFile select p;
 
-                    if (files.Any())
+                if (files.Any())
+                {
+                    // remove the files from the main array.
+                    requestType = HttpRequestType.HttpPostMultipartForm;
+                    var newParameters = new Dictionary<string, object>();
+                    foreach (var fileKvp in files)
                     {
-                        // remove the files from the main array.
-                        requestType = HttpRequestType.HttpPostMultipartForm;
-                        var newParameters = new Dictionary<string, object>();
-                        foreach (var fileKvp in files)
-                        {
-                            newParameters.Add(fileKvp.Key, fileKvp.Value);
-                        }
-
-                        foreach (var kvp in newParameters)
-                        {
-                            parameters.Remove(kvp.Key);
-                        }
-
-                        // get json for the remainder and make it into a file
-                        var json = JsonConvert.SerializeObject(parameters, Formatting.None);
-
-                        var jsonFile = new BuddyFile()
-                        {
-                            ContentType = "application/json",
-                            Data = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)),
-                            Name = "body"
-                        };
-                        newParameters.Add(jsonFile.Name, jsonFile);
-                        parameters = newParameters;
+                        newParameters.Add(fileKvp.Key, fileKvp.Value);
                     }
-                   
-                    break;
+
+                    foreach (var kvp in newParameters)
+                    {
+                        parameters.Remove(kvp.Key);
+                    }
+
+                    // get json for the remainder and make it into a file
+                    var json = JsonConvert.SerializeObject(parameters, Formatting.None);
+
+                    var jsonFile = new BuddyFile()
+                    {
+                        ContentType = "application/json",
+                        Data = new MemoryStream(System.Text.Encoding.UTF8.GetBytes(json)),
+                        Name = "body"
+                    };
+                    newParameters.Add(jsonFile.Name, jsonFile);
+                    parameters = newParameters;
+                }
+
+                break;
             }
-           
+
 
             HttpWebRequest wr = null;
 
@@ -394,12 +394,11 @@ namespace BuddyServiceClient
 
             wr.Headers["BuddyPlatformSDK"] = SdkVersion;
 
-            if (Client.AccessToken != null)
+            if (token != null && (parameters == null || !parameters.ContainsKey("accessToken")))
             {
-                wr.Headers["Authorization"] = String.Format("Buddy {0}", Client.AccessToken);
+                wr.Headers ["Authorization"] = String.Format ("Buddy {0}", token);
             }
             wr.Method = verb;
-           
 
             Action getResponse = () =>
             {
@@ -590,6 +589,11 @@ namespace BuddyServiceClient
                 set;
             }
             public string error {
+                get;
+                set;
+            }
+
+            public int? errorNumber {
                 get;
                 set;
             }

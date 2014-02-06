@@ -1,5 +1,11 @@
-#define APP_NAME @"aaaac.baaaZvtvBi"
-#define APP_KEY @"A13A3AD3-4A2D-4DAE-8971-8DBCAB014311"
 
-#define TEST_USERNAME @"erik2"
+
+#define APP_NAME @"bbbbbc.cbbbvDwpsbdh"
+#define APP_KEY @"634E8666-E9AE-4933-A744-44203FDD9CD5"
+
+// api.buddyplatform.com
+//#define APP_NAME @"bbbbbc.LffbvrjmtjHg"
+//#define APP_KEY @"5CD4E19E-BFE9-4185-B8AD-88845F3C4282"
+
+#define TEST_USERNAME @"erik3"
 #define TEST_PASSWORD @"password"

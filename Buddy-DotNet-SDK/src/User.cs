@@ -48,9 +48,6 @@ namespace BuddySDK
     [BuddyObjectPath("/users")]
     public class User : BuddyBase
     {
-        public User()
-        {
-        }
 
 		[JsonProperty("firstName")]
 		public string FirstName
@@ -181,65 +178,72 @@ namespace BuddySDK
             }
         }
 
-        internal User(BuddyClient client, int id)
-            : base(client, id.ToString())
-        {
-        }
-		
-        internal User(BuddyClient client, string id)
-            : base(client, id)
+        public User()
         {
         }
 
-        public Task<Photo> AddProfilePictureAsync(string caption, Stream photoData, string contentType, BuddyGeoLocation location = null, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
+        public User(string id, BuddyClient client = null)
+            : base(id, client)
         {
-            var task = new Task<Photo>(() =>
-            {
-                var r = PhotoCollection.AddAsync(this.Client, caption, photoData, contentType, location, read, write);
-                r.Wait();
+        }
 
-                profilePicture = r.Result;
+        public Task<BuddyResult<Photo>> AddProfilePictureAsync(string caption, Stream photoData, string contentType, BuddyGeoLocation location = null, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
+        {
+           var tr = PhotoCollection.AddAsync(this.Client, caption, photoData, contentType, location, read, write);
 
-                return r.Result;
+
+            tr.ContinueWith((t) => {
+
+                if (t.Result.IsSuccess) {
+                    ProfilePicture = t.Result.Value;
+                }
             });
+        
+            return tr;
 
-            task.Start();
+        }
 
-            return task;
-    }
-
-        public override Task FetchAsync(Action updateComplete = null)
+        public override async Task<BuddyResult<bool>> FetchAsync(Action updateComplete = null)
         {
-            var task = new Task(() =>
-            {
-                var r = base.FetchAsync(updateComplete);
 
-                r.Wait();
+            var r = await base.FetchAsync(updateComplete);
+
+
+            if (r.IsSuccess) {
 
                 if (!string.IsNullOrEmpty(ProfilePictureID))
                 {
                     profilePicture = new Photo(ProfilePictureID);
-
-                    var r2 = profilePicture.FetchAsync();
-
-                    r2.Wait();
+                    await profilePicture.FetchAsync();
                 }
-            });
-
-            task.Start();
-
-            return task;
+            }
+                  
+            return r;
         }
 
-        public override Task SaveAsync()
+        public override async Task<BuddyResult<bool>> SaveAsync()
         {
-            ProfilePictureID = profilePicture.ID;
             Username = Username; // TODO: user name is required on PATCH, so do this to ensure it gets added to the PATCH dictionary.  Remove when user name is optional
 
-            return Task.WhenAll(new Task[] { base.SaveAsync(), profilePicture.SaveAsync() });
+            return await Task.Run<BuddyResult<bool>> (async () => {
+
+
+                var baseResult = await base.SaveAsync();
+
+                var pictureResult = await profilePicture.SaveAsync();
+
+
+                if (!pictureResult.IsSuccess) {
+
+                    return pictureResult;
+                }
+
+                return baseResult;
+            });
+
         }
 
-        public Task AddIdentityAsync(string identityProviderName, string identityID)
+        public Task<BuddyResult<bool>> AddIdentityAsync(string identityProviderName, string identityID)
         {
             return AddRemoveIdentityCoreAsync("POST", GetObjectPath() + "/identities", new
                     {
@@ -248,35 +252,24 @@ namespace BuddySDK
                     });
         }
 
-        public Task RemoveIdentityAsync(string identityProviderName, string identityID)
+        public Task<BuddyResult<bool>> RemoveIdentityAsync(string identityProviderName, string identityID)
         {
             return AddRemoveIdentityCoreAsync("DELETE", GetObjectPath() + "/identities/" + identityProviderName, new { IdentityID = identityID });
         }
 
-        private Task AddRemoveIdentityCoreAsync(string verb, string path, object parameters)
+        private Task<BuddyResult<bool>> AddRemoveIdentityCoreAsync(string verb, string path, object parameters)
         {
-            var task = new Task(() =>
+            return Task.Run<BuddyResult<bool>>(() =>
             {
-                var r = Client.Service.CallMethodAsync<object>(verb, path, parameters);
-
-                r.Wait();
+                 var r = Client.CallServiceMethod<string>(verb, path, parameters);
+                 return r.Result.Convert(s  => r.Result.IsSuccess);
             });
-            task.Start();
-            return task;
+           
         }
 
-        public Task<IEnumerable<string>> GetIdentitiesAsync(string identityProviderName)
+        public Task<BuddyResult<IEnumerable<string>>> GetIdentitiesAsync(string identityProviderName)
         {
-            var task = new Task<IEnumerable<string>>(() =>
-            {
-                var r = Client.Service.CallMethodAsync<IEnumerable<string>>("GET", GetObjectPath() + "/identities/" + identityProviderName);
-
-                r.Wait();
-
-                return r.Result;
-            });
-            task.Start();
-            return task;
+            return Client.CallServiceMethod<IEnumerable<string>>("GET", GetObjectPath() + "/identities/" + identityProviderName);
         }
     }
 }

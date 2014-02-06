@@ -10,9 +10,9 @@ namespace BuddySDK
     [Flags]
     public enum BuddyClientFlags
     {
-        AutoTrackLocation =  0x0000001,
-        AutoRegisterDevice = 0x00000002,
-        Default = AutoTrackLocation | AutoRegisterDevice
+        AutoTrackLocation =  0x00000001,
+        AutoCrashReport =    0x00000002,
+        Default = AutoCrashReport | AutoTrackLocation
     }
 
     public static class Buddy
@@ -44,6 +44,70 @@ namespace BuddySDK
             }
         }
 
+        public static void RunOnUiThread(Action a) {
+            PlatformAccess.Current.InvokeOnUiThread (a);
+        }
+
+
+
+        // Global Events
+        //
+
+        public static event EventHandler AuthorizationLevelChanged {
+            add {
+                Instance.AuthorizationLevelChanged += value;
+            }
+            remove {
+                Instance.AuthorizationLevelChanged -= value;
+            }
+        }
+
+        public static event EventHandler AuthorizationNeedsUserLogin {
+            add {
+                Instance.AuthorizationNeedsUserLogin += value;
+            }
+            remove {
+                Instance.AuthorizationNeedsUserLogin -= value;
+            }
+        }
+
+        public static event EventHandler<ConnectivityLevelChangedArgs> ConnectivityLevelChanged {
+            add {
+                Instance.ConnectivityLevelChanged += value;
+            }
+            remove {
+                Instance.ConnectivityLevelChanged -= value;
+            }
+        }
+
+        public static event EventHandler<CurrentUserChangedEventArgs> CurrentUserChanged {
+            add {
+                Instance.CurrentUserChanged += value;
+            }
+            remove {
+                Instance.CurrentUserChanged -= value;
+            }
+        }
+
+        public static event EventHandler LastLocationChanged {
+            add {
+                Instance.LastLocationChanged += value;
+            }
+            remove {
+                Instance.LastLocationChanged -= value;
+            }
+        }
+
+
+        public static event EventHandler<ServiceExceptionEventArgs> ServiceException {
+            add {
+                Instance.ServiceException += value;
+            }
+            remove {
+                Instance.ServiceException -= value;
+            }
+        }
+
         public static void Init(string appId, string appKey, BuddyClientFlags flags = BuddyClientFlags.Default)
         {
             if (_creds != null)
@@ -54,18 +118,23 @@ namespace BuddySDK
 
         }
 
-        public static Task<AuthenticatedUser> CreateUserAsync(string username, string password, string name = null, string email = null, UserGender? gender = null, DateTime? dateOfBirth = null, string defaultMetadata = null) {
+        public static Task<BuddyResult<AuthenticatedUser>> CreateUserAsync(string username, string password, string name = null, string email = null, UserGender? gender = null, DateTime? dateOfBirth = null, string defaultMetadata = null) {
             return Instance.CreateUserAsync (username, password, name, email, gender, dateOfBirth, defaultMetadata : defaultMetadata);
         }
 
-        public static Task<AuthenticatedUser> LoginUserAsync(string username, string password)
+        public static Task<BuddyResult<AuthenticatedUser>> LoginUserAsync(string username, string password)
         {
             var t = Instance.LoginUserAsync(username, password);
 
             return t;
         }
 
-        public static Task<SocialAuthenticatedUser> SocialLoginUserAsync(string identityProviderName, string identityID, string identityAccessToken)
+        public static Task<BuddyResult<bool>> LogoutUserAsync ()
+        {
+            return Instance.LogoutUserAsync ();
+        }
+
+        public static Task<BuddyResult<SocialAuthenticatedUser>> SocialLoginUserAsync(string identityProviderName, string identityID, string identityAccessToken)
         {
             var t = Instance.SocialLoginUserAsync(identityProviderName, identityID, identityAccessToken);
 
@@ -76,12 +145,17 @@ namespace BuddySDK
         // Metrics
         //
 
-        public static Task<string> RecordMetricAsync(string key, IDictionary<string, object> value = null, TimeSpan? timeout = null) {
+        public static Task<BuddyResult<string>> RecordMetricAsync(string key, IDictionary<string, object> value = null, TimeSpan? timeout = null) {
             return Instance.RecordMetricAsync (key, value, timeout);
         }
 
-        public static Task<TimeSpan?> RecordTimedMetricEndAsync(string timedMetricId) {
+        public static Task<BuddyResult<TimeSpan?>> RecordTimedMetricEndAsync(string timedMetricId) {
             return Instance.RecordTimedMetricEndAsync (timedMetricId);
+        }
+
+        public static Task AddCrashReportAsync (Exception ex, string message = null)
+        {
+            return Instance.AddCrashReportAsync (ex, message);
         }
 
         // 
@@ -144,5 +218,14 @@ namespace BuddySDK
                 return _albums;
             }
         }
+
+
+      
+
+
     }
+
+   
+
+   
 }

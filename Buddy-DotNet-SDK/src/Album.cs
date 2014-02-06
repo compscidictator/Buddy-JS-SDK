@@ -13,9 +13,8 @@ namespace BuddySDK
         }
 
 		internal Album(BuddyClient client)
-			: base(null, client)
+			: base(client)
 		{
-
 		}
 
 		[Newtonsoft.Json.JsonProperty("comment")]
@@ -58,24 +57,20 @@ namespace BuddySDK
             }
         }
 		
-		public Task<AlbumItem> AddItemAsync(string itemId, string comment, BuddyGeoLocation location, string defaultMetadata = null)
+        public async Task<AlbumItem> AddItemAsync(string itemId, string comment, BuddyGeoLocation location, string defaultMetadata = null)
 		{
-			Task<AlbumItem> ct = new Task<AlbumItem>(() =>
-				{
-					var c = new AlbumItem(this.GetObjectPath() + typeof(AlbumItem).GetCustomAttribute<BuddyObjectPathAttribute>(true).Path, this.Client)
-					{
-						ItemId = itemId,
-						Comment = comment,
-						Location = location,
-						DefaultMetadata = defaultMetadata
-					};
+	
+			var c = new AlbumItem(this.GetObjectPath() + typeof(AlbumItem).GetCustomAttribute<BuddyObjectPathAttribute>(true).Path, this.Client)
+			{
+				ItemId = itemId,
+				Comment = comment,
+				Location = location,
+				DefaultMetadata = defaultMetadata
+			};
 
-					var t = c.SaveAsync();
-					t.Wait();
-					return c;
-				});
-			ct.Start();
-			return ct;
+            var r = await c.SaveAsync();
+					
+            return r.Convert<AlbumItem> (b => c).Value;
 		}
 	}
 
@@ -91,27 +86,21 @@ namespace BuddySDK
         {
         }
 
-        public Task<Album> AddAsync(string name, string comment,
+        public async Task<BuddyResult<Album>> AddAsync(string name, string comment,
             BuddyGeoLocation location, string defaultMetadata = null, BuddyPermissions readPermissions = BuddyPermissions.User, BuddyPermissions writePermissions = BuddyPermissions.User)
         {
-            Task<Album> ct = new Task<Album>(() =>
+            var c = new Album(this.Client)
             {
-                var c = new Album(this.Client)
-                {
-                    Name = name,
-                    Comment = comment,
-                    Location = location,
-                    DefaultMetadata = defaultMetadata,
-                    ReadPermissions = readPermissions,
-                    WritePermissions = writePermissions
-                };
+                Name = name,
+                Comment = comment,
+                Location = location,
+                DefaultMetadata = defaultMetadata,
+                ReadPermissions = readPermissions,
+                WritePermissions = writePermissions
+            };
 
-                var t = c.SaveAsync();
-                t.Wait();
-                return c;
-            });
-            ct.Start();
-            return ct;
+            var r = await c.SaveAsync();
+            return r.Convert (b => c);
         }
     }
 }

@@ -11,19 +11,12 @@
 
 @implementation BPCheckin
 
--(instancetype)initBuddy{
-    self = [super initBuddy];
-    if(self)
-    {
-        [self registerProperty:@selector(comment)];
-        [self registerProperty:@selector(description)];
-    }
-    return self;
-}
-
-+(instancetype)checkin
+- (void)registerProperties
 {
-    return [[[self class] alloc] initBuddy];
+    [super registerProperties];
+    
+    [self registerProperty:@selector(comment)];
+    [self registerProperty:@selector(description)];
 }
 
 static NSString *checkins = @"checkins";

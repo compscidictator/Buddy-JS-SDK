@@ -1,4 +1,4 @@
-﻿using System;
+﻿﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -17,9 +17,11 @@ namespace BuddyServiceClient
     public class BuddyCallResult<T>
     {
         public string Error { get; set; }
+        public int? ErrorNumber{ get;set;}
         public string Message { get; set; }
         public int    StatusCode { get; set; }
         public T Result { get; set; }
+        public string RequestID { get; set; }
 
         public BuddyCallResult()
         {
@@ -110,52 +112,47 @@ namespace BuddyServiceClient
         {
         }
 
+
+        internal static IDictionary<string, object> ParametersToDictionary(object parameters)
+        {
+            IDictionary<string, object> d = parameters as IDictionary<string,object>;
+            if (d != null) {
+                return d;
+            }
+            else
+            {
+                d = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
+                if (parameters != null)
+                {
+                    var props = parameters.GetType().GetProperties();
+                    foreach (var prop in props)
+                    {
+                        d[prop.Name] = prop.GetValue(parameters, null);
+                    }
+                }
+            }
+
+            return d;
+        }
+
         internal void CallOnUiThread(Action callback)
         {
             PlatformAccess.Current.InvokeOnUiThread (callback);
         }
 
-        public System.Threading.Tasks.Task<T1> CallMethodAsync<T1>(string verb, string path, object parameters = null)
+         
+
+        public System.Threading.Tasks.Task<BuddyCallResult<T1>> CallMethodAsync<T1>(string verb, string path, object parameters = null)
         {   
-            var tcs = new TaskCompletionSource<T1>();
+            var tcs = new TaskCompletionSource<BuddyCallResult<T1>>();
 
 
             CallMethodAsync<T1>(verb, path, parameters, (bcr) =>
             {
 
-                if (bcr.Error != null)
-                {
-                        BuddyServiceException buddyException = null;
+                    tcs.TrySetResult(bcr);
 
-                        switch(bcr.StatusCode) {
-                        case 0: 
-                            buddyException = new BuddyNoInternetException(bcr.Error);
-                            break;
-                        case 403:
-                            buddyException = new BuddyUnauthorizedException(bcr.Error, bcr.Message);
-                            break;
-                        default:
-                            buddyException = new BuddySDK.BuddyServiceException(bcr.Error, bcr.Message);
-                            break;
-                        }
-                        var e = new ExceptionEventArgs(buddyException);
-
-                        if (ServiceException != null) {
-                            ServiceException(this, e);
-                        }
-
-                        if (e.ThrowException) {
-                            tcs.TrySetException(e.Exception);
-                        }
-                        else {
-                            tcs.TrySetResult(default(T1));
-                        }
-                }
-                else
-                {
-                    tcs.TrySetResult(bcr.Result);
-                }
-
+               
             });
             return tcs.Task;
         }

@@ -65,7 +65,7 @@ namespace BuddySDK
             base.SetValueCore (key, value);
         }
 
-        public override Task SaveAsync()
+        public override Task<BuddyResult<bool>> SaveAsync()
         {
             if (Location == null)
             {

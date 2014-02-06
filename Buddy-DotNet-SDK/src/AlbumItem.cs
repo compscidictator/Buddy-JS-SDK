@@ -13,8 +13,8 @@ namespace BuddySDK
         {
         }
 
-        public AlbumItem(string path, BuddyClient client)
-            : base(client)
+        public AlbumItem(string path, BuddyClient client = null)
+            : base(null, client)
         {
             this.path = path;
         }
@@ -55,26 +55,9 @@ namespace BuddySDK
             }
         }
 
-		public Task<Stream> GetFileAsync(int? size = null)
+        public Task<BuddyResult<Stream>> GetFileAsync(int? size = null)
 		{
-			var t = new Task<Stream>(() =>
-				{
-					var r = Client.Service.CallMethodAsync<HttpWebResponse>(
-						"GET", GetObjectPath() + "/file", new
-						{
-							Size =size
-						});
-
-					r.Wait();
-					var response = r.Result;
-
-					if (response == null) {
-						return null;
-					}
-					return response.GetResponseStream();
-				});
-			t.Start();
-			return t;
+            return base.GetFileCoreAsync(GetObjectPath() + "/file", new {size = size});
 		}
 	}
 

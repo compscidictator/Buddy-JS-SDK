@@ -10,38 +10,41 @@
 
 @implementation NSError (BuddyError)
 
-static NSString *BuddyAuthenticationError = @"BuddyAuthenticationError";
 static NSString *NoInternetError = @"NoInternetError";
-static NSString *BadDataError = @"BadDataError";
-static NSString *BuddyTokenExpired = @"BuddyTokenExpired";
-
-
-+ (NSError *)noAuthenticationError:(NSInteger)code message:(NSString *)message
-{
-    return [NSError errorWithDomain:BuddyAuthenticationError
-                               code:code
-                           userInfo:@{@"message": message}];
-}
 
 + (NSError *)noInternetError:(NSInteger)code message:(NSString *)message
 {
     return [NSError errorWithDomain:NoInternetError
                                code:code
-                           userInfo:@{@"message": message}];
+                           userInfo:@{@"message": BOXNIL(message)}];
 }
 
-+ (NSError *)badDataError:(NSInteger)code message:(NSString *)message
++ (NSError *)buildBuddyError:(id)buddyJSON
 {
-    return [NSError errorWithDomain:BadDataError
-                               code:code
-                           userInfo:@{@"message": message}];
+    id jsonData = [buddyJSON dataUsingEncoding:NSUTF8StringEncoding]; //if input is NSString
+    id json = [NSJSONSerialization JSONObjectWithData:jsonData options:0 error:nil];
+    
+    if (![NSJSONSerialization isValidJSONObject:json]) {
+        return [NSError errorWithDomain:@"UnknownError" code:-1 userInfo:nil];
+    }
+    
+    NSInteger buddyErrorCode = [json[@"errorNumber"] ?: @"0" integerValue];
+    id buddyErrorDomain = json[@"error"] ?: @"";
+    id message = json[@"message"] ?: @"";
+    //id status = [json[@"status"] integerValue];
+    
+    return [NSError errorWithDomain:buddyErrorDomain code:buddyErrorCode userInfo:@{@"message": message}];
 }
 
-+ (NSError *)tokenExpiredError:(NSInteger)code message:(NSString *)message
+- (BOOL)needsLogin
 {
-    return [NSError errorWithDomain:BuddyTokenExpired
-                               code:code
-                           userInfo:@{@"message": @"The user token has expired."}];
+    return self.code == BPErrorAuthUserAccessTokenRequired;
+}
+
+- (BOOL)credentialsInvalid
+{
+    return  self.code == BPErrorAuthAppCredentialsInvalid ||
+            self.code == BPErrorAuthAccessTokenInvalid;
 }
 
 @end

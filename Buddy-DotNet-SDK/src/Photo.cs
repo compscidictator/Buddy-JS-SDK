@@ -58,36 +58,12 @@ namespace BuddySDK
         {
         }
 
-        public Task<Stream> GetFileAsync(int? size = null)
+        public Task<BuddyResult<Stream>> GetFileAsync(int? size = null)
         {
-            var t = new Task<Stream>(() =>
-            {
-                if (string.IsNullOrEmpty(SignedUrl))
-                {
-                    FetchAsync().Wait();
-                }
 
-                    var r = Client.Service.CallMethodAsync<HttpWebResponse>(
-                                  "GET", SignedUrl.ToString(), new
-                                      {
-                                      Size = size
-                                      });
+            return base.GetFileCoreAsync (GetObjectPath() + "/file", new { size = size });
 
-                    r.Wait();
-                    var response = r.Result;
-
-                    if (response == null) {
-                        return null;
-                    }
-                    return response.GetResponseStream();
-                  /* Introduced by 889c2c76f3940fedc68d5d27851ea913982bdc21 }
-                    catch (Exception ex) {
-                        System.Diagnostics.Debug.WriteLine("Failed to get photo: {0}: ", ex.ToString());
-                        return null;
-                    }*/
-            });
-            t.Start();
-            return t;
+           
         }
     }
 }

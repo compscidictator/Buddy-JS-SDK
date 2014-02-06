@@ -11,31 +11,41 @@
 
 @implementation BPPhoto
 
-- (id)initBuddy
+- (void)registerProperties
 {
-    self = [super initBuddy];
-    if(self)
-    {
-        [self registerProperty:@selector(caption)];
-    }
-    return self;
+    [super registerProperties];
+    
+    [self registerProperty:@selector(comment)];
 }
+
 
 static NSString *photos = @"pictures";
 +(NSString *) requestPath{
     return photos;
 }
 
-+ (void)createWithImage:(UIImage *)image andComment:(NSString *)comment callback:(BuddyObjectCallback)callback;
++ (void)createWithImage:(UIImage *)image
+             andComment:(NSString *)comment
+                 client:(id<BPRestProvider>)client
+               callback:(BuddyObjectCallback)callback;
 {
+    //NSData *data = UIImageJPEGRepresentation(image, 1);
     NSData *data = UIImagePNGRepresentation(image);
-
-    id parameters = @{@"comment": comment};
     
-    [self createWithData:data parameters:parameters callback:^(id newBuddyObject, NSError *error) {
-#pragma message("TODO - Error")
-        callback(newBuddyObject, nil);
+#pragma message("TODO - More syntactical sugar. Use macro for now.")
+    id parameters = @{@"comment": BOXNIL(comment)};
+    
+    [self createWithData:data parameters:parameters client:client callback:^(id newBuddyObject, NSError *error) {
+        callback ? callback(newBuddyObject, error) : nil;
     }];
 }
 
+- (void)getImage:(BuddyImageResponse)callback
+{
+    [self getData:^(NSData *data, NSError *error) {
+        UIImage *image = [UIImage imageWithData:data];
+        callback ? callback(image, error) : nil;
+
+    }];
+}
 @end

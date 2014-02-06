@@ -7,13 +7,13 @@
 //
 
 #import "BPLocationCollection.h"
-#import "BPSession.h"
+#import "BPClient.h"
 #import "BPLocation.h"
 
 @implementation BPLocationCollection
 
--(instancetype)init{
-    self = [super init];
+- (instancetype)initWithClient:(id<BPRestProvider>)client{
+    self = [super initWithClient:client];
     if(self){
         self.type = [BPLocation class];
     }
@@ -37,7 +37,7 @@
 {
     NSDictionary *parameters = @{};
     
-    [[[self type] class] createFromServerWithParameters:parameters callback:callback];
+    [[[self type] class] createFromServerWithParameters:parameters client:self.client callback:callback];
 }
 
 
@@ -45,7 +45,7 @@
                  location:(BPLocation *)location
                  callback:(BuddyObjectCallback)callback
 {
-    callback(nil, nil);
+    callback ? callback(nil, nil) : nil;
 }
 
 -(void)getLocations:(BuddyCollectionCallback)callback

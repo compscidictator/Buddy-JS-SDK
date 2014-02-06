@@ -16,16 +16,11 @@
 
 SPEC_BEGIN(BuddyIntegrationSpec)
 
-describe(@"BPUser", ^{
+describe(@"Buddy", ^{
     context(@"A clean boot of your app", ^{
         __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin3";
         beforeAll(^{
-            __block BOOL fin = NO;
-
-            [Buddy initClient:APP_NAME appKey:APP_KEY callback:^{
-                fin = YES;
-            }];
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+            [Buddy initClient:APP_NAME appKey:APP_KEY];
         });
         
         afterAll(^{
@@ -35,13 +30,13 @@ describe(@"BPUser", ^{
         it(@"Should allow you to create a user.", ^{
             
             __block BPUser *newUser;
-            NSDictionary *options = @{@"name": @"Erik Kerber",
-                                      @"gender": @(BPUserGender_Male),
-                                      @"email": @"erik.kerber@gmail.com",
-                                      @"dateOfBirth": [NSNull null],
-                                      @"relationshipStatus": @(BPUserRelationshipStatusOnTheProwl),
-                                      @"celebrityMode": @(YES),
-                                      @"fuzzLocation": @(NO)
+            NSDictionary *options = @{BPUserFirstNameField: @"Erik",
+                                      BPUserLastNameField: @"Kerber",
+                                      BPUserGenderField: @(BPUserGender_Male),
+                                      BPUserEmailField: @"erik.kerber@gmail.com",
+                                      BPUserDateOfBirthField: [NSNull null],
+                                      BPUserCelebrityModeField: @(YES),
+                                      BPUserFuzzLocationField: @(NO)
                                       };
             
             [Buddy createUser:testCreateDeleteName password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {
@@ -49,6 +44,8 @@ describe(@"BPUser", ^{
             }];
             
             [[expectFutureValue(newUser.userName) shouldEventually] equal:testCreateDeleteName];
+            [[expectFutureValue(newUser.firstName) shouldEventually] equal:@"Erik"];
+            [[expectFutureValue(newUser.lastName) shouldEventually] equal:@"Kerber"];
         });
         
         it(@"Should allow you to login.", ^{

@@ -11,9 +11,8 @@
 
 @implementation BPSounds
 
-- (id)initBuddy
-{
-    self = [super initBuddy];
+-(instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
+    self = [super initBuddyWithClient:client];
     if(self)
     {
     }

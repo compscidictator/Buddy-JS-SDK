@@ -11,8 +11,8 @@
 
 @implementation BPBlobCollection
 
--(instancetype)init{
-    self = [super init];
+- (instancetype)initWithClient:(id<BPRestProvider>)client {
+    self = [super initWithClient:client];
     if(self){
         self.type = [BPBlob class];
     }
@@ -22,7 +22,7 @@
 - (void)addBlob:(NSData *)data
         callback:(BuddyObjectCallback)callback
 {
-    [BPBlob createWithData:data parameters:nil callback:callback];
+    [BPBlob createWithData:data parameters:nil client:self.client callback:callback ];
 }
 
 -(void)getBlobs:(BuddyCollectionCallback)callback
@@ -30,9 +30,16 @@
     [self getAll:callback];
 }
 
-- (BPBlob *)getBlob:(NSInteger)blobId error:(NSError *)error
+- (void)getBlob:(NSString *)blobId callback:(BuddyObjectCallback)callback
 {
-    return nil;
+    [self getItem:blobId callback:callback];
 }
+
+- (void)searchBlobs:(NSDictionary *)parameters callback:(BuddyCollectionCallback)callback
+{
+    [self search:parameters callback:callback];
+}
+
+
 
 @end

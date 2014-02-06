@@ -12,9 +12,8 @@
 
 @implementation BPBlob
 
-- (id)initBuddy
-{
-    self = [super initBuddy];
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client {
+    self = [super initBuddyWithClient:client];
     if(self)
     {
 
@@ -23,38 +22,42 @@
 }
 
 static NSString *blobs = @"blobs";
-+(NSString *) requestPath{
++(NSString *) requestPath {
     return blobs;
 }
 
-+ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback
++ (void)createWithData:(NSData *)data parameters:(NSDictionary *)parameters client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback
+
 {
     NSDictionary *multipartParameters = @{@"data": data};
     
-    [[[BPSession currentSession] restService] MULTIPART_POST:[[self class] requestPath]
-                                                parameters:parameters data:multipartParameters
-                                                  callback:^(id json, NSError *error) {
-
-        BuddyObject *newObject = [[[self class] alloc] initBuddy];
-
-#pragma messsage("TODO - Short term hack until response is always an object.")
-        if([json isKindOfClass:[NSDictionary class]]){
-            newObject.id = json[@"id"];
-        }else{
-            newObject.id = json;
-        }
+    [client MULTIPART_POST:[[self class] requestPath]
+                              parameters:parameters data:multipartParameters
+                                callback:^(id json, NSError *error)
+    {
         
-        if(!newObject.id){
-#pragma messsage("TODO - Error")
-            callback(newObject, nil);
+        if(error){
+            callback ? callback(nil, error) : nil;
             return;
         }
         
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
+        
+        newObject.id = json[@"id"];
+    
         [newObject refresh:^(NSError *error){
-#pragma messsage("TODO - Error")
-            callback(newObject, nil);
+            callback ? callback(newObject, error) : nil;
         }];
         
+    }];
+}
+
+- (void)getData:(BuddyDataResponse)callback
+{
+    NSString *resource = [NSString stringWithFormat:@"%@/%@/%@", [[self class] requestPath], self.id, @"file"];
+    
+    [self.client GET_FILE:resource parameters:nil callback:^(id imageByes, NSError *error) {
+        callback ? callback(imageByes, error) : nil;
     }];
 }
 

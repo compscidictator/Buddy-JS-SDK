@@ -11,6 +11,7 @@ using System.Text;
 using System.Linq;
 
 
+
 #if __ANDROID__
 using Android.App;
 using Android.Content;
@@ -26,16 +27,16 @@ using MonoTouch.Foundation;
 using MonoTouch.SystemConfiguration;
 #endif
 
+
+
 namespace BuddySDK
 {
+    [System.ComponentModel.EditorBrowsable(System.ComponentModel.EditorBrowsableState.Never)]
     public abstract class PlatformAccess
     {
+        private int? _uiThreadId;
 
-        public enum NetworkConnectionType {
-            None,
-            Carrier,
-            WiFi
-        }
+
 
         // device info
         //
@@ -47,7 +48,7 @@ namespace BuddySDK
         public abstract string ApplicationID {get;}
         public abstract string AppVersion {get;}
 
-        public abstract NetworkConnectionType ConnectionType {get;}
+        public abstract ConnectivityLevel ConnectionType {get;}
         // TODO: Connection speed?
 
         private int _activity = 0;
@@ -58,6 +59,13 @@ namespace BuddySDK
             set {
                 SetActivityInternal (value);
             }
+        }
+
+        protected PlatformAccess() {
+
+            InvokeOnUiThread (() => {
+                _uiThreadId = Thread.CurrentThread.ManagedThreadId;
+            });
         }
 
         protected virtual void OnShowActivity(bool show) {
@@ -117,7 +125,88 @@ namespace BuddySDK
 
         // platform
         //
-        public abstract void InvokeOnUiThread(Action a);
+
+        public bool IsUiThread {
+            get {
+
+
+                return 
+                    !Thread.CurrentThread.IsThreadPoolThread && 
+                    !Thread.CurrentThread.IsBackground &&
+                    Thread.CurrentThread.ManagedThreadId == _uiThreadId.GetValueOrDefault ();
+            }
+        }
+
+        protected abstract void InvokeOnUiThreadCore (Action a);
+
+        public void InvokeOnUiThread(Action a) {
+
+            if (IsUiThread) {
+                a ();
+            } else {
+                InvokeOnUiThreadCore (a);
+            }
+        }
+
+        // 
+        // Location
+        //
+        public event EventHandler<LocationUpdatedEventArgs> LocationUpdated;
+
+        public class LocationUpdatedEventArgs : EventArgs {
+            public BuddyGeoLocation Location {
+                get;
+                private set;
+            }
+
+            public BuddyGeoLocation LastLocation {
+                get;
+                private set;
+            }
+
+            public LocationUpdatedEventArgs(BuddyGeoLocation now, BuddyGeoLocation old) {
+                Location = now;
+                LastLocation = old;
+            }
+        }
+
+        Tuple<BuddyGeoLocation, DateTime> _lastLoc;
+        protected void SetLastLocation (BuddyGeoLocation location) {
+
+            InvokeOnUiThread (() => {
+                if (LocationUpdated != null) {
+                    BuddyGeoLocation last = null;
+                    if (_lastLoc != null) {
+                        last = _lastLoc.Item1;
+                    }
+                    LocationUpdated (this, new LocationUpdatedEventArgs (location, last));
+                }
+            });
+
+            _lastLoc = new Tuple<BuddyGeoLocation, DateTime> (location, DateTime.Now);
+        }
+
+       
+        public BuddyGeoLocation LastLocation {
+            get {
+                if (_lastLoc != null) {
+
+                    return _lastLoc.Item1;
+                }
+                return null;
+            }
+        }
+
+        protected abstract void TrackLocationCore (bool track);
+
+        public void TrackLocation(bool track) {
+
+            TrackLocationCore (track);
+            if (!track) {
+                _lastLoc = null;
+            }
+        }
+        
 
 
 
@@ -143,7 +232,7 @@ namespace BuddySDK
 
     }
 
-	#if __ANDROID__
+    #if __ANDROID__
 	internal class AndroidPlatformAccess : PlatformAccess
     {
         public override string Platform {
@@ -191,17 +280,17 @@ namespace BuddySDK
 			}
 		}
 
-        public override PlatformAccess.NetworkConnectionType ConnectionType {
+        public override ConnectivityLevel ConnectionType {
 			get {
 				var cs = (ConnectivityManager) Android.App.Application.Context.GetSystemService (Context.ConnectivityService);
 
 				if (!cs.ActiveNetworkInfo.IsConnected)
-					return PlatformAccess.NetworkConnectionType.None;
+                    return ConnectivityLevel.None;
 
-				if (cs.ActiveNetworkInfo.Subtype == ConnectivityType.Wifi)
-					return PlatformAccess.NetworkConnectionType.WiFi;
-				else
-					return PlatformAccess.NetworkConnectionType.Carrier;
+                if (cs.ActiveNetworkInfo.Subtype == ConnectivityType.Wifi)
+                    return ConnectivityLevel.WiFi;
+                else
+                    return ConnectivityLevel.Carrier;
 			}
 		}
 
@@ -273,7 +362,7 @@ namespace BuddySDK
 			editor.Commit ();
         }
 
-        public override void InvokeOnUiThread(Action a)
+        protected override void InvokeOnUiThreadCore(Action a)
 		{
 			// SynchronizationContext can't be cached
 			if (SynchronizationContext.Current != null)
@@ -285,9 +374,16 @@ namespace BuddySDK
 				a ();
 			}
         }
+
+        protected override void TrackLocationCore (bool track)
+        {
+            // currently not implemneted because of how Android location works.
+            // The location service is attached to the Activity Context, it doesn't look
+            // like we can access it -- need to work out a plan here.
+        }
     }
 
-	#elif __IOS__
+    #elif __IOS__
 
     internal class IosPlatformAccess : PlatformAccess {
         #region implemented abstract members of PlatformAccess
@@ -309,21 +405,19 @@ namespace BuddySDK
         {
 			string encodedValue = base.EncodeUserSetting (value, expires);
 
-			NSUserDefaults.StandardUserDefaults.SetValueForKey (new NSString(encodedValue), new NSString(key));
+            NSUserDefaults.StandardUserDefaults.SetString(encodedValue, key);
         }
 
         public override void ClearUserSetting (string key)
         {
-            try {
-                NSUserDefaults.StandardUserDefaults.SetNilValueForKey (new NSString(key));
-            }
-            catch {
-            }
+
+            NSUserDefaults.StandardUserDefaults.RemoveObject(key);
+           
         }
 
         public override string GetUserSetting (string key)
         {
-            var value = NSUserDefaults.StandardUserDefaults.ValueForKey (new NSString(key));
+            var value = NSUserDefaults.StandardUserDefaults.StringForKey (key);
             if (value == null) {
                 return null;
             }
@@ -389,24 +483,65 @@ namespace BuddySDK
             }
         }
 
+        CLLocationManager _locMgr;
+
+
+
+        CLLocationManager LocationManager {
+            get {
+                if (_locMgr == null) {
+                    _locMgr = new CLLocationManager();
+                    _locMgr.LocationsUpdated += (s, e) => {
+
+                        if (e.Locations == null) {
+                            return ;
+                        }
+
+                        var lastLoc = e.Locations.FirstOrDefault();
+
+                        if (lastLoc != null) {
+                            var loc = new BuddyGeoLocation(lastLoc.Coordinate.Latitude, lastLoc.Coordinate.Longitude);
+                            SetLastLocation(loc);
+                        }
+                    };
+                }
+                return _locMgr;
+            }
+        }
+
+
+        protected override void TrackLocationCore(bool track) {
+
+            if (!CLLocationManager.LocationServicesEnabled) {
+                return;
+            }
+
+            LocationManager.DesiredAccuracy = 1;
+            LocationManager.DistanceFilter = 50;
+
+            if (track) {
+                LocationManager.StartUpdatingLocation ();
+            } else {
+                LocationManager.StopUpdatingLocation ();
+            }
+
+        }
+
         protected override void OnShowActivity (bool show)
         {
             UIApplication.SharedApplication.NetworkActivityIndicatorVisible = show;
         }
 
 
-        public override void InvokeOnUiThread (Action a)
+        protected override void InvokeOnUiThreadCore(Action a)
         {
            
             NSAction nsa = () => {
                 a ();
             };
 
-            // do this async so we don't deadlock
-            ThreadPool.QueueUserWorkItem ((state) => {
-                invoker.InvokeOnMainThread (nsa);
-            }, null);
-           
+            invoker.BeginInvokeOnMainThread (nsa);
+            
         }
 
        
@@ -557,15 +692,15 @@ namespace BuddySDK
             }
         }
 
-        public override NetworkConnectionType ConnectionType {
+        public override ConnectivityLevel ConnectionType {
             get {
                 switch (Reachability.InternetConnectionStatus()) {
                     case Reachability.NetworkStatus.NotReachable:
-                        return NetworkConnectionType.None;
+                        return ConnectivityLevel.None;
                     case Reachability.NetworkStatus.ReachableViaCarrierDataNetwork:
-                        return NetworkConnectionType.Carrier;
+                        return ConnectivityLevel.Carrier;
                     case Reachability.NetworkStatus.ReachableViaWiFiNetwork:
-                        return NetworkConnectionType.WiFi;
+                        return ConnectivityLevel.WiFi;
                     default:
                     throw new NotSupportedException ();
                 }
@@ -749,9 +884,18 @@ namespace BuddySDK
             }
         }
 
-        public override PlatformAccess.NetworkConnectionType ConnectionType
+
+        protected override void TrackLocationCore(bool track)
         {
-            get { throw new NotImplementedException(); }
+           // TBD
+        }
+
+   
+        public override ConnectivityLevel ConnectionType
+        {
+            get {
+                return ConnectivityLevel.Carrier;
+            }
         }
 
         public override string GetConfigSetting(string key)
@@ -846,7 +990,7 @@ namespace BuddySDK
 
         private SynchronizationContext _context;
 
-        public override void InvokeOnUiThread(Action a)
+        protected override void InvokeOnUiThreadCore(Action a)
         {
             if (_context != null)
             {

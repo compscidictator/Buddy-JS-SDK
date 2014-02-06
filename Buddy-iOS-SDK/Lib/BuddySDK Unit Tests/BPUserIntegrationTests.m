@@ -19,7 +19,7 @@ SPEC_BEGIN(BPUserIntegrationSpec)
 
 describe(@"BPUser", ^{
     context(@"When a user is logged in", ^{
-        __block NSString *resetCode;
+        __block NSString *resetCode;    
 
         beforeAll(^{
             __block BOOL fin = NO;
@@ -34,14 +34,28 @@ describe(@"BPUser", ^{
         it(@"Should be allow modifying and saving", ^{
         
             NSDate *randomDate = [BuddyIntegrationHelper randomDate];
-            NSString *randomName = [BuddyIntegrationHelper randomString:10];
+            NSLog(@"Created New Random Date for DOB: %@",randomDate);
+            
+            NSString *randomNameFirst = [BuddyIntegrationHelper randomString:10];
+            NSLog(@"Created New Random First Name: %@",randomNameFirst);
+            
+            NSString *randomNameLast = [BuddyIntegrationHelper randomString:10];
+            NSLog(@"Created New Random Last Name: %@",randomNameLast);
 
-            NSLog(@"1111%@", [Buddy user].dateOfBirth);
-
+            if (![Buddy user]) {
+                NSLog(@"Buddy User is nil");
+            }
+            
+            NSLog(@"Initial DOB: %@", [Buddy user].dateOfBirth);
+            NSLog(@"Initial First Name: %@:",[Buddy user].firstName);
+            NSLog(@"Initial Last Name: %@:",[Buddy user].lastName);
+            
             [Buddy user].dateOfBirth = randomDate;
-            [Buddy user].firstName = @"Test";
-            NSLog(@"2222%@", randomDate);
-
+            [Buddy user].firstName = randomNameFirst;
+            [Buddy user].lastName = randomNameLast;
+            
+            NSLog(@"New DOB: %@", [Buddy user].dateOfBirth);
+            
             [[Buddy user] save:^(NSError *error) {
                 if (error) {
                     fail(@"Save was unsuccessful");
@@ -52,12 +66,11 @@ describe(@"BPUser", ^{
                 }];
             }];
             
-            // Hack to set it up to something that will change.
-            [Buddy user].dateOfBirth = [NSDate date];
-            //[Buddy user].name = @"Don'tBeThisString";
-
-            [[expectFutureValue([Buddy user].firstName) shouldEventually] equal:randomName];
+            [[expectFutureValue([Buddy user].firstName) shouldEventually] equal:randomNameFirst];
+            [[expectFutureValue([Buddy user].lastName) shouldEventually] equal:randomNameLast];
+            
             [[expectFutureValue([Buddy user].dateOfBirth) shouldEventually] equal:randomDate];
+
             
         });
 
@@ -105,12 +118,15 @@ describe(@"BPUser", ^{
             }];
         });
         
-        pending_(@"Should allow the user to logout", ^{
-            [[Buddy user] removeIdentityValue:@"SomeValue" callback:^(NSError *error) {
-                [[Buddy user] deleteMe:^(NSError *error){
-#pragma messsage("TODO - Check error when I implement them. Ensure error exists for logged out user.")
-                }];
+        it(@"Should allow the user to logout", ^{
+            __block BOOL done = NO;
+            [Buddy logout:^(NSError *error) {
+                [[error should] beNil];
+                done = YES;
             }];
+            
+            [[expectFutureValue(theValue(done)) shouldEventually] beYes];
+
         });
         
 

@@ -2,10 +2,13 @@
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using System.Net;
 using System.Reflection;
-using System.Text.RegularExpressions;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BuddySDK
@@ -61,17 +64,122 @@ namespace BuddySDK
         Default = User
     }
 
+    public abstract class BuddyMetadataBase
+    {
+        private BuddyClient _client;
+        protected BuddyClient Client
+        {
+            get
+            {
+                return _client ?? Buddy.Instance;
+            }
+        }
+
+        protected BuddyMetadataBase(BuddyClient client = null)
+        {
+            if (client != null)
+            {
+                this._client = client;
+            }
+        }
+
+        protected abstract string GetMetadataPath(string key = null);
+
+        private Task<BuddyResult<bool>> SetMetadataCore(string key, object value, BuddyPermissions permissions)
+        {
+            return Client.CallServiceMethod<bool>("PUT",
+                                                    GetMetadataPath(key),
+                                                    new
+                                                    {
+                                                        value = value,
+                                                        permissions = permissions
+                                                    });
+        }
+
+        private Task<BuddyResult<bool>> SetMetadataCore(IDictionary keyValuePairs, BuddyPermissions permissions)
+        {
+            return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(),
+                                                    new
+                                                    {
+                                                        keyValuePairs = keyValuePairs,
+                                                        permissions = permissions
+                                                    });
+        }
+
+        public Task<BuddyResult<bool>> SetMetadataAsync(string key, string value, BuddyPermissions permissions = BuddyPermissions.Default)
+        {
+            return SetMetadataCore(key, value, permissions);
+        }
+
+        public Task<BuddyResult<bool>> SetMetadataAsync(string key, int value, BuddyPermissions permissions = BuddyPermissions.Default)
+        {
+            return SetMetadataCore(key, value, permissions);
+        }
+
+        public Task<BuddyResult<bool>> SetMetadataAsync(IDictionary<string, string> keyValues, BuddyPermissions permissions = BuddyPermissions.Default)
+        {
+            return SetMetadataCore((IDictionary)keyValues, permissions);
+        }
+
+        public Task<BuddyResult<bool>> SetMetadataAsync(IDictionary<string, int> keyValues, BuddyPermissions permissions = BuddyPermissions.Default)
+        {
+            return SetMetadataCore((IDictionary)keyValues, permissions);
+        }
+
+        public Task<BuddyResult<int>> GetMetadataIntAsync(string key)
+        {
+            return GetMetatadataCore<int>(key);
+        }
+
+        public Task<BuddyResult<string>> GetMetadataStringAsync(string key)
+        {
+            return GetMetatadataCore<string>(key);
+        }
+
+        private Task<BuddyResult<T>> GetMetatadataCore<T>(string key)
+        {
+            return Task.Run<BuddyResult<T>>(() =>
+            {
+                return Client.CallServiceMethod<MetadataItem>("GET", GetMetadataPath(key)).Result.Convert<T>(mdi => (T)mdi.Value);
+            });
+        }
+
+        public Task<BuddyResult<MetadataItem>> GetMetadataAsync(string key)
+        {
+            return GetMetatadataCore<MetadataItem>(key);
+        }
+
+        public Task<BuddyResult<int>> IncrementMetadataAsync(string key, int delta)
+        {
+            var path = GetMetadataPath(key) + "/increment";
+
+            var r = Client.CallServiceMethod<int>("POST", path,
+                     new
+                     {
+                         delta = delta
+                     });
+
+            return r;
+        }
+
+        public Task<BuddyResult<bool>> DeleteMetadataAsync(string key)
+        {
+            var t = Client.CallServiceMethod<bool>("DELETE", GetMetadataPath(key));
+
+            return t;
+        }
+    }
 
 
-    public abstract class BuddyBase : System.ComponentModel.INotifyPropertyChanged
+    public abstract class BuddyBase : BuddyMetadataBase, System.ComponentModel.INotifyPropertyChanged
     {
         private static Dictionary<Type, List<Tuple<string, string>>> _propMappings = new Dictionary<Type, List<Tuple<string, string>>>();
 
-        protected static void EnsureMappings(object t)
+        protected static List<Tuple<string, string>> EnsureMappings(object t)
         {
             if (_propMappings.ContainsKey(t.GetType()))
             {
-                return;
+                return _propMappings[t.GetType()];
             }
             var l = new List<Tuple<string, string>>();
             foreach (var prop in t.GetType().GetProperties())
@@ -88,17 +196,16 @@ namespace BuddySDK
                 l.Add(new Tuple<string, string>(prop.Name, jsonName));
             }
             _propMappings[t.GetType()] = l;
-        }
-
-        private BuddyClient _client;
-        protected BuddyClient Client {
-            get {
-                return _client ?? Buddy.Instance;
-            }
+            return l;
         }
 
         protected bool IsDeleted
         {
+            get;
+            private set;
+        }
+
+        public bool IsPopulated {
             get;
             private set;
         }
@@ -198,27 +305,16 @@ namespace BuddySDK
                 return attr.Path;
             }
         }
-        
 
-        private bool _isPopulated = false;
-
-        protected BuddyBase()
+        protected BuddyBase(BuddyClient client)
+            : base(client)
         {
             EnsureMappings(this);
         }
 
-        protected BuddyBase(BuddyClient client = null, string id = null)
-            : this(id, client)
+        protected BuddyBase(string id = null, BuddyClient client = null)
+            : this(client)
         {
-
-        }
-
-        protected BuddyBase(string id = null, BuddyClient client = null)  : this()
-        {
-           
-            if (client != null) {
-                this._client = client;
-            }
             if (id != null)
             {
                 SetValue<string>("ID", id);
@@ -233,31 +329,21 @@ namespace BuddySDK
             }
         }
 
-        protected BuddyBase(BuddyClient client, AuthenticatedUser user):this(client)
-        {
-            throw new NotImplementedException();
-           
-            
-        }
-
-        public virtual Task DeleteAsync()
+        public virtual Task<BuddyResult<bool>> DeleteAsync()
         {
             EnsureValid();
-            Task t = new Task(() =>
-            {
-                var r = Client.Service.CallMethodAsync<bool>("DELETE", GetObjectPath(), new
-                {
-                    Client.AccessToken
-                });
 
-                r.Wait();
-                this.IsDeleted = true;
+           
+            var r = Client.CallServiceMethod<bool>("DELETE", GetObjectPath());
+
+
+            r.ContinueWith((rt) => {
+                if (rt.Result.IsSuccess) {
+                    this.IsDeleted = true;
+                }
             });
 
-            t.Start();
-            return t;
-
-
+            return r;        
         }
 
         protected virtual string GetObjectPath()
@@ -267,41 +353,45 @@ namespace BuddySDK
             return String.Format("{0}/{1}", Path, ID);
         }
 
-		private Task _pendingRefresh;
-        public virtual Task FetchAsync(Action updateComplete = null)
+
+    
+
+        private Task<BuddyResult<bool>> _pendingRefresh;
+        public virtual async Task<BuddyResult<bool>> FetchAsync(Action updateComplete = null)
         {
             EnsureValid();
-            lock (this)
+
+            if (_pendingRefresh != null)
             {
-                if (_pendingRefresh != null)
-                {
-                    _pendingRefresh.Wait();
-                }
-                else
-                {
-                    _pendingRefresh = new Task(() =>
-                   {
-                       var r =  Client.Service.CallMethodAsync<IDictionary<string, object>>(
-                              "GET", GetObjectPath());
-
-                        
-                        r.Wait();
-                        Update(r.Result);
-                       _pendingRefresh = null;
-                       
-                        });
-
-                    _pendingRefresh.Start();
-                }
+                return await _pendingRefresh;
             }
-            return _pendingRefresh;
+            else
+            {
+                _pendingRefresh = Client.CallServiceMethodHelper<IDictionary<string,object>, bool> (
+                    "GET", 
+                    GetObjectPath (), 
+                    map: (d => true),
+                    completed: (r1, r2) => {
+
+                        if (r2.IsSuccess) {
+                            Update(r1.Value);
+                        }
+                        _pendingRefresh = null;
+
+                    });
+
+
+
+                return await _pendingRefresh;
+            }
+          
         }
 
         public void Invalidate()
         {
             if (null == _pendingRefresh)
             {
-                _isPopulated = false;
+                IsPopulated = false;
             }
         }
 
@@ -336,17 +426,23 @@ namespace BuddySDK
             {
                 return (T)ChangeType<T>(v.Value);
             }
-            else if (autoPopulate && !_isPopulated)
+            else if (autoPopulate && !IsPopulated)
             {
-                var r = FetchAsync();
-                r.Wait ();
-                return GetValueOrDefault<T>(key, defaultValue, false);
+                // kick off a fetch, which will come back and update the value
+                // and fire an IPNC event.
+                FetchAsync().ContinueWith((r) => {});
+
             }
             return defaultValue;
         }
 
         private object ChangeType<T>(object value)
         {
+
+            if (typeof(T).IsInstanceOfType(value)) {
+                return (T)value;
+            }
+
 			var enumType = GetEnumType<T> ();
 
 			if (enumType != null)
@@ -437,17 +533,15 @@ namespace BuddySDK
             }
         }
 
-        public virtual Task SaveAsync()
+        public virtual Task<BuddyResult<bool>> SaveAsync()
         {
             EnsureValid();
-            Task t = new Task(() => { });
-
             var isNew = String.IsNullOrEmpty(GetValueOrDefault<string>("ID", null,false));
             if (IsDirty || isNew)
             {
                 // gather dirty props.
                 var d = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase);
-                var mappings = _propMappings[GetType()];
+                var mappings = EnsureMappings (this);
                 foreach (var kvp in _values)
                 {
                     if (kvp.Value.IsDirty)
@@ -456,32 +550,56 @@ namespace BuddySDK
                         d[name ?? kvp.Key] = kvp.Value.Value;
                     }
                 }
-                t = new Task(() =>
+                BuddyServiceException error = null;
+                string requestId;
+                return Task.Run<BuddyResult<bool>>(async () =>
                 {
                     IDictionary<string, object> updateDict = null;
                     if (isNew)
                     {
-                        var r = Client.Service.CallMethodAsync<string>("POST", Path, d);
-                        r.Wait();
-                        updateDict = new Dictionary<string, object>(StringComparer.InvariantCultureIgnoreCase) {
-                           { "ID", r.Result }
-                        };
+                        var r = Client.CallServiceMethod<IDictionary<string, object>>("POST", Path, d).Result;
+
+                        if (r.IsSuccess)
+                        {
+                            updateDict = r.Value;
+                        }
+
+                        error = r.Error;
+                        requestId = r.RequestID;
                     }
                     else
                     {
-                        var r = Client.Service.CallMethodAsync<IDictionary<string, object>>("PATCH", GetObjectPath(), d);
-                        r.Wait();
-                        updateDict = r.Result;
+                        var r = Client.CallServiceMethod<IDictionary<string, object>>("PATCH", GetObjectPath(), d).Result;
+
+                        if (r.IsSuccess)
+                        {
+                            updateDict = r.Value;
+                        }
+                        error = r.Error;
+                        requestId = r.RequestID;
                     }
 
-                    Client.Service.CallOnUiThread(() =>
+                    if (updateDict != null)
                     {
-                        Update(updateDict);
-                    });
+                        var service = await Client.Service();
+                        service.CallOnUiThread(() =>
+                        {
+                            Update(updateDict);
+                        });
+                    }
+
+                    return new BuddyResult<bool>
+                    {
+                        Error = error,
+                        RequestID = requestId,
+                        Value = error == null
+                    };
                 });
             }
-            t.Start();
-            return t;
+            else
+            {
+                return Task.Run<BuddyResult<bool>>(() => { return new BuddyResult<bool> { Value = true }; });
+            }
         }
 
         internal void UpdateFrom(BuddyBase other)
@@ -502,8 +620,8 @@ namespace BuddySDK
 
         internal void Update(IDictionary<string, object> values)
         {
-            _isPopulated = true;
-            var mappings = _propMappings[this.GetType()];
+            IsPopulated = true;
+            var mappings = EnsureMappings (this);
 
             foreach (var kvp in values)
             {
@@ -518,67 +636,51 @@ namespace BuddySDK
             OnPropertyChanged (null);
         }
 
-        // Metadata stuff
+        protected override string GetMetadataPath(string key = null) {
+            var path = string.Format ("/metadata/{0}", ID);
 
-        private string GetMetadataPath(string key) {
-            return string.Format ("/metadata/{0}/{1}", ID, key);
+            if (!string.IsNullOrEmpty(key))
+            {
+                path = string.Format("{0}/{1}", path, key);
+            }
+
+            return path;
         }
 
-        private Task SetMetadataCore(string key, object value, BuddyPermissions permissions) {
-            var t = Client.Service.CallMethodAsync<bool> ("PUT", 
-                                                          GetMetadataPath (key), 
-                                                          new  {
-                value = value,
-                permissions = permissions
-            });
+        protected Task<BuddyResult<Stream>> GetFileCoreAsync(string url, object parameters) {
 
-            Task retTask = new Task (() => {
-                t.Wait ();
-            });
-            retTask.Start ();
-            return retTask;
-        }
 
-        public Task SetMetadataAsync(string key, string value, BuddyPermissions permissions = BuddyPermissions.Default) {
-            return SetMetadataCore (key, value, permissions);
-        }
 
-        public Task SetMetadataAsync(string key, int value, BuddyPermissions permissions = BuddyPermissions.Default) {
-            return SetMetadataCore (key, value, permissions);
-        }
+            return Task.Run<BuddyResult<Stream>>(async () =>
+                    {
 
-        private Task<T> GetMetatadataCore<T>(string key) {
-            return Client.Service.CallMethodAsync<T> ("GET", GetMetadataPath (key));                                               
-        }
+                        // need to pass accessToken as a param for these
+                        // so our auth doesn't get sent through to the redirect
+                        //
+                        var parameterDictionary = BuddyServiceClient.BuddyServiceClientBase.ParametersToDictionary(parameters);
+                        parameterDictionary["accessToken"] = await Client.GetAccessToken();
 
-        public Task<int> GetMetadataIntAsync(string key) {
-            return GetMetatadataCore<int> (key);
-        }
+                        var r = Client.CallServiceMethod<HttpWebResponse>(
+                                "GET", 
+                                url, 
+                            parameterDictionary
+                        );
 
-        public Task<string> GetMetadataStringAsync(string key) {
-            return GetMetatadataCore<string> (key);
-        }
+                        var result = r.Result;
 
-        public Task<int> IncrementMetadataAsync(string key, int delta) {
-            var path = String.Format ("/metadata/{0}/{1}/increment", ID, key);
+                        if (result.IsSuccess && result.Value != null) {
+                            var response = result.Convert(hwr => hwr.GetResponseStream());
 
-            var r = Client.Service.CallMethodAsync<int> ("POST",path,
-                                               new {
-                accessToken = Client.AccessToken,
-                delta = delta
-            });    
-            r.Start ();
-            return r;
-        }
+                            return response;
+                        }
+                        else {
+                            return result.Convert(hwr => (Stream)null);
+                        }
+                        
+                    
+                    });
+               
 
-        public Task<bool> DeleteMetadataAsync(string key) {
-
-            var t = Client.Service.CallMethodAsync<bool> ("DELETE", 
-                                                          GetMetadataPath (key)
-                                                         );
-
-            t.Start ();
-            return t;
         }
 
         #region IPropertyNotifyChangedStuff
@@ -597,5 +699,34 @@ namespace BuddySDK
 
         #endregion
 
+    }
+
+    // From http://www.hanselman.com/blog/ComparingTwoTechniquesInNETAsynchronousCoordinationPrimitives.aspx
+    public sealed class AsyncLock
+    {
+        private readonly SemaphoreSlim m_semaphore = new SemaphoreSlim(1, 1);
+        private readonly Task<IDisposable> m_releaser;
+
+        public AsyncLock()
+        {
+            m_releaser = Task.FromResult((IDisposable)new Releaser(this));
+        }
+
+        public Task<IDisposable> LockAsync()
+        {
+            var wait = m_semaphore.WaitAsync();
+            return wait.IsCompleted ?
+                        m_releaser :
+                        wait.ContinueWith((_, state) => (IDisposable)state,
+                            m_releaser.Result, CancellationToken.None,
+            TaskContinuationOptions.ExecuteSynchronously, TaskScheduler.Default);
+        }
+
+        private sealed class Releaser : IDisposable
+        {
+            private readonly AsyncLock m_toRelease;
+            internal Releaser(AsyncLock toRelease) { m_toRelease = toRelease; }
+            public void Dispose() { m_toRelease.m_semaphore.Release(); }
+        }
     }
 }

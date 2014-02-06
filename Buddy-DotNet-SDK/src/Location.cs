@@ -184,7 +184,7 @@ namespace BuddySDK
 
         }
 
-        public override Task SaveAsync()
+        public override Task<BuddyResult<bool>> SaveAsync()
         {
             if (Location == null)
             {

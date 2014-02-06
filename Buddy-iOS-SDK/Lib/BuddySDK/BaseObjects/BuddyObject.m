@@ -8,19 +8,26 @@
 
 #import "BuddyObject.h"
 #import "BuddyObject+Private.h"
+
 #import "JAGPropertyConverter.h"
-#import "BPSession.h"
+#import "BPRestProvider.h"
+#import "BPClient.h"
 #import "BPCoordinate.h"
 #import "NSDate+JSON.h"
+#import "BPEnumMapping.h"
 
-@interface BuddyObject()
+@interface BuddyObject()<BPEnumMapping>
 
 @property (nonatomic, readwrite, assign) BOOL isDirty;
 @property (nonatomic, strong) NSMutableArray *keyPaths;
 
 @end
 
+
 @implementation BuddyObject
+
+@synthesize client=_client;
+
 
 #pragma mark - Initializers
 
@@ -32,27 +39,35 @@
     }
 }
 
-- (instancetype)initBuddy
+
+- (instancetype)initBuddyWithClient:(id<BPRestProvider>)client
 {
     self = [super init];
     if(self)
     {
+        client=client;
         [self registerProperties];
     }
     return self;
 }
 
-- (instancetype)initBuddyWithResponse:(id)response
+- (instancetype)initBuddyWithResponse:(id)response andClient:(id<BPRestProvider>)client
 {
     if (!response) return nil;
     
     self = [super init];
     if(self)
     {
+        _client = client;
         [self registerProperties];
         [[[self class] converter] setPropertiesOf:self fromDictionary:response];
     }
     return self;
+}
+
+- (id<BPRestProvider>)client
+{
+    return _client ?: [BPClient defaultClient];
 }
 
 - (void)registerProperties
@@ -70,11 +85,29 @@
     return nil;
 }
 
++ (NSDictionary *)mapForProperty:(NSString *)key
+{
+    return [self enumMap][key];
+}
+
 + (NSDictionary *)enumMap
 {
-    // Return any enum->string mappings used in responses subclass.
-    return nil;
+    return [self baseEnumMap];
 }
+
++ (NSDictionary *)baseEnumMap
+{
+    // Return any enum->string mappings used in responses subclass.
+    return @{NSStringFromSelector(@selector(readPermissions)) : @{
+                                                @(BuddyPermissionsApp) : @"App",
+                                                @(BuddyPermissionsUser) : @"User",
+                                                },
+             NSStringFromSelector(@selector(writePermissions)) : @{
+                     @(BuddyPermissionsApp) : @"App",
+                     @(BuddyPermissionsUser) : @"User",
+                     }};
+}
+
 
 -(void)registerProperty:(SEL)property
 {
@@ -111,44 +144,39 @@
 
 #pragma mark CRUD
 
-+(void)createFromServerWithParameters:(NSDictionary *)parameters callback:(BuddyObjectCallback)callback
++(void)createFromServerWithParameters:(NSDictionary *)parameters client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback
 {
-    [[[BPSession currentSession] restService] POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
+    [client POST:[[self class] requestPath] parameters:parameters callback:^(id json, NSError *error) {
         
         if (error) {
-            callback(nil, error);
+            callback ? callback(nil, error) : nil;
             return;
         }
         
-        BuddyObject *newObject = [[[self class] alloc] initBuddy];
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
 
-#pragma messsage("TODO - Short term hack until response is always an object.")
-        if ([json isKindOfClass:[NSDictionary class]]) {
-            newObject.id = json[@"id"];
-        } else {
-            newObject.id = json;
-        }
+        newObject.id = json[@"id"];
         
         [newObject refresh:^(NSError *error){
-            callback(newObject, error);
+            callback ? callback(newObject, error) : nil;
         }];
     }];
 }
 
-+(void)queryFromServerWithId:(NSString *)identifier callback:(BuddyObjectCallback)callback
++(void)queryFromServerWithId:(NSString *)identifier client:(id<BPRestProvider>)client callback:(BuddyObjectCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           identifier];
     
-    [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [client GET:resource parameters:nil callback:^(id json, NSError *error) {
 
-        BuddyObject *newObject = [[[self class] alloc] initBuddy];
+        BuddyObject *newObject = [[[self class] alloc] initBuddyWithClient:client];
         newObject.id = json[@"id"];
         
         [[[self class] converter] setPropertiesOf:newObject fromDictionary:json];
 #pragma messsage("TODO - Error")
-        callback(newObject, nil);
+        callback ? callback(newObject, nil) : nil;
     }];
 }
 
@@ -159,14 +187,12 @@
 
 -(void)deleteMe:(BuddyCompletionCallback)callback
 {
-#pragma message("Figure out clean way to know when to use /me and /id")
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           _id];
     
-    [[[BPSession currentSession] restService] DELETE:resource parameters:nil callback:^(id json, NSError *error) {
-        if(callback)
-            callback(error);
+    [self.client DELETE:resource parameters:nil callback:^(id json, NSError *error) {
+        callback ? callback(error) : nil;
     }];
 }
 
@@ -182,10 +208,9 @@
                           [[self class] requestPath],
                           self.id];
     
-    [[[BPSession currentSession] restService] GET:resource parameters:nil callback:^(id json, NSError *error) {
+    [self.client GET:resource parameters:nil callback:^(id json, NSError *error) {
         [[[self class] converter] setPropertiesOf:self fromDictionary:json];
-        if(callback)
-            callback(error);
+        callback ? callback(error) : nil;
     }];
 }
 
@@ -199,10 +224,55 @@
     // Dictionary of property names/values
     NSDictionary *parameters = [self buildUpdateDictionary];
 
-    [[[BPSession currentSession] restService] PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
-        [[[self class] converter] setPropertiesOf:self fromDictionary:json];
-        if(callback)
-            callback(error);
+    [self.client PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
+#pragma message("EK commented this out on 1/27. PATCH doesn't provide a response object.")
+        //[[[self class] converter] setPropertiesOf:self fromDictionary:json];
+        callback ? callback(error) : nil;
+    }];
+}
+
+#pragma mark - Metadata
+
+static NSString *metadataFormat = @"metadata/%@/%@";
+- (NSString *) metadataPath:(NSString *)key
+{
+    return [NSString stringWithFormat:metadataFormat, self.id, key];
+}
+
+- (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value callback:(BuddyCompletionCallback)callback
+{
+    NSDictionary *parameters = @{@"value": BOXNIL(value)};
+    
+    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
+        callback ? callback(error) : nil;
+    }];
+}
+
+- (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback
+{
+    NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%d", value]};
+
+    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
+        callback ? callback(error) : nil;
+    }];
+}
+
+- (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
+{
+    [self.client GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+        id md = nil;
+#pragma message ("Probably delete this after the server returns a boxed value for null metadata values")
+        if ([NSJSONSerialization isValidJSONObject:metadata]) {
+            md = metadata[@"value"];
+        }
+        callback ? callback(md, error) : nil;
+    }];
+}
+
+- (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback
+{
+    [self.client DELETE:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+        callback ? callback(error) : nil;
     }];
 }
 
