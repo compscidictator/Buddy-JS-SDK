@@ -321,12 +321,12 @@ NSMutableArray *queuedRequests;
                 [queuedRequests addObject:[method copy]];
                 
                 NSDictionary *getTokenParams = @{
-                                                 @"appId": self.appSettings.appID,
-                                                 @"appKey": self.appSettings.appKey,
+                                                 @"appId": BOXNIL(self.appSettings.appID),
+                                                 @"appKey": BOXNIL(self.appSettings.appKey),
                                                  @"Platform": @"iOS",
-                                                 @"UniqueId": [BuddyDevice identifier],
-                                                 @"Model": [BuddyDevice deviceModel],
-                                                 @"OSVersion": [BuddyDevice osVersion]
+                                                 @"UniqueId": BOXNIL([BuddyDevice identifier]),
+                                                 @"Model": BOXNIL([BuddyDevice deviceModel]),
+                                                 @"OSVersion": BOXNIL([BuddyDevice osVersion])
                                                  };
                 [self.service POST:@"devices" parameters:getTokenParams callback:[self handleResponse:^(id json, NSError *error) {
                     // Grab the potentially different base url.
