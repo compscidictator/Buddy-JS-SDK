@@ -36,6 +36,11 @@ namespace BuddySDK
             }
         }
 
+        public static Task<BuddyResult<IDictionary<string, string>>> CallServiceMethod(string verb, string path, object parameters = null)
+        {
+            return Instance.CallServiceMethod<IDictionary<string, string>>(verb, path, parameters);
+        }
+
         public static AuthenticatedUser CurrentUser
         {
             get
