@@ -23,6 +23,8 @@
 
 /* Begin PBXBuildFile section */
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
+		2F7E079218A2EC08003FC524 /* BuddyAppDelegateDecorator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F7E079018A2EC08003FC524 /* BuddyAppDelegateDecorator.h */; };
+		2F7E079318A2EC08003FC524 /* BuddyAppDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7E079118A2EC08003FC524 /* BuddyAppDelegateDecorator.m */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C1010D31187A4CC3009EB04E /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2C187A4CC3009EB04E /* 0.jpg */; };
 		C1010D32187A4CC3009EB04E /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2D187A4CC3009EB04E /* 1.jpg */; };
@@ -157,6 +159,8 @@
 /* Begin PBXFileReference section */
 		29345A5A1773D2A400EEB8F5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		29345ABD1773DB3B00EEB8F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2F7E079018A2EC08003FC524 /* BuddyAppDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyAppDelegateDecorator.h; sourceTree = "<group>"; };
+		2F7E079118A2EC08003FC524 /* BuddyAppDelegateDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyAppDelegateDecorator.m; sourceTree = "<group>"; };
 		81137A46380B4BCCA3A2E417 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07FFFC093E94E77A9A92AF0 /* libPods-BuddySDK Unit Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BuddySDK Unit Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6291F7C165C01800051F83C /* libBuddySDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuddySDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -366,6 +370,8 @@
 				C1B8076A184061070086B843 /* BPClientDelegate.h */,
 				C1D7094618832983003D112C /* BPDescriptors.h */,
 				C1D7094718832983003D112C /* BPDescriptors.m */,
+				2F7E079018A2EC08003FC524 /* BuddyAppDelegateDecorator.h */,
+				2F7E079118A2EC08003FC524 /* BuddyAppDelegateDecorator.m */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -608,6 +614,7 @@
 				C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */,
 				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
 				C1C2395318789594000D0089 /* BPBlob.h in Headers */,
+				2F7E079218A2EC08003FC524 /* BuddyAppDelegateDecorator.h in Headers */,
 				C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */,
 				C1B2375F1865569F005C841E /* NSString+JSON.h in Headers */,
 				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
@@ -819,36 +826,61 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1B0F53E189373F6000403E0 /* AFURLConnectionOperation.m in Sources */,
 				C1E0D2871835C911001A7A01 /* OpenUDID.m in Sources */,
 				C1AA90DE1837376E0074B7E8 /* NSDictionary+Merge.m in Sources */,
+				C1B0F4D618937142000403E0 /* NSString+ObjectiveSugar.m in Sources */,
 				C1B237601865569F005C841E /* NSString+JSON.m in Sources */,
+				C1B0F51C189373EB000403E0 /* UIProgressView+AFNetworking.m in Sources */,
+				C1B0F511189373EB000403E0 /* AFNetworkActivityIndicatorManager.m in Sources */,
+				C1B0F4CE18937142000403E0 /* NSDictionary+ObjectiveSugar.m in Sources */,
 				C10E2BA1186950D8007A0136 /* BPCoordinate.m in Sources */,
 				C154CEF2187F78E800EACE4B /* BPLocationCollection.m in Sources */,
+				C1B0F540189373F6000403E0 /* AFURLRequestSerialization.m in Sources */,
 				C10E2B98186950D8007A0136 /* BPAuthenticatedUser.m in Sources */,
 				C10F1B7C1870A6F500D5364C /* NSError+BuddyError.m in Sources */,
 				C1C2395418789594000D0089 /* BPBlob.m in Sources */,
+				C1B0F53A189373F6000403E0 /* AFNetworkReachabilityManager.m in Sources */,
+				C1B0F544189373F6000403E0 /* AFURLSessionManager.m in Sources */,
 				C1E0D1D91831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */,
+				C1B0F533189373F6000403E0 /* AFHTTPRequestOperation.m in Sources */,
+				C1B0F517189373EB000403E0 /* UIButton+AFNetworking.m in Sources */,
 				C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */,
 				C10E2BAA186950D8007A0136 /* BPSounds.m in Sources */,
-				C10E2B9E186950D8007A0136 /* BPSession.m in Sources */,
+				C1B0F54818937822000403E0 /* BPAlbumCollection.m in Sources */,
+				C1B0F51E189373EB000403E0 /* UIWebView+AFNetworking.m in Sources */,
+				C10E2B9E186950D8007A0136 /* BPClient.m in Sources */,
 				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				C1B959FA1837061F000C8417 /* BuddyObject.m in Sources */,
 				C1D7094918832983003D112C /* BPDescriptors.m in Sources */,
+				C1427673189AAC3700D5DD85 /* BPAppSettings.m in Sources */,
 				C154CEFB187FAE8600EACE4B /* NSDate+JSON.m in Sources */,
 				C10E2BAD186950D8007A0136 /* BPUser.m in Sources */,
 				C1E0D1D61831BAD3001A7A01 /* JAGPropertyConverter.m in Sources */,
 				C10E2B9B186950D8007A0136 /* BPCheckin.m in Sources */,
+				C1B0F54C18937B08000403E0 /* BPAlbumItemContainer.m in Sources */,
 				C11E6C92184C57040034E1EB /* BPCheckinCollection.m in Sources */,
 				C10E2B95186950D8007A0136 /* BPAppMetadata.m in Sources */,
 				C154CEEE187F750C00EACE4B /* BPLocation.m in Sources */,
 				C10E2BB2186951C3007A0136 /* BuddyDevice.m in Sources */,
+				C16FE35518945CF30033EFAF /* BPAlbumItemCollection.m in Sources */,
+				C1B0F4D218937142000403E0 /* NSNumber+ObjectiveSugar.m in Sources */,
 				C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */,
 				C10E2BA7186950D8007A0136 /* BPPhoto.m in Sources */,
 				C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */,
+				C1B0F535189373F6000403E0 /* AFHTTPRequestOperationManager.m in Sources */,
+				2F7E079318A2EC08003FC524 /* BuddyAppDelegateDecorator.m in Sources */,
+				C1B0F4D018937142000403E0 /* NSMutableArray+ObjectiveSugar.m in Sources */,
+				C1B0F537189373F6000403E0 /* AFHTTPSessionManager.m in Sources */,
+				C1B0F4CC18937142000403E0 /* NSArray+ObjectiveSugar.m in Sources */,
+				C1B0F53C189373F6000403E0 /* AFSecurityPolicy.m in Sources */,
+				C1B0F542189373F6000403E0 /* AFURLResponseSerialization.m in Sources */,
 				C10E2BA4186950D8007A0136 /* BPGameBoards.m in Sources */,
 				C154CEF7187F90A700EACE4B /* UIImageView+BuddyImage.m in Sources */,
 				C10E2BB7186951FA007A0136 /* Buddy.m in Sources */,
+				C1427678189ECA2300D5DD85 /* BPMetricCompletionHandler.m in Sources */,
 				C1BFD88F187D169500A1FADF /* BPBlobCollection.m in Sources */,
+				C1B0F513189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				C1FEEB4F187E483100B45505 /* BPAlbum.m in Sources */,
 				C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
 			);
@@ -860,6 +892,8 @@
 			files = (
 				C10F1B80187103E500D5364C /* BPUserIntegrationTests.m in Sources */,
 				C10F1B78187095EA00D5364C /* BuddyIntegrationHelper.m in Sources */,
+				C1A4652F1897440C00FCCBF9 /* BPBaseIntegrationTests.m in Sources */,
+				C1A58FFD1890A57A00C5A50F /* MetadataTests.m in Sources */,
 				C1FEEB55187E4B2800B45505 /* BPRegionsIntegrationTests.m in Sources */,
 				C1FEEB57187E4B4500B45505 /* BPVideosIntegrationTests.m in Sources */,
 				C1FEEB4B187E481900B45505 /* BPAlbumsIntegrationTests.m in Sources */,
@@ -867,6 +901,7 @@
 				C1ADD12A184E2BF300246313 /* BPPhotoIntegrationTests.m in Sources */,
 				C1FEEB51187E493400B45505 /* BPLocationsIntegrationTests.m in Sources */,
 				C1BFD889187D14B500A1FADF /* BPBlobIntegrationTests.m in Sources */,
+				C142767A189ECC1600D5DD85 /* MetricsTests.m in Sources */,
 				C1FEEB53187E4B0300B45505 /* BPMessagesIntegrationTests.m in Sources */,
 				C1B8076F18441BD30086B843 /* BuddyIntegrationTests.m in Sources */,
 			);
@@ -941,7 +976,7 @@
 					"-fprofile_arcs",
 					"-ftest_coverage",
 				);
-				OTHER_LDFLAGS = "-Objc";
+				OTHER_LDFLAGS = "";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -985,7 +1020,7 @@
 					"-fprofile_arcs",
 					"-ftest_coverage",
 				);
-				OTHER_LDFLAGS = "-Objc";
+				OTHER_LDFLAGS = "";
 				PUBLIC_HEADERS_FOLDER_PATH = "";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
@@ -1002,6 +1037,7 @@
 			baseConfigurationReference = BC44442B63AA4BEA943DB005 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
@@ -1030,13 +1066,16 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = include;
-				VALID_ARCHS = "armv7 armv7s i386";
+				VALID_ARCHS = "armv7 armv7s i386 arm64";
 				WRAPPER_EXTENSION = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -1046,6 +1085,7 @@
 			baseConfigurationReference = BC44442B63AA4BEA943DB005 /* Pods.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_WARN_IMPLICIT_SIGN_CONVERSION = NO;
 				CLANG_WARN_OBJC_IMPLICIT_ATOMIC_PROPERTIES = NO;
 				CLANG_WARN_SUSPICIOUS_IMPLICIT_CONVERSION = YES;
@@ -1073,13 +1113,16 @@
 				ONLY_ACTIVE_ARCH = NO;
 				OTHER_CFLAGS = "";
 				OTHER_CPLUSPLUSFLAGS = "$(OTHER_CFLAGS)";
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"$(inherited)",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PUBLIC_HEADERS_FOLDER_PATH = "$(PROJECT_NAME)Headers";
 				SKIP_INSTALL = YES;
 				STRIP_STYLE = "non-global";
 				USER_HEADER_SEARCH_PATHS = include;
-				VALID_ARCHS = "armv7 armv7s i386";
+				VALID_ARCHS = "armv7 armv7s i386 arm64";
 				WRAPPER_EXTENSION = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -1087,18 +1130,24 @@
 		C19ECC3517DEA28D008A9130 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				GENERATE_MASTER_OBJECT_FILE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
 		C19ECC3617DEA28D008A9130 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				GENERATE_MASTER_OBJECT_FILE = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRIP_INSTALLED_PRODUCT = NO;
 				STRIP_STYLE = "non-global";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};

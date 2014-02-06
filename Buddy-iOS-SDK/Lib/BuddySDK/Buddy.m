@@ -23,68 +23,71 @@
 
 @implementation Buddy
 
++ (id<BPRestProvider>)buddyRestProvider {
+    return [BPClient defaultClient].restService;
+}
+
 + (BPUser *)user{
-    return [[BPSession currentSession] user];
+    return [[BPClient defaultClient] user];
 }
 
 + (BuddyDevice *)device{
-    return [[BPSession currentSession] device];
+    return [[BPClient defaultClient] device];
 }
 
 + (BPCheckinCollection *) checkins{
-    return [[BPSession currentSession] checkins];
+    return [[BPClient defaultClient] checkins];
 }
 
 + (BPPhotoCollection *) photos{
-    return [[BPSession currentSession] photos];
+    return [[BPClient defaultClient] photos];
 }
 
 + (BPBlobCollection *) blobs{
-    return [[BPSession currentSession] blobs];
+    return [[BPClient defaultClient] blobs];
+}
+
++ (BPAlbumCollection *) albums{
+    return [[BPClient defaultClient] albums];
 }
 
 + (BOOL) locationEnabled{
     @synchronized(self){
-        return [[BPSession currentSession] locationEnabled];
+        return [[BPClient defaultClient] locationEnabled];
     }
 }
 
 + (void) setLocationEnabled:(BOOL)val
 {
     @synchronized(self){
-        [[BPSession currentSession] setLocationEnabled:val];
     }
 }
 
 + (void)initClient:(NSString *)appID
-       appKey:(NSString *)appKey
-          callback:(void (^)())callback
 {
 	[Buddy initClient:appID
-          appKey:appKey
- autoRecordDeviceInfo:NO
-   autoRecordLocation:NO
-          withOptions:nil
-             callback:callback];
+            appKey:appKey
+            autoRecordDeviceInfo:NO
+            autoRecordLocation:NO
+            withOptions:nil];
 }
 
 + (void) initClient:(NSString *)appID
-             appKey:(NSString *)appKey
-        withOptions:(NSDictionary *)options
-           callback:(void (^)())callback
+            appKey:(NSString *)appKey
+            withOptions:(NSDictionary *)options
+
 {
-    [[BPSession currentSession] setupWithApp:appID
-                                     appKey:appKey
-                                      options:options
-                                  callback:callback];
+    [[BPClient defaultClient] setupWithApp:appID
+            appKey:appKey
+            options:options
+            delegate:nil];
 }
 
-+ (void)   initClient:(NSString *)appID
-          appKey:(NSString *)appKey
- autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
-   autoRecordLocation:(BOOL)autoRecordLocation
-          withOptions:(NSDictionary *)options
-             callback:(void (^)())callback
++ (void) initClient:(NSString *)appID
+            appKey:(NSString *)appKey
+            autoRecordDeviceInfo:(BOOL)autoRecordDeviceInfo
+            autoRecordLocation:(BOOL)autoRecordLocation
+            withOptions:(NSDictionary *)options
 {
     
     NSDictionary *defaultOptions = @{@"autoRecordLocation": @(autoRecordLocation),
@@ -93,15 +96,19 @@
     NSMutableDictionary *combined = [NSMutableDictionary dictionaryWithDictionary:defaultOptions];
     // TODO - merge options
     
-    [[BPSession currentSession] setupWithApp:appID
-                                    appKey:appKey
-                                   options:combined
-                                  callback:callback];
+    [[BPClient defaultClient] setupWithApp:appID
+            appKey:appKey
+            options:combined
+            delegate:nil];
+    
 }
 
 #pragma mark User
 
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback
++ (void)createUser:(NSString *)username
+                    password:(NSString *)password
+                    options:(NSDictionary *)options
+                    callback:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password };
@@ -109,46 +116,33 @@
     parameters = [NSDictionary dictionaryByMerging:parameters with:options];
     
     // On BPUser for now for consistency. Probably will move.
-    [BPUser createFromServerWithParameters:parameters callback:callback];
+    [BPUser createFromServerWithParameters:parameters client:[BPClient defaultClient] callback:callback];
 }
 
 + (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback
 {
-    [[BPSession currentSession] login:username password:password success:^(id json, NSError *error) {
-        
-        if(error) {
-            callback(nil, error);
-            return;
-        }
-        
-        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json];
-        user.isMe = YES;
-        
-        [user refresh:^(NSError *error){
-#pragma messsage("TODO - Error")
-            [[BPSession currentSession] initializeCollectionsWithUser:user];
-            callback ? callback(user, nil) : nil;
-        }];
-    }];
+    [[BPClient defaultClient] login:username password:password callback:callback  ];
+     
 }
 
 + (void)socialLogin:(NSString *)provider providerId:(NSString *)providerId token:(NSString *)token success:(BuddyObjectCallback) callback;
 {
-    [[BPSession currentSession] socialLogin:provider providerId:providerId token:token success:^(id json, NSError *error) {
+    [[BPClient defaultClient] socialLogin:provider providerId:providerId token:token success:callback];
+}
 
-        if (error) {
-            if (callback)
-                callback(nil, error);
-            return;
-        }
-        
-        BPUser *user = [[BPUser alloc] initBuddyWithResponse:json];
-        user.isMe = YES;
++ (void)logout:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] logout:callback];
+}
 
-        [user refresh:^(NSError *error){
-            callback ? callback(user, error) : nil;
-        }];
-    }];
++ (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] recordMetric:key andValue:value callback:callback];
+}
+
++ (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
+{
+    [[BPClient defaultClient] recordTimedMetric:key andValue:value timeout:seconds callback:callback];
 }
 
 @end
