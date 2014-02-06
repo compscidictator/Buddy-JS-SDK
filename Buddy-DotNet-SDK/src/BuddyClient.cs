@@ -147,7 +147,7 @@ namespace BuddySDK
         private static string _WebServiceUrl;
         protected static string WebServiceUrl {
             get {
-                return _WebServiceUrl ?? "http://buddy-v2-us.cloudapp.net/api";
+                return _WebServiceUrl ?? "http://api.buddyplatform.com";
             }
             set {
                 _WebServiceUrl = value;
