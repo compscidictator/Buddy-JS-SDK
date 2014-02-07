@@ -62,16 +62,16 @@
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\..\src\Buddy.Android.csproj">
-      <Project>{6051EF7E-1A39-4C5C-A06B-82A9A2B5304F}</Project>
-      <Name>Buddy.Android</Name>
-    </ProjectReference>
+    <Folder Include="Resources\layout\" />
+  </ItemGroup>
+  <ItemGroup>
     <ProjectReference Include="..\Create-Login User Library\Create-Login User Library.csproj">
       <Project>{34099653-F207-4C0C-A4EB-79AF2FEAACD0}</Project>
       <Name>Create-Login User Library</Name>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Resources\layout\" />
+    <ProjectReference Include="..\..\..\src\Buddy.Android.csproj">
+      <Project>{6051EF7E-1A39-4C5C-A06B-82A9A2B5304F}</Project>
+      <Name>Buddy.Android</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

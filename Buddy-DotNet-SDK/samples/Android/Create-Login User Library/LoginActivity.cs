@@ -38,7 +38,7 @@ namespace CreateLoginUserLibrary
 				try {
 					await Buddy.LoginUserAsync(_userNameEditText.Text, _passwordEditText.Text);
 
-					StartMainActivity();
+					StartHomeActivity();
 				}
 				catch {
 					Android.Widget.Toast.MakeText(this, "Incorrect user name or password.", ToastLength.Short).Show();

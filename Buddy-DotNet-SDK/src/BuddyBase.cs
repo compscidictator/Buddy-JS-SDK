@@ -506,9 +506,9 @@ namespace BuddySDK
         {
             if (key == "Location" && !(value is BuddyGeoLocation))
             {
-                value = (T)(object) JsonConvert.DeserializeObject<BuddyGeoLocation>(value.ToString());
-               
+				value = (T)(object)BuddyGeoLocation.Parse (value);
             }
+
             _values[key] = new ValueEntry(value, true);
         }
 
