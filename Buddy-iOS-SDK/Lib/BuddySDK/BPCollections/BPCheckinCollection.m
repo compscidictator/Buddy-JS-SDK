@@ -33,7 +33,7 @@
     [self.type createFromServerWithParameters:parameters client:self.client callback:callback];
 }
 
-- (void)getCheckins:(DescribeCheckin)describeCheckin callback:(BuddyCollectionCallback)callback;
+- (void)searchCheckins:(DescribeCheckin)describeCheckin callback:(BuddyCollectionCallback)callback;
 {
     id checkinCollection= [BPSisterObject new];
     describeCheckin ? describeCheckin(checkinCollection) : nil;
