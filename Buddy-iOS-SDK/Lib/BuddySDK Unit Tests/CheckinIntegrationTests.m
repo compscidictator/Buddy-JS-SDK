@@ -57,11 +57,17 @@ describe(@"BPCheckinIntegrationSpec", ^{
             [[expectFutureValue(tempCheckin.description) shouldEventually] equal:@"Description"];
         });
         
-        it(@"Should allow you to retrieve a list of checkins.", ^{
+        it(@"Should allow you to search checkins.", ^{
             __block NSArray *checkins;
-            [[Buddy checkins] getCheckins:^(NSArray *buddyObjects, NSError *error) {
+            [[Buddy checkins] getCheckins:^(id<BPCheckinProperties> checkinProperties) {
+                checkinProperties.comment = @"Checking in!";
+            } callback:^(NSArray *buddyObjects, NSError *error) {
+                NSArray *cins = buddyObjects;
+                for(BPCheckin *c in cins) {
+                    [[c.comment should] equal:@"Checking in!"];
+                }
+                
                 checkins = buddyObjects;
-                [[theValue([checkins count]) should] beGreaterThan:theValue(0)];
             }];
             
             [[expectFutureValue(theValue([checkins count])) shouldEventually] beGreaterThan:theValue(0)];

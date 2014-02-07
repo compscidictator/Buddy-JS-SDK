@@ -26,16 +26,21 @@
       callback:(BuddyObjectCallback)callback
 {
     id checkinCollection= [BPSisterObject new];
-    describeCheckin(checkinCollection);
+    describeCheckin ? describeCheckin(checkinCollection) : nil;
     
     id parameters = [checkinCollection parametersFromProperties:@protocol(BPCheckinProperties)];
     
     [self.type createFromServerWithParameters:parameters client:self.client callback:callback];
 }
 
--(void)getCheckins:(BuddyCollectionCallback)callback
+- (void)getCheckins:(DescribeCheckin)describeCheckin callback:(BuddyCollectionCallback)callback;
 {
-    [self getAll:callback];
+    id checkinCollection= [BPSisterObject new];
+    describeCheckin ? describeCheckin(checkinCollection) : nil;
+    
+    id parameters = [checkinCollection parametersFromProperties:@protocol(BPCheckinProperties)];
+    
+    [self search:parameters callback:callback];
 }
 
 - (void)getCheckin:(NSString *)checkinId callback:(BuddyObjectCallback)callback

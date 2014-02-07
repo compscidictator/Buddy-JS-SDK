@@ -37,7 +37,7 @@ static NSString *photos = @"pictures";
     NSData *data = UIImagePNGRepresentation(image);
     
     id photoProperties= [BPSisterObject new];
-    describePhoto(photoProperties);
+    describePhoto ? describePhoto(photoProperties) : nil;
 
     id parameters = [photoProperties parametersFromProperties:@protocol(BPPhotoProperties)];
     

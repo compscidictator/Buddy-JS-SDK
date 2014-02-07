@@ -10,6 +10,7 @@
 #import "BPPhoto.h"
 #import "BPClient.h"
 #import "BuddyObject+Private.h"
+#import "BPSisterObject.h"
 #import "Buddy.h"
 
 @implementation BPPhotoCollection
@@ -36,11 +37,12 @@
     [self getAll:callback];
 }
 
--(void)searchPhotos:(BuddyCollectionCallback)callback
+-(void)searchPhotos:(DescribePhoto)describePhoto callback:(BuddyCollectionCallback)callback
 {
-    NSDictionary *parameters = @{
-                                 @"ownerID": BOXNIL([Buddy user].id)
-                                 };
+    id photoProperties= [BPSisterObject new];
+    describePhoto ? describePhoto(photoProperties) : nil;
+    
+    id parameters = [photoProperties parametersFromProperties:@protocol(BPPhotoProperties)];
     
     [self search:parameters callback:callback];
 }

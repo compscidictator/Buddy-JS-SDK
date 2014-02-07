@@ -19,7 +19,7 @@
 
 - (void)getPhotos:(BuddyCollectionCallback)callback;
 
-- (void)searchPhotos:(BuddyCollectionCallback)callback;
+- (void)searchPhotos:(DescribePhoto)describePhoto callback:(BuddyCollectionCallback)callback;
 
 - (void)getPhoto:(NSString *)photoId callback:(BuddyObjectCallback)callback;
 

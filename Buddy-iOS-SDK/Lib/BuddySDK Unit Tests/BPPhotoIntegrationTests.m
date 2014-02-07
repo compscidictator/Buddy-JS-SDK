@@ -30,7 +30,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [Buddy setClientDelegate:mock];
 #pragma message("Why the heck doesn't this always work?")
             [[[mock shouldEventually] receive] authorizationNeedsUserLogin];
-            [[Buddy photos] searchPhotos:nil];
+            [[Buddy photos] searchPhotos:nil callback:nil];
         });
         
         it(@"Should not allow them to add photos.", ^{
@@ -172,7 +172,14 @@ describe(@"BPPhotoIntegrationSpec", ^{
         it(@"Should allow searching for images", ^{
             __block NSArray *retrievedPhotos;
             return;
-            [[Buddy photos] searchPhotos:^(NSArray *buddyObjects, NSError *error) {
+            [[Buddy photos] searchPhotos:^(id<BPPhotoProperties> photoProperties) {
+                photoProperties.comment = @"Hakuna matata";
+            } callback:^(NSArray *buddyObjects, NSError *error) {
+                NSArray *p = buddyObjects;
+                
+                for(BPPhoto *photo in p) {
+                    [[photo.comment should] equal:@"Hakuna matata"];
+                }
                 retrievedPhotos = buddyObjects;
             }];
             

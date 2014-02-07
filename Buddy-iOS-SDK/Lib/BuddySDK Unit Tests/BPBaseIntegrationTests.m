@@ -78,7 +78,7 @@ describe(@"BuddyObjectSpec", ^{
         
         it(@"Should allow searching for images", ^{
             __block NSArray *retrievedPhotos;
-            [[Buddy photos] searchPhotos:^(NSArray *buddyObjects, NSError *error) {
+            [[Buddy photos] searchPhotos:nil callback:^(NSArray *buddyObjects, NSError *error) {
                 retrievedPhotos = buddyObjects;
             }];
             
