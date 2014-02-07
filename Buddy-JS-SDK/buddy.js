@@ -2,7 +2,7 @@
 
 window.Buddy = function(root) {
 
-	root = root || "http://api.buddyplatform.com"
+	root = root || "https://api.buddyplatform.com"
 
 	var buddy = {};
 
