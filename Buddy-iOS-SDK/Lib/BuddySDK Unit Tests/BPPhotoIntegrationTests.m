@@ -28,6 +28,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
         it(@"Should throw an auth error if they try to access photos.", ^{
             id mock = [KWMock mockForProtocol:@protocol(BPClientDelegate)];
             [Buddy setClientDelegate:mock];
+#pragma message("Why the heck doesn't this always work?")
             [[[mock shouldEventually] receive] authorizationNeedsUserLogin];
             [[Buddy photos] searchPhotos:nil];
         });
@@ -39,13 +40,33 @@ describe(@"BPPhotoIntegrationSpec", ^{
             NSString *imagePath = [bundle pathForResource:@"test" ofType:@"png"];
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
-            [[Buddy photos] addPhoto:image withComment:@"Hello, comment!" callback:^(id buddyObject, NSError *error) {
+            [[Buddy photos] addPhoto:image describePhoto:^(id<BPPhotoProperties> photoProperties) {
+                photoProperties.comment = @"Hello, comment!";
+            } callback:^(id buddyObject, NSError *error) {
                 [[error shouldNot] beNil];
                 [[buddyObject should] beNil];
                 [[theValue([error code]) should] equal:theValue(0x107)]; // AuthUserAccessTokenRequired = 0x107
                 fin = YES;
             }];
             
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+        });
+        
+        it(@"Should not allow them to add and describe photos.", ^{
+            __block BOOL fin = NO;
+            
+            NSBundle *bundle = [NSBundle bundleForClass:[self class]];
+            NSString *imagePath = [bundle pathForResource:@"test" ofType:@"png"];
+            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+            
+            [[Buddy photos] addPhoto:image describePhoto:^(id<BPPhotoProperties>photoProperties) {
+                photoProperties.comment = @"Hello, comment!";
+            } callback:^(id newBuddyObject, NSError *error) {
+                [[error shouldNot] beNil];
+                [[newBuddyObject should] beNil];
+                [[theValue([error code]) should] equal:theValue(0x107)]; // AuthUserAccessTokenRequired = 0x107
+                fin = YES;
+            }];
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
     }),
@@ -72,7 +93,9 @@ describe(@"BPPhotoIntegrationSpec", ^{
             NSString *imagePath = [bundle pathForResource:@"test" ofType:@"png"];
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
-            [[Buddy photos] addPhoto:image withComment:@"Hello, comment!" callback:^(id buddyObject, NSError *error) {
+            [[Buddy photos] addPhoto:image describePhoto:^(id<BPPhotoProperties> photoProperties) {
+                photoProperties.comment = @"Hello, comment!";
+            } callback:^(id buddyObject, NSError *error) {
                 newPhoto = buddyObject;
             }];
             

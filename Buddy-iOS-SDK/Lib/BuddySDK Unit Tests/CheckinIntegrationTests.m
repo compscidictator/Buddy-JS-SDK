@@ -8,6 +8,7 @@
 
 #import "Buddy.h"
 #import "BuddyIntegrationHelper.h"
+#import "BPCoordinate.h"
 #import <Kiwi/Kiwi.h>
 
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
@@ -42,12 +43,14 @@ describe(@"BPCheckinIntegrationSpec", ^{
             coordinate.latitude = 2.3;
             coordinate.longitude = 4.4;
             
-            [[Buddy checkins] checkinWithComment:@"Checking in!"
-                                     description:@"Description"
-                                        callback:^(BPCheckin *checkin, NSError *error) {
-                                            tempCheckinId = checkin.id;
-                                            tempCheckin = checkin;
-                                        }];
+            [[Buddy checkins] checkin:^(id<BPCheckinProperties> checkinProperties) {
+                checkinProperties.comment = @"Checking in!";
+                checkinProperties.description = @"Description";
+                checkinProperties.location = BPCoordinateMake(1.2, 3.4);
+            } callback:^(BPCheckin *checkin, NSError *error) {
+                tempCheckinId = checkin.id;
+                tempCheckin = checkin;
+            }];
 
             
             [[expectFutureValue(tempCheckin.comment) shouldEventually] equal:@"Checking in!"];

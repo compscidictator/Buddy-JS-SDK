@@ -9,6 +9,10 @@
 #import <Foundation/Foundation.h>
 #import "BPRestProvider.h"
 
+@protocol BuddyObjectProperties <NSObject>
+
+@end
+
 /**
  Permissions scope for Buddy objects.
  */

@@ -89,7 +89,9 @@ describe(@"BPAlbumIntegrationSpec", ^{
             NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
-            [[Buddy photos] addPhoto:image withComment:@"Test image for album." callback:^(id newBuddyObject, NSError *error) {
+            [[Buddy photos] addPhoto:image describePhoto:^(id<BPPhotoProperties> photoProperties) {
+                photoProperties.comment = @"Test image for album.";
+            } callback:^(id newBuddyObject, NSError *error) {
                 tempPhoto = newBuddyObject;
                 [tempAlbum addItemToAlbum:tempPhoto callback:^(id newBuddyObject, NSError *error) {
                     [[error should] beNil];

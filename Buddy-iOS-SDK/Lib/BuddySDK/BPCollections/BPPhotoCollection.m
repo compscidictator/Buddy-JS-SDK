@@ -22,11 +22,12 @@
     return self;
 }
 
+
 - (void)addPhoto:(UIImage *)photo
-     withComment:(NSString *)comment
+   describePhoto:(DescribePhoto)describePhoto
         callback:(BuddyObjectCallback)callback
 {
-    [[self type] createWithImage:photo andComment:comment client:self.client callback:callback];
+    [[self type] createWithImage:photo describePhoto:describePhoto client:self.client callback:callback];
 }
 
 

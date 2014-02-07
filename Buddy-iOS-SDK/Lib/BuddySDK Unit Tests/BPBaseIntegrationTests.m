@@ -40,7 +40,9 @@ describe(@"BuddyObjectSpec", ^{
             NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
-            [[Buddy photos] addPhoto:image withComment:@"Hello, comment!" callback:^(id buddyObject, NSError *error) {
+            [[Buddy photos] addPhoto:image describePhoto:^(id<BPPhotoProperties> photoProperties) {
+                photoProperties.comment = @"Hello, comment!";
+            } callback:^(id buddyObject, NSError *error) {
                 newPhoto = buddyObject;
             }];
             

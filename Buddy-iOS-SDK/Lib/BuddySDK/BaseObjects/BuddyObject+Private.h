@@ -13,6 +13,7 @@
 
 - (instancetype)initBuddyWithClient:(id<BPRestProvider>)client;
 - (instancetype)initBuddyWithResponse:(id)response andClient:(id<BPRestProvider>)rest;
+- (instancetype)initForCreation;
 
 - (NSDictionary *)buildUpdateDictionary;
 - (void)registerProperties;

@@ -23,7 +23,10 @@ describe(@"Metadata", ^{
         __block BPCheckin *checkin;
         beforeAll(^{
             [BuddyIntegrationHelper bootstrapLogin:^{
-                [[Buddy checkins] checkinWithComment:@"Test checkin." description:@"Test checkin description" callback:^(id newBuddyObject, NSError *error) {
+                [[Buddy checkins] checkin:^(id<BPCheckinProperties> checkinProperties) {
+                    checkinProperties.comment = @"Test checkin";
+                    checkinProperties.description = @"Test checkin description";
+                } callback:^(id newBuddyObject, NSError *error) {
                     checkin = newBuddyObject;
                 }];
             }];

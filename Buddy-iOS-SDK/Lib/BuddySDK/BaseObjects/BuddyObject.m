@@ -65,6 +65,16 @@
     return self;
 }
 
+- (instancetype)initForCreation
+{
+    self = [super init];
+    if(self)
+    {
+        [self registerProperties];
+    }
+    return self;
+}
+
 - (id<BPRestProvider>)client
 {
     return _client ?: [BPClient defaultClient];

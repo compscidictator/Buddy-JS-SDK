@@ -11,6 +11,8 @@
 
 @implementation BPCheckin
 
+@synthesize comment, description, location;
+
 - (void)registerProperties
 {
     [super registerProperties];
