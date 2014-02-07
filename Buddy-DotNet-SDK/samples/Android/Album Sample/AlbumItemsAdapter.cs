@@ -70,7 +70,7 @@ namespace AlbumsSample
 				var pictureStream = await picture.GetFileAsync ();
 
 				// Use ContinueWith() here, so SetImageBitmap() will be called on the uiContext.
-				await BitmapFactory.DecodeStreamAsync (pictureStream).ContinueWith((decodeTask) =>
+				await BitmapFactory.DecodeStreamAsync (pictureStream.Value).ContinueWith((decodeTask) =>
 					{
 						imageView.SetImageBitmap (decodeTask.Result);
 					}, CancellationToken.None, TaskContinuationOptions.DenyChildAttach, uiContext);
