@@ -81,6 +81,7 @@
             withOptions:nil];
 }
 
+
 + (void) initClient:(NSString *)appID
             appKey:(NSString *)appKey
             withOptions:(NSDictionary *)options
@@ -109,6 +110,7 @@
             appKey:appKey
             options:combined
             delegate:nil];
+    
 }
 
 #pragma mark User

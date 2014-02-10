@@ -17,6 +17,7 @@
 #import <Foundation/Foundation.h>
 
 #import "BuddyObject.h"
+#import "BPClient.h"
 
 // BuddyDevice callback definitions
 
@@ -29,6 +30,10 @@ typedef void (^BuddyDeviceCallback)(id response);
 +(NSString *)osVersion;
 
 +(NSString *)deviceModel;
+
++(NSString *)pushToken;
+
++(void) pushToken:(NSString*)pushToken;
 
 /*
 /// <summary>

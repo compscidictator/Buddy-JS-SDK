@@ -25,6 +25,8 @@
 		0183A51B188F30060065C76C /* BPClientDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B8076A184061070086B843 /* BPClientDelegate.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		291DCC29928046FC88A33799 /* libPods-BuddySDK Unit Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A07FFFC093E94E77A9A92AF0 /* libPods-BuddySDK Unit Tests.a */; };
 		29345ABE1773DB3B00EEB8F5 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
+		2F7E079218A2EC08003FC524 /* BuddyAppDelegateDecorator.h in Headers */ = {isa = PBXBuildFile; fileRef = 2F7E079018A2EC08003FC524 /* BuddyAppDelegateDecorator.h */; };
+		2F7E079318A2EC08003FC524 /* BuddyAppDelegateDecorator.m in Sources */ = {isa = PBXBuildFile; fileRef = 2F7E079118A2EC08003FC524 /* BuddyAppDelegateDecorator.m */; };
 		A6291F80165C01800051F83C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C1010D31187A4CC3009EB04E /* 0.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2C187A4CC3009EB04E /* 0.jpg */; };
 		C1010D32187A4CC3009EB04E /* 1.jpg in Resources */ = {isa = PBXBuildFile; fileRef = C1010D2D187A4CC3009EB04E /* 1.jpg */; };
@@ -226,6 +228,8 @@
 		0183A51C188F4D2C0065C76C /* BPClient+Private.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "BPClient+Private.h"; sourceTree = "<group>"; };
 		29345A5A1773D2A400EEB8F5 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
 		29345ABD1773DB3B00EEB8F5 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		2F7E079018A2EC08003FC524 /* BuddyAppDelegateDecorator.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BuddyAppDelegateDecorator.h; sourceTree = "<group>"; };
+		2F7E079118A2EC08003FC524 /* BuddyAppDelegateDecorator.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BuddyAppDelegateDecorator.m; sourceTree = "<group>"; };
 		81137A46380B4BCCA3A2E417 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		A07FFFC093E94E77A9A92AF0 /* libPods-BuddySDK Unit Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BuddySDK Unit Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		A6291F7C165C01800051F83C /* libBuddySDK.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libBuddySDK.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -504,6 +508,8 @@
 				C1D7094718832983003D112C /* BPDescriptors.m */,
 				C1427675189ECA2300D5DD85 /* BPMetricCompletionHandler.h */,
 				C1427676189ECA2300D5DD85 /* BPMetricCompletionHandler.m */,
+				2F7E079018A2EC08003FC524 /* BuddyAppDelegateDecorator.h */,
+				2F7E079118A2EC08003FC524 /* BuddyAppDelegateDecorator.m */,
 			);
 			path = BuddySDK;
 			sourceTree = "<group>";
@@ -874,6 +880,7 @@
 				C1E0D1D41831BAD3001A7A01 /* JAGPropertyConverter-Prefix.pch in Headers */,
 				C1B0F539189373F6000403E0 /* AFNetworkReachabilityManager.h in Headers */,
 				C1C2395318789594000D0089 /* BPBlob.h in Headers */,
+				2F7E079218A2EC08003FC524 /* BuddyAppDelegateDecorator.h in Headers */,
 				C1AA90DD1837376E0074B7E8 /* NSDictionary+Merge.h in Headers */,
 				C1B2375F1865569F005C841E /* NSString+JSON.h in Headers */,
 				C1E0D1D51831BAD3001A7A01 /* JAGPropertyConverter.h in Headers */,
@@ -1121,6 +1128,7 @@
 				C1B0F4D418937142000403E0 /* NSSet+ObjectiveSugar.m in Sources */,
 				C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */,
 				C1B0F535189373F6000403E0 /* AFHTTPRequestOperationManager.m in Sources */,
+				2F7E079318A2EC08003FC524 /* BuddyAppDelegateDecorator.m in Sources */,
 				C1B0F4D018937142000403E0 /* NSMutableArray+ObjectiveSugar.m in Sources */,
 				C1B0F537189373F6000403E0 /* AFHTTPSessionManager.m in Sources */,
 				C1B0F4CC18937142000403E0 /* NSArray+ObjectiveSugar.m in Sources */,
