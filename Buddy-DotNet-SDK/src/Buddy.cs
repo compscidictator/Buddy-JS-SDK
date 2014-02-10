@@ -36,9 +36,9 @@ namespace BuddySDK
             }
         }
 
-        public static Task<BuddyResult<IDictionary<string, string>>> CallServiceMethod(string verb, string path, object parameters = null)
+        public static Task<BuddyResult<IDictionary<string, object>>> CallServiceMethod(string verb, string path, object parameters = null)
         {
-            return Instance.CallServiceMethod<IDictionary<string, string>>(verb, path, parameters);
+            return Instance.CallServiceMethod<IDictionary<string, object>>(verb, path, parameters);
         }
 
         public static AuthenticatedUser CurrentUser
@@ -225,6 +225,19 @@ namespace BuddySDK
         }
 
 
+        private static UserListCollection _userLists;
+
+        public static UserListCollection UserLists
+        {
+            get
+            {
+                if (_userLists == null)
+                {
+                    _userLists = new UserListCollection(Instance);
+                }
+                return _userLists;
+            }
+        }
       
 
 
