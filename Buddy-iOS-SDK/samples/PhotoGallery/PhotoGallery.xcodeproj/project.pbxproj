@@ -12,6 +12,7 @@
 		0111B68B1892DEF200745813 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111B6891892DEF200745813 /* EditPhotoViewController.m */; };
 		0111B68C1892DEF200745813 /* EditPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B68A1892DEF200745813 /* EditPhotoViewController.xib */; };
 		013D69D41897331E0052B091 /* TPKeyboardAvoidingScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = 013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */; };
+		016822DC18A937EF00977BCB /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 016822DB18A937EF00977BCB /* MobileCoreServices.framework */; };
 		01AEB8871890914C003B051A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8861890914C003B051A /* Foundation.framework */; };
 		01AEB8891890914C003B051A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB8881890914C003B051A /* CoreGraphics.framework */; };
 		01AEB88B1890914C003B051A /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01AEB88A1890914C003B051A /* UIKit.framework */; };
@@ -58,6 +59,7 @@
 		0111B68A1892DEF200745813 /* EditPhotoViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = EditPhotoViewController.xib; sourceTree = "<group>"; };
 		013D69D21897331E0052B091 /* TPKeyboardAvoidingScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPKeyboardAvoidingScrollView.h; sourceTree = "<group>"; };
 		013D69D31897331E0052B091 /* TPKeyboardAvoidingScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPKeyboardAvoidingScrollView.m; sourceTree = "<group>"; };
+		016822DB18A937EF00977BCB /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		01AEB8831890914C003B051A /* PhotoGallery.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = PhotoGallery.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		01AEB8861890914C003B051A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		01AEB8881890914C003B051A /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -103,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				016822DC18A937EF00977BCB /* MobileCoreServices.framework in Frameworks */,
 				01AEB8D11890957B003B051A /* CoreLocation.framework in Frameworks */,
 				01AEB8CF189093C7003B051A /* QuartzCore.framework in Frameworks */,
 				01AEB8CD189093C0003B051A /* SystemConfiguration.framework in Frameworks */,
@@ -148,6 +151,7 @@
 		01AEB8851890914C003B051A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				016822DB18A937EF00977BCB /* MobileCoreServices.framework */,
 				01061A2118A44ACE00350D67 /* BuddySDK.framework */,
 				01AEB8D01890957B003B051A /* CoreLocation.framework */,
 				01AEB8CE189093C7003B051A /* QuartzCore.framework */,
