@@ -259,7 +259,7 @@
 }
 
 -(void) registerPushToken:(NSString *)token callback:(BuddyObjectCallback)callback{
-    NSString *resource = @"devices";
+    NSString *resource = @"devices/current";
     [self checkDeviceToken:^(void){
     
         [self PATCH:resource parameters:@{@"pushToken": token} callback:callback];
