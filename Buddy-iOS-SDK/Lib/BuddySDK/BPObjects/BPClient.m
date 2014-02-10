@@ -27,7 +27,7 @@
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
-#define BuddyDefaultURL @"http://api.buddyplatform.com"
+#define BuddyDefaultURL @"https://api.buddyplatform.com"
 
 #define HiddenArgumentCount 2
 
@@ -348,13 +348,13 @@ NSMutableArray *queuedRequests;
                 [queuedRequests addObject:[method copy]];
                 
                 NSDictionary *getTokenParams = @{
-                                                 @"appId": self.appSettings.appID,
-                                                 @"appKey": self.appSettings.appKey,
+                                                 @"appId": BOXNIL(self.appSettings.appID),
+                                                 @"appKey": BOXNIL(self.appSettings.appKey),
                                                  @"Platform": @"iOS",
-                                                 @"UniqueId": [BuddyDevice identifier],
-                                                 @"Model": [BuddyDevice deviceModel],
-                                                 @"OSVersion": [BuddyDevice osVersion],
-                                                 @"DeviceToken": [BuddyDevice pushToken]
+                                                 @"UniqueId": BOXNIL([BuddyDevice identifier]),
+                                                 @"Model": BOXNIL([BuddyDevice deviceModel]),
+                                                 @"OSVersion": BOXNIL([BuddyDevice osVersion]),
+                                                 @"DeviceToken": BOXNIL([BuddyDevice pushToken])
                                                  };
                 [self.service POST:@"devices" parameters:getTokenParams callback:[self handleResponse:^(id json, NSError *error) {
                     // Grab the potentially different base url.
