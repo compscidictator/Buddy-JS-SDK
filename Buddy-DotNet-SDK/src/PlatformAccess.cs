@@ -128,10 +128,10 @@ namespace BuddySDK
 
         public bool IsUiThread {
             get {
-
-
                 return 
-                    !Thread.CurrentThread.IsThreadPoolThread && 
+#if !WINDOWS_PHONE
+                    !Thread.CurrentThread.IsThreadPoolThread &&
+#endif
                     !Thread.CurrentThread.IsBackground &&
                     Thread.CurrentThread.ManagedThreadId == _uiThreadId.GetValueOrDefault ();
             }
@@ -729,11 +729,6 @@ namespace BuddySDK
     // default
     internal class DotNetPlatformAccess : PlatformAccess
     {
-
-        public DotNetPlatformAccess()
-        {
-            _context = SynchronizationContext.Current;
-        }
         public override string Platform
         {
             get { return ".NET"; }
@@ -755,25 +750,30 @@ namespace BuddySDK
         public override string DeviceUniqueId
         {
             get {
-                var uniqueId = GetUserSetting("UniqueId");
 #if WINDOWS_PHONE
-                byte[] id = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
-               
-                if (id != null) {
-                    return Convert.ToBase64String(myDeviceID);
-                }
-                
-#else
+                try
+                {
+                    byte[] id = (byte[])Microsoft.Phone.Info.DeviceExtendedProperties.GetValue("DeviceUniqueId");
 
-                // default do nothing
+                    if (id != null)
+                    {
+                        return Convert.ToBase64String(id);
+                    }
+                }
+                catch
+                {
+                    System.Diagnostics.Debug.WriteLine("You must enable the ID_CAP_IDENTITY_DEVICE capability in WMAppManifest.xml to enable retrieval of DeviceExtendedProperties' DeviceUniqueId.");
+                }
+
 #endif
+                var uniqueId = GetUserSetting("UniqueId");
                 if (uniqueId == null)
                 {
                     uniqueId = Guid.NewGuid().ToString();
                     SetUserSetting("UniqueId", uniqueId);
                 }
                 return uniqueId;
-           }
+            }
         }
 
         public override string OSVersion
@@ -806,7 +806,7 @@ namespace BuddySDK
         {
             get {
 #if WINDOWS_PHONE
-                 return Environment.DeviceType == DeviceType.Emulator;
+                return Microsoft.Devices.Environment.DeviceType == Microsoft.Devices.DeviceType.Emulator;
 #else
                 return false;
 #endif
@@ -871,9 +871,12 @@ namespace BuddySDK
         {
             get {
 
-                // TODO: Capture calling assmbly from Buddy.Init call.
+                // TODO: Capture calling assembly from Buddy.Init call.
+#if WINDOWS_PHONE
+                var entryAssembly = Assembly.GetCallingAssembly();
+#else
                 var entryAssembly = Assembly.GetEntryAssembly();
-
+#endif
                 if (entryAssembly != null) {
                     var attr = entryAssembly.GetCustomAttribute<AssemblyFileVersionAttribute>();
                     return attr.Version;
@@ -900,20 +903,27 @@ namespace BuddySDK
 
         public override string GetConfigSetting(string key)
         {
-		    return System.Configuration.ConfigurationManager.AppSettings[key];
+#if WINDOWS_PHONE
+            return null;
+#else
+            return System.Configuration.ConfigurationManager.AppSettings[key];
+#endif
         }
 
         private IDictionary<string, string> LoadSettings(IsolatedStorageFile isoStore)
         {
-
             string existing = "";
             if (isoStore.FileExists("_buddy"))
             {
-                using (var sr = new StreamReader(isoStore.OpenFile("_buddy", FileMode.Open)))
+                using (var fs = isoStore.OpenFile("_buddy", FileMode.Open))
                 {
-                    existing = sr.ReadToEnd();
+                    using (var sr = new StreamReader(fs))
+                    {
+                        existing = sr.ReadToEnd();
+                    }
                 }
             }
+
             var d = new Dictionary<string, string>();
             var parts = Regex.Match(existing, "(?<key>\\w+)=(?<value>.*?);");
 
@@ -923,46 +933,45 @@ namespace BuddySDK
 
                 parts = parts.NextMatch();
             }
+
             return d;
         }
 
         private void SaveSettings(IsolatedStorageFile isoStore, IDictionary<string, string> values)
-        {
+        {  
+            var sb = new StringBuilder();
 
-            
-            StringBuilder sb = new StringBuilder();
             foreach (var kvp in values)
             {
                 sb.AppendFormat("{0}={1};", kvp.Key, kvp.Value ?? "");
             }
+
             using (var fs = isoStore.OpenFile("_buddy", FileMode.Create))
             {
-                var sw = new StreamWriter(fs);
+                using (var sw = new StreamWriter(fs))
+                {
+                    sw.WriteLine(sb.ToString());
 
-                sw.WriteLine(sb.ToString());
-
-                sw.Flush();
-                fs.Flush();
-
+                    sw.Flush();
+                    fs.Flush();
+                }
             }
         }
+
         public override void SetUserSetting(string key, string value, DateTime? expires = null)
         {
-            IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
-
-            
+            var isoStore = GetIsolatedStorageFile();
 
             // parse it
             var parsed = LoadSettings(isoStore);
             parsed[key] = value;
 
-            SaveSettings(isoStore, parsed);
-            
+            SaveSettings(isoStore, parsed);      
         }
 
         public override string GetUserSetting(string key)
         {
-            IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+            var isoStore = GetIsolatedStorageFile();
 
             var parsed = LoadSettings(isoStore);
 
@@ -975,7 +984,7 @@ namespace BuddySDK
 
         public override void ClearUserSetting(string key)
         {
-            IsolatedStorageFile isoStore = IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+            var isoStore = GetIsolatedStorageFile();
 
             var parsed = LoadSettings(isoStore);
 
@@ -983,18 +992,25 @@ namespace BuddySDK
             {
                 parsed.Remove(key);
                 SaveSettings(isoStore, parsed);
-            }
-           
+            }        
         }
 
-
-        private SynchronizationContext _context;
+        private IsolatedStorageFile GetIsolatedStorageFile()
+        {
+#if WINDOWS_PHONE
+            return IsolatedStorageFile.GetUserStoreForApplication();
+#else
+            return IsolatedStorageFile.GetStore(IsolatedStorageScope.User | IsolatedStorageScope.Assembly, null, null);
+#endif
+        }
 
         protected override void InvokeOnUiThreadCore(Action a)
         {
-            if (_context != null)
+            var context = SynchronizationContext.Current;
+
+            if (context != null)
             {
-                _context.Post((s) => { a(); }, null);
+                context.Post((s) => { a(); }, null);
             }
             else
             {

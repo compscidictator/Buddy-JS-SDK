@@ -87,7 +87,7 @@ namespace AlbumsSample
 		{
 			var albums = await Buddy.Albums.FindAsync ();
 
-			_albumsListView.Adapter = new AlbumAdapter (this, albums);
+			_albumsListView.Adapter = new AlbumAdapter (this, albums.PageResults);
 		}
     }
 }

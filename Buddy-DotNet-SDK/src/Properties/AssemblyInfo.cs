@@ -10,14 +10,14 @@ using System.Runtime.InteropServices;
  
 [assembly: AssemblyCompany("Buddy Platform Inc.")]
 [assembly: AssemblyProduct("Buddy Platform Client SDK")]
-[assembly: AssemblyCopyright("Copyright ©  2013")]
+[assembly: AssemblyCopyright("Copyright © 2014")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
 
 
-[assembly: AssemblyVersion("1.5.1.1")]
-[assembly: AssemblyFileVersion("1.5.1.1")]
+[assembly: AssemblyVersion("1.9.0.0")]
+[assembly: AssemblyFileVersion("1.9.0.0")]
 
 [assembly: System.Runtime.CompilerServices.InternalsVisibleTo("BuddySDK.ClientTest")]
 

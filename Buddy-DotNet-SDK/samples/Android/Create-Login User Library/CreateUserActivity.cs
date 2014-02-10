@@ -48,7 +48,7 @@ namespace CreateLoginUserLibrary
 							_emailAddressEditText.Text,
 						GetGenderSpinnerValue(), DateTime.Parse(_birthdateTextView.Text).ToUniversalTime());
 
-					StartMainActivity();
+					StartHomeActivity();
 				}
 				catch {
 					Android.Widget.Toast.MakeText(this, "Invalid user information. Please try again.", ToastLength.Short).Show();

@@ -2,7 +2,7 @@
 
 window.Buddy = function(root) {
 
-	root = root || "http://api.buddyplatform.com"
+	root = root || "https://api.buddyplatform.com"
 
 	var buddy = {};
 
@@ -284,7 +284,7 @@ window.Buddy = function(root) {
 			timeoutInMinutes = null;
 		}
 
-		buddy.post("/metrics/events", {
+		buddy.post("/metrics/events/" + eventName, {
 			values: values,
 			timeoutInMinutes: timeoutInMinutes
 		}, function(err, result){
