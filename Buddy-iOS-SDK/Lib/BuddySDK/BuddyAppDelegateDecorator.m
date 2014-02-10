@@ -7,6 +7,7 @@
 //
 
 #import "BuddyAppDelegateDecorator.h"
+#import "BuddyDevice.h"
 
 @implementation BuddyAppDelegateDecorator
 
@@ -44,8 +45,8 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     NSString* rawDeviceTokenHex = [[deviceToken description] stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"<>"]];
-    //KVO should pick up these changes and send them off to buddy
-    self.settings.deviceToken = [rawDeviceTokenHex stringByReplacingOccurrencesOfString:@" " withString:@""];
+
+    [BuddyDevice pushToken:[rawDeviceTokenHex stringByReplacingOccurrencesOfString:@" " withString:@""]];
     
     if(![self.wrapped respondsToSelector:@selector(application:didRegisterForRemoteNotificationsWithDeviceToken:)]){
         return;

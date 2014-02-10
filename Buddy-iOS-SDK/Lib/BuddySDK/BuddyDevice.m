@@ -25,6 +25,19 @@
 
 @implementation BuddyDevice
 
+static NSString* _pushToken = @"";
+
++(NSString*) pushToken {
+    return  _pushToken;
+}
+
++(void)pushToken:(NSString*)pushToken{
+    _pushToken = pushToken;
+    [[BPClient defaultClient] registerPushToken:pushToken callback:^(id device, NSError *error){
+        NSLog(@"token registered");
+    }];
+}
+
 +(NSString *)identifier {
 
     NSArray *versionCompatibility = [[UIDevice currentDevice].systemVersion componentsSeparatedByString:@"."];

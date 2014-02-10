@@ -258,6 +258,14 @@
     }];
 }
 
+-(void) registerPushToken:(NSString *)token callback:(BuddyObjectCallback)callback{
+    NSString *resource = @"devices";
+    [self checkDeviceToken:^(void){
+    
+        [self PATCH:resource parameters:@{@"pushToken": token} callback:callback];
+    }];
+}
+
 
 #pragma mark - Utility
 
@@ -345,7 +353,8 @@ NSMutableArray *queuedRequests;
                                                  @"Platform": @"iOS",
                                                  @"UniqueId": [BuddyDevice identifier],
                                                  @"Model": [BuddyDevice deviceModel],
-                                                 @"OSVersion": [BuddyDevice osVersion]
+                                                 @"OSVersion": [BuddyDevice osVersion],
+                                                 @"DeviceToken": [BuddyDevice pushToken]
                                                  };
                 [self.service POST:@"devices" parameters:getTokenParams callback:[self handleResponse:^(id json, NSError *error) {
                     // Grab the potentially different base url.

@@ -29,7 +29,7 @@
 }
 
 + (BPUser *)user{
-    return [[BPSession currentSession] user];
+    return [[BPClient defaultClient] user];
 }
 
 + (BuddyDevice *)device{
@@ -81,7 +81,6 @@
             withOptions:nil];
 }
 
-}
 
 + (void) initClient:(NSString *)appID
             appKey:(NSString *)appKey
