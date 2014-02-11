@@ -516,6 +516,8 @@
 				C1D7094718832983003D112C /* BPDescriptors.m */,
 				C1427675189ECA2300D5DD85 /* BPMetricCompletionHandler.h */,
 				C1427676189ECA2300D5DD85 /* BPMetricCompletionHandler.m */,
+				2F7E079018A2EC08003FC524 /* BuddyAppDelegateDecorator.h */,
+				2F7E079118A2EC08003FC524 /* BuddyAppDelegateDecorator.m */,
 				C1A1E29718A35B1A003CC33A /* BPSisterObject.h */,
 				C1A1E29818A35B1A003CC33A /* BPSisterObject.m */,
 			);
