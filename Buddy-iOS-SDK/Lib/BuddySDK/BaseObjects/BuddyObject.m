@@ -148,6 +148,8 @@
         
         if([[c class] isSubclassOfClass:[NSDate class]]){
             c = [c serializeDateToJson];
+        } else if ([c respondsToSelector:@selector(stringValue)]) {
+            c = [c stringValue];
         }
         
         [buddyPropertyDictionary setObject:c forKey:key];
