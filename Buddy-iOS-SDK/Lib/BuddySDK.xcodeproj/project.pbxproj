@@ -186,7 +186,7 @@
 		C1E0D1E41831C2E8001A7A01 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A6291F7F165C01800051F83C /* Foundation.framework */; };
 		C1E0D1E51831C2E8001A7A01 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29345ABD1773DB3B00EEB8F5 /* UIKit.framework */; };
 		C1E0D1EB1831C2E8001A7A01 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C1E0D1E91831C2E8001A7A01 /* InfoPlist.strings */; };
-		C1E0D2871835C911001A7A01 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D2721835C8E1001A7A01 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		C1E0D2871835C911001A7A01 /* OpenUDID.m in Sources */ = {isa = PBXBuildFile; fileRef = C1E0D2721835C8E1001A7A01 /* OpenUDID.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc -w"; }; };
 		C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = C1FBCED417E6718E00275F6A /* BuddyLocation.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C1FBCED717E6718E00275F6A /* BuddyLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1FBCED517E6718E00275F6A /* BuddyLocation.m */; };
 		C1FBCED917E671A900275F6A /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1FBCED817E671A900275F6A /* CoreLocation.framework */; };
