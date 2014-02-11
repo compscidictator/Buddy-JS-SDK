@@ -17,6 +17,4 @@
 
 -(void)authorizationNeedsUserLogin;
 
--(void)authorizationNeedsUserLogin;
-
 @end
