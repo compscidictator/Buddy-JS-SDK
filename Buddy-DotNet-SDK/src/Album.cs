@@ -102,5 +102,15 @@ namespace BuddySDK
             var r = await c.SaveAsync();
             return r.Convert (b => c);
         }
+
+        public Task<SearchResult<Album>> FindAsync(string name = null, string comment = null,
+            BuddyGeoLocationRange location = null, int maxResults = 100, string pagingToken = null)
+        {
+            return base.FindAsync(null, null, null, location, maxResults, pagingToken, (p) =>
+            {
+                p["name"] = name;
+                p["comment"] = comment;
+            });
+        }
     }
 }

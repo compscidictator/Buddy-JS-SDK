@@ -22,17 +22,21 @@
 #import "BuddyLocation.h"
 #import "BuddyDevice.h"
 #import "BPAppSettings.h"
+#import "BuddyAppDelegateDecorator.h"
 #import <CoreFoundation/CoreFoundation.h>
 
 #define BuddyServiceURL @"BuddyServiceURL"
 
 #define BuddyDefaultURL @"https://api.buddyplatform.com"
 
+#define HiddenArgumentCount 2
+
 @interface BPClient()<BPRestProvider>
 
 @property (nonatomic, strong) BPServiceController *service;
 @property (nonatomic, strong) BPAppSettings *appSettings;
 @property (nonatomic, strong) BuddyLocation *location;
+@property (nonatomic, strong) BuddyAppDelegateDecorator *decorator;
 
 @end
 
@@ -96,7 +100,22 @@
     // TODO - Does the client need a copy? Do users need to read back key/id?
     _appSettings.appKey = appKey;
     _appSettings.appID = appID;
+    
+    if(!([options hasKey:@"disablePush"] && ((BOOL)[options objectForKey:@"disablePush"]) == NO)){
+        [self registerForPushes];
+    }
 }
+
+
+-(void) registerForPushes {
+    UIApplication* app = [UIApplication sharedApplication];
+    //wrap the app delegate in a buddy decorator
+    self.decorator = [BuddyAppDelegateDecorator  appDelegateDecoratorWithAppDelegate:app.delegate client:self andSettings:_appSettings];
+    app.delegate = self.decorator;
+    [app registerForRemoteNotificationTypes:UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeNewsstandContentAvailability | UIRemoteNotificationTypeNone | UIRemoteNotificationTypeSound];
+    
+}
+
 
 # pragma mark -
 # pragma mark Singleton
@@ -239,6 +258,14 @@
     }];
 }
 
+-(void) registerPushToken:(NSString *)token callback:(BuddyObjectCallback)callback{
+    NSString *resource = @"devices/current";
+    [self checkDeviceToken:^(void){
+    
+        [self PATCH:resource parameters:@{@"pushToken": token} callback:callback];
+    }];
+}
+
 
 #pragma mark - Utility
 
@@ -327,7 +354,8 @@ NSMutableArray *queuedRequests;
                                                  @"Platform": @"iOS",
                                                  @"UniqueId": BOXNIL([BuddyDevice identifier]),
                                                  @"Model": BOXNIL([BuddyDevice deviceModel]),
-                                                 @"OSVersion": BOXNIL([BuddyDevice osVersion])
+                                                 @"OSVersion": BOXNIL([BuddyDevice osVersion]),
+                                                 @"DeviceToken": BOXNIL([BuddyDevice pushToken])
                                                  };
                 [self.service POST:@"devices" parameters:getTokenParams callback:[self handleResponse:^(id json, NSError *error) {
                     // Grab the potentially different base url.
@@ -429,6 +457,7 @@ NSMutableArray *queuedRequests;
     );
 }
 
+
 #pragma mark - Location
 
 - (void)setLocationEnabled:(BOOL)locationEnabled
@@ -477,6 +506,30 @@ NSMutableArray *queuedRequests;
 - (id<BPRestProvider>)restService
 {
     return self;
+}
+
+#pragma mark - Push Notification
+
+
+-(void)sendApplicationMessage:(SEL)selector withArguments:(NSArray*)args
+{
+    UIApplication* app = [UIApplication sharedApplication];
+    if([app respondsToSelector:selector]){
+        NSMethodSignature* messageSig = [UIApplication methodSignatureForSelector:selector];
+        NSInvocation* invoke = [NSInvocation invocationWithMethodSignature: messageSig];
+        [invoke setSelector:selector];
+        [invoke setTarget:app];
+        if([args count] != ([messageSig numberOfArguments] - HiddenArgumentCount)){
+            return;
+        }
+       
+        for ( int currentArgIndex = 0;currentArgIndex < [args count]; currentArgIndex++){
+            [invoke setArgument:(void*)[args objectAtIndex:currentArgIndex] atIndex:currentArgIndex];
+        }
+        [invoke invoke];
+        
+    }
+    
 }
 
 @end

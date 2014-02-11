@@ -117,74 +117,35 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="AppMetadata.cs" />
-    <Compile Include="Blob.cs" />
-    <Compile Include="Blobs.cs" />
+    <Compile Include="Album.cs" />
+    <Compile Include="AlbumItem.cs" />
+    <Compile Include="Buddy.cs" />
     <Compile Include="BuddyBase.cs" />
+    <Compile Include="BuddyCollectionBase.cs" />
+    <Compile Include="BuddyGeoLocation.cs" />
+    <Compile Include="BuddyResult.cs" />
     <Compile Include="BuddyServiceClient\BuddyServiceClientBase.cs" />
     <Compile Include="BuddyServiceClient\BuddyServiceClientHttp.cs" />
     <Compile Include="BuddyServiceException.cs" />
-    <Compile Include="Commerce.cs" />
-    <Compile Include="GamePlayer.cs" />
-    <Compile Include="GamePlayers.cs" />
-    <Compile Include="MetroArea.cs" />
+    <Compile Include="Checkin.cs" />
+    <Compile Include="CheckinCollection.cs" />
+    <Compile Include="ConnectivityLevelChangedEventArgs.cs" />
+    <Compile Include="CurrentUserChangedEventArgs.cs" />
+    <Compile Include="Location.cs" />
+    <Compile Include="LocationCollection.cs" />
+    <Compile Include="Metadata.cs" />
+    <Compile Include="Photo.cs" />
+    <Compile Include="Photos.cs" />
+    <Compile Include="PlatformAccess.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="AuthenticatedUser.cs" />
-    <Compile Include="BuddyCallbackParams.cs" />
     <Compile Include="BuddyClient.cs" />
-    <Compile Include="BuddyTaskWrappers.cs" />
-    <Compile Include="CheckInLocation.cs" />
-    <Compile Include="GameBoards.cs" />
-    <Compile Include="GameScore.cs" />
-    <Compile Include="GameScores.cs" />
-    <Compile Include="GameState.cs" />
-    <Compile Include="GameStates.cs" />
-    <Compile Include="GroupMessage.cs" />
-    <Compile Include="Message.cs" />
-    <Compile Include="MessageGroup.cs" />
-    <Compile Include="MessageGroups.cs" />
-    <Compile Include="Messages.cs" />
-    <Compile Include="Notifications.cs" />
-    <Compile Include="Device.cs" />
-    <Compile Include="FriendRequests.cs" />
-    <Compile Include="Friends.cs" />
-    <Compile Include="Identity.cs" />
-    <Compile Include="IdentityItem.cs" />
-    <Compile Include="IdentityItemSearchResult.cs" />
-    <Compile Include="MetadataItem.cs" />
-    <Compile Include="MetadataSum.cs" />
-    <Compile Include="NotificationsAndroid.cs" />
-    <Compile Include="NotificationsApple.cs" />
-    <Compile Include="NotificationsWin8.cs" />
-    <Compile Include="PhotoAlbum.cs" />
-    <Compile Include="PhotoAlbumPublic.cs" />
-    <Compile Include="PhotoAlbums.cs" />
-    <Compile Include="Picture.cs" />
-    <Compile Include="PicturePublic.cs" />
-    <Compile Include="Place.cs" />
-    <Compile Include="Places.cs" />
     <Compile Include="Properties\AssemblyInfoWp8.cs" />
-    <Compile Include="Receipt.cs" />
-    <Compile Include="RegisteredDevice.cs" />
-    <Compile Include="RegisteredDeviceAndroid.cs" />
-    <Compile Include="RegisteredDeviceApple.cs" />
-    <Compile Include="RegisteredDeviceWin8.cs" />
-    <Compile Include="Sound.cs" />
-    <Compile Include="Startup.cs" />
-    <Compile Include="Startups.cs" />
-    <Compile Include="StoreItem.cs" />
+    <Compile Include="SearchResult.cs" />
+    <Compile Include="ServiceExceptionEventArgs.cs" />
+    <Compile Include="SocialAuthenticatedUser.cs" />
     <Compile Include="User.cs" />
-    <Compile Include="UserMetadata.cs" />
-    <Compile Include="Video.cs" />
-    <Compile Include="Videos.cs" />
-    <Compile Include="VirtualAlbum.cs" />
-    <Compile Include="VirtualAlbums.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="ServiceReferences.ClientConfig" />
+    <Compile Include="UserCollection.cs" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -200,7 +161,7 @@
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Newtonsoft.Json">
-      <HintPath>..\bin\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\libs\Json50r8\Bin\Portable\Newtonsoft.Json.dll</HintPath>
     </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\$(TargetFrameworkIdentifier)\$(TargetFrameworkVersion)\Microsoft.$(TargetFrameworkIdentifier).$(TargetFrameworkVersion).Overrides.targets" />

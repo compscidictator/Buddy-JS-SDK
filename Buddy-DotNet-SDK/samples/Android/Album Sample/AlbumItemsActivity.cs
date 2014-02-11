@@ -79,7 +79,7 @@ namespace AlbumsSample
 				// Check stream for picture types other than JPEG
 				var picture = await BuddySDK.Buddy.Photos.AddAsync ("", streamReader.BaseStream, "image/jpeg", null);
 
-				await AlbumsActivity.SelectedAlbum.AddItemAsync (picture.ID, "", null);
+				await AlbumsActivity.SelectedAlbum.AddItemAsync (picture.Value.ID, "", null);
 			}
 		}
 
@@ -88,7 +88,7 @@ namespace AlbumsSample
 			var albumItems = await AlbumsActivity.SelectedAlbum.Items.FindAsync ();
 
 			var gridview = FindViewById<GridView> (Resource.Id.albumItemsGridView);
-			gridview.Adapter = new AlbumItemsAdapter (this, albumItems.ToList());
+			gridview.Adapter = new AlbumItemsAdapter (this, albumItems.PageResults.ToList());
 		}
 	}
 }

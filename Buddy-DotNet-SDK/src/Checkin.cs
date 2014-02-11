@@ -67,10 +67,13 @@ namespace BuddySDK
 
         public override Task<BuddyResult<bool>> SaveAsync()
         {
-            if (Location == null)
+            var location = GetValueOrDefault<BuddyGeoLocation>("Location", autoPopulate: false);
+
+            if (location == null)
             {
                 throw new ArgumentException("Location is required.");
             }
+
             return base.SaveAsync();
         }
     }
