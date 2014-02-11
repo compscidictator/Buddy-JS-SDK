@@ -27,7 +27,7 @@
 {
     id checkinCollection= [BPSisterObject new];
     describeCheckin ? describeCheckin(checkinCollection) : nil;
-    
+
     id parameters = [checkinCollection parametersFromProperties:@protocol(BPCheckinProperties)];
     
     [self.type createFromServerWithParameters:parameters client:self.client callback:callback];

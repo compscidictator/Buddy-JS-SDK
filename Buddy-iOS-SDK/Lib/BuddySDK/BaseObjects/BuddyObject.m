@@ -100,6 +100,16 @@
     return [self enumMap][key];
 }
 
++ (id)convertValue:(NSString *)value forKey:(NSString *)key
+{
+    return nil;
+}
+
++ (id)convertValueToJSON:(NSString *)value forKey:(NSString *)key
+{
+    return nil;
+}
+
 + (NSDictionary *)enumMap
 {
     return [self baseEnumMap];
@@ -260,7 +270,7 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 
 - (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback
 {
-    NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%d", value]};
+    NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%ld", (long)value]};
 
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
@@ -296,13 +306,13 @@ static NSString *metadataFormat = @"metadata/%@/%@";
         c = [JAGPropertyConverter new];
         
         // TODO - necessary?
-        __weak typeof(self) weakSelf = self;
-        c.identifyDict = ^Class(NSDictionary *dict) {
-            if ([dict valueForKey:@"latitude"]) {
-                return [BPCoordinate class];
-            }
-            return [weakSelf class];
-        };
+//        __weak typeof(self) weakSelf = self;
+//        c.identifyDict = ^Class(NSDictionary *dict) {
+//            if ([dict valueForKey:@"latitude"]) {
+//                return [BPCoordinate class];
+//            }
+//            return [weakSelf class];
+//        };
         
     }
     return c;

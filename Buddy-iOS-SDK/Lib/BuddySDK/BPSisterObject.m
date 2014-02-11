@@ -26,6 +26,10 @@
     return self;
 }
 
+- (void)dealloc
+{
+    self.properties = nil;
+}
 
 
 - (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
@@ -59,6 +63,11 @@
 - (id)valueForKey:(NSString *)key
 {
     return self.properties[key];
+}
+
+- (void)setValue:(id)value forKey:(NSString *)key
+{
+    self.properties[key] = value;
 }
 
 //+ (BOOL)resolveInstanceMethod:(SEL)sel

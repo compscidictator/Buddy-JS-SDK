@@ -19,11 +19,31 @@
     
     [self registerProperty:@selector(comment)];
     [self registerProperty:@selector(description)];
+    [self registerProperty:@selector(location)];
 }
 
 static NSString *checkins = @"checkins";
 +(NSString *) requestPath{
     return checkins;
+}
+
++ (id)convertValue:(NSString *)value forKey:(NSString *)key
+{
+    if ([key isEqualToString:@"location"]) {
+        NSArray *components = [value split:@","];
+        BPCoordinate *coord = BPCoordinateMake([components[0] floatValue], [components[1] floatValue]);
+        return coord;
+    }
+    return nil;
+}
+
++ (id)convertValueToJSON:(NSString *)value forKey:(NSString *)key
+{
+    if ([key isEqualToString:@"location"]) {
+        BPCoordinate *coord = (BPCoordinate *)value;
+        return [NSString stringWithFormat:@"%f,%f", coord.latitude, coord.longitude];
+    }
+    return nil;
 }
 
 @end

@@ -304,6 +304,7 @@
 NSMutableArray *queuedRequests;
 - (void)checkDeviceToken:(void(^)())method
 {
+    [method copy];
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         queuedRequests = [NSMutableArray array];
@@ -314,11 +315,11 @@ NSMutableArray *queuedRequests;
     } else {
         @synchronized (self) {
             if ([queuedRequests count] > 0) {
-                [queuedRequests addObject:[method copy]];
+                [queuedRequests addObject:method];
                 return;
             }
             else {
-                [queuedRequests addObject:[method copy]];
+                [queuedRequests addObject:method];
                 
                 NSDictionary *getTokenParams = @{
                                                  @"appId": BOXNIL(self.appSettings.appID),
@@ -372,7 +373,7 @@ NSMutableArray *queuedRequests;
             }
         }
         
-        response = response ?: @"Unknown";
+        result = result ?: @"Unknown";
         id responseObject = nil;
         
         switch (responseCode) {

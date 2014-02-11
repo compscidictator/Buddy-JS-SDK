@@ -7,6 +7,7 @@
 //
 
 #import "NSObject+ToJSON.h"
+#import "BPEnumMapping.h"
 #import <objc/runtime.h>
 
 @implementation NSObject (ToJSON)

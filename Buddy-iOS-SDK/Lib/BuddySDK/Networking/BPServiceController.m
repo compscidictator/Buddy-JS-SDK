@@ -49,7 +49,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         [_jsonRequestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [_jsonRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [_httpRequestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
-        
+
         [self addObserver:self forKeyPath:@"appSettings.userToken" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"appSettings.deviceToken" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"appSettings.serviceUrl" options:NSKeyValueObservingOptionNew context:nil];

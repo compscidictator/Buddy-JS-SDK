@@ -59,21 +59,21 @@ describe(@"BPCheckinIntegrationSpec", ^{
         
         it(@"Should allow you to search checkins.", ^{
             __block NSArray *checkins;
-        [[Buddy checkins] searchCheckins:^(id<BPCheckinProperties> checkinProperties) {
-            checkinProperties.comment = @"Checking in!";
-        } callback:^(NSArray *buddyObjects, NSError *error) {
-            NSArray *cins = buddyObjects;
-            
-            for(BPCheckin *c in cins) {
-                [[c.comment should] equal:@"Checking in!"];
-            }
-            
-            checkins = buddyObjects;
-        }];
+            [[Buddy checkins] searchCheckins:^(id<BPCheckinProperties> checkinProperties) {
+                checkinProperties.comment = @"Checking in!";
+            } callback:^(NSArray *buddyObjects, NSError *error) {
+                NSArray *cins = buddyObjects;
+                
+                for(BPCheckin *c in cins) {
+                    [[c.comment should] equal:@"Checking in!"];
+                }
+                
+                checkins = buddyObjects;
+            }];
             
             [[expectFutureValue(theValue([checkins count])) shouldEventually] beGreaterThan:theValue(0)];
         });
-        
+
         it(@"Should allow you to retrieve a specific checkin.", ^{
             __block BPCheckin *retrievedCheckin;
             [[Buddy checkins] getCheckin:tempCheckinId callback:^(id newBuddyObject, NSError *error) {
@@ -84,7 +84,7 @@ describe(@"BPCheckinIntegrationSpec", ^{
             [[expectFutureValue(retrievedCheckin.comment) shouldEventually] equal:tempCheckin.comment];
             [[expectFutureValue(retrievedCheckin.description) shouldEventually] equal:tempCheckin.description];
         });
-        
+
         it(@"Should allow modifying the comment of a checkin.", ^{
             
             tempCheckin.comment = @"My new comment";

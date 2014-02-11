@@ -26,6 +26,7 @@ describe(@"Metadata", ^{
                 [[Buddy checkins] checkin:^(id<BPCheckinProperties> checkinProperties) {
                     checkinProperties.comment = @"Test checkin";
                     checkinProperties.description = @"Test checkin description";
+                    checkinProperties.location = BPCoordinateMake(1.2, 3.4);
                 } callback:^(id newBuddyObject, NSError *error) {
                     checkin = newBuddyObject;
                 }];
