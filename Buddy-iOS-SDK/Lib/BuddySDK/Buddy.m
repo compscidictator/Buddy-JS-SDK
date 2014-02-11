@@ -145,12 +145,12 @@
     [[BPClient defaultClient] logout:callback];
 }
 
-+ (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
++ (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback
 {
     [[BPClient defaultClient] recordMetric:key andValue:value callback:callback];
 }
 
-+ (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
++ (void)recordTimedMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
 {
     [[BPClient defaultClient] recordTimedMetric:key andValue:value timeout:seconds callback:callback];
 }

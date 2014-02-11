@@ -476,7 +476,7 @@ NSMutableArray *queuedRequests;
 
 #pragma mark - Metrics
 
-- (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
+- (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"metrics/events/%@", key];
     NSDictionary *parameters = @{@"value": BOXNIL(value)};
@@ -486,7 +486,7 @@ NSMutableArray *queuedRequests;
     }];
 }
 
-- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
+- (void)recordTimedMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"metrics/events/%@", key];
     NSDictionary *parameters = @{@"value": BOXNIL(value),
@@ -495,7 +495,7 @@ NSMutableArray *queuedRequests;
     [self POST:resource parameters:parameters callback:^(id json, NSError *error) {
         BPMetricCompletionHandler *completionHandler;
         if (!error) {
-            completionHandler = [[BPMetricCompletionHandler alloc] initWithMetricId:json andClient:self];
+            completionHandler = [[BPMetricCompletionHandler alloc] initWithMetricId:json[@"id"] andClient:self];
         }
         callback ? callback(completionHandler, error) : nil;
     }];

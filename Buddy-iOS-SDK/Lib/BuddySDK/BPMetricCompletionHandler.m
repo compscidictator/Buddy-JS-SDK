@@ -26,10 +26,17 @@
     return self;
 }
 
-- (void)signalComplete
+- (void)signalComplete:(BuddyTimedMetricResult)callback
 {
     NSString *resource = [NSString stringWithFormat:@"/metrics/events/%@", self.metricId];
-    [self.client DELETE:resource parameters:nil callback:nil];
+    [self.client DELETE:resource parameters:nil callback:^(id json, NSError *error) {
+        NSInteger time = -1;
+        id timeString = json[@"elaspedTimeInMs"];
+        if (time) {
+            time = [timeString integerValue];
+        }
+        callback ? callback(time, error) : nil;
+    }];
 }
 
 @end
