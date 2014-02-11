@@ -9,10 +9,26 @@
 #import <UIKit/UIKit.h>
 #import "BPBlob.h"
 
-@interface BPPhoto : BPBlob
+@protocol BPPhotoProperties <BuddyObjectProperties>
 
-@property (nonatomic, copy) NSString *caption;
+@property (nonatomic, copy) NSString *comment;
 
-+ (void)createWithImage:(UIImage *)image andComment:(NSString *)comment callback:(BuddyObjectCallback)callback;
+@end
+
+@class BPPhoto;
+
+typedef void(^BuddyImageResponse)(UIImage *image, NSError *error);
+typedef void(^DescribePhoto)(id<BPPhotoProperties>photoProperties);
+
+@interface BPPhoto : BPBlob<BPPhotoProperties>
+
+//@property (nonatomic, assign) CGSize size;
+
++ (void)createWithImage:(UIImage *)image
+          describePhoto:(DescribePhoto)describePhoto
+                 client:(id<BPRestProvider>)client
+               callback:(BuddyObjectCallback)callback;
+
+- (void)getImage:(BuddyImageResponse)callback;
 
 @end

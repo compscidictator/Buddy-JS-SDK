@@ -8,7 +8,6 @@
 
 #import <UIKit/UIKit.h>
 #import "BPCoordinate.h"
-#import "BPEnumMapping.h"
 
 @protocol BPCheckinProperties <BuddyObjectProperties>
 
