@@ -30,9 +30,8 @@
 {
     self.properties = nil;
 }
-
-
-- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector {
+- (NSMethodSignature *)methodSignatureForSelector:(SEL)aSelector
+{
     return [[self class] instanceMethodSignatureForSelector:@selector(foo:)];
 }
 
@@ -48,7 +47,7 @@
 
 - (void)forwardInvocation:(NSInvocation *)anInvocation
 {
-    NSString *argument;
+    __unsafe_unretained id argument;
     [anInvocation getArgument:&argument atIndex:2];
     if (argument) {
         NSString *setterName = NSStringFromSelector(anInvocation.selector);
@@ -69,45 +68,5 @@
 {
     self.properties[key] = value;
 }
-
-//+ (BOOL)resolveInstanceMethod:(SEL)sel
-//{
-//    class_addMethod([self class], sel, (IMP)genericMethodIMP, "v@:");
-//    return YES;
-//}
-//
-//void genericMethodIMP(id self, SEL _cmd)
-//{
-//    NSLog(@"%@ says: I finished '%@'.",
-//          NSStringFromClass([self class]),
-//          NSStringFromSelector(_cmd));
-//}
-
-//+ (void)load
-//{
-//    [[self class] synthesizeForwarder:@"comment"];
-//}
-//
-//- (id)_getter_:(id)key
-//{
-//    return self.properties[key];
-//}
-//
-//- (void)_setter_:(id)key value:(id)value
-//{
-//    self.properties[key] = value;
-//}
-//
-//+(void)synthesizeForwarder:(NSString*)getterName
-//{
-//    NSString*setterName=[NSString stringWithFormat:@"set%@%@:",
-//                         [[getterName substringToIndex:1] uppercaseString],[getterName substringFromIndex:1]];
-//    Method getter=class_getInstanceMethod(self, @selector(_getter_:));
-//    class_addMethod(self, NSSelectorFromString(getterName),
-//                    method_getImplementation(getter), method_getTypeEncoding(getter));
-//    Method setter=class_getInstanceMethod(self, @selector(_setter_:value:));
-//    class_addMethod(self, NSSelectorFromString(setterName),
-//                    method_getImplementation(setter), method_getTypeEncoding(setter));
-//}
 
 @end
