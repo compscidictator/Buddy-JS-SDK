@@ -30,7 +30,7 @@
 
 #import "AFURLResponseSerialization.h"
 
-@protocol AFImageCache;
+@protocol AFImageCacheP;
 
 /**
  This category adds methods to the UIKit framework's `UIImageView` class. The methods in this category provide support for loading remote images asynchronously from a URL.
@@ -44,14 +44,14 @@
 /**
  The image cache used to improve image loadiing performance on scroll views. By default, this is an `NSCache` subclass conforming to the `AFImageCache` protocol, which listens for notification warnings and evicts objects accordingly.
 */
-+ (id <AFImageCache>)sharedImageCache;
++ (id <AFImageCacheP>)sharedImageCache;
 
 /**
  Set the cache used for image loading.
  
  @param imageCache The image cache.
  */
-+ (void)setSharedImageCache:(id <AFImageCache>)imageCache;
++ (void)setSharedImageCache:(id <AFImageCacheP>)imageCache;
 
 ///------------------------------------
 /// @name Accessing Response Serializer
@@ -121,7 +121,7 @@
 /**
  The `AFImageCache` protocol is adopted by an object used to cache images loaded by the AFNetworking category on `UIImageView`.
  */
-@protocol AFImageCache
+@protocol AFImageCacheP
 
 /**
  Returns a cached image for the specififed request, if available.

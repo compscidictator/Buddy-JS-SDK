@@ -82,7 +82,7 @@
  - Archives and copies of HTTP clients will be initialized with an empty operation queue.
  - NSCoding cannot serialize / deserialize block properties, so an archive of an HTTP client will not include any reachability callback block that may be set.
  */
-@interface AFHTTPRequestOperationManager : NSObject <NSCoding, NSCopying>
+@interface BP(AFHTTPRequestOperationManager) : NSObject <NSCoding, NSCopying>
 
 /**
  The URL used to monitor reachability, and construct requests from relative paths in methods like `requestWithMethod:URLString:parameters:`, and the `GET` / `POST` / et al. convenience methods.
@@ -291,4 +291,4 @@
                            failure:(void (^)(AFHTTPRequestOperation *operation, NSError *error))failure;
 
 @end
-
+#define AFHTTPRequestOperationManager BP(AFHTTPRequestOperationManager)

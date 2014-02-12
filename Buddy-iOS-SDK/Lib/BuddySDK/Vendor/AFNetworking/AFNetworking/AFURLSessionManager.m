@@ -44,26 +44,39 @@ static dispatch_group_t url_session_manager_completion_group() {
     return af_url_session_manager_completion_group;
 }
 
-NSString * const AFNetworkingTaskDidResumeNotification = @"com.alamofire.networking.task.resume";
-NSString * const AFNetworkingTaskDidCompleteNotification = @"com.alamofire.networking.task.complete";
-NSString * const AFNetworkingTaskDidSuspendNotification = @"com.alamofire.networking.task.suspend";
-NSString * const AFURLSessionDidInvalidateNotification = @"com.alamofire.networking.session.invalidate";
-NSString * const AFURLSessionDownloadTaskDidFailToMoveFileNotification = @"com.alamofire.networking.session.download.file-manager-error";
+NSString * const BP(AFNetworkingTaskDidResumeNotification) = @"com.alamofire.networking.task.resume";
+#define AFNetworkingTaskDidResumeNotification BP(AFNetworkingTaskDidResumeNotification)
+NSString * const BP(AFNetworkingTaskDidCompleteNotification) = @"com.alamofire.networking.task.complete";
+#define AFNetworkingTaskDidCompleteNotification BP(AFNetworkingTaskDidCompleteNotification)
+NSString * const BP(AFNetworkingTaskDidSuspendNotification) = @"com.alamofire.networking.task.suspend";
+#define AFNetworkingTaskDidSuspendNotification BP(AFNetworkingTaskDidSuspendNotification)
+NSString * const BP(AFURLSessionDidInvalidateNotification) = @"com.alamofire.networking.session.invalidate";
+#define AFURLSessionDidInvalidateNotification BP(AFURLSessionDidInvalidateNotification)
+NSString * const BP(AFURLSessionDownloadTaskDidFailToMoveFileNotification) = @"com.alamofire.networking.session.download.file-manager-error";
+#define AFURLSessionDownloadTaskDidFailToMoveFileNotification BP(AFURLSessionDownloadTaskDidFailToMoveFileNotification)
 
-NSString * const AFNetworkingTaskDidStartNotification = @"com.alamofire.networking.task.resume"; // Deprecated
-NSString * const AFNetworkingTaskDidFinishNotification = @"com.alamofire.networking.task.complete"; // Deprecated
+NSString * const BP(AFNetworkingTaskDidStartNotification) = @"com.alamofire.networking.task.resume"; // Deprecated
+#define AFNetworkingTaskDidStartNotification BP(AFNetworkingTaskDidStartNotification)
+NSString * const BP(AFNetworkingTaskDidFinishNotification) = @"com.alamofire.networking.task.complete"; // Deprecated
+#define AFNetworkingTaskDidFinishNotification BP(AFNetworkingTaskDidFinishNotification)
 
-NSString * const AFNetworkingTaskDidCompleteSerializedResponseKey = @"com.alamofire.networking.task.complete.serializedresponse";
-NSString * const AFNetworkingTaskDidCompleteResponseSerializerKey = @"com.alamofire.networking.task.complete.responseserializer";
-NSString * const AFNetworkingTaskDidCompleteResponseDataKey = @"com.alamofire.networking.complete.finish.responsedata";
-NSString * const AFNetworkingTaskDidCompleteErrorKey = @"com.alamofire.networking.task.complete.error";
-NSString * const AFNetworkingTaskDidCompleteAssetPathKey = @"com.alamofire.networking.task.complete.assetpath";
+NSString * const BP(AFNetworkingTaskDidCompleteSerializedResponseKey) = @"com.alamofire.networking.task.complete.serializedresponse";
+#define AFNetworkingTaskDidCompleteSerializedResponseKey BP(AFNetworkingTaskDidCompleteSerializedResponseKey)
+NSString * const BP(AFNetworkingTaskDidCompleteResponseSerializerKey) = @"com.alamofire.networking.task.complete.responseserializer";
+#define AFNetworkingTaskDidCompleteResponseSerializerKey BP(AFNetworkingTaskDidCompleteResponseSerializerKey)
+NSString * const BP(AFNetworkingTaskDidCompleteResponseDataKey) = @"com.alamofire.networking.complete.finish.responsedata";
+#define AFNetworkingTaskDidCompleteResponseDataKey BP(AFNetworkingTaskDidCompleteResponseDataKey)
+NSString * const BP(AFNetworkingTaskDidCompleteErrorKey) = @"com.alamofire.networking.task.complete.error";
+#define AFNetworkingTaskDidCompleteErrorKey BP(AFNetworkingTaskDidCompleteErrorKey)
+NSString * const BP(AFNetworkingTaskDidCompleteAssetPathKey) = @"com.alamofire.networking.task.complete.assetpath";
+#define AFNetworkingTaskDidCompleteAssetPathKey BP(AFNetworkingTaskDidCompleteAssetPathKey)
 
-NSString * const AFNetworkingTaskDidFinishSerializedResponseKey = @"com.alamofire.networking.task.complete.serializedresponse"; // Deprecated
-NSString * const AFNetworkingTaskDidFinishResponseSerializerKey = @"com.alamofire.networking.task.complete.responseserializer"; // Deprecated
-NSString * const AFNetworkingTaskDidFinishResponseDataKey = @"com.alamofire.networking.complete.finish.responsedata"; // Deprecated
-NSString * const AFNetworkingTaskDidFinishErrorKey = @"com.alamofire.networking.task.complete.error"; // Deprecated
-NSString * const AFNetworkingTaskDidFinishAssetPathKey = @"com.alamofire.networking.task.complete.assetpath"; // Deprecated
+
+NSString * const BP(AFNetworkingTaskDidFinishSerializedResponseKey) = @"com.alamofire.networking.task.complete.serializedresponse"; // Deprecated
+NSString * const BP(AFNetworkingTaskDidFinishResponseSerializerKey) = @"com.alamofire.networking.task.complete.responseserializer"; // Deprecated
+NSString * const BP(AFNetworkingTaskDidFinishResponseDataKey) = @"com.alamofire.networking.complete.finish.responsedata"; // Deprecated
+NSString * const BP(AFNetworkingTaskDidFinishErrorKey) = @"com.alamofire.networking.task.complete.error"; // Deprecated
+NSString * const BP(AFNetworkingTaskDidFinishAssetPathKey) = @"com.alamofire.networking.task.complete.assetpath"; // Deprecated
 
 static NSString * const AFURLSessionManagerLockName = @"com.alamofire.networking.session.manager.lock";
 
@@ -93,7 +106,7 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 
 #pragma mark -
 
-@interface AFURLSessionManagerTaskDelegate : NSObject <NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
+@interface BP(AFURLSessionManagerTaskDelegate) : NSObject <NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
 @property (nonatomic, weak) AFURLSessionManager *manager;
 @property (nonatomic, strong) NSMutableData *mutableData;
 @property (nonatomic, strong) NSProgress *uploadProgress;
@@ -106,6 +119,7 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
                  completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
 
 @end
+#define AFURLSessionManagerTaskDelegate BP(AFURLSessionManagerTaskDelegate)
 
 @implementation AFURLSessionManagerTaskDelegate
 
