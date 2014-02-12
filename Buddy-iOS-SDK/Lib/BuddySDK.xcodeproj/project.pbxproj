@@ -118,21 +118,8 @@
 		C1B0F4D518937142000403E0 /* NSString+ObjectiveSugar.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F4C818937142000403E0 /* NSString+ObjectiveSugar.h */; };
 		C1B0F4D618937142000403E0 /* NSString+ObjectiveSugar.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F4C918937142000403E0 /* NSString+ObjectiveSugar.m */; };
 		C1B0F4D718937142000403E0 /* ObjectiveSugar.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F4CA18937142000403E0 /* ObjectiveSugar.h */; };
-		C1B0F510189373EB000403E0 /* AFNetworkActivityIndicatorManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F501189373EB000403E0 /* AFNetworkActivityIndicatorManager.h */; };
-		C1B0F511189373EB000403E0 /* AFNetworkActivityIndicatorManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F502189373EB000403E0 /* AFNetworkActivityIndicatorManager.m */; };
-		C1B0F512189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F503189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.h */; };
-		C1B0F513189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F504189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.m */; };
-		C1B0F514189373EB000403E0 /* UIAlertView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F505189373EB000403E0 /* UIAlertView+AFNetworking.h */; };
-		C1B0F515189373EB000403E0 /* UIAlertView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F506189373EB000403E0 /* UIAlertView+AFNetworking.m */; };
-		C1B0F516189373EB000403E0 /* UIButton+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F507189373EB000403E0 /* UIButton+AFNetworking.h */; };
-		C1B0F517189373EB000403E0 /* UIButton+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F508189373EB000403E0 /* UIButton+AFNetworking.m */; };
 		C1B0F518189373EB000403E0 /* UIImageView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F509189373EB000403E0 /* UIImageView+AFNetworking.h */; };
 		C1B0F519189373EB000403E0 /* UIImageView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F50A189373EB000403E0 /* UIImageView+AFNetworking.m */; };
-		C1B0F51A189373EB000403E0 /* UIKit+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F50B189373EB000403E0 /* UIKit+AFNetworking.h */; };
-		C1B0F51B189373EB000403E0 /* UIProgressView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F50C189373EB000403E0 /* UIProgressView+AFNetworking.h */; };
-		C1B0F51C189373EB000403E0 /* UIProgressView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F50D189373EB000403E0 /* UIProgressView+AFNetworking.m */; };
-		C1B0F51D189373EB000403E0 /* UIWebView+AFNetworking.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F50E189373EB000403E0 /* UIWebView+AFNetworking.h */; };
-		C1B0F51E189373EB000403E0 /* UIWebView+AFNetworking.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F50F189373EB000403E0 /* UIWebView+AFNetworking.m */; };
 		C1B0F532189373F6000403E0 /* AFHTTPRequestOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F51F189373F6000403E0 /* AFHTTPRequestOperation.h */; };
 		C1B0F533189373F6000403E0 /* AFHTTPRequestOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = C1B0F520189373F6000403E0 /* AFHTTPRequestOperation.m */; };
 		C1B0F534189373F6000403E0 /* AFHTTPRequestOperationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C1B0F521189373F6000403E0 /* AFHTTPRequestOperationManager.h */; };
@@ -330,21 +317,8 @@
 		C1B0F4C818937142000403E0 /* NSString+ObjectiveSugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+ObjectiveSugar.h"; sourceTree = "<group>"; };
 		C1B0F4C918937142000403E0 /* NSString+ObjectiveSugar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+ObjectiveSugar.m"; sourceTree = "<group>"; };
 		C1B0F4CA18937142000403E0 /* ObjectiveSugar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ObjectiveSugar.h; sourceTree = "<group>"; };
-		C1B0F501189373EB000403E0 /* AFNetworkActivityIndicatorManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFNetworkActivityIndicatorManager.h; sourceTree = "<group>"; };
-		C1B0F502189373EB000403E0 /* AFNetworkActivityIndicatorManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFNetworkActivityIndicatorManager.m; sourceTree = "<group>"; };
-		C1B0F503189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIActivityIndicatorView+AFNetworking.h"; sourceTree = "<group>"; };
-		C1B0F504189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIActivityIndicatorView+AFNetworking.m"; sourceTree = "<group>"; };
-		C1B0F505189373EB000403E0 /* UIAlertView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIAlertView+AFNetworking.h"; sourceTree = "<group>"; };
-		C1B0F506189373EB000403E0 /* UIAlertView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIAlertView+AFNetworking.m"; sourceTree = "<group>"; };
-		C1B0F507189373EB000403E0 /* UIButton+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIButton+AFNetworking.h"; sourceTree = "<group>"; };
-		C1B0F508189373EB000403E0 /* UIButton+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIButton+AFNetworking.m"; sourceTree = "<group>"; };
 		C1B0F509189373EB000403E0 /* UIImageView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AFNetworking.h"; sourceTree = "<group>"; };
 		C1B0F50A189373EB000403E0 /* UIImageView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AFNetworking.m"; sourceTree = "<group>"; };
-		C1B0F50B189373EB000403E0 /* UIKit+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIKit+AFNetworking.h"; sourceTree = "<group>"; };
-		C1B0F50C189373EB000403E0 /* UIProgressView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIProgressView+AFNetworking.h"; sourceTree = "<group>"; };
-		C1B0F50D189373EB000403E0 /* UIProgressView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIProgressView+AFNetworking.m"; sourceTree = "<group>"; };
-		C1B0F50E189373EB000403E0 /* UIWebView+AFNetworking.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIWebView+AFNetworking.h"; sourceTree = "<group>"; };
-		C1B0F50F189373EB000403E0 /* UIWebView+AFNetworking.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIWebView+AFNetworking.m"; sourceTree = "<group>"; };
 		C1B0F51F189373F6000403E0 /* AFHTTPRequestOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperation.h; sourceTree = "<group>"; };
 		C1B0F520189373F6000403E0 /* AFHTTPRequestOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AFHTTPRequestOperation.m; sourceTree = "<group>"; };
 		C1B0F521189373F6000403E0 /* AFHTTPRequestOperationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AFHTTPRequestOperationManager.h; sourceTree = "<group>"; };
@@ -661,21 +635,8 @@
 		C1B0F500189373A9000403E0 /* UIKit+AFNetworking */ = {
 			isa = PBXGroup;
 			children = (
-				C1B0F501189373EB000403E0 /* AFNetworkActivityIndicatorManager.h */,
-				C1B0F502189373EB000403E0 /* AFNetworkActivityIndicatorManager.m */,
-				C1B0F503189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.h */,
-				C1B0F504189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.m */,
-				C1B0F505189373EB000403E0 /* UIAlertView+AFNetworking.h */,
-				C1B0F506189373EB000403E0 /* UIAlertView+AFNetworking.m */,
-				C1B0F507189373EB000403E0 /* UIButton+AFNetworking.h */,
-				C1B0F508189373EB000403E0 /* UIButton+AFNetworking.m */,
 				C1B0F509189373EB000403E0 /* UIImageView+AFNetworking.h */,
 				C1B0F50A189373EB000403E0 /* UIImageView+AFNetworking.m */,
-				C1B0F50B189373EB000403E0 /* UIKit+AFNetworking.h */,
-				C1B0F50C189373EB000403E0 /* UIProgressView+AFNetworking.h */,
-				C1B0F50D189373EB000403E0 /* UIProgressView+AFNetworking.m */,
-				C1B0F50E189373EB000403E0 /* UIWebView+AFNetworking.h */,
-				C1B0F50F189373EB000403E0 /* UIWebView+AFNetworking.m */,
 			);
 			path = "UIKit+AFNetworking";
 			sourceTree = "<group>";
@@ -838,7 +799,6 @@
 				C1B0F4D318937142000403E0 /* NSSet+ObjectiveSugar.h in Headers */,
 				C10E2BB6186951FA007A0136 /* Buddy.h in Headers */,
 				C1B0F4CF18937142000403E0 /* NSMutableArray+ObjectiveSugar.h in Headers */,
-				C1B0F51B189373EB000403E0 /* UIProgressView+AFNetworking.h in Headers */,
 				C10E2B9D186950D8007A0136 /* BPClient.h in Headers */,
 				C10E2BAC186950D8007A0136 /* BPUser.h in Headers */,
 				C10E2BA9186950D8007A0136 /* BPSounds.h in Headers */,
@@ -849,11 +809,8 @@
 				C11E6C93184C57040034E1EB /* BPPhotoCollection.h in Headers */,
 				C1B959F91837061F000C8417 /* BuddyObject.h in Headers */,
 				C1B0F534189373F6000403E0 /* AFHTTPRequestOperationManager.h in Headers */,
-				C1B0F514189373EB000403E0 /* UIAlertView+AFNetworking.h in Headers */,
 				C1B0F4D518937142000403E0 /* NSString+ObjectiveSugar.h in Headers */,
 				C154CEFA187FAE8600EACE4B /* NSDate+JSON.h in Headers */,
-				C1B0F510189373EB000403E0 /* AFNetworkActivityIndicatorManager.h in Headers */,
-				C1B0F51D189373EB000403E0 /* UIWebView+AFNetworking.h in Headers */,
 				C1B0F536189373F6000403E0 /* AFHTTPSessionManager.h in Headers */,
 				C10E2BA6186950D8007A0136 /* BPPhoto.h in Headers */,
 				C142766D189899B800D5DD85 /* BuddyCollection+Private.h in Headers */,
@@ -861,7 +818,6 @@
 				C1FBCED617E6718E00275F6A /* BuddyLocation.h in Headers */,
 				C1B0F4CB18937142000403E0 /* NSArray+ObjectiveSugar.h in Headers */,
 				C10E2BB1186951C3007A0136 /* BuddyDevice.h in Headers */,
-				C1B0F516189373EB000403E0 /* UIButton+AFNetworking.h in Headers */,
 				C1B959D2183703E8000C8417 /* BuddyCollection.h in Headers */,
 				C10E2BA0186950D8007A0136 /* BPCoordinate.h in Headers */,
 				C1BFD88E187D169500A1FADF /* BPBlobCollection.h in Headers */,
@@ -878,7 +834,6 @@
 				C10F1B7B1870A6F500D5364C /* NSError+BuddyError.h in Headers */,
 				C153F87017E15FC1009CDC81 /* Util.h in Headers */,
 				C1B0F53D189373F6000403E0 /* AFURLConnectionOperation.h in Headers */,
-				C1B0F51A189373EB000403E0 /* UIKit+AFNetworking.h in Headers */,
 				C1ADA71E18AB32D900BCCC12 /* BPBase.h in Headers */,
 				C1E0D1D81831BAD3001A7A01 /* JAGPropertyFinder.h in Headers */,
 				C11E6C9A184D58670034E1EB /* BuddyObject+Private.h in Headers */,
@@ -886,7 +841,6 @@
 				C10E2B97186950D8007A0136 /* BPAuthenticatedUser.h in Headers */,
 				C1AA90D818371FF70074B7E8 /* BPServiceController.h in Headers */,
 				C1B3752018A477C3004CCE6D /* NSObject+ToJSON.h in Headers */,
-				C1B0F512189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.h in Headers */,
 				C1B0F4D718937142000403E0 /* ObjectiveSugar.h in Headers */,
 				C1D7094818832983003D112C /* BPDescriptors.h in Headers */,
 				C1E0D1D11831BAD3001A7A01 /* JAGProperty.h in Headers */,
@@ -1102,8 +1056,6 @@
 				C1AA90DE1837376E0074B7E8 /* NSDictionary+Merge.m in Sources */,
 				C1B0F4D618937142000403E0 /* NSString+ObjectiveSugar.m in Sources */,
 				C1B237601865569F005C841E /* NSString+JSON.m in Sources */,
-				C1B0F51C189373EB000403E0 /* UIProgressView+AFNetworking.m in Sources */,
-				C1B0F511189373EB000403E0 /* AFNetworkActivityIndicatorManager.m in Sources */,
 				C1B0F4CE18937142000403E0 /* NSDictionary+ObjectiveSugar.m in Sources */,
 				C10E2BA1186950D8007A0136 /* BPCoordinate.m in Sources */,
 				C154CEF2187F78E800EACE4B /* BPLocationCollection.m in Sources */,
@@ -1115,11 +1067,9 @@
 				C1B0F544189373F6000403E0 /* AFURLSessionManager.m in Sources */,
 				C1E0D1D91831BAD3001A7A01 /* JAGPropertyFinder.m in Sources */,
 				C1B0F533189373F6000403E0 /* AFHTTPRequestOperation.m in Sources */,
-				C1B0F517189373EB000403E0 /* UIButton+AFNetworking.m in Sources */,
 				C1AA90D918371FF70074B7E8 /* BPServiceController.m in Sources */,
 				C10E2BAA186950D8007A0136 /* BPSounds.m in Sources */,
 				C1B0F54818937822000403E0 /* BPAlbumCollection.m in Sources */,
-				C1B0F51E189373EB000403E0 /* UIWebView+AFNetworking.m in Sources */,
 				C10E2B9E186950D8007A0136 /* BPClient.m in Sources */,
 				C1E0D1D21831BAD3001A7A01 /* JAGProperty.m in Sources */,
 				C1ADA71F18AB32D900BCCC12 /* BPBase.m in Sources */,
@@ -1141,7 +1091,6 @@
 				C10E2BA7186950D8007A0136 /* BPPhoto.m in Sources */,
 				C1A62821188E225D009026F8 /* BPUserCollection.m in Sources */,
 				C1B0F519189373EB000403E0 /* UIImageView+AFNetworking.m in Sources */,
-				C1B0F515189373EB000403E0 /* UIAlertView+AFNetworking.m in Sources */,
 				C1B0F4D418937142000403E0 /* NSSet+ObjectiveSugar.m in Sources */,
 				C11E6C94184C57040034E1EB /* BPPhotoCollection.m in Sources */,
 				C1B0F535189373F6000403E0 /* AFHTTPRequestOperationManager.m in Sources */,
@@ -1156,7 +1105,6 @@
 				C10E2BB7186951FA007A0136 /* Buddy.m in Sources */,
 				C1427678189ECA2300D5DD85 /* BPMetricCompletionHandler.m in Sources */,
 				C1BFD88F187D169500A1FADF /* BPBlobCollection.m in Sources */,
-				C1B0F513189373EB000403E0 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				C1FEEB4F187E483100B45505 /* BPAlbum.m in Sources */,
 				C17E2B4C18038F4B00F64FB6 /* BuddyCollection.m in Sources */,
 				C1A1E29A18A35B1A003CC33A /* BPSisterObject.m in Sources */,
@@ -1326,6 +1274,11 @@
 				"GCC_INSTRUMENT_PROGRAM_FLOW_ARCS[arch=*]" = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySDK/BuddySDK-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"BP_NAMESPACE=BP\nBP_NAMESPACE=BP",
+				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;
@@ -1374,6 +1327,11 @@
 				GCC_INSTRUMENT_PROGRAM_FLOW_ARCS = NO;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "BuddySDK/BuddySDK-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"COCOAPODS=1",
+					"BP_NAMESPACE=BP",
+				);
 				GCC_THUMB_SUPPORT = NO;
 				GCC_TREAT_IMPLICIT_FUNCTION_DECLARATIONS_AS_ERRORS = YES;
 				GCC_TREAT_INCOMPATIBLE_POINTER_TYPE_WARNINGS_AS_ERRORS = YES;

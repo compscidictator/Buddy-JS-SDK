@@ -41,7 +41,7 @@ typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
  
  See Apple's Reachability Sample Code (https://developer.apple.com/library/ios/samplecode/reachability/)
  */
-@interface AFNetworkReachabilityManager : NSObject
+@interface BP(AFNetworkReachabilityManager) : NSObject
 
 /**
  The current network reachability status.
@@ -134,7 +134,7 @@ typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
 - (void)setReachabilityStatusChangeBlock:(void (^)(AFNetworkReachabilityStatus status))block;
 
 @end
-
+#define AFNetworkReachabilityManager BP(AFNetworkReachabilityManager)
 ///----------------
 /// @name Constants
 ///----------------
@@ -182,8 +182,10 @@ typedef NS_ENUM(NSInteger, AFNetworkReachabilityStatus) {
 
  @warning In order for network reachability to be monitored, include the `SystemConfiguration` framework in the active target's "Link Binary With Library" build phase, and add `#import <SystemConfiguration/SystemConfiguration.h>` to the header prefix of the project (`Prefix.pch`).
  */
-extern NSString * const AFNetworkingReachabilityDidChangeNotification;
-extern NSString * const AFNetworkingReachabilityNotificationStatusItem;
+extern NSString * const BP(AFNetworkingReachabilityDidChangeNotification);
+#define AFNetworkingReachabilityDidChangeNotification BP(AFNetworkingReachabilityDidChangeNotification)
+extern NSString * const BP(AFNetworkingReachabilityNotificationStatusItem);
+#define AFNetworkingReachabilityNotificationStatusItem BP(AFNetworkingReachabilityNotificationStatusItem)
 
 ///--------------------
 /// @name Functions
@@ -192,4 +194,5 @@ extern NSString * const AFNetworkingReachabilityNotificationStatusItem;
 /**
  Returns a localized string representation of an `AFNetworkReachabilityStatus` value.
  */
-extern NSString * AFStringFromNetworkReachabilityStatus(AFNetworkReachabilityStatus status);
+extern NSString * BP(AFStringFromNetworkReachabilityStatus)(AFNetworkReachabilityStatus status);
+#define AFStringFromNetworkReachabilityStatus BP(AFStringFromNetworkReachabilityStatus)

@@ -30,7 +30,8 @@
 
  For example, a JSON request serializer may set the HTTP body of the request to a JSON representation, and set the `Content-Type` HTTP header field value to `application/json`.
  */
-@protocol AFURLRequestSerialization <NSObject, NSCoding, NSCopying>
+@protocol BP(AFURLRequestSerialization) <NSObject, NSCoding, NSCopying>
+#define AFURLRequestSerialization BP(AFURLRequestSerialization)
 
 /**
  Returns a request with the specified parameters encoded into a copy of the original request.
@@ -56,14 +57,15 @@ typedef NS_ENUM(NSUInteger, AFHTTPRequestQueryStringSerializationStyle) {
     AFHTTPRequestQueryStringDefaultStyle = 0,
 };
 
-@protocol AFMultipartFormData;
+@protocol BP(AFMultipartFormData);
+#define AFMultipartFormData BP(AFMultipartFormData)
 
 /**
  `AFHTTPRequestSerializer` conforms to the `AFURLRequestSerialization` & `AFURLResponseSerialization` protocols, offering a concrete base implementation of query string / URL form-encoded parameter serialization and default request headers, as well as response status code and content type validation.
 
  Any request or response serializer dealing with HTTP is encouraged to subclass `AFHTTPRequestSerializer` in order to ensure consistent default behavior.
  */
-@interface AFHTTPRequestSerializer : NSObject <AFURLRequestSerialization>
+@interface BP(AFHTTPRequestSerializer) : NSObject <AFURLRequestSerialization>
 
 /**
  The string encoding used to serialize parameters.
@@ -196,11 +198,14 @@ forHTTPHeaderField:(NSString *)field;
                                                   error:(NSError * __autoreleasing *)error;
 
 @end
-
+#define AFHTTPRequestSerializer BP(AFHTTPRequestSerializer)
 #pragma mark -
 
-extern NSUInteger const kAFUploadStream3GSuggestedPacketSize;
-extern NSTimeInterval const kAFUploadStream3GSuggestedDelay;
+extern NSUInteger const BP(kAFUploadStream3GSuggestedPacketSize);
+#define kAFUploadStream3GSuggestedPacketSize BP(kAFUploadStream3GSuggestedPacketSize)
+
+extern NSTimeInterval const BP(kAFUploadStream3GSuggestedDelay);
+#define kAFUploadStream3GSuggestedDelay BP(kAFUploadStream3GSuggestedDelay)
 
 /**
  The `AFMultipartFormData` protocol defines the methods supported by the parameter in the block argument of `AFHTTPRequestSerializer -multipartFormRequestWithMethod:URLString:parameters:constructingBodyWithBlock:`.
@@ -318,7 +323,7 @@ extern NSTimeInterval const kAFUploadStream3GSuggestedDelay;
 
 #pragma mark -
 
-@interface AFJSONRequestSerializer : AFHTTPRequestSerializer
+@interface BP(AFJSONRequestSerializer) : AFHTTPRequestSerializer
 
 /**
  Options for writing the request JSON data from Foundation objects. For possible values, see the `NSJSONSerialization` documentation section "NSJSONWritingOptions". `0` by default.
@@ -333,8 +338,9 @@ extern NSTimeInterval const kAFUploadStream3GSuggestedDelay;
 + (instancetype)serializerWithWritingOptions:(NSJSONWritingOptions)writingOptions;
 
 @end
+#define AFJSONRequestSerializer BP(AFJSONRequestSerializer)
 
-@interface AFPropertyListRequestSerializer : AFHTTPRequestSerializer
+@interface BP(AFPropertyListRequestSerializer) : AFHTTPRequestSerializer
 
 /**
  The property list format. Possible values are described in "NSPropertyListFormat".
@@ -358,3 +364,4 @@ extern NSTimeInterval const kAFUploadStream3GSuggestedDelay;
                         writeOptions:(NSPropertyListWriteOptions)writeOptions;
 
 @end
+#define AFPropertyListRequestSerializer BP(AFPropertyListRequestSerializer)

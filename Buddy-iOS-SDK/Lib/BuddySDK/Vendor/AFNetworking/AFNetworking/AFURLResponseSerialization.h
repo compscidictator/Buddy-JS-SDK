@@ -28,7 +28,8 @@
 
  For example, a JSON response serializer may check for an acceptable status code (`2XX` range) and content type (`application/json`), decoding a valid JSON response into an object.
  */
-@protocol AFURLResponseSerialization <NSObject, NSCoding, NSCopying>
+@protocol BP(AFURLResponseSerialization) <NSObject, NSCoding, NSCopying>
+#define AFURLResponseSerialization BP(AFURLResponseSerialization)
 
 /**
  The response object decoded from the data associated with a specified response.
@@ -52,7 +53,7 @@
 
  Any request or response serializer dealing with HTTP is encouraged to subclass `AFHTTPResponseSerializer` in order to ensure consistent default behavior.
  */
-@interface AFHTTPResponseSerializer : NSObject <AFURLResponseSerialization>
+@interface BP(AFHTTPResponseSerializer) : NSObject <AFURLResponseSerialization>
 
 /**
  The string encoding used to serialize parameters.
@@ -96,7 +97,7 @@
                    error:(NSError *__autoreleasing *)error;
 
 @end
-
+#define AFHTTPResponseSerializer BP(AFHTTPResponseSerializer)
 #pragma mark -
 
 
@@ -109,7 +110,7 @@
  - `text/json`
  - `text/javascript`
  */
-@interface AFJSONResponseSerializer : AFHTTPResponseSerializer
+@interface BP(AFJSONResponseSerializer) : AFHTTPResponseSerializer
 
 /**
  Options for reading the response JSON data and creating the Foundation objects. For possible values, see the `NSJSONSerialization` documentation section "NSJSONReadingOptions". `0` by default.
@@ -124,7 +125,7 @@
 + (instancetype)serializerWithReadingOptions:(NSJSONReadingOptions)readingOptions;
 
 @end
-
+#define AFJSONResponseSerializer BP(AFJSONResponseSerializer)
 #pragma mark -
 
 /**
@@ -135,9 +136,10 @@
  - `application/xml`
  - `text/xml`
  */
-@interface AFXMLParserResponseSerializer : AFHTTPResponseSerializer
+@interface BP(AFXMLParserResponseSerializer) : AFHTTPResponseSerializer
 
 @end
+#define AFXMLParserResponseSerializer BP(AFXMLParserResponseSerializer)
 
 #pragma mark -
 
@@ -178,7 +180,7 @@
 
  - `application/x-plist`
  */
-@interface AFPropertyListResponseSerializer : AFHTTPResponseSerializer
+@interface BP(AFPropertyListResponseSerializer) : AFHTTPResponseSerializer
 
 /**
  The property list format. Possible values are described in "NSPropertyListFormat".
@@ -200,6 +202,7 @@
                          readOptions:(NSPropertyListReadOptions)readOptions;
 
 @end
+#define AFPropertyListResponseSerializer BP(AFPropertyListResponseSerializer)
 
 #pragma mark -
 
@@ -219,7 +222,7 @@
  - `image/x-xbitmap`
  - `image/x-win-bitmap`
  */
-@interface AFImageResponseSerializer : AFHTTPResponseSerializer
+@interface BP(AFImageResponseSerializer) : AFHTTPResponseSerializer
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 /**
@@ -234,13 +237,13 @@
 #endif
 
 @end
-
+#define AFImageResponseSerializer BP(AFImageResponseSerializer)
 #pragma mark -
 
 /**
  `AFCompoundSerializer` is a subclass of `AFHTTPResponseSerializer` that delegates the response serialization to the first `AFHTTPResponseSerializer` object that returns an object for `responseObjectForResponse:data:error:`, falling back on the default behavior of `AFHTTPResponseSerializer`. This is useful for supporting multiple potential types and structures of server responses with a single serializer.
  */
-@interface AFCompoundResponseSerializer : AFHTTPResponseSerializer
+@interface BP(AFCompoundResponseSerializer) : AFHTTPResponseSerializer
 
 /**
  The component response serializers.
@@ -255,3 +258,4 @@
 + (instancetype)compoundSerializerWithResponseSerializers:(NSArray *)responseSerializers;
 
 @end
+#define AFCompoundResponseSerializer BP(AFCompoundResponseSerializer)

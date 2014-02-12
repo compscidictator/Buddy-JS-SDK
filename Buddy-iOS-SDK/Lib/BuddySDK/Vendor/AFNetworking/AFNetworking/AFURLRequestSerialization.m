@@ -69,7 +69,7 @@ static NSString * AFPercentEscapedQueryStringValueFromStringWithEncoding(NSStrin
 
 #pragma mark -
 
-@interface AFQueryStringPair : NSObject
+@interface BP(AFQueryStringPair) : NSObject
 @property (readwrite, nonatomic, strong) id field;
 @property (readwrite, nonatomic, strong) id value;
 
@@ -77,6 +77,7 @@ static NSString * AFPercentEscapedQueryStringValueFromStringWithEncoding(NSStrin
 
 - (NSString *)URLEncodedStringValueWithEncoding:(NSStringEncoding)stringEncoding;
 @end
+#define AFQueryStringPair BP(AFQueryStringPair)
 
 @implementation AFQueryStringPair
 
@@ -104,8 +105,11 @@ static NSString * AFPercentEscapedQueryStringValueFromStringWithEncoding(NSStrin
 
 #pragma mark -
 
-extern NSArray * AFQueryStringPairsFromDictionary(NSDictionary *dictionary);
-extern NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value);
+extern NSArray * BP(AFQueryStringPairsFromDictionary)(NSDictionary *dictionary);
+#define AFQueryStringPairsFromDictionary BP(AFQueryStringPairsFromDictionary)
+
+extern NSArray * BP(AFQueryStringPairsFromKeyAndValue)(NSString *key, id value);
+#define AFQueryStringPairsFromKeyAndValue BP(AFQueryStringPairsFromKeyAndValue)
 
 static NSString * AFQueryStringFromParametersWithEncoding(NSDictionary *parameters, NSStringEncoding stringEncoding) {
     NSMutableArray *mutablePairs = [NSMutableArray array];
@@ -153,12 +157,13 @@ NSArray * AFQueryStringPairsFromKeyAndValue(NSString *key, id value) {
 
 #pragma mark -
 
-@interface AFStreamingMultipartFormData : NSObject <AFMultipartFormData>
+@interface BP(AFStreamingMultipartFormData) : NSObject <AFMultipartFormData>
 - (instancetype)initWithURLRequest:(NSMutableURLRequest *)urlRequest
                     stringEncoding:(NSStringEncoding)encoding;
 
 - (NSMutableURLRequest *)requestByFinalizingMultipartFormData;
 @end
+#define AFStreamingMultipartFormData BP(AFStreamingMultipartFormData)
 
 #pragma mark -
 
@@ -442,7 +447,7 @@ static inline NSString * AFContentTypeForPathExtension(NSString *extension) {
 NSUInteger const kAFUploadStream3GSuggestedPacketSize = 1024 * 16;
 NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
 
-@interface AFHTTPBodyPart : NSObject
+@interface BP(AFHTTPBodyPart) : NSObject
 @property (nonatomic, assign) NSStringEncoding stringEncoding;
 @property (nonatomic, strong) NSDictionary *headers;
 @property (nonatomic, strong) id body;
@@ -458,8 +463,9 @@ NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
 - (NSInteger)read:(uint8_t *)buffer
         maxLength:(NSUInteger)length;
 @end
+#define AFHTTPBodyPart BP(AFHTTPBodyPart)
 
-@interface AFMultipartBodyStream : NSInputStream <NSStreamDelegate>
+@interface BP(AFMultipartBodyStream) : NSInputStream <NSStreamDelegate>
 @property (nonatomic, assign) NSUInteger numberOfBytesInPacket;
 @property (nonatomic, assign) NSTimeInterval delay;
 @property (nonatomic, strong) NSInputStream *inputStream;
@@ -470,6 +476,7 @@ NSTimeInterval const kAFUploadStream3GSuggestedDelay = 0.2;
 - (void)setInitialAndFinalBoundaries;
 - (void)appendHTTPBodyPart:(AFHTTPBodyPart *)bodyPart;
 @end
+#define AFMultipartBodyStream BP(AFMultipartBodyStream)
 
 #pragma mark -
 

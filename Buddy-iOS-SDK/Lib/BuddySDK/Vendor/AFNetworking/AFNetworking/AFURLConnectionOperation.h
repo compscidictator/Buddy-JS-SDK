@@ -80,7 +80,7 @@
  - Operation copies do not include `completionBlock`, as it often strongly captures a reference to `self`, which would otherwise have the unintuitive side-effect of pointing to the _original_ operation when copied.
  */
 
-@interface AFURLConnectionOperation : NSOperation <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSCoding, NSCopying>
+@interface BP(AFURLConnectionOperation) : NSOperation <NSURLConnectionDelegate, NSURLConnectionDataDelegate, NSCoding, NSCopying>
 
 ///-------------------------------
 /// @name Accessing Run Loop Modes
@@ -306,7 +306,7 @@
                       completionBlock:(void (^)(NSArray *operations))completionBlock;
 
 @end
-
+#define AFURLConnectionOperation BP(AFURLConnectionOperation)
 ///----------------
 /// @name Constants
 ///----------------
@@ -338,9 +338,12 @@
  `AFNetworkingErrorDomain`
  AFNetworking errors. Error codes for `AFNetworkingErrorDomain` correspond to codes in `NSURLErrorDomain`.
  */
-extern NSString * const AFNetworkingErrorDomain;
-extern NSString * const AFNetworkingOperationFailingURLRequestErrorKey;
-extern NSString * const AFNetworkingOperationFailingURLResponseErrorKey;
+extern NSString * const BP(AFNetworkingErrorDomain);
+#define AFNetworkingErrorDomain BP(AFNetworkingErrorDomain)
+extern NSString * const BP(AFNetworkingOperationFailingURLRequestErrorKey);
+#define AFNetworkingOperationFailingURLRequestErrorKey BP(AFNetworkingOperationFailingURLRequestErrorKey)
+extern NSString * const BP(AFNetworkingOperationFailingURLResponseErrorKey);
+#define AFNetworkingOperationFailingURLResponseErrorKey BP(AFNetworkingOperationFailingURLResponseErrorKey)
 
 ///--------------------
 /// @name Notifications
@@ -349,9 +352,11 @@ extern NSString * const AFNetworkingOperationFailingURLResponseErrorKey;
 /**
  Posted when an operation begins executing.
  */
-extern NSString * const AFNetworkingOperationDidStartNotification;
+extern NSString * const BP(AFNetworkingOperationDidStartNotification);
+#define AFNetworkingOperationDidStartNotification BP(AFNetworkingOperationDidStartNotification)
 
 /**
  Posted when an operation finishes.
  */
-extern NSString * const AFNetworkingOperationDidFinishNotification;
+extern NSString * const BP(AFNetworkingOperationDidFinishNotification);
+#define AFNetworkingOperationDidFinishNotification BP(AFNetworkingOperationDidFinishNotification)
