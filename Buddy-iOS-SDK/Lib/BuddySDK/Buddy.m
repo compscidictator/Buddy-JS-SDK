@@ -165,7 +165,7 @@
     [[BPClient defaultClient] setMetadataWithKey:key andInteger:value permissions:permissions callback:callback];
 }
 
-+ (void)setMetadataWithKeyValues:(NSString *)key andKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
++ (void)setMetadataWithKey:(NSString *)key andKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
     [[BPClient defaultClient] setMetadataWithKey:key andKeyValues:keyValuePaths permissions:permissions callback:callback];
 }
