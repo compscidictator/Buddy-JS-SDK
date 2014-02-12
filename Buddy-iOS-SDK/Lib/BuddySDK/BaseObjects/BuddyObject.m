@@ -238,7 +238,6 @@
 
 - (void)save:(BuddyCompletionCallback)callback
 {
-    // /<resourcePath>/<id>
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           self.id];
@@ -247,8 +246,6 @@
     NSDictionary *parameters = [self buildUpdateDictionary];
 
     [self.client PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
-#pragma message("EK commented this out on 1/27. PATCH doesn't provide a response object.")
-        //[[[self class] converter] setPropertiesOf:self fromDictionary:json];
         callback ? callback(error) : nil;
     }];
 }
@@ -261,18 +258,22 @@ static NSString *metadataFormat = @"metadata/%@/%@";
     return [NSString stringWithFormat:metadataFormat, self.id, key];
 }
 
-- (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value callback:(BuddyCompletionCallback)callback
+- (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
-    NSDictionary *parameters = @{@"value": BOXNIL(value)};
+    NSDictionary *parameters = @{@"value": BOXNIL(value),
+                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
 
-- (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback
+- (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
-    NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%ld", (long)value]};
+#pragma message("Convert to 'convertValue' method from enum map")
+    
+    NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%ld", (long)value],
+                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
 
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;

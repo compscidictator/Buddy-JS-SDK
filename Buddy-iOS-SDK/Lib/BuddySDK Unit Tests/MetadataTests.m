@@ -43,7 +43,7 @@ describe(@"Metadata", ^{
             __block id targetString = @"Stuff";
             
             __block BPCheckin *c = checkin;
-            [checkin setMetadataWithKey:@"StringlyMetadata" andString:nil callback:^(NSError *error) {
+            [checkin setMetadataWithKey:@"StringlyMetadata" andString:nil permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
                 [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
                     targetString = newBuddyObject;
@@ -58,7 +58,7 @@ describe(@"Metadata", ^{
             __block NSString *targetString = nil;
             
             __block BPCheckin *c = checkin;
-            [checkin setMetadataWithKey:@"StringlyMetadata" andString:testString callback:^(NSError *error) {
+            [checkin setMetadataWithKey:@"StringlyMetadata" andString:testString permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
                 [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
                     targetString = newBuddyObject;
@@ -73,7 +73,7 @@ describe(@"Metadata", ^{
             __block NSInteger targetInteger = -1;
             
             __block BPCheckin *c = checkin;
-            [checkin setMetadataWithKey:@"IntlyMetadata" andInteger:testInteger callback:^(NSError *error) {
+            [checkin setMetadataWithKey:@"IntlyMetadata" andInteger:testInteger permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
                 [c getMetadataWithKey:@"IntlyMetadata" callback:^(id newBuddyObject, NSError *error) {
                     targetInteger = [newBuddyObject integerValue];
