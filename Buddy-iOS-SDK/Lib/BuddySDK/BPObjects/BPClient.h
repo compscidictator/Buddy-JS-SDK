@@ -13,6 +13,7 @@
 #import "BPClientDelegate.h"
 #import "BuddyCollection.h" // TODO - remove dependency
 #import "BPMetricCompletionHandler.h"
+#import "BPBase.h"
 
 @class BuddyDevice;
 @class BPGameBoards;
@@ -37,7 +38,7 @@ typedef NS_ENUM(NSInteger, BPAuthenticationLevel) {
     BPAuthenticationLevelUser
 };
 
-@interface BPClient : NSObject
+@interface BPClient : BPBase
 
 
 /** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.
@@ -148,5 +149,3 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 - (void) registerForPushes;
 
 @end
-
-

@@ -508,6 +508,19 @@ NSMutableArray *queuedRequests;
     return self;
 }
 
+#pragma mark - Metadata
+
+- (id<BPRestProvider>)client
+{
+    return self;
+}
+
+static NSString *metadataFormat = @"metadata/%@";
+- (NSString *) metadataPath:(NSString *)key
+{
+    return [NSString stringWithFormat:metadataFormat, key];
+}
+
 #pragma mark - Push Notification
 
 
@@ -533,3 +546,4 @@ NSMutableArray *queuedRequests;
 }
 
 @end
+

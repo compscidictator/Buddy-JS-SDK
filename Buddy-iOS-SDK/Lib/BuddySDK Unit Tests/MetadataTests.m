@@ -39,6 +39,22 @@ describe(@"Metadata", ^{
             [Buddy logout:nil];
         });
         
+        it(@"Should allow setting string metadata", ^{
+            NSString *testString = @"Hakuna matata";
+            __block NSString *targetString = nil;
+            
+            NSDictionary *kvp = @{@"Hakuna": @"Matata"};
+            
+            [Buddy setMetadataWithKey:@"StringlyMetadata" andKeyValues:kvp permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+                [[error should] beNil];
+                [Buddy getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+                    targetString = newBuddyObject;
+                }];
+            }];
+            
+            [[expectFutureValue(targetString) shouldEventually] equal:testString];
+        });
+        
         it(@"Should be able to set nil  metadata", ^{
             __block id targetString = @"Stuff";
             

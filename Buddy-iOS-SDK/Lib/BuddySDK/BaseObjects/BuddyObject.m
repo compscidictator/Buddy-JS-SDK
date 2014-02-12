@@ -16,7 +16,7 @@
 #import "NSDate+JSON.h"
 #import "BPEnumMapping.h"
 
-@interface BuddyObject()<BPEnumMapping>
+@interface BuddyObject()
 
 @property (nonatomic, readwrite, assign) BOOL isDirty;
 @property (nonatomic, strong) NSMutableArray *keyPaths;
@@ -93,39 +93,6 @@
 {
     [NSException raise:@"requestPathNotSpecified" format:@"Class did not specify requestPath"];
     return nil;
-}
-
-+ (NSDictionary *)mapForProperty:(NSString *)key
-{
-    return [self enumMap][key];
-}
-
-+ (id)convertValue:(NSString *)value forKey:(NSString *)key
-{
-    return nil;
-}
-
-+ (id)convertValueToJSON:(NSString *)value forKey:(NSString *)key
-{
-    return nil;
-}
-
-+ (NSDictionary *)enumMap
-{
-    return [self baseEnumMap];
-}
-
-+ (NSDictionary *)baseEnumMap
-{
-    // Return any enum->string mappings used in responses subclass.
-    return @{NSStringFromSelector(@selector(readPermissions)) : @{
-                                                @(BuddyPermissionsApp) : @"App",
-                                                @(BuddyPermissionsUser) : @"User",
-                                                },
-             NSStringFromSelector(@selector(writePermissions)) : @{
-                     @(BuddyPermissionsApp) : @"App",
-                     @(BuddyPermissionsUser) : @"User",
-                     }};
 }
 
 
@@ -284,7 +251,6 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 {
     [self.client GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
         id md = nil;
-#pragma message ("Probably delete this after the server returns a boxed value for null metadata values")
         if ([NSJSONSerialization isValidJSONObject:metadata]) {
             md = metadata[@"value"];
         }

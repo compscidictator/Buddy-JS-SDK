@@ -155,4 +155,29 @@
     [[BPClient defaultClient] recordTimedMetric:key andValue:value timeout:seconds callback:callback];
 }
 
++ (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] setMetadataWithKey:key andString:value permissions:permissions callback:callback];
+}
+
++ (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] setMetadataWithKey:key andInteger:value permissions:permissions callback:callback];
+}
+
++ (void)setMetadataWithKeyValues:(NSString *)key andKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] setMetadataWithKey:key andKeyValues:keyValuePaths permissions:permissions callback:callback];
+}
+
++ (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
+{
+    [[BPClient defaultClient] getMetadataWithKey:key callback:callback];
+}
+
++ (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] deleteMetadataWithKey:key callback:callback];
+}
+
 @end

@@ -10,7 +10,7 @@
 #define BuddySDK_BPClient_Private_h
 
 #import "BPClient.h"
-
+#import "BPBase.h"
 
 @interface BPClient (Private)<BPRestProvider>
 
