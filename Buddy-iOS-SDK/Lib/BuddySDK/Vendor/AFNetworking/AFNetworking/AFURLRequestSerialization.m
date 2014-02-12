@@ -22,7 +22,8 @@
 
 #import "AFURLRequestSerialization.h"
 
-extern NSString * const AFNetworkingErrorDomain;
+extern NSString * const BP(AFNetworkingErrorDomain);
+#define AFNetworkingErrorDomain BP(AFNetworkingErrorDomain)
 
 typedef NSString * (^AFQueryStringSerializationBlock)(NSURLRequest *request, NSDictionary *parameters, NSError *__autoreleasing *error);
 

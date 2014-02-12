@@ -22,8 +22,10 @@
 
 #import "AFURLResponseSerialization.h"
 
-extern NSString * const AFNetworkingErrorDomain;
-extern NSString * const AFNetworkingOperationFailingURLResponseErrorKey;
+extern NSString * const BP(AFNetworkingErrorDomain);
+#define AFNetworkingErrorDomain BP(AFNetworkingErrorDomain)
+extern NSString * const BP(AFNetworkingOperationFailingURLResponseErrorKey);
+#define AFNetworkingOperationFailingURLResponseErrorKey BP(AFNetworkingOperationFailingURLResponseErrorKey)
 
 #if defined(__IPHONE_OS_VERSION_MIN_REQUIRED)
 #import <UIKit/UIKit.h>
