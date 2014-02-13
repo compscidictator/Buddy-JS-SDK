@@ -112,7 +112,10 @@
     self.HUD.labelText= @"Adding Photo";
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
-    [[Buddy photos] addPhoto:self.selectedImage withComment:self.captionField.text callback: [self getAddPhotoCallback]];
+    [[Buddy photos] addPhoto:self.selectedImage describePhoto:^(id<BPPhotoProperties> photoProperties)
+     {
+         photoProperties.caption =self.captionField.text;
+     } callback: [self getAddPhotoCallback]];
 }
 
 -(IBAction)showCamera:(id)sender

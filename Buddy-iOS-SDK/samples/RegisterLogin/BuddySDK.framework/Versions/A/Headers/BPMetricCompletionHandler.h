@@ -8,10 +8,13 @@
 
 #import <Foundation/Foundation.h>
 
+typedef void (^BuddyTimedMetricResult)(NSInteger elapsedTimeInMs, NSError *error);
+
+
 @interface BPMetricCompletionHandler : NSObject
 
 - (instancetype)initWithMetricId:(NSString *)metricId andClient:(id<BPRestProvider>)restProvider;
-- (void)signalComplete;
+- (void)signalComplete:(BuddyTimedMetricResult)callback;
 
 @end
 

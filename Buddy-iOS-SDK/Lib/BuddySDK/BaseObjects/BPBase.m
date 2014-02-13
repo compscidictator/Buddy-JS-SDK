@@ -56,7 +56,7 @@
 - (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
     NSDictionary *parameters = @{@"value": BOXNIL(value),
-                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
@@ -68,19 +68,20 @@
 #pragma message("Convert to 'convertValue' method from enum map")
     
     NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%ld", (long)value],
-                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
 
-- (void)setMetadataWithKey:(NSString *)key andKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+- (void)setMetadataWithKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
     NSDictionary *parameters = @{@"keyValuePairs": keyValuePaths,
-                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
-    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
+#pragma message("Fixme now!")
+    [self.client PUT:@"metadata" parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }

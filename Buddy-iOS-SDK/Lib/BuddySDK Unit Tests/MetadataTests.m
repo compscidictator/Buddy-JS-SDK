@@ -40,33 +40,33 @@ describe(@"Metadata", ^{
         });
         
         it(@"Should allow setting string metadata", ^{
-            NSString *testString = @"Hakuna matata";
+            
             __block NSString *targetString = nil;
             
             NSDictionary *kvp = @{@"Hakuna": @"Matata"};
             
-            [Buddy setMetadataWithKey:@"StringlyMetadata" andKeyValues:kvp permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+            [Buddy setMetadataWithKeyValues:kvp permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [Buddy getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+                [Buddy getMetadataWithKey:@"Hakuna" callback:^(id newBuddyObject, NSError *error) {
                     targetString = newBuddyObject;
                 }];
             }];
             
-            [[expectFutureValue(targetString) shouldEventually] equal:testString];
+            [[expectFutureValue(targetString) shouldEventually] equal:@"Matata"];
         });
         
         it(@"Should be able to set nil  metadata", ^{
             __block id targetString = @"Stuff";
             
             __block BPCheckin *c = checkin;
-            [checkin setMetadataWithKey:@"StringlyMetadata" andString:nil permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+            [checkin setMetadataWithKey:@"StringlyMetadata" andString:@"Test String" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
                 [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
                     targetString = newBuddyObject;
                 }];
             }];
             
-            [[expectFutureValue(targetString) shouldEventually] beNil];
+            [[expectFutureValue(targetString) shouldEventually] equal:@"Test String"];
         });
         
         it(@"Should be able to set string based metadata", ^{

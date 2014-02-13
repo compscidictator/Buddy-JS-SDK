@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		01061A2218A44ACE00350D67 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01061A2118A44ACE00350D67 /* BuddySDK.framework */; };
 		0111B6851892C49600745813 /* PhotoThumbView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B6841892C49500745813 /* PhotoThumbView.xib */; };
 		0111B68B1892DEF200745813 /* EditPhotoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0111B6891892DEF200745813 /* EditPhotoViewController.m */; };
 		0111B68C1892DEF200745813 /* EditPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0111B68A1892DEF200745813 /* EditPhotoViewController.xib */; };
@@ -39,6 +38,7 @@
 		01AEB8DA18909D24003B051A /* AddPhotoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 01AEB8D818909D24003B051A /* AddPhotoViewController.xib */; };
 		01B718E018917BAD0079495F /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B718DF18917BAD0079495F /* ImageCache.m */; };
 		01B718EB189197E80079495F /* PhotoList.m in Sources */ = {isa = PBXBuildFile; fileRef = 01B718EA189197E80079495F /* PhotoList.m */; };
+		01EB187F18AD850D00C94350 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01EB187E18AD850D00C94350 /* BuddySDK.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -52,7 +52,6 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		01061A2118A44ACE00350D67 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		0111B6841892C49500745813 /* PhotoThumbView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = PhotoThumbView.xib; sourceTree = "<group>"; };
 		0111B6881892DEF200745813 /* EditPhotoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EditPhotoViewController.h; sourceTree = "<group>"; };
 		0111B6891892DEF200745813 /* EditPhotoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EditPhotoViewController.m; sourceTree = "<group>"; };
@@ -98,6 +97,7 @@
 		01B718DF18917BAD0079495F /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ImageCache.m; path = ../ImageCache.m; sourceTree = "<group>"; };
 		01B718E9189197E80079495F /* PhotoList.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PhotoList.h; path = ../PhotoList.h; sourceTree = "<group>"; };
 		01B718EA189197E80079495F /* PhotoList.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PhotoList.m; path = ../PhotoList.m; sourceTree = "<group>"; };
+		01EB187E18AD850D00C94350 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +105,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				01EB187F18AD850D00C94350 /* BuddySDK.framework in Frameworks */,
 				016822DC18A937EF00977BCB /* MobileCoreServices.framework in Frameworks */,
 				01AEB8D11890957B003B051A /* CoreLocation.framework in Frameworks */,
 				01AEB8CF189093C7003B051A /* QuartzCore.framework in Frameworks */,
@@ -112,7 +113,6 @@
 				01AEB8891890914C003B051A /* CoreGraphics.framework in Frameworks */,
 				01AEB88B1890914C003B051A /* UIKit.framework in Frameworks */,
 				01AEB8871890914C003B051A /* Foundation.framework in Frameworks */,
-				01061A2218A44ACE00350D67 /* BuddySDK.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -151,8 +151,8 @@
 		01AEB8851890914C003B051A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				01EB187E18AD850D00C94350 /* BuddySDK.framework */,
 				016822DB18A937EF00977BCB /* MobileCoreServices.framework */,
-				01061A2118A44ACE00350D67 /* BuddySDK.framework */,
 				01AEB8D01890957B003B051A /* CoreLocation.framework */,
 				01AEB8CE189093C7003B051A /* QuartzCore.framework */,
 				01AEB8CC189093C0003B051A /* SystemConfiguration.framework */,

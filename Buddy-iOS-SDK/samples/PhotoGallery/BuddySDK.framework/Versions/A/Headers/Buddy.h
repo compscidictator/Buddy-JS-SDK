@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPClientDelegate.h"
 #import "BuddyDevice.h"
 #import "BPAlbumItemContainer.h"
 #import "BPClient.h"
@@ -19,7 +18,6 @@
 #import "BPUser.h"
 #import "BPGameBoards.h"
 #import "BPSounds.h"
-#import "BPAppMetadata.h"
 #import "BPPhotoCollection.h"
 #import "BPBlobCollection.h"
 #import "BPCoordinate.h"
@@ -121,8 +119,14 @@
 + (void)logout:(BuddyCompletionCallback)callback;
 
 
-+ (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
++ (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback;
 
-+ (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback;
++ (void)recordTimedMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback;
+
++ (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
++ (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
++ (void)setMetadataWithKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
++ (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback;
++ (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback;
 
 @end
