@@ -8,7 +8,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import "BPClientDelegate.h"
 #import "BuddyDevice.h"
 #import "BPAlbumItemContainer.h"
 #import "BPClient.h"

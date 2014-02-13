@@ -394,7 +394,7 @@ extern NSString * const BP(AFNetworkingTaskDidStartNotification) DEPRECATED_ATTR
  Posted when a task resumes.
  */
 extern NSString * const BP(AFNetworkingTaskDidResumeNotification);
-#define AFNetworkingTaskDidStartNotification BP(AFNetworkingTaskDidStartNotification)
+#define AFNetworkingTaskDidResumeNotification BP(AFNetworkingTaskDidResumeNotification)
 
 /**
  Posted when a task finishes executing. Includes a userInfo dictionary with additional information about the task.

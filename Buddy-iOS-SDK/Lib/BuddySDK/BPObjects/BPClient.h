@@ -10,7 +10,6 @@
 
 
 #import "BPRestProvider.h"
-#import "BPClientDelegate.h"
 #import "BuddyCollection.h" // TODO - remove dependency
 #import "BPMetricCompletionHandler.h"
 #import "BPBase.h"
@@ -37,6 +36,30 @@ typedef NS_ENUM(NSInteger, BPAuthenticationLevel) {
     /** User level authentication */
     BPAuthenticationLevelUser
 };
+
+/**
+ Enum specifying the current authentication level.
+ */
+typedef NS_ENUM(NSInteger, BPReachabilityLevel) {
+    /** No network reachability */
+    BPReachabilityNone     = 0,
+    /** Reachable via carrier */
+    BPReachabilityCarrier = 1,
+    /** Reachability not known */
+    BPReachabilityWiFi = 2,
+};
+
+@protocol BPClientDelegate <NSObject>
+
+- (void)userChangedTo:(BPUser *)newUser from:(BPUser *)oldUser;
+
+- (void)connectivityChanged:(BPReachabilityLevel)level;
+
+- (void)apiErrorOccurred:(NSError *)error;
+
+- (void)authorizationNeedsUserLogin;
+
+@end
 
 @interface BPClient : BPBase
 
@@ -111,6 +134,12 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
   * Most recent BPCoordinate.
   */
 @property (nonatomic, readonly, strong) BPCoordinate *lastLocation;
+
+/**
+ * Current reachability level.
+ */
+@property (nonatomic, readonly, assign) BPReachabilityLevel reachabilityLevel;
+
 
 /// <summary>
 /// Current BuddyAuthenticatedUser as of the last login

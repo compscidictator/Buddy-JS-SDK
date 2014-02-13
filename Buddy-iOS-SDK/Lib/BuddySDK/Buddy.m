@@ -15,7 +15,6 @@
  */
 
 #import "Buddy.h"
-#import "BPClientDelegate.h"
 #import "BuddyObject+Private.h"
 
 /// <summary>

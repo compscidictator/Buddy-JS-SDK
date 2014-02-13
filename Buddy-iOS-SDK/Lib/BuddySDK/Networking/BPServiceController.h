@@ -7,7 +7,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "BPClientDelegate.h"
 #import "BPAppSettings.h"
 #import "BPRestProvider.h"
 

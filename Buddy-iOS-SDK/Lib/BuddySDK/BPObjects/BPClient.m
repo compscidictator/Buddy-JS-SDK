@@ -55,16 +55,28 @@
     self = [super self];
     if(self)
     {
-        // Nothing for now.
+        _location = [BuddyLocation new];
+        [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            switch (status) {
+                case AFNetworkReachabilityStatusNotReachable:
+                case AFNetworkReachabilityStatusUnknown:
+                    _reachabilityLevel = BPReachabilityNone;
+                    break;
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                    _reachabilityLevel = BPReachabilityCarrier;
+                    break;
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    _reachabilityLevel = BPReachabilityWiFi;
+                    break;
+                default:
+                    break;
+            }
+            
+            [self raiseReachabilityChanged:_reachabilityLevel];
+        }];
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     }
     return self;
-}
-
-- (void)initializeCollectionsWithUser:(BPUser *)user
-{
-    _user = user;
-    
-    _location = [BuddyLocation new];
 }
 
 - (void)resetOnLogout
@@ -139,6 +151,13 @@
         [self raiseNeedsLoginError];
     }
     return _user;
+}
+
+- (void)setUser:(BPUser *)user
+{
+    BPUser *oldUser = _user;
+    _user = user;
+    [self raiseUserChangedTo:_user from:oldUser];
 }
 
 -(BPCheckinCollection *)checkins
@@ -219,7 +238,7 @@
         }
         
         [user refresh:^(NSError *error) {
-            [self initializeCollectionsWithUser:user];
+            self.user = user;
             callback ? callback(user, error) : nil;
         }];
         
@@ -429,32 +448,55 @@ NSMutableArray *queuedRequests;
         if([buddyError credentialsInvalid]) {
             [self.appSettings clear];
         }
+        if (buddyError) {
+            [self raiseAPIError:error];
+        }
         
         callback(responseObject, buddyError);
     };
 }
 
-- (void)raiseNeedsLoginError
+- (void)raiseUserChangedTo:(BPUser *)user from:(BPUser *)from
 {
-    [self tryRaiseDelegate:@selector(authorizationNeedsUserLogin)];
+    [self tryRaiseDelegate:@selector(userChangedTo:from:) withArgument:user withArgument:from];
 }
 
-- (void)tryRaiseDelegate:(SEL)selector
+- (void)raiseReachabilityChanged:(BPReachabilityLevel)level
 {
-    id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
-    SuppressPerformSelectorLeakWarning(
+    [self tryRaiseDelegate:@selector(connectivityChanged:) withArgument:@(level) withArgument:nil];
+}
 
-        if (!self.delegate) {// If no delegate, see if we've implemented delegate methods on the AppDelegate.
-            if (app && [app respondsToSelector:selector])  {
-                [app performSelector:selector];
-            }
-        } else { // Try the delegate
-            if ([self.delegate respondsToSelector:selector]) {
-                [self.delegate performSelector:selector];
-            }
-        }
-                                       
-    );
+- (void)raiseNeedsLoginError
+{
+    [self tryRaiseDelegate:@selector(authorizationNeedsUserLogin) withArgument:nil withArgument:nil];
+}
+
+- (void)raiseAPIError:(NSError *)error
+{
+    [self tryRaiseDelegate:@selector(apiErrorOccurred:) withArgument:error withArgument:nil];
+}
+
+- (void)tryRaiseDelegate:(SEL)selector withArgument:(id)argument1 withArgument:(id)argument2
+{
+    id<UIApplicationDelegate> app = [[UIApplication sharedApplication] delegate];
+    id target = nil;
+    SuppressPerformSelectorLeakWarning(
+       if (!self.delegate) {// If no delegate, see if we've implemented delegate methods on the AppDelegate.
+           target = app;
+       } else { // Try the delegate
+           target = self.delegate;
+       }
+       if ([self.delegate respondsToSelector:selector]) {
+           if (argument2) {
+               [app performSelector:selector withObject:argument1 withObject:argument2];
+           } else if (argument1) {
+               [app performSelector:selector withObject:argument1];
+               
+           } else {
+               [app performSelector:selector];
+           }
+       }
+   );
 }
 
 
