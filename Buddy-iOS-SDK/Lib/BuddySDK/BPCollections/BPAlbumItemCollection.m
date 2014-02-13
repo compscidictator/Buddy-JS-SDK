@@ -34,12 +34,12 @@
 }
 
 - (void)addAlbumItem:(NSString *)itemId
-         withComment:(NSString *)comment
+         withCaption:(NSString *)caption
             callback:(BuddyObjectCallback)callback
 {
     NSDictionary *params = @{
                              @"ItemId": itemId,
-                             @"Comment": comment
+                             @"caption": caption
                              };
     NSString *requestPath = [self.requestPrefix stringByAppendingString:[[self type] requestPath]];
     

@@ -57,7 +57,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@; Comment: %@", [super description], self.comment];
+    return [NSString stringWithFormat:@"%@; Caption: %@", [super description], self.caption];
 }
 
 @end

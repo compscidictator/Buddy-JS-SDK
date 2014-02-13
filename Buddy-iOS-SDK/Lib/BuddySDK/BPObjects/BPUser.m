@@ -109,10 +109,10 @@ static NSString *users = @"users";
 
 #pragma mark - Profile Picture
 
-- (void)setUserProfilePicture:(UIImage *)picture comment:(NSString *)comment callback:(BuddyCompletionCallback)callback
+- (void)setUserProfilePicture:(UIImage *)picture caption:(NSString *)caption callback:(BuddyCompletionCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"user/%@/profilepicture", self.id];
-    NSDictionary *parameters = @{@"comment": comment};
+    NSDictionary *parameters = @{@"caption": caption};
 
     NSDictionary *data = @{@"data": UIImagePNGRepresentation(picture)};
     

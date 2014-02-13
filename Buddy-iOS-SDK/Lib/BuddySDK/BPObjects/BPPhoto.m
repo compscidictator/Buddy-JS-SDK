@@ -13,13 +13,13 @@
 
 @implementation BPPhoto
 
-@synthesize comment;
+@synthesize caption;
 
 - (void)registerProperties
 {
     [super registerProperties];
     
-    [self registerProperty:@selector(comment)];
+    [self registerProperty:@selector(caption)];
 }
 
 

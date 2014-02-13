@@ -41,7 +41,7 @@ describe(@"BuddyObjectSpec", ^{
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
             [[Buddy photos] addPhoto:image describePhoto:^(id<BPPhotoProperties> photoProperties) {
-                photoProperties.comment = @"Hello, comment!";
+                photoProperties.caption = @"Hello, caption!";
             } callback:^(id buddyObject, NSError *error) {
                 newPhoto = buddyObject;
             }];
@@ -50,7 +50,7 @@ describe(@"BuddyObjectSpec", ^{
             [[expectFutureValue(theValue(newPhoto.contentLength)) shouldEventually] beGreaterThan:theValue(1)];
             [[expectFutureValue(newPhoto.contentType) shouldEventually] equal:@"image/png"];
             [[expectFutureValue(newPhoto.signedUrl) shouldEventually] haveLengthOfAtLeast:1];
-            [[expectFutureValue(newPhoto.comment) shouldEventually] equal:@"Hello, comment!"];
+            [[expectFutureValue(newPhoto.caption) shouldEventually] equal:@"Hello, caption!"];
 
         });
         
@@ -64,7 +64,7 @@ describe(@"BuddyObjectSpec", ^{
             [[expectFutureValue(theValue(secondPhoto.contentLength)) shouldEventually] equal:theValue(newPhoto.contentLength)];
             [[expectFutureValue(secondPhoto.contentType) shouldEventually] equal:@"image/png"];
             [[expectFutureValue([secondPhoto.signedUrl componentsSeparatedByString:@"?"][0]) shouldEventually] equal:[newPhoto.signedUrl componentsSeparatedByString:@"?"][0]];
-            [[expectFutureValue(secondPhoto.comment) shouldEventually] equal:newPhoto.comment];
+            [[expectFutureValue(secondPhoto.caption) shouldEventually] equal:newPhoto.caption];
         });
            
         it(@"Should allow directly retrieving the image file", ^{

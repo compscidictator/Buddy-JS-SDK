@@ -11,7 +11,7 @@
 
 @protocol BPPhotoProperties <BuddyObjectProperties>
 
-@property (nonatomic, copy) NSString *comment;
+@property (nonatomic, copy) NSString *caption;
 
 @end
 

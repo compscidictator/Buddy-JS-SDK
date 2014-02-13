@@ -17,7 +17,7 @@
 - (instancetype)initWithAlbum:(BPAlbum *)album andClient:(id<BPRestProvider>)client;
 
 - (void)addAlbumItem:(NSString *)itemId
-         withComment:(NSString *)comment
+         withCaption:(NSString *)caption
             callback:(BuddyObjectCallback)callback;
         
 - (void)searchAlbumItems:(BuddyCollectionCallback)callback;
