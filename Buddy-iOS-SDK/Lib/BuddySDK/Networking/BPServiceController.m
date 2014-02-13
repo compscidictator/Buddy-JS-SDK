@@ -59,6 +59,13 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
     return self;
 }
 
+- (void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"appSettings.userToken"];
+    [self removeObserver:self forKeyPath:@"appSettings.deviceToken"];
+    [self removeObserver:self forKeyPath:@"appSettings.serviceUrl"];
+}
+
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context
 {
     [self setupManagerWithNewSettings];
