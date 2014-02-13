@@ -25,14 +25,6 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [BuddyIntegrationHelper bootstrapInit];
         });
         
-        it(@"Should throw an auth error if they try to access photos.", ^{
-            id mock = [KWMock mockForProtocol:@protocol(BPClientDelegate)];
-            [Buddy setClientDelegate:mock];
-#pragma message("Why the heck doesn't this always work?")
-            //[[[mock shouldEventually] receive] authorizationNeedsUserLogin];
-            [[Buddy photos] searchPhotos:nil callback:nil];
-        });
-        
         it(@"Should not allow them to add photos.", ^{
             __block BOOL fin = NO;
 

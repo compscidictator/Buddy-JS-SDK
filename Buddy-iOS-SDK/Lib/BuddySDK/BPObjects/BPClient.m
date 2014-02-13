@@ -486,14 +486,13 @@ NSMutableArray *queuedRequests;
        } else { // Try the delegate
            target = self.delegate;
        }
-       if ([self.delegate respondsToSelector:selector]) {
+       if ([target respondsToSelector:selector]) {
            if (argument2) {
-               [app performSelector:selector withObject:argument1 withObject:argument2];
+               [target performSelector:selector withObject:argument1 withObject:argument2];
            } else if (argument1) {
-               [app performSelector:selector withObject:argument1];
-               
+               [target performSelector:selector withObject:argument1];
            } else {
-               [app performSelector:selector];
+               [target performSelector:selector];
            }
        }
    );

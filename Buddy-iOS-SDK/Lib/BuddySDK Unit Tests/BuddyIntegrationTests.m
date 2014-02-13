@@ -19,12 +19,24 @@ SPEC_BEGIN(BuddyIntegrationSpec)
 describe(@"Buddy", ^{
     context(@"A clean boot of your app", ^{
         __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin3";
+        __block id mock = nil;
         beforeAll(^{
+            mock = [KWMock mockForProtocol:@protocol(BPClientDelegate)];
+
             [Buddy initClient:APP_NAME appKey:APP_KEY];
+            [Buddy setClientDelegate:mock];
+
         });
         
         afterAll(^{
 
+        });
+        
+        it(@"Should throw an auth error if they try to access photos.", ^{
+            [[mock shouldEventually] receive:@selector(connectivityChanged:)];
+            [[mock shouldEventually] receive:@selector(apiErrorOccurred:)];
+            [[[mock shouldEventually] receive] authorizationNeedsUserLogin];
+            [[Buddy photos] searchPhotos:nil callback:nil];
         });
         
         it(@"Should allow you to create a user.", ^{
@@ -51,6 +63,8 @@ describe(@"Buddy", ^{
         it(@"Should allow you to login.", ^{
             __block BPUser *newUser;
             
+            [[mock shouldEventually] receive:@selector(userChangedTo:from:)];
+
             [Buddy login:testCreateDeleteName password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
                 newUser = loggedInsUser;
             }];
@@ -58,6 +72,15 @@ describe(@"Buddy", ^{
             [[expectFutureValue(newUser.userName) shouldEventually] equal:testCreateDeleteName];
             //[[expectFutureValue(theValue(newUser.relationshipStatus)) shouldEventually] equal:theValue(BPUserRelationshipStatusOnTheProwl)];
 
+        });
+        
+        it(@"Should raise a notification of changing of a user.", ^{
+            __block BOOL fin = NO;
+            [Buddy login:testCreateDeleteName password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
+                fin = YES;
+            }];
+            
+            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
         });
         
         pending_(@"Should allow you to perform a social login.", ^{
