@@ -52,7 +52,14 @@
     if (argument) {
         NSString *setterName = NSStringFromSelector(anInvocation.selector);
         NSRange range = NSMakeRange(3, [setterName length]-4);
-        NSString *propertyName = [[setterName substringWithRange:range] lowercaseString];
+        NSString *propertyName = [setterName substringWithRange:range];
+        propertyName = [NSString stringWithFormat:@"%@%@",[[propertyName substringToIndex:1] lowercaseString],[propertyName substringFromIndex:1]];
+        
+#pragma message ("Holy hack batman. It is freaking hard to determine if the argument is a primitive (enum)")
+        if ((NSInteger)argument < 10) {
+            argument = @((NSInteger)argument);
+        }
+        
         [self performSelector:@selector(setFoo:value:) withObject:propertyName withObject:argument];
     } else {
         [self performSelector:@selector(foo:) withObject:argument];

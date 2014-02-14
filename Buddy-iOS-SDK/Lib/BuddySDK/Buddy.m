@@ -116,10 +116,10 @@
 
 + (void)createUser:(NSString *)username
                     password:(NSString *)password
-                    options:(NSDictionary *)options
+                describeUser:(DescribeUser)describeUser
                     callback:(BuddyObjectCallback)callback
 {
-    [[BPClient defaultClient] createUser:username password:password options:options callback:callback];
+    [[BPClient defaultClient] createUser:username password:password describeUser:describeUser callback:callback];
 }
 
 + (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback

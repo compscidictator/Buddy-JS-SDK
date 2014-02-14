@@ -37,8 +37,7 @@
 
 - (NSString *)description
 {
-    return [NSString stringWithFormat:@"%@\r%@\r%@\r%i\r%i\r%@\r%@\r%@\r%@\r%@\r%@\r%i\r%i\r%i\r", self.firstName, self.lastName, self.userName, self.celebMode, self.gender, self.dateOfBirth, self.lastLogin, self.lastModified, self.created, self.profilePicture, self.profilePictureId, self.age,
-            self.friendRequestPending];
+    return [NSString stringWithFormat:@"%@\r%@\r%@\r%li\r%@\r%@\r%@\r%@\r%@\r%ld\r%ld\r%i\r%i\r%i", self.firstName, self.lastName, self.userName, self.gender, self.dateOfBirth, self.lastModified, self.created, self.profilePicture, self.profilePictureId, (long)self.age];
 
 }
 

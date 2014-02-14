@@ -17,7 +17,7 @@
 
 @implementation BPUser
 
-@synthesize firstName, lastName, userName, celebMode, gender, dateOfBirth, lastLogin, lastModified, created, profilePicture, profilePictureId, age, friendRequestPending;
+@synthesize firstName, lastName, userName, gender, dateOfBirth, profilePicture, profilePictureId, email;
 
 - (void)registerProperties
 {
@@ -28,10 +28,6 @@
     [self registerProperty:@selector(userName)];
     [self registerProperty:@selector(gender)];
     [self registerProperty:@selector(dateOfBirth)];
-    [self registerProperty:@selector(profilePicture)];
-    [self registerProperty:@selector(profilePictureId)];
-    [self registerProperty:@selector(lastLogin)];
-    [self registerProperty:@selector(created)];
     [self registerProperty:@selector(profilePicture)];
     [self registerProperty:@selector(profilePictureId)];
 }

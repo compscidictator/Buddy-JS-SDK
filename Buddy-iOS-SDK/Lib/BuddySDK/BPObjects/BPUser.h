@@ -34,26 +34,19 @@ typedef NS_ENUM(NSInteger, BPUserGender)
 @property (nonatomic, copy) NSString *firstName;
 @property (nonatomic, copy) NSString *lastName;
 @property (nonatomic, copy) NSString *userName;
-@property (nonatomic, assign) BOOL celebMode;
+@property (nonatomic, copy) NSString *email;
 @property (nonatomic, assign) BPUserGender gender;
 @property (nonatomic, strong) NSDate *dateOfBirth;
-// TODO - method?
-//@property (nonatomic, assign) double latitude;
-//@property (nonatomic, assign) double longitude;
-
-//@property (nonatomic, assign) double distanceInMeters;
-
-@property (nonatomic, strong) NSDate *lastLogin;
-@property (nonatomic, strong) NSDate *lastModified;
-@property (nonatomic, strong) NSDate *created;
 @property (nonatomic, strong) NSURL *profilePicture;
 @property (nonatomic, copy) NSString *profilePictureId;
-@property (nonatomic, readonly) NSInteger age;
-@property (nonatomic, assign) BOOL friendRequestPending;
 
 @end
 
+typedef void(^DescribeUser)(id<BPUserProperties> userProperties);
+
 @interface BPUser : BuddyObject<BPUserProperties>
+
+- (NSInteger)age;
 
 - (void)requestPasswordReset:(BuddyObjectCallback)callback;
 - (void)resetPassword:(NSString *)resetCode newPassword:(NSString *)newPassword callback:(BuddyCompletionCallback)callback;

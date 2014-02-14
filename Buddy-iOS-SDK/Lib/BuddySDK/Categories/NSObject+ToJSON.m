@@ -8,6 +8,7 @@
 
 #import "NSObject+ToJSON.h"
 #import "BPEnumMapping.h"
+#import "NSDate+JSON.h"
 #import <objc/runtime.h>
 
 @implementation NSObject (ToJSON)
@@ -29,6 +30,8 @@
             
             if ([val respondsToSelector:@selector(stringValue)]) {
                 val = [val stringValue];
+            } else if([[val class] isSubclassOfClass:[NSDate class]]){
+                val = [val serializeDateToJson];
             }
             
             if (val) {

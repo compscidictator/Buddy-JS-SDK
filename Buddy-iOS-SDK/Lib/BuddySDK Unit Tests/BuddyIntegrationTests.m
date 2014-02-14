@@ -8,6 +8,7 @@
 
 #import "Buddy.h"
 #import <Kiwi/Kiwi.h>
+#import "BuddyIntegrationHelper.h"
 
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
 #undef kKW_DEFAULT_PROBE_TIMEOUT
@@ -18,7 +19,7 @@ SPEC_BEGIN(BuddyIntegrationSpec)
 
 describe(@"Buddy", ^{
     context(@"A clean boot of your app", ^{
-        __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin3";
+        __block NSString *testCreateDeleteName = @"ItPutsTheLotionOnItsSkin";
         __block id mock = nil;
         beforeAll(^{
             mock = [KWMock mockForProtocol:@protocol(BPClientDelegate)];
@@ -33,7 +34,7 @@ describe(@"Buddy", ^{
         });
         
         it(@"Should throw an auth error if they try to access photos.", ^{
-            //[[mock shouldEventually] receive:@selector(connectivityChanged:)];
+            [[mock shouldEventually] receive:@selector(connectivityChanged:)];
             [[mock shouldEventually] receive:@selector(apiErrorOccurred:)];
             [[[mock shouldEventually] receive] authorizationNeedsUserLogin];
             [[Buddy photos] searchPhotos:nil callback:nil];
@@ -42,22 +43,22 @@ describe(@"Buddy", ^{
         it(@"Should allow you to create a user.", ^{
             
             __block BPUser *newUser;
-            NSDictionary *options = @{BPUserFirstNameField: @"Erik",
-                                      BPUserLastNameField: @"Kerber",
-                                      BPUserGenderField: @(BPUserGender_Male),
-                                      BPUserEmailField: @"erik.kerber@gmail.com",
-                                      BPUserDateOfBirthField: [NSNull null],
-                                      BPUserCelebrityModeField: @(YES),
-                                      BPUserFuzzLocationField: @(NO)
-                                      };
-            
-            [Buddy createUser:testCreateDeleteName password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {
+            __block NSDate *randomDate = [BuddyIntegrationHelper randomDate];
+            [Buddy createUser:testCreateDeleteName password:TEST_PASSWORD describeUser:^(id<BPUserProperties> userProperties) {
+                userProperties.firstName = @"Erik";
+                userProperties.lastName = @"Kerber";
+                userProperties.gender = BPUserGender_Female;
+                userProperties.email = @"erik.kerber@gmail.com";
+                userProperties.dateOfBirth = randomDate;
+            } callback:^(BPUser *newBuddyObject, NSError *error) {
                 newUser = newBuddyObject;
             }];
             
             [[expectFutureValue(newUser.userName) shouldEventually] equal:testCreateDeleteName];
             [[expectFutureValue(newUser.firstName) shouldEventually] equal:@"Erik"];
             [[expectFutureValue(newUser.lastName) shouldEventually] equal:@"Kerber"];
+            [[expectFutureValue(theValue(newUser.gender)) shouldEventually] equal:theValue(BPUserGender_Female)];
+            [[expectFutureValue(newUser.dateOfBirth) shouldEventually] equal:randomDate];
         });
         
         it(@"Should allow you to login.", ^{

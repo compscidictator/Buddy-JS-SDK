@@ -12,6 +12,7 @@
 #import "BPRestProvider.h"
 #import "BuddyCollection.h" // TODO - remove dependency
 #import "BPMetricCompletionHandler.h"
+#import "BPUser.h"
 #import "BPBase.h"
 
 @class BuddyDevice;
@@ -163,7 +164,7 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 - (void)createUser:(NSString *)username
           password:(NSString *)password
-           options:(NSDictionary *)options
+      describeUser:(DescribeUser)describeUser
           callback:(BuddyObjectCallback)callback;
 
 - (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;

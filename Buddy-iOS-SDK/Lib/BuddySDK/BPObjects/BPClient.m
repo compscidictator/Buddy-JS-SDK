@@ -17,11 +17,11 @@
 #import "BPAlbumCollection.h"
 #import "BPBlobCollection.h"
 #import "BPRestProvider.h"
-#import "BPUser.h"
 #import "BuddyObject+Private.h"
 #import "BuddyLocation.h"
 #import "BuddyDevice.h"
 #import "BPAppSettings.h"
+#import "BPSisterObject.h"
 #import "BuddyAppDelegateDecorator.h"
 #import <CoreFoundation/CoreFoundation.h>
 
@@ -202,12 +202,17 @@
 
 - (void)createUser:(NSString *)username
           password:(NSString *)password
-           options:(NSDictionary *)options
+      describeUser:(DescribeUser)describeUser
           callback:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"username": username,
                                  @"password": password };
     
+    id newUser= [BPSisterObject new];
+    describeUser ? describeUser(newUser) : nil;
+    
+    id options = [newUser parametersFromProperties:@protocol(BPUserProperties)];
+
     parameters = [NSDictionary dictionaryByMerging:parameters with:options];
     
     // On BPUser for now for consistency. Probably will move.

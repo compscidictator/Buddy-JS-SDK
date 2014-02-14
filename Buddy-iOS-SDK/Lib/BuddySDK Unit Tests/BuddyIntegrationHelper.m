@@ -19,22 +19,19 @@
 + (void) bootstrapLogin:(void(^)())callback
 {
     [Buddy initClient:APP_NAME appKey:APP_KEY];
-        
-    NSDictionary *options = @{BPUserFirstNameField: @"Erik",
-                              BPUserLastNameField: @"Kerber",
-                              BPUserGenderField: @(BPUserGender_Male),
-                              BPUserEmailField: @"erik.kerber@gmail.com",
-                              BPUserDateOfBirthField: [NSNull null],
-                              BPUserCelebrityModeField: @(YES),
-                              BPUserFuzzLocationField: @(NO)
-                              };
     
     [Buddy login:TEST_USERNAME password:TEST_PASSWORD callback:^(BPUser *loggedInsUser, NSError *error) {
         
         if(loggedInsUser)
             callback();
         else {
-            [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD options:options callback:^(BPUser *newBuddyObject, NSError *error) {
+            [Buddy createUser:TEST_USERNAME password:TEST_PASSWORD describeUser:^(id<BPUserProperties> userProperties) {
+                userProperties.firstName = @"Erik";
+                userProperties.lastName = @"Erik";
+                userProperties.gender = BPUserGender_Male;
+                userProperties.email = @"erik.kerber@gmail.com";
+                userProperties.dateOfBirth = [BuddyIntegrationHelper randomDate];
+            } callback:^(BPUser *newBuddyObject, NSError *error) {
                 callback();
             }];
         }
