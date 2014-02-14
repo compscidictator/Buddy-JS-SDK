@@ -33,7 +33,6 @@ describe(@"Buddy", ^{
         });
         
         it(@"Should throw an auth error if they try to access photos.", ^{
-            [mock receive:@selector(connectivityChanged:)];
             //[[mock shouldEventually] receive:@selector(connectivityChanged:)];
             [[mock shouldEventually] receive:@selector(apiErrorOccurred:)];
             [[[mock shouldEventually] receive] authorizationNeedsUserLogin];
