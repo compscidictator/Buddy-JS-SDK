@@ -240,7 +240,7 @@
     self.HUD.labelText= @"Loading Tag Info";
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
-    [self.photo getMetadataWithKey:TAG_META_KEY callback:[self getFetchMetadataCallback]];
+    [self.photo getMetadataWithKey:TAG_META_KEY permissions:BuddyPermissionsApp callback:[self getFetchMetadataCallback]];
 }
 - (void)didReceiveMemoryWarning
 {

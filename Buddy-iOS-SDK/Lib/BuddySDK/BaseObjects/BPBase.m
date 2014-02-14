@@ -86,9 +86,11 @@
     }];
 }
 
-- (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
+- (void)getMetadataWithKey:(NSString *)key permissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback
 {
-    [self.client GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+    NSDictionary *parameters = @{@"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+    
+    [self.client GET:[self metadataPath:key] parameters:parameters callback:^(id metadata, NSError *error) {
         id md = nil;
         if ([NSJSONSerialization isValidJSONObject:metadata]) {
             md = metadata[@"value"];
@@ -97,9 +99,10 @@
     }];
 }
 
-- (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback
+- (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback 
 {
-    [self.client DELETE:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+    NSDictionary *parameters = @{@"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+    [self.client DELETE:[self metadataPath:key] parameters:parameters callback:^(id metadata, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }

@@ -47,7 +47,7 @@ describe(@"Metadata", ^{
             
             [Buddy setMetadataWithKeyValues:kvp permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [Buddy getMetadataWithKey:@"Hakuna" callback:^(id newBuddyObject, NSError *error) {
+                [Buddy getMetadataWithKey:@"Hakuna" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     targetString = newBuddyObject;
                 }];
             }];
@@ -61,7 +61,7 @@ describe(@"Metadata", ^{
             __block BPCheckin *c = checkin;
             [checkin setMetadataWithKey:@"StringlyMetadata" andString:@"Test String" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+                [c getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     targetString = newBuddyObject;
                 }];
             }];
@@ -76,7 +76,7 @@ describe(@"Metadata", ^{
             __block BPCheckin *c = checkin;
             [checkin setMetadataWithKey:@"StringlyMetadata" andString:testString permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+                [c getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     targetString = newBuddyObject;
                 }];
             }];
@@ -91,7 +91,7 @@ describe(@"Metadata", ^{
             __block BPCheckin *c = checkin;
             [checkin setMetadataWithKey:@"IntlyMetadata" andInteger:testInteger permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [c getMetadataWithKey:@"IntlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+                [c getMetadataWithKey:@"IntlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     targetInteger = [newBuddyObject integerValue];
                 }];
             }];
@@ -103,7 +103,7 @@ describe(@"Metadata", ^{
             __block BPCheckin *c = checkin;
             __block BOOL fin = NO;
             
-            [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+            [c getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                 [[newBuddyObject shouldNot] beNil];
                 fin = YES;
             }];
@@ -111,8 +111,8 @@ describe(@"Metadata", ^{
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
             fin = NO;
             
-            [checkin deleteMetadataWithKey:@"StringlyMetadata" callback:^(NSError *error) {
-                [c getMetadataWithKey:@"StringlyMetadata" callback:^(id newBuddyObject, NSError *error) {
+            [checkin deleteMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+                [c getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     [[newBuddyObject should] beNil];
                     fin = YES;
                 }];
