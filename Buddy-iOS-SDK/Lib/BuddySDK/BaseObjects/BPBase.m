@@ -56,7 +56,7 @@
 - (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
     NSDictionary *parameters = @{@"value": BOXNIL(value),
-                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
@@ -68,26 +68,29 @@
 #pragma message("Convert to 'convertValue' method from enum map")
     
     NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%ld", (long)value],
-                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
 
-- (void)setMetadataWithKey:(NSString *)key andKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+- (void)setMetadataWithKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
     NSDictionary *parameters = @{@"keyValuePairs": keyValuePaths,
-                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
-    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
+#pragma message("Fixme now!")
+    [self.client PUT:@"metadata" parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
 
-- (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
+- (void)getMetadataWithKey:(NSString *)key permissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback
 {
-    [self.client GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+    NSDictionary *parameters = @{@"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+    
+    [self.client GET:[self metadataPath:key] parameters:parameters callback:^(id metadata, NSError *error) {
         id md = nil;
         if ([NSJSONSerialization isValidJSONObject:metadata]) {
             md = metadata[@"value"];
@@ -96,9 +99,10 @@
     }];
 }
 
-- (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback
+- (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback 
 {
-    [self.client DELETE:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
+    NSDictionary *parameters = @{@"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+    [self.client DELETE:[self metadataPath:key] parameters:parameters callback:^(id metadata, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }

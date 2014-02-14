@@ -125,8 +125,8 @@
 
 + (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
 + (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
-+ (void)setMetadataWithKey:(NSString *)key andKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
-+ (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback;
-+ (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback;
++ (void)setMetadataWithKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
++ (void)getMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) permissions callback:(BuddyObjectCallback)callback;
++ (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) callback:(BuddyCompletionCallback)callback;
 
 @end

@@ -21,12 +21,12 @@
 }
     
 - (void)addAlbum:(NSString *)name
-     withComment:(NSString *)comment
+     withCaption:(NSString *)caption
         callback:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{
                                  @"name": BOXNIL(name),
-                                 @"comment": BOXNIL(comment)
+                                 @"caption": BOXNIL(caption)
                                  };
     
     [self.type createFromServerWithParameters:parameters client:self.client callback:callback];

@@ -12,3 +12,11 @@
 @property (nonatomic, assign) float latitude;
 @property (nonatomic, assign) float longitude;
 @end
+
+static inline BPCoordinate *BPCoordinateMake(float lat, float lon)
+{
+    BPCoordinate *coord = [[BPCoordinate alloc] init];
+    coord.latitude = lat;
+    coord.longitude = lon;
+    return coord;
+};

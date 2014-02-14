@@ -164,19 +164,19 @@
     [[BPClient defaultClient] setMetadataWithKey:key andInteger:value permissions:permissions callback:callback];
 }
 
-+ (void)setMetadataWithKey:(NSString *)key andKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
++ (void)setMetadataWithKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
-    [[BPClient defaultClient] setMetadataWithKey:key andKeyValues:keyValuePaths permissions:permissions callback:callback];
+    [[BPClient defaultClient] setMetadataWithKeyValues:keyValuePaths permissions:permissions callback:callback];
 }
 
-+ (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
++ (void)getMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) permissions callback:(BuddyObjectCallback)callback
 {
-    [[BPClient defaultClient] getMetadataWithKey:key callback:callback];
+    [[BPClient defaultClient] getMetadataWithKey:key permissions:(BuddyPermissions)permissions callback:callback];
 }
 
-+ (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback
++ (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) permissions callback:(BuddyCompletionCallback)callback
 {
-    [[BPClient defaultClient] deleteMetadataWithKey:key callback:callback];
+    [[BPClient defaultClient] deleteMetadataWithKey:key permissions:(BuddyPermissions)permissions  callback:callback];
 }
 
 @end

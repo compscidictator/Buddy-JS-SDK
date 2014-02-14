@@ -228,7 +228,7 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 - (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
     NSDictionary *parameters = @{@"value": BOXNIL(value),
-                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
@@ -240,7 +240,7 @@ static NSString *metadataFormat = @"metadata/%@/%@";
 #pragma message("Convert to 'convertValue' method from enum map")
     
     NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%ld", (long)value],
-                                 @"permissions": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
 
     [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
