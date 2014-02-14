@@ -198,6 +198,22 @@
     return _albums;
 }
 
+#pragma mark - User
+
+- (void)createUser:(NSString *)username
+          password:(NSString *)password
+           options:(NSDictionary *)options
+          callback:(BuddyObjectCallback)callback
+{
+    NSDictionary *parameters = @{@"username": username,
+                                 @"password": password };
+    
+    parameters = [NSDictionary dictionaryByMerging:parameters with:options];
+    
+    // On BPUser for now for consistency. Probably will move.
+    [BPUser createFromServerWithParameters:parameters client:[BPClient defaultClient] callback:callback];
+}
+
 #pragma mark - Login
 
 -(void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback
@@ -230,7 +246,6 @@
         }
         
         BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andClient:self];
-        user.isMe = YES;
         
         // Grab the potentially different base url.
         if ([json hasKey:@"accessToken"] && ![json[@"accessToken"] isEqualToString:self.appSettings.token]) {
@@ -255,7 +270,6 @@
         }
         
         BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andClient:self];
-        user.isMe = YES;
         
         [user refresh:^(NSError *error){
             callback ? callback(user, error) : nil;

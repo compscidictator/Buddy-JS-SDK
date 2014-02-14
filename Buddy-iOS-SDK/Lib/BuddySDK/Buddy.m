@@ -119,13 +119,7 @@
                     options:(NSDictionary *)options
                     callback:(BuddyObjectCallback)callback
 {
-    NSDictionary *parameters = @{@"username": username,
-                                 @"password": password };
-    
-    parameters = [NSDictionary dictionaryByMerging:parameters with:options];
-    
-    // On BPUser for now for consistency. Probably will move.
-    [BPUser createFromServerWithParameters:parameters client:[BPClient defaultClient] callback:callback];
+    [[BPClient defaultClient] createUser:username password:password options:options callback:callback];
 }
 
 + (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback

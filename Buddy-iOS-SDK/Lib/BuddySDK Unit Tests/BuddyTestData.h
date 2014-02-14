@@ -1,7 +1,7 @@
 
 
-#define APP_NAME @"bbbbbc.srbbvPLtcrsh"
-#define APP_KEY @"AA5B516D-040C-44C7-AEC9-C5204FA89585"
+#define APP_NAME @"bbbbbc.cbbbvDwpsbdh"
+#define APP_KEY @"634E8666-E9AE-4933-A744-44203FDD9CD5"
 
 // api.buddyplatform.com
 //#define APP_NAME @"bbbbbc.LffbvrjmtjHg"

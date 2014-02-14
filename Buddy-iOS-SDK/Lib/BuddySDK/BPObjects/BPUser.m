@@ -17,6 +17,8 @@
 
 @implementation BPUser
 
+@synthesize firstName, lastName, userName, celebMode, gender, dateOfBirth, lastLogin, lastModified, created, profilePicture, profilePictureId, age, friendRequestPending;
+
 - (void)registerProperties
 {
     [super registerProperties];
