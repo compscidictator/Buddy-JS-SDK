@@ -19,7 +19,7 @@ namespace CreateLoginUserLibrary
 
 			mainIntent.AddCategory(Intent.CategoryDefault);
 
-			mainIntent.AddFlags (ActivityFlags.NewTask);
+			mainIntent.AddFlags(ActivityFlags.NewTask);
 
 			StartActivity (mainIntent);
 		}

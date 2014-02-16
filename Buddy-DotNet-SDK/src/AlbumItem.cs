@@ -19,12 +19,19 @@ namespace BuddySDK
         {
         }
 
-        public AlbumItem(string path, BuddyClient client = null)
-            : base(null, client)
-        {
-            this.path = path;
-        }
-        
+		public AlbumItem(string path, BuddyClient client = null)
+			: base(client)
+		{
+			this.path = path;
+		}
+
+		private readonly string path;
+		protected override string Path {
+			get {
+				return this.path;
+			}
+		}
+
         [Newtonsoft.Json.JsonProperty("comment")]
 		public string Comment
 		{
@@ -60,16 +67,6 @@ namespace BuddySDK
             }
         }
 
-        private readonly string path;
-        protected override string Path
-        {
-            get
-            {
-
-                return this.path;
-            }
-        }
-
         public Task<BuddyResult<Stream>> GetFileAsync(int? size = null)
 		{
             return base.GetFileCoreAsync(GetObjectPath() + "/file", new {size = size});
@@ -86,11 +83,11 @@ namespace BuddySDK
         public Task<SearchResult<AlbumItem>> FindAsync(AlbumItemType? itemType = null, string comment = null,
             BuddyGeoLocationRange location = null, int maxResults = 100, string pagingToken = null)
         {
-            return base.FindAsync(null, null, null, location, maxResults, pagingToken, (p) =>
-            {
-                if (itemType.HasValue) { p["itemType"] = itemType; }
-                p["comment"] = comment;
-            });
+			return base.FindAsync(null, null, null, location, maxResults, pagingToken, (p) =>
+            	{
+                	if (itemType.HasValue) { p["itemType"] = itemType; }
+                	p["comment"] = comment;
+				});
         }
     }
 }

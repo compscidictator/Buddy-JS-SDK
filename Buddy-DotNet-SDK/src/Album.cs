@@ -12,7 +12,7 @@ namespace BuddySDK
         {
         }
 
-		internal Album(BuddyClient client)
+		public Album(BuddyClient client)
 			: base(client)
 		{
 		}

@@ -22,13 +22,15 @@ namespace AlbumsSample
 	{
 		private const int PickImageId = 1000;
 
-		protected override void OnCreate (Bundle bundle)
+		protected override async void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
 			SetContentView (Resource.Layout.AlbumItems);
 
 			InitializeAddPictureButton ();
+
+			await RefreshAlbumItemsGrid ();
 		}
 
 		private void InitializeAddPictureButton()
@@ -75,9 +77,9 @@ namespace AlbumsSample
 
 		private async Task AddAlbumItem(string path)
 		{
-			using (var streamReader = new StreamReader (path)) {
+			using (var fileStream = new FileStream (path, FileMode.Open)) {
 				// Check stream for picture types other than JPEG
-				var picture = await BuddySDK.Buddy.Photos.AddAsync ("", streamReader.BaseStream, "image/jpeg", null);
+				var picture = await BuddySDK.Buddy.Photos.AddAsync ("", fileStream, "", null);
 
 				await AlbumsActivity.SelectedAlbum.AddItemAsync (picture.Value.ID, "", null);
 			}
@@ -88,6 +90,7 @@ namespace AlbumsSample
 			var albumItems = await AlbumsActivity.SelectedAlbum.Items.FindAsync ();
 
 			var gridview = FindViewById<GridView> (Resource.Id.albumItemsGridView);
+
 			gridview.Adapter = new AlbumItemsAdapter (this, albumItems.PageResults.ToList());
 		}
 	}
