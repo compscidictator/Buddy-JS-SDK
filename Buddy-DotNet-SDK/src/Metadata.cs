@@ -24,16 +24,14 @@ namespace BuddySDK
         {
         }
 
-        protected override string GetMetadataPath(string key = null)
+        protected override string GetMetadataIDPath(string key = null)
         {
-            var path = "/metadata";
+            return GetMetadataPath(key);
+        }
 
-            if (!string.IsNullOrEmpty(key))
-            {
-                path += string.Format("/{0}", key);
-            }
-
-            return path;
+        public override string ID
+        {
+            get { return null; }
         }
     }
 }

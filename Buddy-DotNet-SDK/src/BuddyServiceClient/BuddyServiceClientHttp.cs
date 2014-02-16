@@ -225,7 +225,10 @@ namespace BuddyServiceClient
                         //json parse
                         try
                         {
-                            var envelope = JsonConvert.DeserializeObject<JsonEnvelope<T>>(body);
+                            var envelope = JsonConvert.DeserializeObject<JsonEnvelope<T>>(body, new JsonSerializerSettings
+                                {
+                                    DateTimeZoneHandling = DateTimeZoneHandling.Local
+                                });
 
                             if (envelope == null) {
                                     // fall through
@@ -485,7 +488,13 @@ namespace BuddyServiceClient
                                 {
                                     case HttpRequestType.HttpPostJson:
                                         wr.ContentType = "application/json";
-                                        var json = JsonConvert.SerializeObject(parameters, Formatting.None);
+
+                                        parameters = ConvertUnspecifiedDateTimes(parameters);
+
+                                        var json = JsonConvert.SerializeObject(parameters, Formatting.None, new JsonSerializerSettings
+                                        {
+                                            DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                                        });
                                         byte[] jsonbytes = System.Text.Encoding.UTF8.GetBytes(json);
 
                                         rs.Write(jsonbytes, 0, jsonbytes.Length);
@@ -521,9 +530,21 @@ namespace BuddyServiceClient
 
         }
 
+        // assume unspecified DateTime.Kind is always local
+        private IDictionary<string, object> ConvertUnspecifiedDateTimes(IDictionary<string, object> parameters)
+        {
+            parameters = parameters.Select(parameter =>
+            {
+                if (parameter.Value is DateTime && ((DateTime)parameter.Value).Kind == DateTimeKind.Unspecified)
+                {
+                    parameter = new KeyValuePair<string,object>(parameter.Key, DateTime.SpecifyKind((DateTime)parameter.Value, DateTimeKind.Local));
+                }
 
+                return parameter;
+            }).ToDictionary(x => x.Key, x => x.Value);
 
-
+            return parameters;
+        }
 
         private static void HttpPostMultipart(HttpWebRequest wr, Stream requestStream, IDictionary<string, object> nvc)
         {

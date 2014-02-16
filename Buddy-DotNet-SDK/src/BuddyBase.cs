@@ -83,12 +83,26 @@ namespace BuddySDK
             }
         }
 
-        protected abstract string GetMetadataPath(string key = null);
+        protected string GetMetadataPath(string key = null)
+        {
+            var path = "/metadata";
+
+            if (!string.IsNullOrEmpty(key))
+            {
+                path += string.Format("/{0}", key);
+            }
+
+            return path;
+        }
+
+        public abstract string ID { get; }
+
+        protected abstract string GetMetadataIDPath(string key = null);
 
         private Task<BuddyResult<bool>> SetMetadataCore(string key, object value, BuddyPermissions permissions)
         {
             return Client.CallServiceMethod<bool>("PUT",
-                                                    GetMetadataPath(key),
+                                                    GetMetadataIDPath(key),
                                                     new
                                                     {
                                                         value = value,
@@ -99,11 +113,16 @@ namespace BuddySDK
         private Task<BuddyResult<bool>> SetMetadataCore(IDictionary keyValuePairs, BuddyPermissions permissions)
         {
             return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(),
-                                                    new
-                                                    {
-                                                        keyValuePairs = keyValuePairs,
-                                                        permissions = permissions
-                                                    });
+                ID == null ? (object)new
+                {
+                    keyValuePairs = keyValuePairs,
+                    permissions = permissions
+                } : (object) new
+                {
+                    id = ID,
+                    keyValuePairs = keyValuePairs,
+                    permissions = permissions
+                });
         }
 
         public Task<BuddyResult<bool>> SetMetadataAsync(string key, string value, BuddyPermissions permissions = BuddyPermissions.Default)
@@ -140,7 +159,7 @@ namespace BuddySDK
         {
             return Task.Run<BuddyResult<T>>(() =>
             {
-                return Client.CallServiceMethod<MetadataItem>("GET", GetMetadataPath(key)).Result.Convert<T>(mdi => (T)mdi.Value);
+                return Client.CallServiceMethod<MetadataItem>("GET", GetMetadataIDPath(key)).Result.Convert<T>(mdi => (T)mdi.Value);
             });
         }
 
@@ -151,7 +170,7 @@ namespace BuddySDK
 
         public Task<BuddyResult<int>> IncrementMetadataAsync(string key, int delta)
         {
-            var path = GetMetadataPath(key) + "/increment";
+            var path = GetMetadataIDPath(key) + "/increment";
 
             var r = Client.CallServiceMethod<int>("POST", path,
                      new
@@ -164,7 +183,7 @@ namespace BuddySDK
 
         public Task<BuddyResult<bool>> DeleteMetadataAsync(string key)
         {
-            var t = Client.CallServiceMethod<bool>("DELETE", GetMetadataPath(key));
+            var t = Client.CallServiceMethod<bool>("DELETE", GetMetadataIDPath(key));
 
             return t;
         }
@@ -211,7 +230,7 @@ namespace BuddySDK
         }
 
         [JsonProperty("id")]
-        public string ID {
+        public override string ID {
             get
             {
                 return GetValueOrDefault<string>("ID");
@@ -508,6 +527,10 @@ namespace BuddySDK
             {
 				value = (T)(object)BuddyGeoLocation.Parse (value);
             }
+            else if (key == "Website" && !(value is Uri))
+            {
+                value = (T)(object)new Uri((string)(object)value);
+            }
 
             _values[key] = new ValueEntry(value, true);
         }
@@ -636,7 +659,7 @@ namespace BuddySDK
             OnPropertyChanged (null);
         }
 
-        protected override string GetMetadataPath(string key = null) {
+        protected override string GetMetadataIDPath(string key = null) {
             var path = string.Format ("/metadata/{0}", ID);
 
             if (!string.IsNullOrEmpty(key))
