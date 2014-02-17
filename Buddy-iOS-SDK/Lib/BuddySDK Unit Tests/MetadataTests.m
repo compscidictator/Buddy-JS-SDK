@@ -20,19 +20,37 @@ SPEC_BEGIN(MetadataSpec)
 describe(@"Metadata", ^{
     context(@"When a user is logged in", ^{
         
-        __block BPCheckin *checkin;
+        __block BPCheckin *checkin1;
+        __block BPCheckin *checkin2;
         beforeAll(^{
+            
+            DescribeCheckin d1 = ^(id<BPCheckinProperties> checkinProperties) {
+                checkinProperties.comment = @"Test checkin";
+                checkinProperties.description = @"Test checkin description";
+                checkinProperties.location = BPCoordinateMake(1.2, 3.4);
+            };
+
+            DescribeCheckin d2 = ^(id<BPCheckinProperties> checkinProperties) {
+                checkinProperties.comment = @"Second checkin";
+                checkinProperties.description = @"Test checkin description";
+                checkinProperties.location = BPCoordinateMake(1.2, 3.4);
+            };
+            
             [BuddyIntegrationHelper bootstrapLogin:^{
-                [[Buddy checkins] checkin:^(id<BPCheckinProperties> checkinProperties) {
-                    checkinProperties.comment = @"Test checkin";
-                    checkinProperties.description = @"Test checkin description";
-                    checkinProperties.location = BPCoordinateMake(1.2, 3.4);
-                } callback:^(id newBuddyObject, NSError *error) {
-                    checkin = newBuddyObject;
+                
+                [[Buddy checkins] checkin:d1
+                 callback:^(id newBuddyObject, NSError *error) {
+                    checkin1 = newBuddyObject;
                 }];
+                
+                [[Buddy checkins] checkin:d2
+                callback:^(id newBuddyObject, NSError *error) {
+                     checkin2 = newBuddyObject;
+                 }];
             }];
             
-            [[expectFutureValue(checkin) shouldEventually] beNonNil];
+            [[expectFutureValue(checkin1) shouldEventually] beNonNil];
+            [[expectFutureValue(checkin2) shouldEventually] beNonNil];
         });
         
         afterAll(^{
@@ -56,40 +74,48 @@ describe(@"Metadata", ^{
         });
         
         it(@"Should be able to set nil  metadata", ^{
-            __block id targetString = @"Stuff";
+            __block id targetString1 = @"Stuff";
             
-            __block BPCheckin *c = checkin;
-            [checkin setMetadataWithKey:@"StringlyMetadata" andString:@"Test String" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+            __block BPCheckin *c1 = checkin1;
+
+            [checkin1 setMetadataWithKey:@"StringlyMetadata" andString:@"" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [c getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
-                    targetString = newBuddyObject;
+                [c1 getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                    targetString1 = newBuddyObject;
                 }];
             }];
             
-            [[expectFutureValue(targetString) shouldEventually] equal:@"Test String"];
+            [[expectFutureValue(targetString1) shouldEventually] equal:@"Test String"];
         });
         
         it(@"Should be able to set string based metadata", ^{
-            NSString *testString = @"Hakuna matata";
-            __block NSString *targetString = nil;
+            __block id targetString1 = @"Stuff";
+            __block id targetString2 = @"Stuff";
             
-            __block BPCheckin *c = checkin;
-            [checkin setMetadataWithKey:@"StringlyMetadata" andString:testString permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+            
+            __block BPCheckin *c1 = checkin1;
+            __block BPCheckin *c2 = checkin2;
+            
+            [checkin1 setMetadataWithKey:@"StringlyMetadata" andString:@"Test String" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [c getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
-                    targetString = newBuddyObject;
+                [c1 getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                    targetString1 = newBuddyObject;
+                }];
+                [c2 getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                    targetString2 = newBuddyObject;
                 }];
             }];
-
-            [[expectFutureValue(targetString) shouldEventually] equal:testString];
+            
+            [[expectFutureValue(targetString1) shouldEventually] equal:@"Test String"];
+            [[expectFutureValue(targetString2) shouldNotEventually] equal:@"Test String"];
         });
         
         it(@"Should be able to set integer based metadata", ^{
             NSInteger testInteger = 42;
             __block NSInteger targetInteger = -1;
             
-            __block BPCheckin *c = checkin;
-            [checkin setMetadataWithKey:@"IntlyMetadata" andInteger:testInteger permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+            __block BPCheckin *c = checkin1;
+            [checkin1 setMetadataWithKey:@"IntlyMetadata" andInteger:testInteger permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
                 [c getMetadataWithKey:@"IntlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     targetInteger = [newBuddyObject integerValue];
@@ -100,7 +126,7 @@ describe(@"Metadata", ^{
         });
         
         it(@"Should be able to delete metadata", ^{
-            __block BPCheckin *c = checkin;
+            __block BPCheckin *c = checkin1;
             __block BOOL fin = NO;
             
             [c getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
@@ -111,7 +137,7 @@ describe(@"Metadata", ^{
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
             fin = NO;
             
-            [checkin deleteMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+            [checkin1 deleteMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [c getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     [[newBuddyObject should] beNil];
                     fin = YES;
@@ -119,6 +145,29 @@ describe(@"Metadata", ^{
             }];
             
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
+        });
+        
+        it(@"Should be able to set multi-valued metadata", ^{
+            __block id targetString1 = @"Stuff";
+            __block id targetString2 = @"Stuff";
+            
+            NSDictionary *keysValues = @{};
+            
+            __block BPCheckin *c1 = checkin1;
+            __block BPCheckin *c2 = checkin2;
+            
+            [checkin1 setMetadataWithKeyValues:@{} permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+                [[error should] beNil];
+                [c1 getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                    targetString1 = newBuddyObject;
+                }];
+                [c2 getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                    targetString2 = newBuddyObject;
+                }];
+            }];
+            
+            [[expectFutureValue(targetString1) shouldEventually] equal:@"Test String"];
+            [[expectFutureValue(targetString2) shouldNotEventually] equal:@"Test String"];
         });
     });
 });
