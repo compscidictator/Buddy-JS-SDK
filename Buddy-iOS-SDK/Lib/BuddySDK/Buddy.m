@@ -168,9 +168,14 @@
     [[BPClient defaultClient] getMetadataWithKey:key permissions:(BuddyPermissions)permissions callback:callback];
 }
 
+- (void)getMetadataWithPermissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback
+{
+    [[BPClient defaultClient] getMetadataWithPermissions:permissions callback:callback];
+}
+
 + (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) permissions callback:(BuddyCompletionCallback)callback
 {
-    [[BPClient defaultClient] deleteMetadataWithKey:key permissions:(BuddyPermissions)permissions  callback:callback];
+    [[BPClient defaultClient] deleteMetadataWithKey:key permissions:(BuddyPermissions)permissions callback:callback];
 }
 
 @end

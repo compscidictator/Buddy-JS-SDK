@@ -225,44 +225,9 @@ static NSString *metadataFormat = @"metadata/%@/%@";
     return [NSString stringWithFormat:metadataFormat, self.id, key];
 }
 
-- (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+- (NSDictionary *)metadataParameters
 {
-    NSDictionary *parameters = @{@"value": BOXNIL(value),
-                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
-    
-    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
-        callback ? callback(error) : nil;
-    }];
-}
-
-- (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
-{
-#pragma message("Convert to 'convertValue' method from enum map")
-    
-    NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%ld", (long)value],
-                                 @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
-
-    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
-        callback ? callback(error) : nil;
-    }];
-}
-
-- (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
-{
-    [self.client GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
-        id md = nil;
-        if ([NSJSONSerialization isValidJSONObject:metadata]) {
-            md = metadata[@"value"];
-        }
-        callback ? callback(md, error) : nil;
-    }];
-}
-
-- (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback
-{
-    [self.client DELETE:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
-        callback ? callback(error) : nil;
-    }];
+    return @{@"id": self.id};
 }
 
 #pragma mark - JSON handling

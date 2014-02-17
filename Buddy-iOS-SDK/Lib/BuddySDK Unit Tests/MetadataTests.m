@@ -13,7 +13,7 @@
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
 #undef kKW_DEFAULT_PROBE_TIMEOUT
 #endif
-#define kKW_DEFAULT_PROBE_TIMEOUT 8.0
+#define kKW_DEFAULT_PROBE_TIMEOUT 4.0
 
 SPEC_BEGIN(MetadataSpec)
 
@@ -151,17 +151,17 @@ describe(@"Metadata", ^{
             __block id targetString1 = @"Stuff";
             __block id targetString2 = @"Stuff";
             
-            NSDictionary *keysValues = @{};
+            NSDictionary *keysValues = @{@"foo": @"bar"};
             
             __block BPCheckin *c1 = checkin1;
             __block BPCheckin *c2 = checkin2;
             
-            [checkin1 setMetadataWithKeyValues:@{} permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+            [checkin1 setMetadataWithKeyValues:keysValues permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [c1 getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                [c1 getMetadataWithPermissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     targetString1 = newBuddyObject;
                 }];
-                [c2 getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                [c2 getMetadataWithPermissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     targetString2 = newBuddyObject;
                 }];
             }];

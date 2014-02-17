@@ -53,6 +53,11 @@
     return @"";
 }
 
+- (NSDictionary *)metadataParameters
+{
+    return nil;
+}
+
 - (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
     NSDictionary *parameters = @{@"value": BOXNIL(value),
@@ -80,7 +85,8 @@
     NSDictionary *parameters = @{@"keyValuePairs": keyValuePaths,
                                  @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
-#pragma message("Fixme now!")
+    parameters = [parameters dictionaryByMergingWith:[self metadataParameters]];
+
     [self.client PUT:@"metadata" parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
@@ -91,6 +97,21 @@
     NSDictionary *parameters = @{@"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
     
     [self.client GET:[self metadataPath:key] parameters:parameters callback:^(id metadata, NSError *error) {
+        id md = nil;
+        if ([NSJSONSerialization isValidJSONObject:metadata]) {
+            md = metadata[@"value"];
+        }
+        callback ? callback(md, error) : nil;
+    }];
+}
+
+- (void)getMetadataWithPermissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback
+{
+    NSDictionary *parameters = @{@"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
+    
+    parameters = [parameters dictionaryByMergingWith:[self metadataParameters]];
+    
+    [self.client GET:[self metadataPath:nil] parameters:parameters callback:^(id metadata, NSError *error) {
         id md = nil;
         if ([NSJSONSerialization isValidJSONObject:metadata]) {
             md = metadata[@"value"];
