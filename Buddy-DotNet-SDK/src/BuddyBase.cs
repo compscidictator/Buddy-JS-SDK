@@ -552,7 +552,7 @@ namespace BuddySDK
                 }
                 BuddyServiceException error = null;
                 string requestId;
-                return Task.Run<BuddyResult<bool>>(async () =>
+                return Task.Run<BuddyResult<bool>>(() =>
                 {
                     IDictionary<string, object> updateDict = null;
                     if (isNew)
@@ -581,8 +581,9 @@ namespace BuddySDK
 
                     if (updateDict != null)
                     {
-                        var service = await Client.Service();
-                        service.CallOnUiThread(() =>
+                        var service = Client.Service();
+						service.Wait();
+						service.Result.CallOnUiThread(() =>
                         {
                             Update(updateDict);
                         });
