@@ -36,8 +36,8 @@ describe(@"BPLocationIntegrationSpec", ^{
             
         });
         
-        it(@"Should allow you create an album.", ^{
-            
+        it(@"Should allow you create a location.", ^{
+            //[[Buddy locations]]
         });
         
         it(@"Should allow you to retrieve an album.", ^{

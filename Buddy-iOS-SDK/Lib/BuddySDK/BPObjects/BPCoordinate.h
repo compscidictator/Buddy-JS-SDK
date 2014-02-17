@@ -20,3 +20,16 @@ static inline BPCoordinate *BPCoordinateMake(float lat, float lon)
     coord.longitude = lon;
     return coord;
 };
+
+@interface BPCoordinateRange : BPCoordinate
+@property (nonatomic, assign) NSInteger range;
+@end
+
+static inline BPCoordinateRange *BPCoordinateRangeMake(float lat, float lon, NSInteger distanceInMeteres)
+{
+    BPCoordinateRange *coord = [[BPCoordinateRange alloc] init];
+    coord.latitude = lat;
+    coord.longitude = lon;
+    coord.range = distanceInMeteres;
+    return coord;
+};

@@ -23,6 +23,8 @@
 #import "BPCoordinate.h"
 #import "BPBlob.h"
 #import "BPAlbum.h"
+#import "BPLocationCollection.h"
+#import "BPLocation.h"
 #import "BPMetricCompletionHandler.h"
 
 /**
@@ -60,6 +62,11 @@
  Accessor to create and query albums.
  */
 + (BPAlbumCollection *) albums;
+
+/**
+ Accessor to create and query locations.
+ */
++ (BPLocationCollection *) locations;
 
 /**
   Public REST provider for passthrough access.

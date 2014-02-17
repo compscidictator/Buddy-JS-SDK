@@ -16,6 +16,7 @@
 #import "BPPhotoCollection.h"
 #import "BPAlbumCollection.h"
 #import "BPBlobCollection.h"
+#import "BPLocationCollection.h"
 #import "BPRestProvider.h"
 #import "BuddyObject+Private.h"
 #import "BuddyLocation.h"
@@ -47,6 +48,7 @@
 @synthesize photos =_photos;
 @synthesize blobs = _blobs;
 @synthesize albums = _albums;
+@synthesize locations = _locations;
 
 #pragma mark - Init
 
@@ -87,7 +89,7 @@
     _photos = nil;
     _blobs = nil;
     _albums = nil;
-    _location = nil;
+    _locations = nil;
 }
 
 -(void)setupWithApp:(NSString *)appID
@@ -196,6 +198,16 @@
         _albums = [[BPAlbumCollection alloc] initWithClient:self];
     }
     return _albums;
+}
+
+-(BPLocationCollection *)locations
+{
+    
+    if(!_locations)
+    {
+        _locations = [[BPLocationCollection alloc] initWithClient:self];
+    }
+    return _locations;
 }
 
 #pragma mark - User

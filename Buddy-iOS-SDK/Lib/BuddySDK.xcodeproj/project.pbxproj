@@ -235,10 +235,10 @@
 		C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPAuthenticatedUser.m; sourceTree = "<group>"; };
 		C10E2B86186950D8007A0136 /* BPCheckin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCheckin.h; sourceTree = "<group>"; };
 		C10E2B87186950D8007A0136 /* BPCheckin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCheckin.m; sourceTree = "<group>"; };
-		C10E2B88186950D8007A0136 /* BPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; path = BPClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
-		C10E2B89186950D8007A0136 /* BPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = BPClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
-		C10E2B8A186950D8007A0136 /* BPCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPCoordinate.h; sourceTree = "<group>"; };
-		C10E2B8B186950D8007A0136 /* BPCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPCoordinate.m; sourceTree = "<group>"; };
+		C10E2B88186950D8007A0136 /* BPClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; lineEnding = 0; name = BPClient.h; path = BPObjects/BPClient.h; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objcpp; };
+		C10E2B89186950D8007A0136 /* BPClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; name = BPClient.m; path = BPObjects/BPClient.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		C10E2B8A186950D8007A0136 /* BPCoordinate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BPCoordinate.h; path = BPObjects/BPCoordinate.h; sourceTree = "<group>"; };
+		C10E2B8B186950D8007A0136 /* BPCoordinate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BPCoordinate.m; path = BPObjects/BPCoordinate.m; sourceTree = "<group>"; };
 		C10E2B8C186950D8007A0136 /* BPGameBoards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPGameBoards.h; sourceTree = "<group>"; };
 		C10E2B8D186950D8007A0136 /* BPGameBoards.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BPGameBoards.m; sourceTree = "<group>"; };
 		C10E2B8E186950D8007A0136 /* BPPhoto.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BPPhoto.h; sourceTree = "<group>"; };
@@ -469,6 +469,10 @@
 			children = (
 				C10E2BB4186951FA007A0136 /* Buddy.h */,
 				C10E2BB5186951FA007A0136 /* Buddy.m */,
+				C10E2B88186950D8007A0136 /* BPClient.h */,
+				C10E2B89186950D8007A0136 /* BPClient.m */,
+				C10E2B8A186950D8007A0136 /* BPCoordinate.h */,
+				C10E2B8B186950D8007A0136 /* BPCoordinate.m */,
 				C10E2BAF186951C3007A0136 /* BuddyDevice.h */,
 				C10E2BB0186951C3007A0136 /* BuddyDevice.m */,
 				C14E966A185150AA00BE8C7C /* Categories */,
@@ -643,10 +647,6 @@
 				C10E2B85186950D8007A0136 /* BPAuthenticatedUser.m */,
 				C10E2B86186950D8007A0136 /* BPCheckin.h */,
 				C10E2B87186950D8007A0136 /* BPCheckin.m */,
-				C10E2B88186950D8007A0136 /* BPClient.h */,
-				C10E2B89186950D8007A0136 /* BPClient.m */,
-				C10E2B8A186950D8007A0136 /* BPCoordinate.h */,
-				C10E2B8B186950D8007A0136 /* BPCoordinate.m */,
 				C10E2B8C186950D8007A0136 /* BPGameBoards.h */,
 				C10E2B8D186950D8007A0136 /* BPGameBoards.m */,
 				C10E2B8E186950D8007A0136 /* BPPhoto.h */,
