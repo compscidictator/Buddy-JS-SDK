@@ -24,8 +24,6 @@
         {
             objc_property_t property = propertyArray[i];
             NSString *name = [[NSString alloc] initWithUTF8String:property_getName(property)];
-            NSString *attributesString = [[NSString alloc] initWithUTF8String:property_getAttributes(property)];
-            NSLog(@"Property %@ attributes: %@", name, attributesString);
             id val = [self valueForKey:name];
             
             if ([val respondsToSelector:@selector(stringValue)]) {

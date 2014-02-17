@@ -168,7 +168,7 @@
     [[BPClient defaultClient] getMetadataWithKey:key permissions:(BuddyPermissions)permissions callback:callback];
 }
 
-- (void)getMetadataWithPermissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback
++ (void)getMetadataWithPermissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback
 {
     [[BPClient defaultClient] getMetadataWithPermissions:permissions callback:callback];
 }

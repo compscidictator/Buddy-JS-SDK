@@ -77,7 +77,7 @@
 
 - (id<BPRestProvider>)client
 {
-    return _client ?: [BPClient defaultClient];
+    return _client ?: (id<BPRestProvider>)[BPClient defaultClient];
 }
 
 - (void)registerProperties
