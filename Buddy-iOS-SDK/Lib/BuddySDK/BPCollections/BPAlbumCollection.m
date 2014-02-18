@@ -9,6 +9,7 @@
 #import "BPAlbumCollection.h"
 #import "BuddyCollection+Private.h"
 #import "BuddyObject+Private.h"
+#import "BPSisterObject.h"
 #import "BPAlbum.h"
 
 @implementation BPAlbumCollection
@@ -39,11 +40,21 @@
     [self getAll:callback];
 }
     
--(void)searchAlbums:(BuddyCollectionCallback)callback
+//-(void)searchAlbums:(BuddyCollectionCallback)callback
+//{
+//    NSDictionary *parameters = @{
+//                                 @"ownerID": BOXNIL([Buddy user].id)
+//                                 };
+//    
+//    [self search:parameters callback:callback];
+//}
+
+-(void)searchAlbums:(DescribeAlbum)describeAlbum callback:(BuddyCollectionCallback)callback
 {
-    NSDictionary *parameters = @{
-                                 @"ownerID": BOXNIL([Buddy user].id)
-                                 };
+    id albumProperties = [BPSisterObject new];
+    describeAlbum ? describeAlbum(albumProperties) : nil;
+    
+    id parameters = [albumProperties parametersFromProperties:@protocol(BPAlbumProperties)];
     
     [self search:parameters callback:callback];
 }

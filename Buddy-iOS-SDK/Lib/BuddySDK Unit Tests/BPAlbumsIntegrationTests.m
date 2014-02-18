@@ -62,10 +62,13 @@ describe(@"BPAlbumIntegrationSpec", ^{
         
         it(@"Should allow you to search for albums.", ^{
             __block NSArray *retrievedAlbums;
-            fail(@"Implement search for albums");
 //            [[Buddy albums] search:nil callback:^(NSArray *buddyObjects, NSError *error) {
 //                retrievedAlbums = buddyObjects;
 //            }];
+            
+            [[Buddy albums] searchAlbums:nil callback:^(NSArray *buddyObjects, NSError *error) {
+                retrievedAlbums = buddyObjects;
+            }];
             
             [[expectFutureValue(theValue([retrievedAlbums count])) shouldEventually] beGreaterThan:theValue(0)];
         });

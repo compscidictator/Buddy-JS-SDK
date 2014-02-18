@@ -7,6 +7,7 @@
 //
 
 #import "BPAlbum.h"
+#import "BPAlbumItem.h"
 #import "BPAlbumItemContainer.h"
 #import "BPAlbumItemCollection.h"
 #import "BuddyObject+Private.h"
