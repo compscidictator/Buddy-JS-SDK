@@ -1,4 +1,4 @@
-//
+    //
 //  BuddyCollection.m
 //  BuddySDK
 //

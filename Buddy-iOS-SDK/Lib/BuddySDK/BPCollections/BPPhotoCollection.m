@@ -32,7 +32,6 @@
     [[self type] createWithImage:photo describePhoto:describePhoto client:self.client callback:callback];
 }
 
-
 -(void)getPhotos:(BuddyCollectionCallback)callback
 {
     [self getAll:callback];
