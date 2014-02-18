@@ -9,6 +9,7 @@
 #import "BPCheckinCollection.h"
 #import "BPCheckin.h"
 #import "BPClient.h"
+#import "BuddyCollection+Private.h"
 #import "BuddyObject+Private.h"
 #import "BPSisterObject.h"
 

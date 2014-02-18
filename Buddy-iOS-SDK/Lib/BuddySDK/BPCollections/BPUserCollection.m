@@ -7,6 +7,7 @@
 //
 
 #import "BPUserCollection.h"
+#import "BuddyCollection+Private.h"
 #import "BPUser.h"
 
 @implementation BPUserCollection

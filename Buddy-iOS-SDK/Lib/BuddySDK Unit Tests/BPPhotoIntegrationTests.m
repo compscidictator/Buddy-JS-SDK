@@ -180,11 +180,12 @@ describe(@"BPPhotoIntegrationSpec", ^{
         
         it(@"Should allow searching for images2", ^{
             __block NSArray *retrievedPhotos;
-            [[Buddy photos] search:@{@"caption": @"Hello, caption!"} callback:^(NSArray *buddyObjects, NSError *error) {
-                retrievedPhotos = buddyObjects;
-            }];
+            fail(@"Implement search for photos");
+//            [[Buddy photos] search:@{@"caption": @"Hello, caption!"} callback:^(NSArray *buddyObjects, NSError *error) {
+//                retrievedPhotos = buddyObjects;
+//            }];
             
-            [[expectFutureValue(theValue([retrievedPhotos count])) shouldEventually] beGreaterThan:theValue(0)];
+//            [[expectFutureValue(theValue([retrievedPhotos count])) shouldEventually] beGreaterThan:theValue(0)];
         });
         
         it(@"Should allow the user to delete photos", ^{
