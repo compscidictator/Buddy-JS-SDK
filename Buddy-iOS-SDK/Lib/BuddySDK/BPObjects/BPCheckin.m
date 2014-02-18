@@ -30,6 +30,7 @@ static NSString *checkins = @"checkins";
 + (id)convertValue:(NSString *)value forKey:(NSString *)key
 {
     if ([key isEqualToString:@"location"]) {
+#pragma message("Deprecated with JSON object based location again (instead of comma delimited)")
         NSArray *components = [value split:@","];
         BPCoordinate *coord = BPCoordinateMake([components[0] floatValue], [components[1] floatValue]);
         return coord;
