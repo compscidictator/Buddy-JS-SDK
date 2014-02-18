@@ -139,14 +139,7 @@ namespace BuddySDK
         {
             get
             {
-                var profilePictureID = GetValueOrDefault<string>("ProfilePictureID");
-
-                if (string.IsNullOrEmpty(profilePictureID) && profilePicture != null) // this catches the case where a picture has been created manually
-                {
-                    profilePictureID = profilePicture.ID;
-                }
-
-                return profilePictureID;
+                return GetValueOrDefault<string>("ProfilePictureID");
             }
             set
             {
@@ -213,8 +206,7 @@ namespace BuddySDK
 
                 if (!string.IsNullOrEmpty(ProfilePictureID))
                 {
-                    profilePicture = new Photo(ProfilePictureID);
-                    await profilePicture.FetchAsync();
+                    await ProfilePicture.FetchAsync();
                 }
             }
                   
@@ -227,20 +219,20 @@ namespace BuddySDK
 
             return await Task.Run<BuddyResult<bool>> (async () => {
 
-
                 var baseResult = await base.SaveAsync();
 
-                var pictureResult = await profilePicture.SaveAsync();
+                if (ProfilePicture != null)
+                {
+                    var pictureResult = await ProfilePicture.SaveAsync();
 
-
-                if (!pictureResult.IsSuccess) {
-
-                    return pictureResult;
+                    if (!pictureResult.IsSuccess)
+                    {
+                        return pictureResult;
+                    }
                 }
 
                 return baseResult;
             });
-
         }
 
         public Task<BuddyResult<bool>> AddIdentityAsync(string identityProviderName, string identityID)

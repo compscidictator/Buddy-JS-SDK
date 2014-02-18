@@ -24,17 +24,17 @@ namespace BuddySDK
         {
             this.path = path;
         }
-        
-        [Newtonsoft.Json.JsonProperty("comment")]
-		public string Comment
+
+        [Newtonsoft.Json.JsonProperty("caption")]
+        public string Caption
 		{
 			get
 			{
-				return GetValueOrDefault<string>("Comment");
+                return GetValueOrDefault<string>("Caption");
 			}
 			set
 			{
-				SetValue<string>("Comment", value, checkIsProp: false);
+                SetValue<string>("Caption", value, checkIsProp: false);
 			}
 		}
 
@@ -83,13 +83,13 @@ namespace BuddySDK
         {
         }
 
-        public Task<SearchResult<AlbumItem>> FindAsync(AlbumItemType? itemType = null, string comment = null,
+        public Task<SearchResult<AlbumItem>> FindAsync(AlbumItemType? itemType = null, string caption = null,
             BuddyGeoLocationRange location = null, int maxResults = 100, string pagingToken = null)
         {
             return base.FindAsync(null, null, null, location, maxResults, pagingToken, (p) =>
             {
                 if (itemType.HasValue) { p["itemType"] = itemType; }
-                p["comment"] = comment;
+                p["caption"] = caption;
             });
         }
     }
