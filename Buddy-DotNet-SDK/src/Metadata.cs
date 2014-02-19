@@ -19,19 +19,16 @@ namespace BuddySDK
         {
         }
 
-        internal Metadata(BuddyClient client)
+        private string id;
+        internal Metadata(string id, BuddyClient client)
             : base(client)
         {
+            this.id = id;
         }
 
-        protected override string GetMetadataIDPath(string key = null)
+        protected override string GetMetadataID()
         {
-            return GetMetadataPath(key);
-        }
-
-        public override string ID
-        {
-            get { return null; }
+            return this.id;
         }
     }
 }

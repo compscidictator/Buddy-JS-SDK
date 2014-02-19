@@ -83,9 +83,9 @@ namespace BuddySDK
             }
         }
 
-        protected string GetMetadataPath(string key = null)
+        private string GetMetadataPath(string key = null)
         {
-            var path = "/metadata";
+            var path = string.Format("/metadata/{0}", GetMetadataID());
 
             if (!string.IsNullOrEmpty(key))
             {
@@ -95,31 +95,21 @@ namespace BuddySDK
             return path;
         }
 
-        public abstract string ID { get; }
-
-        protected abstract string GetMetadataIDPath(string key = null);
+        protected abstract string GetMetadataID();
 
         private Task<BuddyResult<bool>> SetMetadataCore(string key, object value, BuddyPermissions permissions)
         {
-            return Client.CallServiceMethod<bool>("PUT",
-                                                    GetMetadataIDPath(key),
-                                                    new
-                                                    {
-                                                        value = value,
-                                                        permissions = permissions
-                                                    });
+            return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(key), new
+                {
+                    value = value,
+                    permissions = permissions
+                });
         }
 
         private Task<BuddyResult<bool>> SetMetadataCore(IDictionary keyValuePairs, BuddyPermissions permissions)
         {
-            return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(),
-                ID == null ? (object)new
+            return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(), new
                 {
-                    keyValuePairs = keyValuePairs,
-                    permissions = permissions
-                } : (object) new
-                {
-                    id = ID,
                     keyValuePairs = keyValuePairs,
                     permissions = permissions
                 });
@@ -159,7 +149,7 @@ namespace BuddySDK
         {
             return Task.Run<BuddyResult<T>>(() =>
             {
-                return Client.CallServiceMethod<MetadataItem>("GET", GetMetadataIDPath(key)).Result.Convert<T>(mdi => (T)mdi.Value);
+                return Client.CallServiceMethod<MetadataItem>("GET", GetMetadataPath(key)).Result.Convert<T>(mdi => (T)mdi.Value);
             });
         }
 
@@ -170,7 +160,7 @@ namespace BuddySDK
 
         public Task<BuddyResult<int>> IncrementMetadataAsync(string key, int delta)
         {
-            var path = GetMetadataIDPath(key) + "/increment";
+            var path = GetMetadataPath(key) + "/increment";
 
             var r = Client.CallServiceMethod<int>("POST", path,
                      new
@@ -183,7 +173,7 @@ namespace BuddySDK
 
         public Task<BuddyResult<bool>> DeleteMetadataAsync(string key)
         {
-            var t = Client.CallServiceMethod<bool>("DELETE", GetMetadataIDPath(key));
+            var t = Client.CallServiceMethod<bool>("DELETE", GetMetadataPath(key));
 
             return t;
         }
@@ -230,7 +220,7 @@ namespace BuddySDK
         }
 
         [JsonProperty("id")]
-        public override string ID {
+        public string ID {
             get
             {
                 return GetValueOrDefault<string>("ID");
@@ -372,8 +362,10 @@ namespace BuddySDK
             return String.Format("{0}/{1}", Path, ID);
         }
 
-
-    
+        protected override string GetMetadataID()
+        {
+            return ID;
+        }
 
         private Task<BuddyResult<bool>> _pendingRefresh;
         public virtual async Task<BuddyResult<bool>> FetchAsync(Action updateComplete = null)
@@ -657,17 +649,6 @@ namespace BuddySDK
                 kvp.Value.IsDirty = false;
             }
             OnPropertyChanged (null);
-        }
-
-        protected override string GetMetadataIDPath(string key = null) {
-            var path = string.Format ("/metadata/{0}", ID);
-
-            if (!string.IsNullOrEmpty(key))
-            {
-                path = string.Format("{0}/{1}", path, key);
-            }
-
-            return path;
         }
 
         protected Task<BuddyResult<Stream>> GetFileCoreAsync(string url, object parameters) {

@@ -915,7 +915,7 @@ namespace BuddySDK
             {
                 if (_appMetadata == null)
                 {
-                    _appMetadata = new Metadata(this);
+                    _appMetadata = new Metadata(this.AppId, this);
                 }
                 return _appMetadata;
             }

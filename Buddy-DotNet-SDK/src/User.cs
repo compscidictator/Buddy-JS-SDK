@@ -143,7 +143,7 @@ namespace BuddySDK
             }
             set
             {
-                ProfilePicture = value == null ? null : new Photo(value);
+                ProfilePicture = value == null ? null : new Picture(value);
             }
         }
 
@@ -156,8 +156,8 @@ namespace BuddySDK
             }
         }
 
-        private Photo profilePicture;
-        public Photo ProfilePicture
+        private Picture profilePicture;
+        public Picture ProfilePicture
         {
             get
             {
@@ -180,9 +180,9 @@ namespace BuddySDK
         {
         }
 
-        public Task<BuddyResult<Photo>> AddProfilePictureAsync(string caption, Stream photoData, string contentType, BuddyGeoLocation location = null, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
+        public Task<BuddyResult<Picture>> AddProfilePictureAsync(string caption, Stream pictureData, string contentType, BuddyGeoLocation location = null, BuddyPermissions read = BuddyPermissions.User, BuddyPermissions write = BuddyPermissions.User)
         {
-           var tr = PhotoCollection.AddAsync(this.Client, caption, photoData, contentType, location, read, write);
+           var tr = PictureCollection.AddAsync(this.Client, caption, pictureData, contentType, location, read, write);
 
 
             tr.ContinueWith((t) => {
