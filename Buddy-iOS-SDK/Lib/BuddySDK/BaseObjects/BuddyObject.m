@@ -219,16 +219,16 @@
 
 #pragma mark - Metadata
 
-static NSString *metadataFormat = @"metadata/%@/%@";
+static NSString *metadataRoute = @"metadata";
 - (NSString *) metadataPath:(NSString *)key
 {
-    return [NSString stringWithFormat:metadataFormat, self.id, key];
+    if(key==nil)
+    {
+        return [NSString stringWithFormat:@"%@/%@",metadataRoute,self.id];
+    }
+    return [NSString stringWithFormat:@"%@/%@/%@",metadataRoute,self.id,key];
 }
 
-- (NSDictionary *)metadataParameters
-{
-    return @{@"id": self.id};
-}
 
 #pragma mark - JSON handling
 

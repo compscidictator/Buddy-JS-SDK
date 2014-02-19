@@ -587,11 +587,17 @@ NSMutableArray *queuedRequests;
     return self;
 }
 
-static NSString *metadataFormat = @"metadata/%@";
+
+static NSString *metadataRoute = @"metadata";
 - (NSString *) metadataPath:(NSString *)key
 {
-    return [NSString stringWithFormat:metadataFormat, key];
+    if(key==nil)
+    {
+        return [NSString stringWithFormat:@"%@/%@",metadataRoute,self.appSettings.appID];
+    }
+    return [NSString stringWithFormat:@"%@/%@/%@",metadataRoute,self.appSettings.appID,key];
 }
+
 
 #pragma mark - Push Notification
 
