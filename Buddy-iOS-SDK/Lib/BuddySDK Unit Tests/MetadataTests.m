@@ -158,16 +158,30 @@ describe(@"Metadata", ^{
             
             [checkin1 setMetadataWithKeyValues:keysValues permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
-                [c1 getMetadataWithPermissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
-                    targetString1 = newBuddyObject;
+                [c1 getMetadataWithKey:@"foo" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                    if(error!=nil)
+                    {
+                        targetString1 = newBuddyObject;
+                    }
+                    else
+                    {
+                        targetString1=nil;
+                    }
                 }];
-                [c2 getMetadataWithPermissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
-                    targetString2 = newBuddyObject;
+                [c2 getMetadataWithKey:@"foo" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
+                    if(error!=nil)
+                    {
+                        targetString2 = newBuddyObject;
+                    }
+                    else
+                    {
+                        targetString2 = nil;
+                    }
                 }];
             }];
             
-            [[expectFutureValue(targetString1) shouldEventually] equal:@"Test String"];
-            [[expectFutureValue(targetString2) shouldNotEventually] equal:@"Test String"];
+            [[expectFutureValue(targetString1) shouldEventually] equal:@"bar"];
+            [[expectFutureValue(targetString2) shouldNotEventually] equal:@"bar"];
         });
     });
 });

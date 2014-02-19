@@ -105,6 +105,7 @@
     }];
 }
 
+/* This needs to be search
 - (void)getMetadataWithPermissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback
 {
     NSDictionary *parameters = @{@"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
@@ -119,6 +120,7 @@
         callback ? callback(md, error) : nil;
     }];
 }
+*/
 
 - (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback 
 {
