@@ -159,7 +159,7 @@ describe(@"Metadata", ^{
             [checkin1 setMetadataWithKeyValues:keysValues permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
                 [c1 getMetadataWithKey:@"foo" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
-                    if(error!=nil)
+                    if(error==nil)
                     {
                         targetString1 = newBuddyObject;
                     }
@@ -169,7 +169,7 @@ describe(@"Metadata", ^{
                     }
                 }];
                 [c2 getMetadataWithKey:@"foo" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
-                    if(error!=nil)
+                    if(error==nil)
                     {
                         targetString2 = newBuddyObject;
                     }
