@@ -60,9 +60,14 @@ describe(@"Metadata", ^{
         it(@"Should allow setting string metadata", ^{
             
             __block NSString *targetString = nil;
+            __block NSString *targetString2 = nil;
+            __block NSString *targetString3 = @"No Change";
+            __block NSString *targetString4 = @"No Change";
+            
             
             NSDictionary *kvp = @{@"Hakuna": @"Matata"};
             
+            // App-level Metadata with Key Value Pairs
             [Buddy setMetadataWithKeyValues:kvp permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
                 [Buddy getMetadataWithKey:@"Hakuna" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
@@ -70,7 +75,36 @@ describe(@"Metadata", ^{
                 }];
             }];
             
+            // App-level MetaData with Key/String
+            [Buddy setMetadataWithKey:@"Hey" andString:@"There" permissions:BuddyPermissionsApp callback:^(NSError *error) {
+                [[error should] beNil];
+                [Buddy getMetadataWithKey:@"Hey" permissions:BuddyPermissionsApp callback:^(id newBuddyObject, NSError *error) {
+                    targetString2 = newBuddyObject;
+                }];
+            }];
+            
+            // App-level Metadata - Check permissions (write as User, Get as App should fail)
+            [Buddy setMetadataWithKey:@"HeyHey" andString:@"There" permissions:BuddyPermissionsUser callback:^(NSError *error) {
+                [[error should] beNil];
+                [Buddy getMetadataWithKey:@"HeyHey" permissions:BuddyPermissionsApp callback:^(id newBuddyObject, NSError *error) {
+                    if(error==nil)
+                    {
+                        targetString3 = newBuddyObject;
+                    }
+                }];
+                [Buddy getMetadataWithKey:@"HeyHey" permissions:BuddyPermissionsUser callback:^(id newBuddyObject, NSError *error) {
+                    if(error==nil)
+                    {
+                        targetString4 = newBuddyObject;
+                    }
+                }];
+            }];
+            
             [[expectFutureValue(targetString) shouldEventually] equal:@"Matata"];
+            [[expectFutureValue(targetString2) shouldEventually] equal:@"There"];
+            [[expectFutureValue(targetString3) shouldEventually] equal:@"No Change"];
+            [[expectFutureValue(targetString4) shouldEventually] equal:@"There"];
+            
         });
         
         it(@"Should be able to set nil  metadata", ^{

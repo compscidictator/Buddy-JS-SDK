@@ -53,11 +53,6 @@
     return @"";
 }
 
-- (NSDictionary *)metadataParameters
-{
-    return nil;
-}
-
 - (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
 {
     NSDictionary *parameters = @{@"value": BOXNIL(value),
@@ -84,10 +79,8 @@
 {
     NSDictionary *parameters = @{@"keyValuePairs": keyValuePaths,
                                  @"permission": [[self class] enumMap][@"readPermissions"][@(permissions)]};
-    
-    parameters = [parameters dictionaryByMergingWith:[self metadataParameters]];
 
-    [self.client PUT:@"metadata" parameters:parameters callback:^(id json, NSError *error) {
+    [self.client PUT:[self metadataPath:nil] parameters:parameters callback:^(id json, NSError *error) {
         callback ? callback(error) : nil;
     }];
 }
