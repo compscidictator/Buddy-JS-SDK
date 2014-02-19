@@ -25,25 +25,6 @@ describe(@"BPPhotoIntegrationSpec", ^{
             [BuddyIntegrationHelper bootstrapInit];
         });
         
-        it(@"Should not allow them to add photos.", ^{
-            __block BOOL fin = NO;
-
-            NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-            NSString *imagePath = [bundle pathForResource:@"test" ofType:@"png"];
-            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-            
-            [[Buddy photos] addPhoto:image describePhoto:^(id<BPPhotoProperties> photoProperties) {
-                photoProperties.caption = @"Hello, caption!";
-            } callback:^(id buddyObject, NSError *error) {
-                [[error shouldNot] beNil];
-                [[buddyObject should] beNil];
-                [[theValue([error code]) should] equal:theValue(0x107)]; // AuthUserAccessTokenRequired = 0x107
-                fin = YES;
-            }];
-            
-            [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
-        });
-        
         it(@"Should not allow them to add and describe photos.", ^{
             __block BOOL fin = NO;
             
@@ -163,7 +144,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
         
         it(@"Should allow searching for images", ^{
             __block NSArray *retrievedPhotos;
-            return;
+
             [[Buddy photos] searchPhotos:^(id<BPPhotoProperties> photoProperties) {
                 photoProperties.caption = @"Hakuna matata";
             } callback:^(NSArray *buddyObjects, NSError *error) {
@@ -187,7 +168,7 @@ describe(@"BPPhotoIntegrationSpec", ^{
                 retrievedPhotos = buddyObjects;
             }];
             
-            [[expectFutureValue(theValue([retrievedPhotos count])) shouldEventually] beGreaterThan:theValue(0)];
+            [[expectFutureValue(theValue([retrievedPhotos count])) shouldEventually] equal:theValue(0)];
         });
         
         it(@"Should allow the user to delete photos", ^{
