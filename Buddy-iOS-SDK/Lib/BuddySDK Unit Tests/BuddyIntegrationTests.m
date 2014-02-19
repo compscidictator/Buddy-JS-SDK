@@ -23,9 +23,10 @@ describe(@"Buddy", ^{
         __block id mock = nil;
         beforeAll(^{
             mock = [KWMock mockForProtocol:@protocol(BPClientDelegate)];
+            [[mock shouldEventually] receive:@selector(connectivityChanged:)];
 
-            [Buddy initClient:APP_NAME appKey:APP_KEY];
             [Buddy setClientDelegate:mock];
+            [Buddy initClient:APP_NAME appKey:APP_KEY];
 
         });
         
@@ -34,7 +35,6 @@ describe(@"Buddy", ^{
         });
         
         it(@"Should throw an auth error if they try to access photos.", ^{
-            [[mock shouldEventually] receive:@selector(connectivityChanged:)];
             [[mock shouldEventually] receive:@selector(apiErrorOccurred:)];
             [[[mock shouldEventually] receive] authorizationNeedsUserLogin];
             [[Buddy photos] searchPhotos:nil callback:nil];

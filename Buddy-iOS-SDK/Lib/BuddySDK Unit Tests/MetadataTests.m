@@ -78,14 +78,14 @@ describe(@"Metadata", ^{
             
             __block BPCheckin *c1 = checkin1;
 
-            [checkin1 setMetadataWithKey:@"StringlyMetadata" andString:@"" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
+            [checkin1 setMetadataWithKey:@"StringlyMetadata" andString:@"REMOVE" permissions:BuddyPermissionsDefault callback:^(NSError *error) {
                 [[error should] beNil];
                 [c1 getMetadataWithKey:@"StringlyMetadata" permissions:BuddyPermissionsDefault callback:^(id newBuddyObject, NSError *error) {
                     targetString1 = newBuddyObject;
                 }];
             }];
             
-            [[expectFutureValue(targetString1) shouldEventually] equal:@"Test String"];
+            [[expectFutureValue(targetString1) shouldEventually] equal:@"REMOVE"];
         });
         
         it(@"Should be able to set string based metadata", ^{
