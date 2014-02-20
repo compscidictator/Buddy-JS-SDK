@@ -6,7 +6,13 @@
 //
 //
 
-#import "Buddy.h"
+@protocol BPAlbumProperties <BuddyObjectProperties>
+
+@property (nonatomic, copy) NSString *caption;
+
+@end
+
+typedef void(^DescribeAlbum)(id<BPAlbumProperties>photoProperties);
 
 @interface BPAlbum : BuddyObject
 

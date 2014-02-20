@@ -12,6 +12,7 @@
 #import "BPRestProvider.h"
 #import "BuddyCollection.h" // TODO - remove dependency
 #import "BPMetricCompletionHandler.h"
+#import "BPUser.h"
 #import "BPBase.h"
 
 @class BuddyDevice;
@@ -23,6 +24,7 @@
 @class BPPhotoCollection;
 @class BPBlobCollection;
 @class BPAlbumCollection;
+@class BPLocationCollection;
 @class BPCoordinate;
 
 /**
@@ -128,6 +130,11 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 /// <summary>
 /// TODO
 /// </summary>
+@property (readonly, nonatomic, strong) BPLocationCollection *locations;
+
+/// <summary>
+/// TODO
+/// </summary>
 @property (nonatomic, assign) BOOL locationEnabled;
 
 /**
@@ -160,6 +167,11 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
                 appKey:(NSString *)appKey
                 options:(NSDictionary *)options
                 delegate:(id<BPClientDelegate>) delegate;
+
+- (void)createUser:(NSString *)username
+          password:(NSString *)password
+      describeUser:(DescribeUser)describeUser
+          callback:(BuddyObjectCallback)callback;
 
 - (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback;
 

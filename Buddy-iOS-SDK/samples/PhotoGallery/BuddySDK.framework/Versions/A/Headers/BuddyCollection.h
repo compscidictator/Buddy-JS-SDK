@@ -24,6 +24,4 @@ typedef void (^BuddyCollectionCallback)(NSArray *buddyObjects, NSError *error);
 
 - (void)getItem:(NSString *)identifier callback:(BuddyObjectCallback)callback;
 
-- (void)search:(NSDictionary *)searchParmeters callback:(BuddyCollectionCallback)callback;
-
 @end

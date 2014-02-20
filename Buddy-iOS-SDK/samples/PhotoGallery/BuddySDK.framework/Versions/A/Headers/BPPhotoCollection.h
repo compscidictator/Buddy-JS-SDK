@@ -9,8 +9,6 @@
 #import "BuddyCollection.h"
 #import "BPPhoto.h"
 
-@class BPPhoto;
-
 @interface BPPhotoCollection : BuddyCollection
 
 - (void)addPhoto:(UIImage *)photo

@@ -165,23 +165,15 @@
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
     
-    
-    NSDictionary *options = @{
-                              BPUserFirstNameField : self.firstNameTextField.text,
-                              BPUserLastNameField: self.lastNameTextField.text,
-                              BPUserGenderField: @(BPUserGender_Male),
-                              BPUserEmailField: self.emailTextField.text,
-                              BPUserDateOfBirthField: [NSNull null],
-                              BPUserCelebrityModeField: @(YES),
-                              BPUserFuzzLocationField: @(NO)
-                              };
-    
     [Buddy createUser:self.userNameTextField.text
                       password:self.passwordTextField.text
-                      options:options
+                      describeUser:^(id<BPUserProperties> userProperties) {
+                          userProperties.firstName =self.firstNameTextField.text;
+                          userProperties.lastName =self.lastNameTextField.text;
+                          userProperties.gender =BPUserGender_Unknown;
+                          userProperties.dateOfBirth=nil;
+                      }
                       callback:[self getRegisterCallback]];
-     
-
 }
 
 -(IBAction) goLogin:(id)sender

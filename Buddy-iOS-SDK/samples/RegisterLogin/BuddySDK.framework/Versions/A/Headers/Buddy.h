@@ -23,6 +23,8 @@
 #import "BPCoordinate.h"
 #import "BPBlob.h"
 #import "BPAlbum.h"
+#import "BPLocationCollection.h"
+#import "BPLocation.h"
 #import "BPMetricCompletionHandler.h"
 
 /**
@@ -62,6 +64,11 @@
 + (BPAlbumCollection *) albums;
 
 /**
+ Accessor to create and query locations.
+ */
++ (BPLocationCollection *) locations;
+
+/**
   Public REST provider for passthrough access.
  */
 + (id<BPRestProvider>)buddyRestProvider;
@@ -98,7 +105,7 @@
  *
  * @param options The set of creation options for the user.
  */
-+ (void)createUser:(NSString *)username password:(NSString *)password options:(NSDictionary *)options callback:(BuddyObjectCallback)callback;
++ (void)createUser:(NSString *)username password:(NSString *)password describeUser:(DescribeUser)describeUser callback:(BuddyObjectCallback)callback;
 
 /**
  *
@@ -127,6 +134,7 @@
 + (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
 + (void)setMetadataWithKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
 + (void)getMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) permissions callback:(BuddyObjectCallback)callback;
-+ (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) callback:(BuddyCompletionCallback)callback;
+/*+ (void)getMetadataWithPermissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback;*/
++ (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback;
 
 @end
