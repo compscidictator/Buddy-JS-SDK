@@ -39,13 +39,13 @@ describe(@"BPAlbumIntegrationSpec", ^{
         });
         
         it(@"Should allow you create an album.", ^{
-            [[Buddy albums] addAlbum:@"My album" withComment:@"Kid pictures" callback:^(id newBuddyObject, NSError *error) {
+            [[Buddy albums] addAlbum:@"My album" withCaption:@"Kid pictures" callback:^(id newBuddyObject, NSError *error) {
                 tempAlbum = newBuddyObject;
             }];
             
             [[expectFutureValue(tempAlbum) shouldEventually] beNonNil];
             [[expectFutureValue(tempAlbum.name) shouldEventually] equal:@"My album"];
-            [[expectFutureValue(tempAlbum.comment) shouldEventually] equal:@"Kid pictures"];
+            [[expectFutureValue(tempAlbum.caption) shouldEventually] equal:@"Kid pictures"];
             
         });
         
@@ -57,12 +57,16 @@ describe(@"BPAlbumIntegrationSpec", ^{
             
             [[expectFutureValue(retrievedAlbum) shouldEventually] beNonNil];
             [[expectFutureValue(retrievedAlbum.name) shouldEventually] equal:tempAlbum.name];
-            [[expectFutureValue(retrievedAlbum.comment) shouldEventually] equal:tempAlbum.comment];
+            [[expectFutureValue(retrievedAlbum.caption) shouldEventually] equal:tempAlbum.caption];
         });
         
         it(@"Should allow you to search for albums.", ^{
             __block NSArray *retrievedAlbums;
-            [[Buddy albums] search:nil callback:^(NSArray *buddyObjects, NSError *error) {
+//            [[Buddy albums] search:nil callback:^(NSArray *buddyObjects, NSError *error) {
+//                retrievedAlbums = buddyObjects;
+//            }];
+            
+            [[Buddy albums] searchAlbums:nil callback:^(NSArray *buddyObjects, NSError *error) {
                 retrievedAlbums = buddyObjects;
             }];
             
@@ -72,7 +76,7 @@ describe(@"BPAlbumIntegrationSpec", ^{
         it(@"Should allow you to modify an album.", ^{
             __block BPAlbum *retrievedAlbum;
 
-            tempAlbum.comment = @"Some new comment";
+            tempAlbum.caption = @"Some new caption";
             
             [tempAlbum save:^(NSError *error) {
                 [[Buddy albums] getAlbum:tempAlbum.id callback:^(id newBuddyObject, NSError *error) {
@@ -80,7 +84,7 @@ describe(@"BPAlbumIntegrationSpec", ^{
                 }];
             }];
             
-            [[expectFutureValue(retrievedAlbum.comment) shouldEventually] equal:@"Some new comment"];
+            [[expectFutureValue(retrievedAlbum.caption) shouldEventually] equal:@"Some new caption"];
         });
         
         
@@ -89,7 +93,9 @@ describe(@"BPAlbumIntegrationSpec", ^{
             NSString *imagePath = [bundle pathForResource:@"1" ofType:@"jpg"];
             UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
             
-            [[Buddy photos] addPhoto:image withComment:@"Test image for album." callback:^(id newBuddyObject, NSError *error) {
+            [[Buddy photos] addPhoto:image describePhoto:^(id<BPPhotoProperties> photoProperties) {
+                photoProperties.caption = @"Test image for album.";
+            } callback:^(id newBuddyObject, NSError *error) {
                 tempPhoto = newBuddyObject;
                 [tempAlbum addItemToAlbum:tempPhoto callback:^(id newBuddyObject, NSError *error) {
                     [[error should] beNil];

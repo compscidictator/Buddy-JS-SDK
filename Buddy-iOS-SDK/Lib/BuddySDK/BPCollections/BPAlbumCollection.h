@@ -7,17 +7,16 @@
 //
 
 #import "BuddyCollection.h"
+#import "BPAlbum.h"
 
 @interface BPAlbumCollection : BuddyCollection
 
 - (void)addAlbum:(NSString *)name
-     withComment:(NSString *)comment
+     withCaption:(NSString *)caption
         callback:(BuddyObjectCallback)callback;
-    
-- (void)getAlbums:(BuddyCollectionCallback)callback;
-    
-- (void)searchAlbums:(BuddyCollectionCallback)callback;
-    
+
+- (void)searchAlbums:(DescribeAlbum)describeAlbum callback:(BuddyCollectionCallback)callback;
+
 - (void)getAlbum:(NSString *)albumId callback:(BuddyObjectCallback)callback;
     
 @end

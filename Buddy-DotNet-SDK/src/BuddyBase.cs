@@ -83,27 +83,36 @@ namespace BuddySDK
             }
         }
 
-        protected abstract string GetMetadataPath(string key = null);
+        private string GetMetadataPath(string key = null)
+        {
+            var path = string.Format("/metadata/{0}", GetMetadataID());
+
+            if (!string.IsNullOrEmpty(key))
+            {
+                path += string.Format("/{0}", key);
+            }
+
+            return path;
+        }
+
+        protected abstract string GetMetadataID();
 
         private Task<BuddyResult<bool>> SetMetadataCore(string key, object value, BuddyPermissions permissions)
         {
-            return Client.CallServiceMethod<bool>("PUT",
-                                                    GetMetadataPath(key),
-                                                    new
-                                                    {
-                                                        value = value,
-                                                        permissions = permissions
-                                                    });
+            return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(key), new
+                {
+                    value = value,
+                    permissions = permissions
+                });
         }
 
         private Task<BuddyResult<bool>> SetMetadataCore(IDictionary keyValuePairs, BuddyPermissions permissions)
         {
-            return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(),
-                                                    new
-                                                    {
-                                                        keyValuePairs = keyValuePairs,
-                                                        permissions = permissions
-                                                    });
+            return Client.CallServiceMethod<bool>("PUT", GetMetadataPath(), new
+                {
+                    keyValuePairs = keyValuePairs,
+                    permissions = permissions
+                });
         }
 
         public Task<BuddyResult<bool>> SetMetadataAsync(string key, string value, BuddyPermissions permissions = BuddyPermissions.Default)
@@ -353,8 +362,10 @@ namespace BuddySDK
             return String.Format("{0}/{1}", Path, ID);
         }
 
-
-    
+        protected override string GetMetadataID()
+        {
+            return ID;
+        }
 
         private Task<BuddyResult<bool>> _pendingRefresh;
         public virtual async Task<BuddyResult<bool>> FetchAsync(Action updateComplete = null)
@@ -508,6 +519,10 @@ namespace BuddySDK
             {
 				value = (T)(object)BuddyGeoLocation.Parse (value);
             }
+            else if (key == "Website" && !(value is Uri))
+            {
+                value = (T)(object)new Uri((string)(object)value);
+            }
 
             _values[key] = new ValueEntry(value, true);
         }
@@ -635,17 +650,6 @@ namespace BuddySDK
                 kvp.Value.IsDirty = false;
             }
             OnPropertyChanged (null);
-        }
-
-        protected override string GetMetadataPath(string key = null) {
-            var path = string.Format ("/metadata/{0}", ID);
-
-            if (!string.IsNullOrEmpty(key))
-            {
-                path = string.Format("{0}/{1}", path, key);
-            }
-
-            return path;
         }
 
         protected Task<BuddyResult<Stream>> GetFileCoreAsync(string url, object parameters) {

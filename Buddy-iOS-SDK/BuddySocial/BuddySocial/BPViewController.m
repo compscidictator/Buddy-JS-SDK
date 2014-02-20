@@ -9,11 +9,26 @@
 #import "BPViewController.h"
 #import <FacebookSDK/FacebookSDK.h>
 #import <BuddySDK/Buddy.h>
+
 @interface BPViewController () <FBLoginViewDelegate>
 
 @end
 
 @implementation BPViewController
+
+- (IBAction)checkin:(id)sender {
+    __block DescribeCheckin d = ^(id<BPCheckinProperties> checkinProperties) {
+        checkinProperties.comment = @"Checkin";
+        checkinProperties.description = @"Description";
+        checkinProperties.location = BPCoordinateMake(1.2, 3.4);;
+    };
+    
+    [[Buddy checkins] checkin:d callback:^(id newBuddyObject, NSError *error) {
+        BPCheckin *c = newBuddyObject;
+        
+        assert([c.comment isEqualToString:@"Checkin"]);
+    }];
+}
 
 - (void)viewDidLoad
 {

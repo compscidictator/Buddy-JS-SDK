@@ -9,6 +9,7 @@
 #import "BPLocationCollection.h"
 #import "BPClient.h"
 #import "BPLocation.h"
+#import "BPSisterObject.h"
 
 @implementation BPLocationCollection
 
@@ -21,36 +22,16 @@
 }
 
 
-- (void)addLocationNamed:(NSString *)name
-             description:(NSString *)description
-                location:(BPLocation *)location
-                 address:(NSString *)address
-                    city:(NSString *)city
-                   state:(NSString *)state
-              postalCode:(NSString *)postalCode
-                 website:(NSString *)website
-              categoryId:(NSString *)categoryId
-         defaultMetadata:(NSString *)defaultMetadata
-         readPermissions:(BuddyPermissions)readPermissions
-        writePermissions:(BuddyPermissions)writePermissions
-                callback:(BuddyObjectCallback)callback
+- (void)addLocation:(DescribeLocation)describe
+           callback:(BuddyObjectCallback)callback
 {
-    NSDictionary *parameters = @{};
-    
-    [[[self type] class] createFromServerWithParameters:parameters client:self.client callback:callback];
+    // TODO
 }
 
 
-- (void)findLocationNamed:(NSString *)name
-                 location:(BPLocation *)location
-                 callback:(BuddyObjectCallback)callback
+-(void)findLocation:(BPCoordinateRange *)range callback:(BuddyCollectionCallback)callback
 {
-    callback ? callback(nil, nil) : nil;
-}
-
--(void)getLocations:(BuddyCollectionCallback)callback
-{
-    [self getAll:callback];
+    // TODO
 }
 
 @end

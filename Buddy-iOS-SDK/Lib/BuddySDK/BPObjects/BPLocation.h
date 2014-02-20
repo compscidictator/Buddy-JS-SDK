@@ -6,9 +6,7 @@
 //
 //
 
-#import "Buddy.h"
-
-@interface BPLocation : BuddyObject
+@protocol BPLocationProperties <BuddyObjectProperties>
 
 @property (nonatomic, copy) NSString *name;
 @property (nonatomic, copy) NSString *description;
@@ -23,5 +21,10 @@
 @property (nonatomic, copy) NSString *categoryId;
 @property (nonatomic, assign) double *distance;
 
+@end
+
+typedef void(^DescribeLocation)(id<BPLocationProperties>locationProperties);
+
+@interface BPLocation : BuddyObject
 
 @end

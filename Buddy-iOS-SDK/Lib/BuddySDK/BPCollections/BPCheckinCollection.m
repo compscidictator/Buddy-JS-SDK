@@ -9,7 +9,9 @@
 #import "BPCheckinCollection.h"
 #import "BPCheckin.h"
 #import "BPClient.h"
+#import "BuddyCollection+Private.h"
 #import "BuddyObject+Private.h"
+#import "BPSisterObject.h"
 
 @implementation BPCheckinCollection
 
@@ -21,30 +23,25 @@
     return self;
 }
 
--(void)checkinWithComment:(NSString *)comment
-              description:(NSString *)description
-                 callback:(BuddyObjectCallback)callback
+-(void)checkin:(DescribeCheckin)describeCheckin
+      callback:(BuddyObjectCallback)callback
 {
-    NSDictionary *parameters = @{@"comment": comment,
-                                 @"description": description,
-                                 @"location": @"1.2, 3.4"};
+    id checkinCollection= [BPSisterObject new];
+    describeCheckin ? describeCheckin(checkinCollection) : nil;
+
+    id parameters = [checkinCollection parametersFromProperties:@protocol(BPCheckinProperties)];
     
     [self.type createFromServerWithParameters:parameters client:self.client callback:callback];
 }
 
--(void)checkinWithComment:(NSString *)comment
-          description:(NSString *)description
-      defaultMetadata:(NSString *)defaultMetadata
-      readPermissions:(BuddyPermissions)readPermissions
-     writePermissions:(BuddyPermissions)writePermissions
-             callback:(BuddyObjectCallback)callback
+- (void)searchCheckins:(DescribeCheckin)describeCheckin callback:(BuddyCollectionCallback)callback;
 {
-    [NSException raise:@"NotImplementedException" format:@"Not Implemented."];
-}
-
--(void)getCheckins:(BuddyCollectionCallback)callback
-{
-    [self getAll:callback];
+    id checkinCollection= [BPSisterObject new];
+    describeCheckin ? describeCheckin(checkinCollection) : nil;
+    
+    id parameters = [checkinCollection parametersFromProperties:@protocol(BPCheckinProperties)];
+    
+    [self search:parameters callback:callback];
 }
 
 - (void)getCheckin:(NSString *)checkinId callback:(BuddyObjectCallback)callback

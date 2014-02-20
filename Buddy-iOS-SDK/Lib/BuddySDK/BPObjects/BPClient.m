@@ -16,12 +16,13 @@
 #import "BPPhotoCollection.h"
 #import "BPAlbumCollection.h"
 #import "BPBlobCollection.h"
+#import "BPLocationCollection.h"
 #import "BPRestProvider.h"
-#import "BPUser.h"
 #import "BuddyObject+Private.h"
 #import "BuddyLocation.h"
 #import "BuddyDevice.h"
 #import "BPAppSettings.h"
+#import "BPSisterObject.h"
 #import "BuddyAppDelegateDecorator.h"
 #import <CoreFoundation/CoreFoundation.h>
 
@@ -47,6 +48,7 @@
 @synthesize photos =_photos;
 @synthesize blobs = _blobs;
 @synthesize albums = _albums;
+@synthesize locations = _locations;
 
 #pragma mark - Init
 
@@ -55,16 +57,28 @@
     self = [super self];
     if(self)
     {
-        // Nothing for now.
+        _location = [BuddyLocation new];
+        [[AFNetworkReachabilityManager sharedManager] setReachabilityStatusChangeBlock:^(AFNetworkReachabilityStatus status) {
+            switch (status) {
+                case AFNetworkReachabilityStatusNotReachable:
+                case AFNetworkReachabilityStatusUnknown:
+                    _reachabilityLevel = BPReachabilityNone;
+                    break;
+                case AFNetworkReachabilityStatusReachableViaWWAN:
+                    _reachabilityLevel = BPReachabilityCarrier;
+                    break;
+                case AFNetworkReachabilityStatusReachableViaWiFi:
+                    _reachabilityLevel = BPReachabilityWiFi;
+                    break;
+                default:
+                    break;
+            }
+            
+            [self raiseReachabilityChanged:_reachabilityLevel];
+        }];
+        [[AFNetworkReachabilityManager sharedManager] startMonitoring];
     }
     return self;
-}
-
-- (void)initializeCollectionsWithUser:(BPUser *)user
-{
-    _user = user;
-    
-    _location = [BuddyLocation new];
 }
 
 - (void)resetOnLogout
@@ -75,7 +89,7 @@
     _photos = nil;
     _blobs = nil;
     _albums = nil;
-    _location = nil;
+    _locations = nil;
 }
 
 -(void)setupWithApp:(NSString *)appID
@@ -141,6 +155,13 @@
     return _user;
 }
 
+- (void)setUser:(BPUser *)user
+{
+    BPUser *oldUser = _user;
+    _user = user;
+    [self raiseUserChangedTo:_user from:oldUser];
+}
+
 -(BPCheckinCollection *)checkins
 {
     if(!_checkins)
@@ -179,6 +200,37 @@
     return _albums;
 }
 
+-(BPLocationCollection *)locations
+{
+    
+    if(!_locations)
+    {
+        _locations = [[BPLocationCollection alloc] initWithClient:self];
+    }
+    return _locations;
+}
+
+#pragma mark - User
+
+- (void)createUser:(NSString *)username
+          password:(NSString *)password
+      describeUser:(DescribeUser)describeUser
+          callback:(BuddyObjectCallback)callback
+{
+    NSDictionary *parameters = @{@"username": username,
+                                 @"password": password };
+    
+    id newUser= [BPSisterObject new];
+    describeUser ? describeUser(newUser) : nil;
+    
+    id options = [newUser parametersFromProperties:@protocol(BPUserProperties)];
+
+    parameters = [NSDictionary dictionaryByMerging:parameters with:options];
+    
+    // On BPUser for now for consistency. Probably will move.
+    [BPUser createFromServerWithParameters:parameters client:[BPClient defaultClient] callback:callback];
+}
+
 #pragma mark - Login
 
 -(void)loginWorker:(NSString *)username password:(NSString *)password success:(BuddyObjectCallback) callback
@@ -211,7 +263,6 @@
         }
         
         BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andClient:self];
-        user.isMe = YES;
         
         // Grab the potentially different base url.
         if ([json hasKey:@"accessToken"] && ![json[@"accessToken"] isEqualToString:self.appSettings.token]) {
@@ -219,7 +270,7 @@
         }
         
         [user refresh:^(NSError *error) {
-            [self initializeCollectionsWithUser:user];
+            self.user = user;
             callback ? callback(user, error) : nil;
         }];
         
@@ -236,7 +287,6 @@
         }
         
         BPUser *user = [[BPUser alloc] initBuddyWithResponse:json andClient:self];
-        user.isMe = YES;
         
         [user refresh:^(NSError *error){
             callback ? callback(user, error) : nil;
@@ -331,6 +381,7 @@
 NSMutableArray *queuedRequests;
 - (void)checkDeviceToken:(void(^)())method
 {
+    [method copy];
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         queuedRequests = [NSMutableArray array];
@@ -341,11 +392,11 @@ NSMutableArray *queuedRequests;
     } else {
         @synchronized (self) {
             if ([queuedRequests count] > 0) {
-                [queuedRequests addObject:[method copy]];
+                [queuedRequests addObject:method];
                 return;
             }
             else {
-                [queuedRequests addObject:[method copy]];
+                [queuedRequests addObject:method];
                 
                 NSDictionary *getTokenParams = @{
                                                  @"appId": BOXNIL(self.appSettings.appID),
@@ -400,7 +451,7 @@ NSMutableArray *queuedRequests;
             }
         }
         
-        response = response ?: @"Unknown";
+        result = result ?: @"Unknown";
         id responseObject = nil;
         
         switch (responseCode) {
@@ -428,32 +479,54 @@ NSMutableArray *queuedRequests;
         if([buddyError credentialsInvalid]) {
             [self.appSettings clear];
         }
+        if (buddyError) {
+            [self raiseAPIError:error];
+        }
         
         callback(responseObject, buddyError);
     };
 }
 
-- (void)raiseNeedsLoginError
+- (void)raiseUserChangedTo:(BPUser *)user from:(BPUser *)from
 {
-    [self tryRaiseDelegate:@selector(authorizationNeedsUserLogin)];
+    [self tryRaiseDelegate:@selector(userChangedTo:from:) withArgument:user withArgument:from];
 }
 
-- (void)tryRaiseDelegate:(SEL)selector
+- (void)raiseReachabilityChanged:(BPReachabilityLevel)level
 {
-    id<UIApplicationDelegate> app =[[UIApplication sharedApplication] delegate];
-    SuppressPerformSelectorLeakWarning(
+    [self tryRaiseDelegate:@selector(connectivityChanged:) withArgument:@(level) withArgument:nil];
+}
 
-        if (!self.delegate) {// If no delegate, see if we've implemented delegate methods on the AppDelegate.
-            if (app && [app respondsToSelector:selector])  {
-                [app performSelector:selector];
-            }
-        } else { // Try the delegate
-            if ([self.delegate respondsToSelector:selector]) {
-                [self.delegate performSelector:selector];
-            }
-        }
-                                       
-    );
+- (void)raiseNeedsLoginError
+{
+    [self tryRaiseDelegate:@selector(authorizationNeedsUserLogin) withArgument:nil withArgument:nil];
+}
+
+- (void)raiseAPIError:(NSError *)error
+{
+    [self tryRaiseDelegate:@selector(apiErrorOccurred:) withArgument:error withArgument:nil];
+}
+
+- (void)tryRaiseDelegate:(SEL)selector withArgument:(id)argument1 withArgument:(id)argument2
+{
+    id<UIApplicationDelegate> app = [[UIApplication sharedApplication] delegate];
+    id target = nil;
+    SuppressPerformSelectorLeakWarning(
+       if (!self.delegate) {// If no delegate, see if we've implemented delegate methods on the AppDelegate.
+           target = app;
+       } else { // Try the delegate
+           target = self.delegate;
+       }
+       if ([target respondsToSelector:selector]) {
+           if (argument2) {
+               [target performSelector:selector withObject:argument1 withObject:argument2];
+           } else if (argument1) {
+               [target performSelector:selector withObject:argument1];
+           } else {
+               [target performSelector:selector];
+           }
+       }
+   );
 }
 
 
@@ -475,7 +548,7 @@ NSMutableArray *queuedRequests;
 
 #pragma mark - Metrics
 
-- (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
+- (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"metrics/events/%@", key];
     NSDictionary *parameters = @{@"value": BOXNIL(value)};
@@ -485,7 +558,7 @@ NSMutableArray *queuedRequests;
     }];
 }
 
-- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
+- (void)recordTimedMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"metrics/events/%@", key];
     NSDictionary *parameters = @{@"value": BOXNIL(value),
@@ -494,7 +567,7 @@ NSMutableArray *queuedRequests;
     [self POST:resource parameters:parameters callback:^(id json, NSError *error) {
         BPMetricCompletionHandler *completionHandler;
         if (!error) {
-            completionHandler = [[BPMetricCompletionHandler alloc] initWithMetricId:json andClient:self];
+            completionHandler = [[BPMetricCompletionHandler alloc] initWithMetricId:json[@"id"] andClient:self];
         }
         callback ? callback(completionHandler, error) : nil;
     }];
@@ -506,6 +579,25 @@ NSMutableArray *queuedRequests;
 {
     return self;
 }
+
+#pragma mark - Metadata
+
+- (id<BPRestProvider>)client
+{
+    return self;
+}
+
+
+static NSString *metadataRoute = @"metadata";
+- (NSString *) metadataPath:(NSString *)key
+{
+    if(key==nil)
+    {
+        return [NSString stringWithFormat:@"%@/%@",metadataRoute,self.appSettings.appID];
+    }
+    return [NSString stringWithFormat:@"%@/%@/%@",metadataRoute,self.appSettings.appID,key];
+}
+
 
 #pragma mark - Push Notification
 
@@ -532,3 +624,4 @@ NSMutableArray *queuedRequests;
 }
 
 @end
+

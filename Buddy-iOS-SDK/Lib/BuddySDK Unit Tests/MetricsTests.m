@@ -30,8 +30,11 @@ describe(@"Metrics", ^{
         it(@"Should allow recording untimed metrics", ^{
             __block BOOL fin = NO;
 
-            [Buddy recordMetric:@"MetricKey" andValue:@"MetricValue" callback:^(NSError *error) {
+            NSDictionary *myVals = @{@"Foo": @"Bar"};
+            
+            [Buddy recordMetric:@"MetricKey" andValue:myVals callback:^(NSError *error) {
                 [[error should] beNil];
+                fin = YES;
             }];
             
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];
@@ -39,10 +42,15 @@ describe(@"Metrics", ^{
         
         it(@"Should allow recording timed metrics", ^{
             __block BOOL fin = NO;
-            
-            [Buddy recordTimedMetric:@"MetricKey" andValue:@"MetricValue" timeout:10 callback:^(BPMetricCompletionHandler *completionHandler, NSError *error) {
+            NSDictionary *myVals = @{@"Foo": @"Bar"};
+
+            [Buddy recordTimedMetric:@"MetricKey" andValue:myVals timeout:10 callback:^(BPMetricCompletionHandler *completionHandler, NSError *error) {
                 [[error should] beNil];
-                [completionHandler signalComplete];
+                [completionHandler signalComplete:^(NSInteger elapsedTimeInMs, NSError *error) {
+                    [[theValue(elapsedTimeInMs) should] beGreaterThan:theValue(0)];
+                    [[error should] beNil];
+                    fin = YES;
+                }];
             }];
             
             [[expectFutureValue(theValue(fin)) shouldEventually] beTrue];

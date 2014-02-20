@@ -15,7 +15,6 @@
  */
 
 #import "Buddy.h"
-#import "BPClientDelegate.h"
 #import "BuddyObject+Private.h"
 
 /// <summary>
@@ -50,6 +49,10 @@
 
 + (BPAlbumCollection *) albums{
     return [[BPClient defaultClient] albums];
+}
+
++ (BPLocationCollection *) locations{
+    return [[BPClient defaultClient] locations];
 }
 
 + (BOOL) locationEnabled{
@@ -117,16 +120,10 @@
 
 + (void)createUser:(NSString *)username
                     password:(NSString *)password
-                    options:(NSDictionary *)options
+                describeUser:(DescribeUser)describeUser
                     callback:(BuddyObjectCallback)callback
 {
-    NSDictionary *parameters = @{@"username": username,
-                                 @"password": password };
-    
-    parameters = [NSDictionary dictionaryByMerging:parameters with:options];
-    
-    // On BPUser for now for consistency. Probably will move.
-    [BPUser createFromServerWithParameters:parameters client:[BPClient defaultClient] callback:callback];
+    [[BPClient defaultClient] createUser:username password:password describeUser:describeUser callback:callback];
 }
 
 + (void)login:(NSString *)username password:(NSString *)password callback:(BuddyObjectCallback)callback
@@ -145,14 +142,46 @@
     [[BPClient defaultClient] logout:callback];
 }
 
-+ (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback
++ (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback
 {
     [[BPClient defaultClient] recordMetric:key andValue:value callback:callback];
 }
 
-+ (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
++ (void)recordTimedMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback
 {
     [[BPClient defaultClient] recordTimedMetric:key andValue:value timeout:seconds callback:callback];
+}
+
++ (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] setMetadataWithKey:key andString:value permissions:permissions callback:callback];
+}
+
++ (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] setMetadataWithKey:key andInteger:value permissions:permissions callback:callback];
+}
+
++ (void)setMetadataWithKeyValues:(NSDictionary *)keyValuePaths permissions:(BuddyPermissions)permissions callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] setMetadataWithKeyValues:keyValuePaths permissions:permissions callback:callback];
+}
+
++ (void)getMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) permissions callback:(BuddyObjectCallback)callback
+{
+    [[BPClient defaultClient] getMetadataWithKey:key permissions:(BuddyPermissions)permissions callback:callback];
+}
+
+/*
++ (void)getMetadataWithPermissions:(BuddyPermissions)permissions callback:(BuddyObjectCallback)callback
+{
+    [[BPClient defaultClient] getMetadataWithPermissions:permissions callback:callback];
+}
+*/
+
++ (void)deleteMetadataWithKey:(NSString *)key permissions:(BuddyPermissions) permissions callback:(BuddyCompletionCallback)callback
+{
+    [[BPClient defaultClient] deleteMetadataWithKey:key permissions:(BuddyPermissions)permissions callback:callback];
 }
 
 @end

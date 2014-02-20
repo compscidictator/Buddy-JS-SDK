@@ -20,22 +20,8 @@ namespace BuddySDK
 
 		public static BuddyGeoLocation Parse(object latLng)
 		{
-			var regex = new System.Text.RegularExpressions.Regex(
-				"^([-+]?\\d{1,2}(?:[.]\\d+)?),\\s*([-+]?\\d{1,3}(?:[.]\\d+)?)$");
-
-			var matches = regex.Match(latLng.ToString());
-
-			double latitude, longitude;
-			if (matches.Success && matches.Groups.Count == 3 && double.TryParse(matches.Groups [1].Value, out latitude) &&
-				double.TryParse(matches.Groups [2].Value, out longitude))
-			{
-				return new BuddyGeoLocation (latitude, longitude);
-			}
-			else
-			{
-				return JsonConvert.DeserializeObject<BuddyGeoLocation>(latLng.ToString());
-			}
-		}
+            return JsonConvert.DeserializeObject<BuddyGeoLocation>(latLng.ToString());
+        }
 
         public BuddyGeoLocation(string locationId)
         {

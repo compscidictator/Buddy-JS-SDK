@@ -8,7 +8,7 @@
 
 #import "NSString+JSON.h"
 
-#define DATE_FORMAT_REGEX @"^\\/Date\\((-?\\d+)\\)\\/$"
+#define DATE_FORMAT_REGEX @"^\\/Date\\((-?[+-]?\\d+)\\)\\/$"
 
 @implementation NSString (JSON)
 - (NSDate *)deserializeJsonDateString

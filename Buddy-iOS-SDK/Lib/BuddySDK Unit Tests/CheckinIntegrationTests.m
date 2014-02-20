@@ -8,6 +8,7 @@
 
 #import "Buddy.h"
 #import "BuddyIntegrationHelper.h"
+#import "BPCoordinate.h"
 #import <Kiwi/Kiwi.h>
 
 #ifdef kKW_DEFAULT_PROBE_TIMEOUT
@@ -42,28 +43,37 @@ describe(@"BPCheckinIntegrationSpec", ^{
             coordinate.latitude = 2.3;
             coordinate.longitude = 4.4;
             
-            [[Buddy checkins] checkinWithComment:@"Checking in!"
-                                     description:@"Description"
-                                        callback:^(BPCheckin *checkin, NSError *error) {
-                                            tempCheckinId = checkin.id;
-                                            tempCheckin = checkin;
-                                        }];
+            [[Buddy checkins] checkin:^(id<BPCheckinProperties> checkinProperties) {
+                checkinProperties.comment = @"Checking in!";
+                checkinProperties.description = @"Description";
+                checkinProperties.location = BPCoordinateMake(1.2, 3.4);
+            } callback:^(BPCheckin *checkin, NSError *error) {
+                tempCheckinId = checkin.id;
+                tempCheckin = checkin;
+            }];
 
             
             [[expectFutureValue(tempCheckin.comment) shouldEventually] equal:@"Checking in!"];
             [[expectFutureValue(tempCheckin.description) shouldEventually] equal:@"Description"];
         });
         
-        it(@"Should allow you to retrieve a list of checkins.", ^{
+        it(@"Should allow you to search checkins.", ^{
             __block NSArray *checkins;
-            [[Buddy checkins] getCheckins:^(NSArray *buddyObjects, NSError *error) {
+            [[Buddy checkins] searchCheckins:^(id<BPCheckinProperties> checkinProperties) {
+                checkinProperties.comment = @"Checking in!";
+            } callback:^(NSArray *buddyObjects, NSError *error) {
+                NSArray *cins = buddyObjects;
+                
+                for(BPCheckin *c in cins) {
+                    [[c.comment should] equal:@"Checking in!"];
+                }
+                
                 checkins = buddyObjects;
-                [[theValue([checkins count]) should] beGreaterThan:theValue(0)];
             }];
             
             [[expectFutureValue(theValue([checkins count])) shouldEventually] beGreaterThan:theValue(0)];
         });
-        
+
         it(@"Should allow you to retrieve a specific checkin.", ^{
             __block BPCheckin *retrievedCheckin;
             [[Buddy checkins] getCheckin:tempCheckinId callback:^(id newBuddyObject, NSError *error) {
@@ -74,7 +84,7 @@ describe(@"BPCheckinIntegrationSpec", ^{
             [[expectFutureValue(retrievedCheckin.comment) shouldEventually] equal:tempCheckin.comment];
             [[expectFutureValue(retrievedCheckin.description) shouldEventually] equal:tempCheckin.description];
         });
-        
+
         it(@"Should allow modifying the comment of a checkin.", ^{
             
             tempCheckin.comment = @"My new comment";

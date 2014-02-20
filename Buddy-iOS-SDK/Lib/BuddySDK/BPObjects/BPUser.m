@@ -17,6 +17,8 @@
 
 @implementation BPUser
 
+@synthesize firstName, lastName, userName, gender, dateOfBirth, profilePicture, profilePictureId, email;
+
 - (void)registerProperties
 {
     [super registerProperties];
@@ -26,10 +28,6 @@
     [self registerProperty:@selector(userName)];
     [self registerProperty:@selector(gender)];
     [self registerProperty:@selector(dateOfBirth)];
-    [self registerProperty:@selector(profilePicture)];
-    [self registerProperty:@selector(profilePictureId)];
-    [self registerProperty:@selector(lastLogin)];
-    [self registerProperty:@selector(created)];
     [self registerProperty:@selector(profilePicture)];
     [self registerProperty:@selector(profilePictureId)];
 }
@@ -109,10 +107,10 @@ static NSString *users = @"users";
 
 #pragma mark - Profile Picture
 
-- (void)setUserProfilePicture:(UIImage *)picture comment:(NSString *)comment callback:(BuddyCompletionCallback)callback
+- (void)setUserProfilePicture:(UIImage *)picture caption:(NSString *)caption callback:(BuddyCompletionCallback)callback
 {
     NSString *resource = [NSString stringWithFormat:@"user/%@/profilepicture", self.id];
-    NSDictionary *parameters = @{@"comment": comment};
+    NSDictionary *parameters = @{@"caption": caption};
 
     NSDictionary *data = @{@"data": UIImagePNGRepresentation(picture)};
     

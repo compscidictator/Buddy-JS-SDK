@@ -11,5 +11,6 @@
 @protocol BPEnumMapping <NSObject>
 
 + (NSDictionary *)mapForProperty:(NSString *)key;
++ (id)convertValue:(NSString *)value forKey:(NSString *)key;
 
 @end

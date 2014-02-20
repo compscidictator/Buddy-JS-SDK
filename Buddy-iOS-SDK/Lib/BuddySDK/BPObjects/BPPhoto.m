@@ -8,14 +8,18 @@
 
 #import "BPPhoto.h"
 #import "BuddyObject+Private.h"
+#import "BPSisterObject.h"
+#import <objc/runtime.h>
 
 @implementation BPPhoto
+
+@synthesize caption;
 
 - (void)registerProperties
 {
     [super registerProperties];
     
-    [self registerProperty:@selector(comment)];
+    [self registerProperty:@selector(caption)];
 }
 
 
@@ -25,15 +29,17 @@ static NSString *photos = @"pictures";
 }
 
 + (void)createWithImage:(UIImage *)image
-             andComment:(NSString *)comment
+          describePhoto:(DescribePhoto)describePhoto
                  client:(id<BPRestProvider>)client
-               callback:(BuddyObjectCallback)callback;
+               callback:(BuddyObjectCallback)callback
 {
     //NSData *data = UIImageJPEGRepresentation(image, 1);
     NSData *data = UIImagePNGRepresentation(image);
     
-#pragma message("TODO - More syntactical sugar. Use macro for now.")
-    id parameters = @{@"comment": BOXNIL(comment)};
+    id photoProperties= [BPSisterObject new];
+    describePhoto ? describePhoto(photoProperties) : nil;
+
+    id parameters = [photoProperties parametersFromProperties:@protocol(BPPhotoProperties)];
     
     [self createWithData:data parameters:parameters client:client callback:^(id newBuddyObject, NSError *error) {
         callback ? callback(newBuddyObject, error) : nil;
@@ -45,7 +51,7 @@ static NSString *photos = @"pictures";
     [self getData:^(NSData *data, NSError *error) {
         UIImage *image = [UIImage imageWithData:data];
         callback ? callback(image, error) : nil;
-
     }];
 }
+
 @end

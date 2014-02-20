@@ -1,10 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Reflection;
+﻿using System.Reflection;
 using System.Threading.Tasks;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
-using System.Threading.Tasks;
-using System.Linq;
 
 namespace BuddySDK
 {
@@ -16,7 +11,7 @@ namespace BuddySDK
         {
         }
 
-        internal UserList(BuddyClient client)
+        public UserList(BuddyClient client)
             : base(null, client)
         {
 

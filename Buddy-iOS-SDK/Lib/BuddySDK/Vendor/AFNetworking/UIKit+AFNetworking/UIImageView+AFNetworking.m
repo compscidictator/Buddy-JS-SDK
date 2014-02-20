@@ -28,9 +28,9 @@
 
 #import "AFHTTPRequestOperation.h"
 
-@interface AFImageCache : NSCache <AFImageCache>
+@interface BP(AFImageCache) : NSCache <AFImageCacheP>
 @end
-
+#define AFImageCache BP(AFImageCache)
 #pragma mark -
 
 static char kAFSharedImageCacheKey;
@@ -69,7 +69,7 @@ static char kAFResponseSerializerKey;
 @implementation UIImageView (AFNetworking)
 @dynamic imageResponseSerializer;
 
-+ (id <AFImageCache>)sharedImageCache {
++ (id <AFImageCacheP>)sharedImageCache {
     static AFImageCache *_af_defaultImageCache = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
@@ -86,7 +86,7 @@ static char kAFResponseSerializerKey;
 #pragma clang diagnostic pop
 }
 
-+ (void)setSharedImageCache:(id<AFImageCache>)imageCache {
++ (void)setSharedImageCache:(id<AFImageCacheP>)imageCache {
     objc_setAssociatedObject(self, &kAFSharedImageCacheKey, imageCache, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 

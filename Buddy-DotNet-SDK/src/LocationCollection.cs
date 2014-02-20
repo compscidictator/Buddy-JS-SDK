@@ -19,13 +19,17 @@ namespace BuddySDK
         public async Task<BuddyResult<Location>> AddAsync(
             string name, 
             string description, 
-            BuddyGeoLocation location, 
-            string address,
+            BuddyGeoLocation location,
+            string streetAddress1,
+            string streetAddress2,
             string city,
-            string state,
+            string subCountryDivision,
+            string country,
             string postalCode,
+            string phoneNumber,
+            string faxNumber,
             string website,
-            string categoryId,
+            string category,
             string defaultMetadata = null, 
             BuddyPermissions read = BuddyPermissions.User, 
             BuddyPermissions write = BuddyPermissions.User)
@@ -36,11 +40,15 @@ namespace BuddySDK
                 Name = name,
                 Description = description,
                 Location = location,
-                Address =  address,
-                City =  city,
-                State = state,
+                StreetAddress1 = streetAddress1,
+                StreetAddress2 = streetAddress2,
+                City = city,
+                SubCountryDivision = subCountryDivision,
+                Country = country,
+                PhoneNumber = phoneNumber,
+                FaxNumber = faxNumber,
                 PostalCode = postalCode,
-                CategoryID = categoryId,
+                Category = category,
                 DefaultMetadata = defaultMetadata,
                 Website = new Uri(website)
             };
@@ -49,16 +57,12 @@ namespace BuddySDK
             return r.Convert(b => c);
         }
 
-        public Task<SearchResult<Location>> FindAsync(string name, BuddyGeoLocationRange location, int maxResults = 100) {
-
-            return base.FindAsync (null, null, null, location, maxResults,null, (p) => {
-
+        public Task<SearchResult<Location>> FindAsync(BuddyGeoLocationRange location, string name = null, string category = null, int maxResults = 100)
+        {
+            return base.FindAsync (null, null, null, location, maxResults, null, (p) => {
                 p["name"] = name;
-
-
-
+                p["category"] = category;
             });
-
         }
     }
 }

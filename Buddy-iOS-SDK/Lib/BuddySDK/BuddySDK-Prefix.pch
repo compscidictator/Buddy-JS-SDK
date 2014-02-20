@@ -14,6 +14,7 @@
    #import "NSDictionary+Merge.h"
    #import "NSString+JSON.h"
    #import "NSError+BuddyError.h"
+   #import "NSObject+ToJSON.h"
 #endif
 
 #define BOXNIL(x) x ?: [NSNull null]
@@ -25,3 +26,19 @@ _Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
 Stuff; \
 _Pragma("clang diagnostic pop") \
 } while (0)
+
+#ifndef BP
+    #ifdef BP_NAMESPACE
+        #define JRNS_CONCAT_TOKENS(a,b) a##_##b
+        #define JRNS_EVALUATE(a,b) JRNS_CONCAT_TOKENS(a,b)
+        #define BP(original_name) JRNS_EVALUATE(NS_NAMESPACE, original_name)
+    #else
+        #define BP(original_name) original_name
+    #endif
+#endif
+
+#ifdef NOLOG
+#   define NSLog(...)
+#else
+#   define NSLog(...) NSLog(__VA_ARGS__)
+#endif

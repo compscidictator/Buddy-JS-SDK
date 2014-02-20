@@ -9,27 +9,26 @@
 #import <UIKit/UIKit.h>
 #import "BuddyObject.h"
 
-typedef enum
-{
-	BPUserGender_Male = 1,
-	BPUserGender_Female = 2,
-	//BPUserGender_Any = 3
-} BPUserGender;
+#define BPUserGenderField @"gender"
+#define BPUserEmailField @"email"
+#define BPUserFirstNameField @"firstName"
+#define BPUserLastNameField @"lastName"
+#define BPUserDateOfBirthField @"dateOfBirth"
 
-/// <summary>
-/// Represents the status of the user.
-/// </summary>
-typedef enum
+#define BPUserCelebrityModeField @"celebrityMode"
+#define BPUserFuzzLocationField @"fuzzLocation"
+
+/**
+ Enum for specifying gender.
+ */
+typedef NS_ENUM(NSInteger, BPUserGender)
 {
-    BPUserRelationshipStatusSingle = 1,
-    BPUserRelationshipStatusDating = 2,
-    BPUserRelationshipStatusEngaged = 3,
-    BPUserRelationshipStatusMarried = 4,
-    BPUserRelationshipStatusDivorced = 5,
-    BPUserRelationshipStatusWidowed = 6,
-    BPUserRelationshipStatusOnTheProwl = 7,
-//    Any = -1
-} BPUserRelationshipStatus;
+    /** Male */
+	BPUserGender_Male = 1,
+    /** Female */
+	BPUserGender_Female = 2,
+} ;
+
 
 @interface BPUser : BuddyObject
 
@@ -52,7 +51,6 @@ typedef enum
 @property (nonatomic, strong) NSURL *profilePicture;
 @property (nonatomic, copy) NSString *profilePictureId;
 @property (nonatomic, readonly) NSInteger age;
-@property (nonatomic, assign) BPUserRelationshipStatus relationshipStatus;
 @property (nonatomic, assign) BOOL friendRequestPending;
 
 @property (nonatomic, assign) BOOL isMe;
@@ -61,5 +59,7 @@ typedef enum
 - (void)resetPassword:(NSString *)resetCode newPassword:(NSString *)newPassword callback:(BuddyCompletionCallback)callback;
 - (void)addIdentityValue:(NSString *)identityValue callback:(BuddyCompletionCallback)callback;
 - (void)removeIdentityValue:(NSString *)identityValue callback:(BuddyCompletionCallback)callback;
+- (void)setUserProfilePicture:(UIImage *)picture comment:(NSString *)comment callback:(BuddyCompletionCallback)callback;
+- (void)deleteUserProfilePicture:(BuddyCompletionCallback)callback;
 
 @end

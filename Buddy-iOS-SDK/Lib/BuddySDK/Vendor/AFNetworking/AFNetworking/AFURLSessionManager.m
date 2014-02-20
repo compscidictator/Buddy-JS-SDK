@@ -59,6 +59,7 @@ NSString * const AFNetworkingTaskDidCompleteResponseDataKey = @"com.alamofire.ne
 NSString * const AFNetworkingTaskDidCompleteErrorKey = @"com.alamofire.networking.task.complete.error";
 NSString * const AFNetworkingTaskDidCompleteAssetPathKey = @"com.alamofire.networking.task.complete.assetpath";
 
+
 NSString * const AFNetworkingTaskDidFinishSerializedResponseKey = @"com.alamofire.networking.task.complete.serializedresponse"; // Deprecated
 NSString * const AFNetworkingTaskDidFinishResponseSerializerKey = @"com.alamofire.networking.task.complete.responseserializer"; // Deprecated
 NSString * const AFNetworkingTaskDidFinishResponseDataKey = @"com.alamofire.networking.complete.finish.responsedata"; // Deprecated
@@ -93,7 +94,7 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
 
 #pragma mark -
 
-@interface AFURLSessionManagerTaskDelegate : NSObject <NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
+@interface BP(AFURLSessionManagerTaskDelegate) : NSObject <NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate>
 @property (nonatomic, weak) AFURLSessionManager *manager;
 @property (nonatomic, strong) NSMutableData *mutableData;
 @property (nonatomic, strong) NSProgress *uploadProgress;
@@ -106,6 +107,7 @@ typedef void (^AFURLSessionTaskCompletionHandler)(NSURLResponse *response, id re
                  completionHandler:(void (^)(NSURLResponse *response, id responseObject, NSError *error))completionHandler;
 
 @end
+#define AFURLSessionManagerTaskDelegate BP(AFURLSessionManagerTaskDelegate)
 
 @implementation AFURLSessionManagerTaskDelegate
 

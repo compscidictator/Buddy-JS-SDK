@@ -13,4 +13,6 @@
 
 @property (nonatomic, readonly, copy) NSString *requestPrefix;
 
+-(void)search:(NSDictionary *)searchParmeters callback:(BuddyCollectionCallback)callback;
+
 @end

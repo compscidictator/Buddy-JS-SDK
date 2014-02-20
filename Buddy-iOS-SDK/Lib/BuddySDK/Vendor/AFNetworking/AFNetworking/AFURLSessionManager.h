@@ -82,7 +82,7 @@
 
 #if (defined(__IPHONE_OS_VERSION_MAX_ALLOWED) && __IPHONE_OS_VERSION_MAX_ALLOWED >= 70000) || (defined(__MAC_OS_X_VERSION_MAX_ALLOWED) && __MAC_OS_X_VERSION_MAX_ALLOWED >= 1090)
 
-@interface AFURLSessionManager : NSObject <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NSCoding, NSCopying>
+@interface BP(AFURLSessionManager) : NSObject <NSURLSessionDelegate, NSURLSessionTaskDelegate, NSURLSessionDataDelegate, NSURLSessionDownloadDelegate, NSCoding, NSCopying>
 
 /**
  The managed session.
@@ -376,7 +376,7 @@
 - (void)setDownloadTaskDidResumeBlock:(void (^)(NSURLSession *session, NSURLSessionDownloadTask *downloadTask, int64_t fileOffset, int64_t expectedTotalBytes))block;
 
 @end
-
+#define AFURLSessionManager BP(AFURLSessionManager)
 #endif
 
 ///--------------------
@@ -388,96 +388,113 @@
  
  @deprecated Use `AFNetworkingTaskDidResumeNotification` instead.
  */
-extern NSString * const AFNetworkingTaskDidStartNotification DEPRECATED_ATTRIBUTE;
-
+extern NSString * const BP(AFNetworkingTaskDidStartNotification) DEPRECATED_ATTRIBUTE;
+#define AFNetworkingTaskDidStartNotification BP(AFNetworkingTaskDidStartNotification)
 /**
  Posted when a task resumes.
  */
-extern NSString * const AFNetworkingTaskDidResumeNotification;
+extern NSString * const BP(AFNetworkingTaskDidResumeNotification);
+#define AFNetworkingTaskDidResumeNotification BP(AFNetworkingTaskDidResumeNotification)
 
 /**
  Posted when a task finishes executing. Includes a userInfo dictionary with additional information about the task.
  
  @deprecated Use `AFNetworkingTaskDidCompleteNotification` instead.
  */
-extern NSString * const AFNetworkingTaskDidFinishNotification DEPRECATED_ATTRIBUTE;
+extern NSString * const BP(AFNetworkingTaskDidFinishNotification) DEPRECATED_ATTRIBUTE;
+#define AFNetworkingTaskDidFinishNotification BP(AFNetworkingTaskDidFinishNotification)
 
 /**
  Posted when a task finishes executing. Includes a userInfo dictionary with additional information about the task.
  */
-extern NSString * const AFNetworkingTaskDidCompleteNotification;
+extern NSString * const BP(AFNetworkingTaskDidCompleteNotification);
+#define AFNetworkingTaskDidCompleteNotification BP(AFNetworkingTaskDidCompleteNotification)
 
 /**
  Posted when a task suspends its execution.
  */
-extern NSString * const AFNetworkingTaskDidSuspendNotification;
+extern NSString * const BP(AFNetworkingTaskDidSuspendNotification);
+#define AFNetworkingTaskDidSuspendNotification BP(AFNetworkingTaskDidSuspendNotification)
 
 /**
  Posted when a session is invalidated.
  */
-extern NSString * const AFURLSessionDidInvalidateNotification;
+extern NSString * const BP(AFURLSessionDidInvalidateNotification);
+#define AFURLSessionDidInvalidateNotification BP(AFURLSessionDidInvalidateNotification)
 
 /**
  Posted when a session download task encountered an error when moving the temporary download file to a specified destination.
  */
-extern NSString * const AFURLSessionDownloadTaskDidFailToMoveFileNotification;
+extern NSString * const BP(AFURLSessionDownloadTaskDidFailToMoveFileNotification);
+#define AFURLSessionDownloadTaskDidFailToMoveFileNotification BP(AFURLSessionDownloadTaskDidFailToMoveFileNotification)
 
 /**
  The raw response data of the task. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if response data exists for the task.
  
  @deprecated Use `AFNetworkingTaskDidCompleteResponseDataKey` instead.
  */
-extern NSString * const AFNetworkingTaskDidFinishResponseDataKey DEPRECATED_ATTRIBUTE;
+extern NSString * const BP(AFNetworkingTaskDidFinishResponseDataKey) DEPRECATED_ATTRIBUTE;
+#define AFNetworkingTaskDidFinishResponseDataKey BP(AFNetworkingTaskDidFinishResponseDataKey)
 
 /**
  The raw response data of the task. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if response data exists for the task.
  */
-extern NSString * const AFNetworkingTaskDidCompleteResponseDataKey;
+extern NSString * const BP(AFNetworkingTaskDidCompleteResponseDataKey);
+#define AFNetworkingTaskDidCompleteResponseDataKey BP(AFNetworkingTaskDidCompleteResponseDataKey)
 
 /**
  The serialized response object of the task. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if the response was serialized.
  
  @deprecated Use `AFNetworkingTaskDidCompleteSerializedResponseKey` instead.
  */
-extern NSString * const AFNetworkingTaskDidFinishSerializedResponseKey DEPRECATED_ATTRIBUTE;
+extern NSString * const BP(AFNetworkingTaskDidFinishSerializedResponseKey) DEPRECATED_ATTRIBUTE;
+#define AFNetworkingTaskDidFinishSerializedResponseKey BP(AFNetworkingTaskDidFinishSerializedResponseKey)
 
 /**
  The serialized response object of the task. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if the response was serialized.
  */
-extern NSString * const AFNetworkingTaskDidCompleteSerializedResponseKey;
+extern NSString * const BP(AFNetworkingTaskDidCompleteSerializedResponseKey);
+#define AFNetworkingTaskDidCompleteSerializedResponseKey BP(AFNetworkingTaskDidCompleteSerializedResponseKey)
 
 /**
  The response serializer used to serialize the response. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if the task has an associated response serializer.
  
  @deprecated Use `AFNetworkingTaskDidCompleteResponseSerializerKey` instead.
  */
-extern NSString * const AFNetworkingTaskDidFinishResponseSerializerKey DEPRECATED_ATTRIBUTE;
+extern NSString * const BP(AFNetworkingTaskDidFinishResponseSerializerKey) DEPRECATED_ATTRIBUTE;
+#define AFNetworkingTaskDidFinishResponseSerializerKey BP(AFNetworkingTaskDidFinishResponseSerializerKey)
 
 /**
  The response serializer used to serialize the response. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if the task has an associated response serializer.
  */
-extern NSString * const AFNetworkingTaskDidCompleteResponseSerializerKey;
+extern NSString * const BP(AFNetworkingTaskDidCompleteResponseSerializerKey);
+#define AFNetworkingTaskDidCompleteResponseSerializerKey BP(AFNetworkingTaskDidCompleteResponseSerializerKey)
 
 /**
  The file path associated with the download task. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if an the response data has been stored directly to disk.
  
  @deprecated Use `AFNetworkingTaskDidCompleteAssetPathKey` instead.
  */
-extern NSString * const AFNetworkingTaskDidFinishAssetPathKey DEPRECATED_ATTRIBUTE;
+extern NSString * const BP(AFNetworkingTaskDidFinishAssetPathKey) DEPRECATED_ATTRIBUTE;
+#define AFNetworkingTaskDidFinishAssetPathKey BP(AFNetworkingTaskDidFinishAssetPathKey)
 
 /**
  The file path associated with the download task. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if an the response data has been stored directly to disk.
  */
-extern NSString * const AFNetworkingTaskDidCompleteAssetPathKey;
+extern NSString * const BP(AFNetworkingTaskDidCompleteAssetPathKey);
+#define AFNetworkingTaskDidCompleteAssetPathKey BP(AFNetworkingTaskDidCompleteAssetPathKey)
 
 /**
  Any error associated with the task, or the serialization of the response. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if an error exists.
  
  @deprecated Use `AFNetworkingTaskDidCompleteErrorKey` instead.
  */
-extern NSString * const AFNetworkingTaskDidFinishErrorKey DEPRECATED_ATTRIBUTE;
+extern NSString * const BP(AFNetworkingTaskDidFinishErrorKey) DEPRECATED_ATTRIBUTE;
+#define AFNetworkingTaskDidFinishErrorKey BP(AFNetworkingTaskDidFinishErrorKey)
 
 /**
  Any error associated with the task, or the serialization of the response. Included in the userInfo dictionary of the `AFNetworkingTaskDidFinishNotification` if an error exists.
  */
-extern NSString * const AFNetworkingTaskDidCompleteErrorKey;
+extern NSString * const BP(AFNetworkingTaskDidCompleteErrorKey);
+#define AFNetworkingTaskDidCompleteErrorKey BP(AFNetworkingTaskDidCompleteErrorKey)
+

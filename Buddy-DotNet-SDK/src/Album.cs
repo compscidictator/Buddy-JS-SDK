@@ -17,16 +17,16 @@ namespace BuddySDK
 		{
 		}
 
-		[Newtonsoft.Json.JsonProperty("comment")]
-		public string Comment
+		[Newtonsoft.Json.JsonProperty("caption")]
+		public string Caption
 		{
 			get
 			{
-				return GetValueOrDefault<string>("Comment");
+                return GetValueOrDefault<string>("Caption");
 			}
 			set
 			{
-				SetValue<string>("Comment", value, checkIsProp: false);
+                SetValue<string>("Caption", value, checkIsProp: false);
 			}
 		}
 
@@ -57,13 +57,13 @@ namespace BuddySDK
             }
         }
 		
-        public async Task<AlbumItem> AddItemAsync(string itemId, string comment, BuddyGeoLocation location, string defaultMetadata = null)
+        public async Task<AlbumItem> AddItemAsync(string itemId, string caption, BuddyGeoLocation location, string defaultMetadata = null)
 		{
 	
 			var c = new AlbumItem(this.GetObjectPath() + typeof(AlbumItem).GetCustomAttribute<BuddyObjectPathAttribute>(true).Path, this.Client)
 			{
 				ItemId = itemId,
-				Comment = comment,
+                Caption = caption,
 				Location = location,
 				DefaultMetadata = defaultMetadata
 			};
@@ -86,13 +86,13 @@ namespace BuddySDK
         {
         }
 
-        public async Task<BuddyResult<Album>> AddAsync(string name, string comment,
+        public async Task<BuddyResult<Album>> AddAsync(string name, string caption,
             BuddyGeoLocation location, string defaultMetadata = null, BuddyPermissions readPermissions = BuddyPermissions.User, BuddyPermissions writePermissions = BuddyPermissions.User)
         {
             var c = new Album(this.Client)
             {
                 Name = name,
-                Comment = comment,
+                Caption = caption,
                 Location = location,
                 DefaultMetadata = defaultMetadata,
                 ReadPermissions = readPermissions,
@@ -103,13 +103,13 @@ namespace BuddySDK
             return r.Convert (b => c);
         }
 
-        public Task<SearchResult<Album>> FindAsync(string name = null, string comment = null,
+        public Task<SearchResult<Album>> FindAsync(string name = null, string caption = null,
             BuddyGeoLocationRange location = null, int maxResults = 100, string pagingToken = null)
         {
             return base.FindAsync(null, null, null, location, maxResults, pagingToken, (p) =>
             {
                 p["name"] = name;
-                p["comment"] = comment;
+                p["caption"] = caption;
             });
         }
     }

@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 namespace BuddySDK
 {
     [BuddyObjectPath("/pictures")]
-    public class Photo : BuddyBase
+    public class Picture : BuddyBase
     {
         [Newtonsoft.Json.JsonProperty("caption")]
         public string Caption
@@ -49,21 +49,18 @@ namespace BuddySDK
             }
         }
 
-        public Photo()
+        public Picture()
         {
         }
 
-        public Photo(string id = null, BuddyClient client = null)
+        public Picture(string id = null, BuddyClient client = null)
             : base(id, client)
         {
         }
 
         public Task<BuddyResult<Stream>> GetFileAsync(int? size = null)
         {
-
             return base.GetFileCoreAsync (GetObjectPath() + "/file", new { size = size });
-
-           
         }
     }
 }

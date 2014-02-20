@@ -49,7 +49,7 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         [_jsonRequestSerializer setValue:@"application/json" forHTTPHeaderField:@"Accept"];
         [_jsonRequestSerializer setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
         [_httpRequestSerializer setValue:@"*/*" forHTTPHeaderField:@"Accept"];
-        
+
         [self addObserver:self forKeyPath:@"appSettings.userToken" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"appSettings.deviceToken" options:NSKeyValueObservingOptionNew context:nil];
         [self addObserver:self forKeyPath:@"appSettings.serviceUrl" options:NSKeyValueObservingOptionNew context:nil];
@@ -57,6 +57,13 @@ typedef void (^AFSuccessCallback)(AFHTTPRequestOperation *operation, id response
         [self setupManagerWithNewSettings];
     }
     return self;
+}
+
+- (void)dealloc
+{
+    [self removeObserver:self forKeyPath:@"appSettings.userToken"];
+    [self removeObserver:self forKeyPath:@"appSettings.deviceToken"];
+    [self removeObserver:self forKeyPath:@"appSettings.serviceUrl"];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary *)change context:(void *)context

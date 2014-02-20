@@ -32,8 +32,9 @@ static NSString *blobs = @"blobs";
     NSDictionary *multipartParameters = @{@"data": data};
     
     [client MULTIPART_POST:[[self class] requestPath]
-                              parameters:parameters data:multipartParameters
-                                callback:^(id json, NSError *error)
+                parameters:parameters
+                      data:multipartParameters
+                  callback:^(id json, NSError *error)
     {
         
         if(error){

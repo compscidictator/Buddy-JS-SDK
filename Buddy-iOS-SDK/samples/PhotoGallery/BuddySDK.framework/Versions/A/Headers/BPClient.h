@@ -10,9 +10,9 @@
 
 
 #import "BPRestProvider.h"
-#import "BPClientDelegate.h"
 #import "BuddyCollection.h" // TODO - remove dependency
 #import "BPMetricCompletionHandler.h"
+#import "BPBase.h"
 
 @class BuddyDevice;
 @class BPGameBoards;
@@ -37,7 +37,31 @@ typedef NS_ENUM(NSInteger, BPAuthenticationLevel) {
     BPAuthenticationLevelUser
 };
 
-@interface BPClient : NSObject
+/**
+ Enum specifying the current authentication level.
+ */
+typedef NS_ENUM(NSInteger, BPReachabilityLevel) {
+    /** No network reachability */
+    BPReachabilityNone     = 0,
+    /** Reachable via carrier */
+    BPReachabilityCarrier = 1,
+    /** Reachability not known */
+    BPReachabilityWiFi = 2,
+};
+
+@protocol BPClientDelegate <NSObject>
+
+- (void)userChangedTo:(BPUser *)newUser from:(BPUser *)oldUser;
+
+- (void)connectivityChanged:(BPReachabilityLevel)level;
+
+- (void)apiErrorOccurred:(NSError *)error;
+
+- (void)authorizationNeedsUserLogin;
+
+@end
+
+@interface BPClient : BPBase
 
 
 /** Callback signature for the BuddyClientPing function. BuddyStringResponse.result field will be "Pong" if the server responds correctly. If there was an exception or error (e.g. unknown server response or invalid data) the response.exception field will be set to an exception instance and the raw response from the server, if any, will be held in the response.dataResult field.
@@ -111,6 +135,12 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
   */
 @property (nonatomic, readonly, strong) BPCoordinate *lastLocation;
 
+/**
+ * Current reachability level.
+ */
+@property (nonatomic, readonly, assign) BPReachabilityLevel reachabilityLevel;
+
+
 /// <summary>
 /// Current BuddyAuthenticatedUser as of the last login
 /// </summary>
@@ -139,10 +169,12 @@ typedef void (^BPPingCallback)(NSDecimalNumber *ping);
 
 - (void)ping:(BPPingCallback)callback;
 
-- (void)recordMetric:(NSString *)key andValue:(NSString *)value callback:(BuddyCompletionCallback)callback;
+- (void)recordMetric:(NSString *)key andValue:(NSDictionary *)value callback:(BuddyCompletionCallback)callback;
 
-- (void)recordTimedMetric:(NSString *)key andValue:(NSString *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback;
+- (void)recordTimedMetric:(NSString *)key andValue:(NSDictionary *)value timeout:(NSInteger)seconds callback:(BuddyMetricCallback)callback;
+
+- (void)registerPushToken:(NSString *)token callback:(BuddyObjectCallback)callback;
+
+- (void) registerForPushes;
 
 @end
-
-

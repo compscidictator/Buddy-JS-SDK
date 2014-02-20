@@ -346,6 +346,10 @@
             //Handle NSNumber propertyClasses in the compose function
             value = [self.numberFormatter numberFromString:value];
         }
+        else if([[object class] conformsToProtocol:@protocol(BPEnumMapping)]
+                && [[object class] convertValue:value forKey:key]) {
+            value = [[object class] convertValue:value forKey:key];
+        }
         if ([property isObject]) {
             Class propertyClass = [property propertyClass];
             value = [self composeModelFromObject: value withTargetClass:propertyClass];

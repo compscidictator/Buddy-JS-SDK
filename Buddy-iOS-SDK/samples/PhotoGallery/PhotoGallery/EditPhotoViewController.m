@@ -91,7 +91,10 @@
         }
         
         NSLog(@"SavePhotoCallback - success Called");
-        [weakSelf.photo setMetadataWithKey:TAG_META_KEY andString:weakSelf.tagString callback:[weakSelf getSaveTagCallback]];
+        [weakSelf.photo setMetadataWithKey:TAG_META_KEY
+                                 andString:weakSelf.tagString
+                               permissions: BuddyPermissionsApp
+                                  callback:[weakSelf getSaveTagCallback]];
         
     };
     
@@ -201,7 +204,7 @@
         [self.mainImage setBackgroundColor:[UIColor blackColor]];
     }
     
-    self.commentText.text = self.photo.comment;
+    self.commentText.text = self.photo.caption;
     self.tagText.text = self.tagString;
     
 }
@@ -224,7 +227,7 @@
         return;
     }
     
-    self.photo.comment = self.commentText.text;
+    self.photo.caption = self.commentText.text;
     self.tagString = self.tagText.text;
     
     [self.photo save:[self getSavePhotoCallback]];
@@ -237,7 +240,7 @@
     self.HUD.labelText= @"Loading Tag Info";
     self.HUD.dimBackground = YES;
     self.HUD.delegate=self;
-    [self.photo getMetadataWithKey:TAG_META_KEY callback:[self getFetchMetadataCallback]];
+    [self.photo getMetadataWithKey:TAG_META_KEY permissions:BuddyPermissionsApp callback:[self getFetchMetadataCallback]];
 }
 - (void)didReceiveMemoryWarning
 {

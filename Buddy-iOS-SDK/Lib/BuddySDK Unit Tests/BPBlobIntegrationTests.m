@@ -36,7 +36,7 @@ describe(@"BPBlobIntegrationSpec", ^{
         
         it(@"Should allow users to upload blobs", ^{
             NSBundle *bundle = [NSBundle bundleForClass:[self class]];
-            NSString *blobPath = [bundle pathForResource:@"blob" ofType:@"json"];
+            NSString *blobPath = [bundle pathForResource:@"help" ofType:@"jpg"];
             NSData *blobData = [NSData dataWithContentsOfFile:blobPath];
             
             __block BPBlob *newBlob;
@@ -45,7 +45,7 @@ describe(@"BPBlobIntegrationSpec", ^{
             }];
             
             [[expectFutureValue(newBlob) shouldEventually] beNonNil];
-            [[expectFutureValue(theValue(newBlob.contentLength)) shouldEventually] beGreaterThan:theValue(1)];
+            [[expectFutureValue(theValue(newBlob.contentLength)) shouldEventually] equal:theValue(1)];
 #pragma message("TODO - validate mime type.")
             //[[expectFutureValue(newBlob.contentType) shouldEventually] equal:@"image/png"];
             [[expectFutureValue(newBlob.signedUrl) shouldEventually] haveLengthOfAtLeast:1];

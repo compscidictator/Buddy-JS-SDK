@@ -16,7 +16,7 @@
 #import "NSDate+JSON.h"
 #import "BPEnumMapping.h"
 
-@interface BuddyObject()<BPEnumMapping>
+@interface BuddyObject()
 
 @property (nonatomic, readwrite, assign) BOOL isDirty;
 @property (nonatomic, strong) NSMutableArray *keyPaths;
@@ -65,9 +65,19 @@
     return self;
 }
 
+- (instancetype)initForCreation
+{
+    self = [super init];
+    if(self)
+    {
+        [self registerProperties];
+    }
+    return self;
+}
+
 - (id<BPRestProvider>)client
 {
-    return _client ?: [BPClient defaultClient];
+    return _client ?: (id<BPRestProvider>)[BPClient defaultClient];
 }
 
 - (void)registerProperties
@@ -83,29 +93,6 @@
 {
     [NSException raise:@"requestPathNotSpecified" format:@"Class did not specify requestPath"];
     return nil;
-}
-
-+ (NSDictionary *)mapForProperty:(NSString *)key
-{
-    return [self enumMap][key];
-}
-
-+ (NSDictionary *)enumMap
-{
-    return [self baseEnumMap];
-}
-
-+ (NSDictionary *)baseEnumMap
-{
-    // Return any enum->string mappings used in responses subclass.
-    return @{NSStringFromSelector(@selector(readPermissions)) : @{
-                                                @(BuddyPermissionsApp) : @"App",
-                                                @(BuddyPermissionsUser) : @"User",
-                                                },
-             NSStringFromSelector(@selector(writePermissions)) : @{
-                     @(BuddyPermissionsApp) : @"App",
-                     @(BuddyPermissionsUser) : @"User",
-                     }};
 }
 
 
@@ -128,6 +115,8 @@
         
         if([[c class] isSubclassOfClass:[NSDate class]]){
             c = [c serializeDateToJson];
+        } else if ([c respondsToSelector:@selector(stringValue)]) {
+            c = [c stringValue];
         }
         
         [buddyPropertyDictionary setObject:c forKey:key];
@@ -216,7 +205,6 @@
 
 - (void)save:(BuddyCompletionCallback)callback
 {
-    // /<resourcePath>/<id>
     NSString *resource = [NSString stringWithFormat:@"%@/%@",
                           [[self class] requestPath],
                           self.id];
@@ -225,56 +213,22 @@
     NSDictionary *parameters = [self buildUpdateDictionary];
 
     [self.client PATCH:resource parameters:parameters callback:^(id json, NSError *error) {
-#pragma message("EK commented this out on 1/27. PATCH doesn't provide a response object.")
-        //[[[self class] converter] setPropertiesOf:self fromDictionary:json];
         callback ? callback(error) : nil;
     }];
 }
 
 #pragma mark - Metadata
 
-static NSString *metadataFormat = @"metadata/%@/%@";
+static NSString *metadataRoute = @"metadata";
 - (NSString *) metadataPath:(NSString *)key
 {
-    return [NSString stringWithFormat:metadataFormat, self.id, key];
+    if(key==nil)
+    {
+        return [NSString stringWithFormat:@"%@/%@",metadataRoute,self.id];
+    }
+    return [NSString stringWithFormat:@"%@/%@/%@",metadataRoute,self.id,key];
 }
 
-- (void)setMetadataWithKey:(NSString *)key andString:(NSString *)value callback:(BuddyCompletionCallback)callback
-{
-    NSDictionary *parameters = @{@"value": BOXNIL(value)};
-    
-    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
-        callback ? callback(error) : nil;
-    }];
-}
-
-- (void)setMetadataWithKey:(NSString *)key andInteger:(NSInteger)value callback:(BuddyCompletionCallback)callback
-{
-    NSDictionary *parameters = @{@"value": [NSString stringWithFormat:@"%d", value]};
-
-    [self.client PUT:[self metadataPath:key] parameters:parameters callback:^(id json, NSError *error) {
-        callback ? callback(error) : nil;
-    }];
-}
-
-- (void)getMetadataWithKey:(NSString *)key callback:(BuddyObjectCallback)callback
-{
-    [self.client GET:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
-        id md = nil;
-#pragma message ("Probably delete this after the server returns a boxed value for null metadata values")
-        if ([NSJSONSerialization isValidJSONObject:metadata]) {
-            md = metadata[@"value"];
-        }
-        callback ? callback(md, error) : nil;
-    }];
-}
-
-- (void)deleteMetadataWithKey:(NSString *)key callback:(BuddyCompletionCallback)callback
-{
-    [self.client DELETE:[self metadataPath:key] parameters:nil callback:^(id metadata, NSError *error) {
-        callback ? callback(error) : nil;
-    }];
-}
 
 #pragma mark - JSON handling
 
@@ -285,7 +239,6 @@ static NSString *metadataFormat = @"metadata/%@/%@";
     {
         c = [JAGPropertyConverter new];
         
-        // TODO - necessary?
         __weak typeof(self) weakSelf = self;
         c.identifyDict = ^Class(NSDictionary *dict) {
             if ([dict valueForKey:@"latitude"]) {

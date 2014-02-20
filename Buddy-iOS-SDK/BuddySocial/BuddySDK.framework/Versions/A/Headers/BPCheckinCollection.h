@@ -12,19 +12,11 @@
 
 @interface BPCheckinCollection : BuddyCollection
 
-// Hmm, I don't like these parameter-heavy methods.
-- (void)checkinWithComment:(NSString *)comment
-          description:(NSString *)description
-             //location:(struct BPCoordinate)coordinate
-      defaultMetadata:(NSString *)defaultMetadata
-      readPermissions:(BuddyPermissions)readPermissions
-     writePermissions:(BuddyPermissions)writePermissions
-                 callback:(BuddyObjectCallback)callback;
+- (void)checkin:(DescribeCheckin)describeCheckin
+       callback:(BuddyObjectCallback)callback;
 
-- (void)checkinWithComment:(NSString *)comment
-              description:(NSString *)description
-                 callback:(BuddyObjectCallback)callback;
+- (void)searchCheckins:(DescribeCheckin)describeCheckin callback:(BuddyCollectionCallback)callback;
 
-- (void)getCheckins:(BuddyCollectionCallback)callback;
+- (void)getCheckin:(NSString *)checkinId callback:(BuddyObjectCallback)callback;
 
 @end

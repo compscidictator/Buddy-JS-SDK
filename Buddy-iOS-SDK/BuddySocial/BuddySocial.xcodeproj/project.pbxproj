@@ -17,6 +17,7 @@
 		C1ACBF651877936E0069025B /* BPViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = C1ACBF641877936E0069025B /* BPViewController.m */; };
 		C1ACBF671877936E0069025B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C1ACBF661877936E0069025B /* Images.xcassets */; };
 		C1ACBF8418779FA10069025B /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1ACBF8318779FA10069025B /* FacebookSDK.framework */; };
+		C1AEB21A18A9D24F006C88E4 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1AEB21918A9D24F006C88E4 /* MobileCoreServices.framework */; };
 		C1C2394D1877C706000D0089 /* BuddySDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C2394C1877C706000D0089 /* BuddySDK.framework */; };
 		C1C239501877CB0F000D0089 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C1C2394F1877CB0F000D0089 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
@@ -38,6 +39,7 @@
 		C1ACBF661877936E0069025B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C1ACBF6D1877936E0069025B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		C1ACBF8318779FA10069025B /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FacebookSDK.framework; sourceTree = "<group>"; };
+		C1AEB21918A9D24F006C88E4 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		C1C2394C1877C706000D0089 /* BuddySDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = BuddySDK.framework; sourceTree = "<group>"; };
 		C1C2394F1877CB0F000D0089 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -47,6 +49,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C1AEB21A18A9D24F006C88E4 /* MobileCoreServices.framework in Frameworks */,
 				C1C239501877CB0F000D0089 /* SystemConfiguration.framework in Frameworks */,
 				C1ACBF511877936E0069025B /* CoreGraphics.framework in Frameworks */,
 				C1C2394D1877C706000D0089 /* BuddySDK.framework in Frameworks */,
@@ -79,6 +82,7 @@
 		C1ACBF4D1877936E0069025B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C1AEB21918A9D24F006C88E4 /* MobileCoreServices.framework */,
 				C1C2394F1877CB0F000D0089 /* SystemConfiguration.framework */,
 				C1C2394C1877C706000D0089 /* BuddySDK.framework */,
 				C1ACBF8318779FA10069025B /* FacebookSDK.framework */,

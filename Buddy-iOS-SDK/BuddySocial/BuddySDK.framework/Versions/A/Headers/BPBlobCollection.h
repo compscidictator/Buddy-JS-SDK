@@ -15,4 +15,6 @@
 
 - (void)getBlobs:(BuddyCollectionCallback)callback;
 
+- (void)searchBlobs:(NSDictionary *)parameters callback:(BuddyCollectionCallback)callback;
+
 @end
