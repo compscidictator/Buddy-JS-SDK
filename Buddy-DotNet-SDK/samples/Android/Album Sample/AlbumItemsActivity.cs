@@ -22,13 +22,15 @@ namespace AlbumsSample
 	{
 		private const int PickImageId = 1000;
 
-		protected override void OnCreate (Bundle bundle)
+		protected override async void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
 			SetContentView (Resource.Layout.AlbumItems);
 
 			InitializeAddPictureButton ();
+
+			await RefreshAlbumItemsGrid ();
 		}
 
 		private void InitializeAddPictureButton()
@@ -48,36 +50,42 @@ namespace AlbumsSample
 		{
 			if ((requestCode == PickImageId) && (resultCode == Result.Ok) && (data != null))
 			{
-				var path = GetPathToImage(data.Data);
+				string path, mimeType;
+				GetPathToImage(data.Data, out path, out mimeType);
 
-				await AddAlbumItem (path);
+				await AddAlbumItem (path, mimeType);
 
 				await RefreshAlbumItemsGrid ();
 			}
 		}
 
-		private string GetPathToImage(Android.Net.Uri uri)
+		private void GetPathToImage(Android.Net.Uri uri, out string path, out string mimeType)
 		{
-			string path = null;
-			// The projection contains the columns we want to return in our query.
-			string[] projection = new[] { Android.Provider.MediaStore.Images.Media.InterfaceConsts.Data };
+			path = null;
+			mimeType = null;
+
+			string[] projection = new[] { Android.Provider.MediaStore.Images.Media.InterfaceConsts.Data,
+											Android.Provider.MediaStore.Images.Media.InterfaceConsts.MimeType };
+
 			using (ICursor cursor = ManagedQuery(uri, projection, null, null, null))
 			{
 				if (cursor != null)
 				{
-					int columnIndex = cursor.GetColumnIndexOrThrow(Android.Provider.MediaStore.Images.Media.InterfaceConsts.Data);
 					cursor.MoveToFirst();
+					int columnIndex = cursor.GetColumnIndexOrThrow(Android.Provider.MediaStore.Images.Media.InterfaceConsts.Data);
 					path = cursor.GetString(columnIndex);
+
+					columnIndex = cursor.GetColumnIndexOrThrow(Android.Provider.MediaStore.Images.Media.InterfaceConsts.MimeType);
+					mimeType = cursor.GetString(columnIndex);
 				}
 			}
-			return path;
 		}
 
-		private async Task AddAlbumItem(string path)
+		private async Task AddAlbumItem(string path, string mimeType)
 		{
-			using (var streamReader = new StreamReader (path)) {
+			using (var fileStream = new FileStream (path, FileMode.Open)) {
 				// Check stream for picture types other than JPEG
-				var picture = await BuddySDK.Buddy.Photos.AddAsync ("", streamReader.BaseStream, "image/jpeg", null);
+				var picture = await BuddySDK.Buddy.Photos.AddAsync ("", fileStream, mimeType, null);
 
 				await AlbumsActivity.SelectedAlbum.AddItemAsync (picture.Value.ID, "", null);
 			}
@@ -88,6 +96,7 @@ namespace AlbumsSample
 			var albumItems = await AlbumsActivity.SelectedAlbum.Items.FindAsync ();
 
 			var gridview = FindViewById<GridView> (Resource.Id.albumItemsGridView);
+
 			gridview.Adapter = new AlbumItemsAdapter (this, albumItems.PageResults.ToList());
 		}
 	}

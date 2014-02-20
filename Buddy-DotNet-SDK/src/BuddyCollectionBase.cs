@@ -94,7 +94,13 @@ namespace BuddySDK
                         var items = new ObservableCollection<T>();
                         foreach (var d in r.Value.PageResults)
                         {
-                            T item = new T();
+							var parameters = new List<object>();
+							if (typeof(T).GetConstructor(new Type[] { typeof(string), typeof(BuddyClient) }) != null)
+							{
+								parameters.Add(Path);
+							}
+							parameters.Add(Client);
+							T item = (T)Activator.CreateInstance(typeof(T), parameters.ToArray());
                             item.Update(d);
                             items.Add(item);
                         }

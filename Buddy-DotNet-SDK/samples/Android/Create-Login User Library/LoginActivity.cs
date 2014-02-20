@@ -10,7 +10,7 @@ using BuddySDK;
 
 namespace CreateLoginUserLibrary
 {
-	[Activity (Label = "Login User")]
+	[Activity (Label = "Login User", MainLauncher = true)]
 	public class LoginActivity : ActivtyBase
 	{
 		private Button _loginButton, _createUserButton;

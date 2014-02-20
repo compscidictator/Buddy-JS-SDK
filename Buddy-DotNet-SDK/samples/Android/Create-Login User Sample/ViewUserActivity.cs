@@ -37,7 +37,9 @@ namespace CreateLoginUserSample
 			emailAddressTextView.Text = Buddy.CurrentUser.Email;
 
 			var genderTextView = FindViewById<TextView> (Resource.Id.genderTextView);
-			genderTextView.Text = Buddy.CurrentUser.Gender.Value.ToString ();
+			if (Buddy.CurrentUser.Gender.HasValue) {
+				genderTextView.Text = Buddy.CurrentUser.Gender.Value.ToString ();
+			}
 
 			var birthdateTextView = FindViewById<TextView> (Resource.Id.birthdateTextView);
 			if (Buddy.CurrentUser.DateOfBirth.HasValue) {

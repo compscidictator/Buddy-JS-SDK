@@ -32,9 +32,9 @@ namespace BuddySquare.iOS
        
         public override bool WillFinishLaunching (UIApplication application, NSDictionary launchOptions)
         {
-			// TODO: Go to http://dev.buddy.com to get an app ID and app password.
+			// TODO: Go to http://dev.buddyplatform.com to get an app ID and app password.
 			Buddy.Init ("", "");
-
+			
             bool showingError = false;
 
             Func<string, string, UIAlertView> showDialog = (title, message) => {

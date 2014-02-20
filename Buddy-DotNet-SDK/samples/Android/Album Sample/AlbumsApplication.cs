@@ -18,7 +18,7 @@ namespace AlbumsSample
 	{
 		public AlbumsApplication(IntPtr intPtr, JniHandleOwnership jho) : base(intPtr, jho)
 		{
-			// TODO: Go to http://dev.buddy.com to get an app ID and app password.
+			// TODO: Go to http://dev.buddyplatform.com to get an app ID and app password.
 			Buddy.Init ("", "");
 		}
 
