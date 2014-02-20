@@ -250,8 +250,11 @@ namespace BuddyServiceClient
                                 }
                                 bcr.Result = envelope.result;
                             }
-                            bcr.RequestID = envelope.request_id;
 
+                            if (envelope != null)
+                            {
+                                bcr.RequestID = envelope.request_id;
+                            }
                         }
                         catch (Exception pex)
                         {
