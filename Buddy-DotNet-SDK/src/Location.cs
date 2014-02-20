@@ -35,29 +35,29 @@ namespace BuddySDK
             }
         }
 
-        [Newtonsoft.Json.JsonProperty("streetAddress1")]
-        public string StreetAddress1
+        [Newtonsoft.Json.JsonProperty("address1")]
+        public string Address1
         {
             get
             {
-                return GetValueOrDefault<string>("StreetAddress1");
+                return GetValueOrDefault<string>("Address1");
             }
             set
             {
-                SetValue<string>("StreetAddress1", value, checkIsProp: false);
+                SetValue<string>("Address1", value, checkIsProp: false);
             }
         }
 
-        [Newtonsoft.Json.JsonProperty("streetAddress2")]
-        public string StreetAddress2
+        [Newtonsoft.Json.JsonProperty("address2")]
+        public string Address2
         {
             get
             {
-                return GetValueOrDefault<string>("StreetAddress2");
+                return GetValueOrDefault<string>("Address2");
             }
             set
             {
-                SetValue<string>("StreetAddress2", value, checkIsProp: false);
+                SetValue<string>("Address2", value, checkIsProp: false);
             }
         }
 
@@ -74,16 +74,16 @@ namespace BuddySDK
             }
         }
 
-        [Newtonsoft.Json.JsonProperty("subCountryDivision")]
-        public string SubCountryDivision
+        [Newtonsoft.Json.JsonProperty("region")]
+        public string Region
         {
             get
             {
-                return GetValueOrDefault<string>("SubCountryDivision");
+                return GetValueOrDefault<string>("Region");
             }
             set
             {
-                SetValue<string>("SubCountryDivision", value, checkIsProp: false);
+                SetValue<string>("Region", value, checkIsProp: false);
             }
         }
 
