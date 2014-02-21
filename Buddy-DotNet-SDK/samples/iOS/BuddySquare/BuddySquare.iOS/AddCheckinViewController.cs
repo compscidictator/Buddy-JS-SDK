@@ -113,7 +113,7 @@ namespace BuddySquare.iOS
         }
 
         private static string GetSubtitle(Location l) {
-            return String.Format ("{2:0.00}km, {0}, {1}", l.City, l.State, l.Distance / 1000.0);
+			return String.Format ("{2:0.00}km, {0}, {1}", l.City, l.Region, l.Distance / 1000.0);
         }
         Location _selected;
         private void OnLocationSelected (Location ci)
@@ -165,7 +165,7 @@ namespace BuddySquare.iOS
 
             var loc = mapView.UserLocation.Location.ToBuddyGeoLocation ();
 
-            Action<Photo> finish = async (p) => {
+			Action<Picture> finish = async (p) => {
 
 
                 string photoID = null;
@@ -199,7 +199,7 @@ namespace BuddySquare.iOS
                 var bytes = _chosenImage.AsJPEG ();
 
 
-                var result = await Buddy.Photos.AddAsync (comment, bytes.AsStream (), "image/jpeg", loc);
+				var result = await Buddy.Pictures.AddAsync (comment, bytes.AsStream (), "image/jpeg", loc);
 
                 if (result.IsSuccess) {
                     finish (result.Value);
@@ -241,7 +241,7 @@ namespace BuddySquare.iOS
                     return;
                 }
 
-                var r = await Buddy.Locations.FindAsync (null, new BuddyGeoLocationRange(_coords.Value.Latitude,_coords.Value.Longitude, 3000));
+                var r = await Buddy.Locations.FindAsync (new BuddyGeoLocationRange(_coords.Value.Latitude,_coords.Value.Longitude, 3000));
 
                 if (r.IsSuccess) {
                     _locations = r.PageResults;
