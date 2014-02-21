@@ -107,14 +107,17 @@ namespace BuddySquare.iOS
         void HandleCurrentUserChanged (object sender, CurrentUserChangedEventArgs e)
         {
             var user = e.NewUser ?? Buddy.CurrentUser;
-            if (user != null) {
-                lblUserCheckins.Text = String.Format ("{0}'s Checkins:", user.FirstName ?? user.Username);
-                lblUserCheckins.Hidden = false;
-            } else {
-                lblUserCheckins.Hidden = true;
-            }
-            _dataSource.Clear ();
-            checkinTable.ReloadData ();
+
+			PlatformAccess.Current.InvokeOnUiThread (() => {
+				if (user != null) {
+					lblUserCheckins.Text = String.Format ("{0}'s Checkins:", user.FirstName ?? user.Username);
+					lblUserCheckins.Hidden = false;
+				} else {
+					lblUserCheckins.Hidden = true;
+				}
+				_dataSource.Clear ();
+				checkinTable.ReloadData ();
+			});
         }
 
         bool noConn;
@@ -293,7 +296,7 @@ namespace BuddySquare.iOS
 
                 if (photoData == null) {
                    
-                    var photo = new Photo (id);
+					var photo = new Picture (id);
 
                     // get the photo bits, resized to fit 200x200
                     var loadTask = await photo.GetFileAsync (200);
@@ -365,7 +368,7 @@ namespace BuddySquare.iOS
                     // do we have a photo?
                     //
                     if (ci.Checkin.DefaultMetadata != null) {
-                        var p = new Photo (ci.Checkin.DefaultMetadata);
+						var p = new Picture (ci.Checkin.DefaultMetadata);
                         await p.DeleteAsync ();
                     }
 

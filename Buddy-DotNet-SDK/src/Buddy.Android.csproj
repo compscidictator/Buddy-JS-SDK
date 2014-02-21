@@ -74,8 +74,6 @@
     <Compile Include="BuddyCollectionBase.cs" />
     <Compile Include="Checkin.cs" />
     <Compile Include="CheckinCollection.cs" />
-    <Compile Include="Photo.cs" />
-    <Compile Include="Photos.cs" />
     <Compile Include="PlatformAccess.cs" />
     <Compile Include="BuddyGeoLocation.cs" />
     <Compile Include="SearchResult.cs" />
@@ -90,6 +88,8 @@
     <Compile Include="Metadata.cs" />
     <Compile Include="UserList.cs" />
     <Compile Include="UserListItem.cs" />
+    <Compile Include="Picture.cs" />
+    <Compile Include="Pictures.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -69,8 +69,6 @@
     <Compile Include="CheckinCollection.cs" />
     <Compile Include="Checkin.cs" />
     <Compile Include="BuddyCollectionBase.cs" />
-    <Compile Include="Photo.cs" />
-    <Compile Include="Photos.cs" />
     <Compile Include="PlatformAccess.cs" />
     <Compile Include="Album.cs" />
     <Compile Include="AlbumItem.cs" />
@@ -87,6 +85,8 @@
     <Compile Include="Metadata.cs" />
     <Compile Include="UserList.cs" />
     <Compile Include="UserListItem.cs" />
+    <Compile Include="Picture.cs" />
+    <Compile Include="Pictures.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

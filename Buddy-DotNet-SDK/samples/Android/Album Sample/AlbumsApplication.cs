@@ -13,13 +13,15 @@ using BuddySDK;
 
 namespace AlbumsSample
 {
-	[Application]
+	[Application (Label = "Albums Sample")]
 	public class AlbumsApplication : Application
 	{
 		public AlbumsApplication(IntPtr intPtr, JniHandleOwnership jho) : base(intPtr, jho)
 		{
 			// TODO: Go to http://dev.buddyplatform.com to get an app ID and app password.
 			Buddy.Init ("", "");
+
+			CreateLoginUserLibrary.ActivtyBase.HomeActivityType = typeof(AlbumsSample.AlbumsActivity);
 		}
 
 		// Needed for overridden constructor to be called.

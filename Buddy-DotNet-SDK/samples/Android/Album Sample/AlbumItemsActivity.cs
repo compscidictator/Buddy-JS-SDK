@@ -85,7 +85,7 @@ namespace AlbumsSample
 		{
 			using (var fileStream = new FileStream (path, FileMode.Open)) {
 				// Check stream for picture types other than JPEG
-				var picture = await BuddySDK.Buddy.Photos.AddAsync ("", fileStream, mimeType, null);
+				var picture = await BuddySDK.Buddy.Pictures.AddAsync ("", fileStream, mimeType, null);
 
 				await AlbumsActivity.SelectedAlbum.AddItemAsync (picture.Value.ID, "", null);
 			}
