@@ -1,10 +1,9 @@
-# Buddy Version 2 Javascript SDK
+# Buddy SDK
 
 These release notes are for the 2.0 Preview release of the Buddy Platform SDK.
 
-Please refer to [Buddy Developer Docs]http://dev.buddyplatform/home/docs for more details on the SDK 
-You can also visit [buddypreview.com]http://buddypreview.com for more details on the Buddy Platform Version 2 Preview Release.
-
+Please refer to [dev.buddyplatform.com/home/docs](http://dev.buddyplatform.com/home/docs) for more details on the SDK 
+You can also visit [preview.buddy.com](http://preview.buddy.com) for more details on the Buddy Platform Version 2 Preview Release.
 
 ## Introduction
 
@@ -20,21 +19,22 @@ For developers the Buddy Platform offers turnkey support for features like the f
 
 * *User Accounts* - create, delete, authenticate users.
 * *Photos* - add photos, search photos, share photos with other users.
-* *GeoLocation* - checkin, search for places, list past checkins.
+* *Geolocation* - checkin, search for places, list past checkins.
 * *Push Notifications* - easily send push notifications to iOS, Android, or Microsoft devices.
 * *Messaging* - send messages to other users, create message groups.
-* *Friends* - set up social relationships between users with friends lists.
+* *User Lists* - set up relationships between users.
 * *Game Scores, Metadata, and Boards* - Keep track of game stores and states for individual users as well as across users.
-* *Commerce* - Offer items for in-app purchase via Facebook Commerce.
-* *And more* - Checkout the rest of the offering at [buddypreview.com]http://buddypreview.com
+* *And more* - Checkout the rest of the offering at [preview.buddy.com](http://preview.buddy.com)
 
 ## Getting Started
 
-To get started with the BuddyPlatform SDK, please reference the "Getting Started" series of documents at: http://dev.buddyplatform/home/docs
+To get started with the BuddyPlatform SDK, please reference the "Getting Started" series of documents at: [dev.buddyplatform.com/home/docs](http://dev.buddyplatform.com/home/docs)
 
 You will need an APP ID and Key before you can use the SDK, and these documents will walk you through obtaining those and installing the SDK
 
-APP ID's and Keys can be obtained at the new Buddy Platform Dashboard ([dev.buddyplatform.com]http://dev.buddyplatform.com)
+APP ID's and Keys can be obtained at the new Buddy Platform Dashboard [dev.buddyplatform.com](http://dev.buddyplatform.com)
+
+Full documentation for Buddy's services are also available at [dev.buddyplatform.com/home/docs](http://dev.buddyplatform.com/home/docs)
 
 
 ## Contributing Back: Pull Requests
