@@ -1,7 +1,6 @@
 # Buddy JavaScript SDK
 
 These release notes are for the Buddy Platform JavaScript SDK.
-These release notes are for the 2.0 Preview release of the Buddy Platform SDK.
 
 Please refer to [buddyplatform.com/docs](http://buddyplatform.com/docs) for more details on the JavaScript SDK.
 
@@ -33,7 +32,6 @@ To get started with the Buddy Platform SDK, please reference the "Getting Starte
 App IDs and Keys can be obtained at the Buddy Developer Dashboard at [buddyplatform.com](http://buddyplatform.com).
 
 Full documentation for Buddy's services are available at [buddyplatform.com/docs](http://buddyplatform.com/docs).
-
 
 ## Contributing Back: Pull Requests
 
