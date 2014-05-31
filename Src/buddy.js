@@ -43,7 +43,9 @@ window.Buddy = function(root) {
 				}
 			}
 
-			window.localStorage.setItem(_appId, JSON.stringify(settings));
+			if (!_options.nosave) {
+			    window.localStorage.setItem(_appId, JSON.stringify(settings));
+			}
 			_settings = settings;
 			return _settings;
 		}
@@ -148,9 +150,6 @@ window.Buddy = function(root) {
 		}
 
 		getSettings(true);
-		
-		buddy.registerDevice(appId, appKey);
-
 	}
 
 	buddy.clear = function() {
@@ -170,21 +169,31 @@ window.Buddy = function(root) {
 			return;
 		}
 
-		buddy.post("/devices", {
+		var cb = function (err, r) {
+		    if (r.success) {
+		        _appId = appId || _appId;
+		        _appKey = appKey || _appKey;
+		        updateSettings({ app_id: _appId, app_key: appKey, service_root: r.serviceRoot });
+		        setAccessToken("device", r.result);
+		        console.log("Device Registration Complete.");
+		        callback && callback(err, r);
+		    }
+		    else {
+		        processResult(r, callback);
+		    }
+
+		};
+
+		cb._hasUserCallback = callback;
+
+
+		return buddy.post("/devices", {
 			appID: appId || _appId,
 			appKey: appKey || _appKey,
-			platform: "Javascript",
+			platform: _options.platform || "Javascript",
 			model: navigator.userAgent,
 			uniqueId: getUniqueId()
-		}, function(err, r){
-			if (r.success) {
-				_appId = appId || _appId;
-				_appKey = appKey || _appKey;
-				updateSettings({app_id: _appId, app_key:appKey, service_root: r.serviceRoot});
-				setAccessToken("device", r.result);
-			}
-			callback && callback(err, r);
-		}, true)
+		},cb, true)
 	}
 
 	buddy.getUser = function(callback) {
@@ -204,20 +213,17 @@ window.Buddy = function(root) {
 		}
 
 		return s.user_id;
-
-
 	}
+
+	Object.defineProperty(buddy, "accessToken", {
+	    get: function() {
+	        return getAccessToken();
+	    }
+	});
 
 	buddy.loginUser = function(username, password, callback) {
 
-		if (!getAccessToken()) {
-			throw new Error("Device must be registered first")
-		}
-
-		buddy.post("/users/login", {
-			username: username,
-			password: password
-		}, function(err, r){
+		var cb = function(err, r){
 			if (r.success) {
 				var user = r.result;
 				updateSettings({
@@ -228,7 +234,15 @@ window.Buddy = function(root) {
 			
 			}
 			callback && callback(err, r && r.result);
-		});
+		};
+
+		cb._hasUserCallback = callback;
+
+		return buddy.post("/users/login", {
+			username: username,
+			password: password
+		}, cb);
+		
 	}
 
 	buddy.logoutUser = function(callback) {
@@ -240,7 +254,7 @@ window.Buddy = function(root) {
 			return callback && callback();
 		}
 
-		buddy.post('/users/me/logout', function(){
+		return buddy.post('/users/me/logout', function(){
 
 				clearSettings({
 					user: true
@@ -249,19 +263,17 @@ window.Buddy = function(root) {
 				callback && callback();
 
 		});
+		
 	}
 
 	buddy.createUser = function(options, callback) {
 
-		if (!getAccessToken()) {
-			throw new Error("Device must be registered first")
-		}
-
+		
 		if (!options.username || !options.password) {
 			throw new Error("Username and password are required.");
 		}
 
-		buddy.post("/users", options, function(err, r){
+		return buddy.post("/users", options, function(err, r){
 
 			if (r.success) {
 				var user = r.result;
@@ -272,27 +284,25 @@ window.Buddy = function(root) {
 			}
 			callback && callback(err, r && r.result);
 		});
+		
 	}
 
 	//
 	// Record an 
 	//
-	buddy.recordMetricEvent = function(eventName, values, timeoutInMinutes, callback) {
+	buddy.recordMetricEvent = function(eventName, values, timeoutInSeconds, callback) {
 
 		if (typeof timeoutInMinutes == 'function') {
 			callback = timeoutInMinutes;
 			timeoutInMinutes = null;
 		}
 
-		buddy.post("/metrics/events/" + eventName, {
-			values: values,
-			timeoutInMinutes: timeoutInMinutes
-		}, function(err, result){
+		var cb = function(err, result){
 
 			if (err) {
-				callback(err);
+				callback && callback(err);
 			}
-			else if (timeoutInMinutes && result.result) {
+			else if (timeoutInSeconds && result.result) {
 				var r2 = {
 					 finish: function(values2, callback2){
 					 	if (typeof values2 == 'function') {
@@ -309,12 +319,18 @@ window.Buddy = function(root) {
 							});
 					}
 				};
-				callback(null, r2);
+				callback && callback(null, r2);
 			}
 			else {
-				callback(err, result);
+				callback && callback(err, result);
 			}
-		});
+		};
+		cb._hasUserCallback = callback;
+
+		return buddy.post("/metrics/events/" + eventName, {
+			values: values,
+			timeoutInSeconds: timeoutInSeconds
+		}, cb);
 
 
 	}
@@ -357,15 +373,18 @@ window.Buddy = function(root) {
 			err.status = result.status;
 
 			callback && callback(err, result);
-			if (!callback) {
-				console.warn(result.error);
+			if (!callback || !callback._hasUserCallback) {
+				console.warn(JSON.stringify(result,  null, 2));
+				$.event.trigger({
+					type: "BuddyError",
+					buddy: result
+				});
 			}
 		}
 		else {
 			convertDates(result.result);
 			callback && callback(null, result);
-			if (!callback) {
-
+			if (!callback || !callback._hasUserCallback) {
 				console.log(JSON.stringify(result,  null, 2));
 			}
 		}
@@ -426,20 +445,22 @@ window.Buddy = function(root) {
 		else if (!at && !noAutoToken) {
 			// if we don't have an access token, automatically get the device
 			// registered, then retry this call.
-			//
-			buddy.registerDevice(null, null, false, function(err, r1){
-				if (!err && r1.success) {
-					at = getAccessToken();
+		    //
+		    var cb = function (err, r1) {
+		        if (!err && r1.success) {
+		            at = getAccessToken();
 
-					if (at) {
-						makeRequest(method, url, parameters, callback);
-						return;
-					}
-				}
-				else {
-					callback(err);
-				}
-			})
+		            if (at) {
+		                makeRequest(method, url, parameters, callback);
+		                return;
+		            }
+		        }
+		        else {
+		            callback(err);
+		        }
+		    };
+		    cb._hasUserCallback = true;
+			buddy.registerDevice(null, null, cb)
 			return;
 		}
 
@@ -530,13 +551,14 @@ window.Buddy = function(root) {
 		var s = getSettings();
 		var r = s.service_root || root;
 	    $.ajax({
-			method: method,
-			url: root + url,
+	        method: method,
+            type: method,
+			url: r + url,
 			headers: headers,
 			contentType: false,
 			processData: false,
 			data: parameters,
-			success:function(data) {
+            success:function(data) {
 				processResult(data, callback);
 			},
 			error: function(data, status, response) {
@@ -548,7 +570,7 @@ window.Buddy = function(root) {
 						error: "NoInternetConnection",
 						errorNumber: -1
 					};
-					console.warn("Can't connect to Buddy Platform.");
+					console.warn("ERROR: Can't connect to Buddy Platform.");
 					_options && _options.connectionStateChanged && defer(_options.connectionStateChagned);
 				}
 				else {
@@ -569,6 +591,7 @@ window.Buddy = function(root) {
 				processResult(data, callback);
 			}
 		});
+		return 'Waiting for ' + url + "..."
 	}
 
 	buddy.get = function(url, parameters, callback, noAuto) {
