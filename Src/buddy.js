@@ -173,7 +173,7 @@ window.Buddy = function(root) {
 		    if (r.success) {
 		        _appId = appId || _appId;
 		        _appKey = appKey || _appKey;
-		        updateSettings({ app_id: _appId, app_key: appKey, service_root: r.serviceRoot });
+		        updateSettings({ app_id: _appId, app_key: appKey, service_root: r.result.serviceRoot });
 		        setAccessToken("device", r.result);
 		        console.log("Device Registration Complete.");
 		        callback && callback(err, r);
