@@ -500,7 +500,7 @@ window.Buddy = function(root) {
 			for (var name in parameters) {
 				var val = parameters[name];
 
-				if (val instanceof File) {
+				if (val instanceof File || (typeof Blob !== "undefined" && val instanceof Blob)) {
 					fileParams = {} || fileParams;
 					fileParams[name] = val;
 				}
