@@ -245,6 +245,29 @@ window.Buddy = function(root) {
 		
 	}
 
+	buddy.socialLogin = function(identityProviderName, identityID, identityAccessToken, callback) {
+
+		var cb = function(err, r){
+			if (r.success) {
+				var user = r.result;
+				updateSettings({
+					user_id: user.id
+				});
+
+				setAccessToken('user', user);
+			}
+			callback && callback(err, r && r.result);
+		};
+
+		cb._hasUserCallback = callback;
+
+		return buddy.post("/users/login/social", {
+			identityID: identityID,
+			identityProviderName: identityProviderName,
+			identityAccessToken: identityAccessToken
+		}, cb);
+	}
+
 	buddy.logoutUser = function(callback) {
 
 		var s = getSettings();
