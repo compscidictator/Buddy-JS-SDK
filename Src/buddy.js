@@ -387,7 +387,7 @@ window.Buddy = function(root) {
 
 		_requestCount--;
 		
-		result.success = !result.error && typeof result.result != 'undefined';
+		result.success = !result.error;
 
 		if (result.error) {
 			var err = new Error(result.message || result.error);
